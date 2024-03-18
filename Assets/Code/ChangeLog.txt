@@ -1,0 +1,6 @@
+﻿
+v1_11
+-Fixed repeated collision with enemy boats (added min time delay since last collision)
+-Replaced boat parts unloading logic from collider OnTriggerEnter to continuous Square2D.CheckInside for every connected boat part center
+-Changed radius of PushOut() overlap check when new building area is created
+-Removed Unload() call from BoatEnemy, replaced with .5 second wait for unloading boat parts
