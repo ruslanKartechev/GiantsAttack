@@ -9,5 +9,7 @@ namespace GiantsAttack
         void BeginAim();
         void StopAim();
         void Reset();
+        public IAimUI AimUI { get; set; }
+
     }
 }

@@ -6,5 +6,7 @@ namespace GameCore.UI
     {
         JoystickUI JoystickUI { get; }
         IUIDamagedEffect DamagedEffect { get; }
+        IAimUI AimUI { get; }
+        IDamageHitsUI DamageHits { get; }
     }
 }

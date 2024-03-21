@@ -11,12 +11,18 @@ namespace SleepDev.Pooling
             Destroy(gameObject);
         }
 
-        public DummyClass Target => this;
-
-        public void OnDoneUsing()
+        public void Hide()
         {
-            Pool.ReturnObject(this);
+            gameObject.SetActive(false);
         }
+
+        public void Parent(Transform parent)
+        {
+            transform.SetParent(parent);
+        }
+
+        public DummyClass Obj => this;
+        
     }
     
     [System.Serializable]
@@ -39,7 +45,8 @@ namespace SleepDev.Pooling
             get => _id;
             set => _id = value;
         }
-        
+        public int CurrentSize => _instances.Count;
+
         public void BuildPool(int size)
         {
             var objs = factory.Spawn<IPooledObject<DummyClass>>(ID, size);
@@ -58,7 +65,7 @@ namespace SleepDev.Pooling
             }
             var item = _instances[^1];
             _instances.RemoveAt(_instances.Count-1);
-            return item.Target;
+            return item.Obj;
         }
 
         public void ReturnObject(IPooledObject<DummyClass> obj)
@@ -84,6 +91,5 @@ namespace SleepDev.Pooling
             return arr;
         }
 
-        public int CurrentSize => _instances.Count;
     }
 }

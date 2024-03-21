@@ -8,11 +8,16 @@ namespace GameCore.UI
 {
     public class MenuGameplay : MonoBehaviour, IGameplayMenu
     {
-        [SerializeField] private JoystickUI _joystickUI;
         [SerializeField] private Button _pauseButton;
+        [SerializeField] private JoystickUI _joystickUI;
         [SerializeField] private UIDamagedEffect _damagedEffect;
+        [SerializeField] private AimUI _aimUI;
+        [SerializeField] private DamageHitsUI _damageHits;
+
+        public IAimUI AimUI => _aimUI;
         public JoystickUI JoystickUI => _joystickUI;
         public IUIDamagedEffect DamagedEffect => _damagedEffect;
+        public IDamageHitsUI DamageHits => _damageHits;
 
         public void On()
         {

@@ -9,9 +9,9 @@ namespace SleepDev
 
         private void Update()
         {
-            var angles = _target.eulerAngles;
+            var angles = _target.localEulerAngles;
             angles.y += _speed * Time.deltaTime;
-            _target.eulerAngles = angles;
+            _target.localEulerAngles = angles;
         }
     }
 }

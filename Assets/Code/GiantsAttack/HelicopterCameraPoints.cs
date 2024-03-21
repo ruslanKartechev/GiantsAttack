@@ -24,7 +24,7 @@ namespace GiantsAttack
         
         public void MoveCameraToInside(Action callback)
         {
-            _camera.MoveToPoint(_insidePoint, _toInsideMoveTime, callback);
+            _camera.MoveToPointToFollow(_insidePoint, _toInsideMoveTime, callback);
         }
 
         public void MoveCameraToOutside(Action callback)

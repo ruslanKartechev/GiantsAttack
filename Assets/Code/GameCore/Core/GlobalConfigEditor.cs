@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace SleepDev
+namespace GameCore.Core
 {
     [CustomEditor(typeof(GlobalConfig))]
     public class GlobalConfigEditor : Editor

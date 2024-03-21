@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SleepDev
+namespace GameCore.Core
 {
     [CreateAssetMenu(menuName = "SO/GlobalConfig", fileName = "GlobalConfig", order = 0)]
     public class GlobalConfig : ScriptableObject

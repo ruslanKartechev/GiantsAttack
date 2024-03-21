@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using GameCore.UI;
 
 namespace GiantsAttack
 {
@@ -8,11 +9,11 @@ namespace GiantsAttack
         Transform FromPoint { get; set; }
         Transform AtPoint { get; set; }
         IHitCounter HitCounter { get; set; }
-        
+        IHelicopterGun Gun { get; set; }
+        IDamageHitsUI DamageHitsUI { get; set; }
         void Init(ShooterSettings settings, IHitCounter hitCounter);
         void StopShooting();
         void BeginShooting();
-        IHelicopterGun Gun { get; set; }
         void RotateToScreenPos(Vector3 aimPos);
     }
 }

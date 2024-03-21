@@ -18,7 +18,8 @@ namespace GiantsAttack
             Shooter = GetComponent<IHelicopterShooter>();
             Aimer = GetComponent<IHelicopterAimer>();
             CameraPoints = GetComponent<IHelicopterCameraPoints>();
-            
+
+            Mover.Settings = args.moverSettings;
             Damageable = GetComponent<HelicopterHealth>();
             Aimer.Init(args.aimerSettings, Shooter, args.controlsUI);
             Shooter.Init(args.shooterSettings, args.hitCounter);

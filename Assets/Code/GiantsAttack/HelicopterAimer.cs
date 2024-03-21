@@ -10,7 +10,6 @@ namespace GiantsAttack
     {
         [SerializeField] private Transform _fromPoint;
         [SerializeField] private Transform _atPoint;
-        [SerializeField] private Transform _rotatable;
         private float _screenLimitPercent = .05f;
         private Vector4 _screenLimits; // xMin, xMax, yMin, yMax;
 
@@ -22,6 +21,7 @@ namespace GiantsAttack
         private bool _isDown;
 
         public AimerSettings Settings { get; set; }
+        public IAimUI AimUI { get; set; }
 
         public void Init(AimerSettings settings, IHelicopterShooter shooter, IControlsUI controlsUI)
         {
@@ -40,11 +40,11 @@ namespace GiantsAttack
             _screenLimits.z = Screen.height * _screenLimitPercent;
             _screenLimits.w = Screen.height * (1 - _screenLimitPercent);
             ResetPointer();
+            _shooter.RotateToScreenPos(_pointerPos);       
             Sub(false);
             Sub(true);
         }
-
-
+        
         public void StopAim()
         {
             Sub(false);
@@ -59,6 +59,7 @@ namespace GiantsAttack
         private void ResetPointer()
         {
             _pointerPos = new Vector3(Screen.width * .5f, Screen.height * .5f, 0f);
+            AimUI.SetPosition(_pointerPos);
         }
         
         private void Sub(bool sub)
@@ -80,6 +81,7 @@ namespace GiantsAttack
             CLog.Log($"input on down");
             _isDown = true;
             StartLoop();
+            _shooter.BeginShooting();
         }
 
         private void OnUp()
@@ -87,6 +89,7 @@ namespace GiantsAttack
             CLog.Log($"input on up");
             _isDown = false;
             StopLoop();
+            _shooter.StopShooting();
         }
 
         private void StopLoop()
@@ -106,7 +109,7 @@ namespace GiantsAttack
             var nextPos = _pointerPos + delta;
             nextPos.x = Mathf.Clamp(nextPos.x, _screenLimits.x, _screenLimits.y);
             nextPos.y = Mathf.Clamp(nextPos.y, _screenLimits.z, _screenLimits.w);
-            CLog.Log($"Pointer pos: {nextPos}");
+            // CLog.Log($"Pointer pos: {nextPos}");
             _pointerPos = nextPos;
             _shooter.RotateToScreenPos(_pointerPos);
         }
@@ -123,7 +126,7 @@ namespace GiantsAttack
                 var delta = pos - oldPos;
                 delta *= Settings.sensitivity;
                 MoveToDelta(delta);
-                
+                AimUI.SetPosition(_pointerPos);
                 oldPos = pos;
                 yield return null;
             }

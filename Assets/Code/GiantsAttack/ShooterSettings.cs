@@ -5,5 +5,6 @@
     {
         public float fireDelay;
         public float damage;
+        public float speed;
     }
 }

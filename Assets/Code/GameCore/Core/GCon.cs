@@ -1,4 +1,5 @@
 ﻿using GameCore.UI;
+using GiantsAttack;
 using SleepDev;
 using SleepDev.Levels;
 using SleepDev.Saving;
@@ -22,5 +23,6 @@ namespace GameCore.Core
         public static GameObjectFactory GOFactory { get; set; }
         
         public static IObjectPoolsManager PoolsManager { get; set; }
+        public static BulletsPool BulletsPool { get; set; }
     }
 }
