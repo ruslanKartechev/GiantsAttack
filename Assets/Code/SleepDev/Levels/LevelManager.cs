@@ -15,7 +15,7 @@ namespace SleepDev.Levels
         
         public void LoadCurrent()
         {
-            var level = GetLevel(GCon.PlayerData.LevelTotal);
+            var level = GetLevel(GameCore.Core.GCon.PlayerData.LevelTotal);
             _currentLevel = level;
             Load(level.SceneName);
         }
@@ -25,30 +25,30 @@ namespace SleepDev.Levels
         /// </summary>
         public void NextLevel()
         {
-            GCon.PlayerData.LevelTotal++;
+            GameCore.Core.GCon.PlayerData.LevelTotal++;
             // CLog.Log($"Set level total next: {GC.PlayerData.LevelTotal}");
         }
                 
         public void LoadPrev()
         {
-            var data = GCon.PlayerData;
+            var data = GameCore.Core.GCon.PlayerData;
             data.LevelTotal--;
             if (data.LevelTotal < 0)
                 data.LevelTotal = 0;
-            var level = GetLevel(GCon.PlayerData.LevelTotal);
+            var level = GetLevel(GameCore.Core.GCon.PlayerData.LevelTotal);
             _currentLevel = level;
             Load(level.SceneName);   
         }
         
         private ILevelData GetLevel(int index)
         {
-            var count = GCon.LevelRepository.Count;
+            var count = GameCore.Core.GCon.LevelRepository.Count;
             if (index >= count )
             {
                 Debug.Log($"[LM] Total levels {index} > levelsCount {count}. Randomizing");
                 index = GetRandomIndex(index);
             }
-            var level = GCon.LevelRepository.GetLevel(index);
+            var level = GameCore.Core.GCon.LevelRepository.GetLevel(index);
             CLog.Log($"[LevelManager] Index {index}, Scene {level.SceneName}, Level {level.LevelName}");
             return level;
         }
@@ -71,7 +71,7 @@ namespace SleepDev.Levels
 
         private void Load(string sceneName)
         {
-            GCon.SceneSwitcher.OpenScene(sceneName, OnLoaded);   
+            GameCore.Core.GCon.SceneSwitcher.OpenScene(sceneName, OnLoaded);   
         }
         
         private void OnLoaded(bool success)

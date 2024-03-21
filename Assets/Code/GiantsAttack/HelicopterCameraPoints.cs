@@ -1,4 +1,5 @@
-﻿using RaftsWar.Cam;
+﻿using System;
+using GameCore.Cam;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -6,6 +7,7 @@ namespace GiantsAttack
     public class HelicopterCameraPoints : MonoBehaviour, IHelicopterCameraPoints
     {
         [SerializeField] private float _toInsideMoveTime = 1f;
+        [SerializeField] private float _toOutsideMoveTime = 1f;
         [SerializeField] private Transform _insidePoint;
         [SerializeField] private Transform _outsidePoint;
         
@@ -20,11 +22,16 @@ namespace GiantsAttack
             _camera = camera;
         }
         
-        public void MoveCameraToInside()
+        public void MoveCameraToInside(Action callback)
         {
-            _camera.MoveToPoint(_insidePoint, _toInsideMoveTime, () => {});
+            _camera.MoveToPoint(_insidePoint, _toInsideMoveTime, callback);
         }
-        
+
+        public void MoveCameraToOutside(Action callback)
+        {
+            _camera.MoveToPoint(_outsidePoint, _toOutsideMoveTime, callback);
+        }
+
         public void SetCameraToOutside()
         {
             _camera.SetPoint(_outsidePoint);

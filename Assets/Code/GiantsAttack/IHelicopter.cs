@@ -9,6 +9,7 @@ namespace GiantsAttack
         IDamageable Damageable { get; }
         IHelicopterCameraPoints CameraPoints { get; }
         void Init(HelicopterInitArgs args);
+        
     }
     
 }

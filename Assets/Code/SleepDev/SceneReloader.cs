@@ -17,7 +17,7 @@ namespace SleepDev
             {
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    GCon.PoolsManager.RecollectAll();
+                    GameCore.Core.GCon.PoolsManager.RecollectAll();
                     var scene = SceneManager.GetActiveScene();
                     SceneManager.LoadScene(scene.name);
                 }

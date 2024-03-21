@@ -10,12 +10,12 @@ namespace SleepDev.SlowMotion
 
         public void Begin()
         {
-            GCon.SlowMotion.Begin(Effect);
+            GameCore.Core.GCon.SlowMotion.Begin(Effect);
         }
 
         public void Stop()
         {
-            GCon.SlowMotion.Exit(Effect);
+            GameCore.Core.GCon.SlowMotion.Exit(Effect);
         }
     }
 }
