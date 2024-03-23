@@ -29,6 +29,12 @@ namespace GiantsAttack
             _canDamage = canDamage;
         }
 
+        public void ShowDisplay()
+        { }
+
+        public void HideDisplay()
+        { }
+
         public void TakeDamage(DamageArgs args)
         {
             _health -= args.damage;

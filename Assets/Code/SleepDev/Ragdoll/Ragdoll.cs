@@ -12,7 +12,6 @@ namespace SleepDev.Ragdoll
         public List<RagdollPart> parts;
         public List<Transform> ignoredParents;
         public int layerToSet;
-        
 
         public override bool IsActive { get; protected set; }
 

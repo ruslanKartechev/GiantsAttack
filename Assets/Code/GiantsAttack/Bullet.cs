@@ -59,6 +59,7 @@ namespace GiantsAttack
             _model.gameObject.SetActive(false);
             _explosionParticles.gameObject.SetActive(true);
             _explosionParticles.Play();
+            StopAllCoroutines();
             Delay(ReturnToPool, 2f);
         }
 

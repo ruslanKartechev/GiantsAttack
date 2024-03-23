@@ -52,6 +52,21 @@ namespace SleepDev
             tr.localScale = scale;
         }
 
+        public static void SetYPos(this Transform tr, float y)
+        {
+            var pos = tr.position;
+            pos.y = y;
+            tr.position = pos;
+        }
+        
+        public static void SetYLocalPos(this Transform tr, float y)
+        {
+            var pos = tr.localPosition;
+            pos.y = y;
+            tr.localPosition = pos;
+        }
+
+        
         public static float XZDistance2(this Vector3 vec)
         {
             return vec.x * vec.x + vec.z * vec.z;

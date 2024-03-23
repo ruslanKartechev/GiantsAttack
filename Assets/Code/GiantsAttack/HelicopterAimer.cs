@@ -34,7 +34,7 @@ namespace GiantsAttack
 
         public void BeginAim()
         {
-            CLog.Log($"Begin aim");
+            CLog.Log($"[HeliAimer] Begin aim");
             _screenLimits.x = Screen.width * _screenLimitPercent;
             _screenLimits.y = Screen.width * (1 - _screenLimitPercent);
             _screenLimits.z = Screen.height * _screenLimitPercent;
@@ -47,6 +47,7 @@ namespace GiantsAttack
         
         public void StopAim()
         {
+            CLog.Log($"[HeliAimer] Stop aim");
             Sub(false);
             _isDown = false;
         }
@@ -78,7 +79,6 @@ namespace GiantsAttack
 
         private void OnDown()
         {
-            CLog.Log($"input on down");
             _isDown = true;
             StartLoop();
             _shooter.BeginShooting();
@@ -86,7 +86,6 @@ namespace GiantsAttack
 
         private void OnUp()
         {
-            CLog.Log($"input on up");
             _isDown = false;
             StopLoop();
             _shooter.StopShooting();

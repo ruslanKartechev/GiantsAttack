@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GiantsAttack
 {
@@ -6,7 +7,11 @@ namespace GiantsAttack
     {
         MoverSettings Settings { get; set; }
         void SetPath(CircularPath path, Transform lookAtTarget);
-        void BeginMovement();
+        void BeginMovingOnCircle(CircularPath path, Transform lookAtTarget, bool loop, Action callback);
+        
         void StopMovement();
+        void BeginAnimating();
+        void StopAnimating();
+
     }
 }
