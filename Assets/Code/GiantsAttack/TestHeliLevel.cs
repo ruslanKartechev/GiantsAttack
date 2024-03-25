@@ -67,7 +67,7 @@ namespace GiantsAttack
             stage.Camera = _camera;
             stage.Enemy = _monster;
             stage.CompletedCallback = OnStageCompleted;
-            
+            stage.UI = _gameplayMenu;
         }
 
         private void OnStageCompleted()

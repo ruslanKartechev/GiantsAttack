@@ -42,9 +42,9 @@ namespace GiantsAttack
 
         public void RotateToScreenPos(Vector3 aimPos)
         {
-            aimPos.z = 50f;
+            aimPos.z = (_camera.transform.position - Gun.Rotatable.position).magnitude + 200; 
             var endP = _camera.ScreenToWorldPoint(aimPos);
-            Debug.DrawLine(Gun.Rotatable.position, endP, Color.red);
+            // Debug.DrawLine(endP, Gun.Rotatable.position, Color.black, 5f);
             Gun.Rotatable.rotation = Quaternion.LookRotation(endP - Gun.Rotatable.position);
         }
 

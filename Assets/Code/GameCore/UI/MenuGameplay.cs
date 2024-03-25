@@ -13,11 +13,14 @@ namespace GameCore.UI
         [SerializeField] private UIDamagedEffect _damagedEffect;
         [SerializeField] private AimUI _aimUI;
         [SerializeField] private DamageHitsUI _damageHits;
+        [SerializeField] private EvadeUI _evadeUI;
 
         public IAimUI AimUI => _aimUI;
         public JoystickUI JoystickUI => _joystickUI;
         public IUIDamagedEffect DamagedEffect => _damagedEffect;
         public IDamageHitsUI DamageHits => _damageHits;
+        public EvadeUI EvadeUI => _evadeUI;
+        public GameObject Go => gameObject;
 
         public void On()
         {
@@ -40,8 +43,6 @@ namespace GameCore.UI
             Off();
             onDone?.Invoke();
         }
-
-        public GameObject Go => gameObject;
         
         private void ShowPause()
         {
@@ -53,6 +54,7 @@ namespace GameCore.UI
         {
             _pauseButton.onClick.AddListener(ShowPause);
         }
+        
         private void OnDisable()
         {
             _pauseButton.onClick.RemoveListener(ShowPause);

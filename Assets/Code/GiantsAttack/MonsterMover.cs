@@ -10,6 +10,7 @@ namespace GiantsAttack
         [SerializeField] private Transform _movable;
         [SerializeField] private Transform _rotatable;
         [SerializeField] private Animator _animator;
+        [SerializeField] private string _walkTriggerKey;
 
         private Coroutine _moving;
         private Coroutine _rotating;
@@ -32,6 +33,7 @@ namespace GiantsAttack
         public void MoveTo(Transform target, float time, Action callback)
         {
             _moveToTarget = target;
+            _animator.SetTrigger(_walkTriggerKey);
             StopMovement();
             _moving = StartCoroutine(Moving(time, callback));
         }

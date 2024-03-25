@@ -13,14 +13,18 @@ namespace GiantsAttack
         [SerializeField] private MonsterHealth _health;
         [SerializeField] private Animator _animator;
         [SerializeField] private Ragdoll _ragdoll;
+        [SerializeField] private MonsterAnimEventReceiver _eventReceiver;
+        [SerializeField] private Transform _grabHand;
         [SerializeField] private List<BodyPartTarget> _bodyParts;
 
         public IDamageable Damageable { get; set; }
         
         public IMonsterMover Mover => _mover;
         public IHealth Health => _health;
-
+        public IMonsterAnimEventReceiver AnimEventReceiver => _eventReceiver;
         public event Action<IMonster> OnKilled;
+        
+        
         
         public void Kill()
         {
@@ -37,6 +41,7 @@ namespace GiantsAttack
             _health.SetDamageable(true);
             foreach (var target in _bodyParts)
                 target.DamageRedirect = _health;
+            
         }
 
         public void Idle()
@@ -52,9 +57,25 @@ namespace GiantsAttack
         {
             _animator.Play("Roar");
         }
+
+        public void GrabTarget(IThrowable target, Action callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ThrowAt(IThrowable target, Vector3 targetPoint, Action callback)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PickAndThrow(IThrowable target, Action onThrowCallback)
+        {
+            var bahaviour = new PickAndThrowBehaviour(target, this, _animator, _grabHand, onThrowCallback);
+        }
         
-        
-        #if UNITY_EDITOR
+
+
+#if UNITY_EDITOR
         [ContextMenu("E_AddOrGrabAllBodyParts")]
         public void E_AddOrGrabAllBodyParts()
         {

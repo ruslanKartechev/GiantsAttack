@@ -8,5 +8,6 @@ namespace GameCore.UI
         IUIDamagedEffect DamagedEffect { get; }
         IAimUI AimUI { get; }
         IDamageHitsUI DamageHits { get; }
+        EvadeUI EvadeUI { get; }
     }
 }

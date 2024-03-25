@@ -19,10 +19,11 @@ namespace GiantsAttack
         private IControlsUI _controlsUI;
         private Coroutine _inputLoop;
         private bool _isDown;
+        private bool _isAiming;
 
         public AimerSettings Settings { get; set; }
         public IAimUI AimUI { get; set; }
-
+        
         public void Init(AimerSettings settings, IHelicopterShooter shooter, IControlsUI controlsUI)
         {
             Settings = settings;
@@ -30,37 +31,54 @@ namespace GiantsAttack
             shooter.FromPoint = _fromPoint;
             shooter.AtPoint = _atPoint;
             _controlsUI = controlsUI;
+     
         }
 
         public void BeginAim()
         {
+            if (_isAiming)
+                return;
+            _isAiming = true;
+            SetPointerToCenter();
             CLog.Log($"[HeliAimer] Begin aim");
             _screenLimits.x = Screen.width * _screenLimitPercent;
             _screenLimits.y = Screen.width * (1 - _screenLimitPercent);
             _screenLimits.z = Screen.height * _screenLimitPercent;
             _screenLimits.w = Screen.height * (1 - _screenLimitPercent);
-            ResetPointer();
-            _shooter.RotateToScreenPos(_pointerPos);       
             Sub(false);
             Sub(true);
         }
         
         public void StopAim()
         {
+            if (!_isAiming)
+                return;
+            _isAiming = false;
             CLog.Log($"[HeliAimer] Stop aim");
             Sub(false);
             _isDown = false;
         }
 
+        public void SetInitialRotation()
+        {
+            SetPointerToCenter();
+            RotateShooter();
+        }
+        
         public void Reset()
         {
-            ResetPointer();
+            ResetPointerAndUI();
         }
 
-        private void ResetPointer()
+        private void ResetPointerAndUI()
+        {
+            SetPointerToCenter();
+            AimUI.SetPosition(_pointerPos);
+        }
+
+        private void SetPointerToCenter()
         {
             _pointerPos = new Vector3(Screen.width * .5f, Screen.height * .5f, 0f);
-            AimUI.SetPosition(_pointerPos);
         }
         
         private void Sub(bool sub)
@@ -110,6 +128,11 @@ namespace GiantsAttack
             nextPos.y = Mathf.Clamp(nextPos.y, _screenLimits.z, _screenLimits.w);
             // CLog.Log($"Pointer pos: {nextPos}");
             _pointerPos = nextPos;
+            RotateShooter();
+        }
+
+        private void RotateShooter()
+        {
             _shooter.RotateToScreenPos(_pointerPos);
         }
         

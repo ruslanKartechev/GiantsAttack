@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using GameCore.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +20,8 @@ namespace SleepDev
                 {
                     GameCore.Core.GCon.PoolsManager.RecollectAll();
                     var scene = SceneManager.GetActiveScene();
+                    if (GCon.SlowMotion != null)
+                        GCon.SlowMotion.SetNormalTime();
                     SceneManager.LoadScene(scene.name);
                 }
                 else if (Input.GetKeyDown(KeyCode.Space))
