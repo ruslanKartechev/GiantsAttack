@@ -24,7 +24,7 @@ namespace GiantsAttack
 
             Mover.Settings = args.moverSettings;
             Damageable = GetComponent<HelicopterHealth>();
-            Aimer.Init(args.aimerSettings, Shooter, args.controlsUI);
+            Aimer.Init(args.aimerSettings, Shooter, args.controlsUI, args.aimUI);
             Shooter.Init(args.shooterSettings, args.hitCounter);
             var gun = _gun.GetComponent<IHelicopterGun>();
             Shooter.Gun = gun;

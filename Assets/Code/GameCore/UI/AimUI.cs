@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 namespace GameCore.UI
@@ -6,6 +7,7 @@ namespace GameCore.UI
     public class AimUI : MonoBehaviour, IAimUI
     {
         [SerializeField] private Transform _aim;
+        private Coroutine _rotating;
         
         public void Show(bool animated)
         {
@@ -35,5 +37,33 @@ namespace GameCore.UI
         {
             _aim.transform.position = screenPos;
         }
+
+        public void BeginRotation(float speed)
+        {
+            StopRotation();
+            _rotating = StartCoroutine(Rotation(speed));
+        }
+
+        public void StopRotation()
+        {
+            if(_rotating != null)
+                StopCoroutine(_rotating);
+        }
+
+        private IEnumerator Rotation(float speed)
+        {
+            var elapsed = 0f;
+            var accelerationTime = .5f;
+            var s = 0f;
+            while (true)
+            {
+                s = Mathf.Lerp(0f, speed, elapsed / accelerationTime);
+                var angles = _aim.localEulerAngles;
+                angles.z += s * Time.deltaTime;
+                _aim.localEulerAngles = angles;
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+        }   
     }
 }

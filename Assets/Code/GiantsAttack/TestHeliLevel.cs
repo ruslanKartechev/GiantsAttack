@@ -12,8 +12,9 @@ namespace GiantsAttack
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private PlayerCamera _camera;
         [SerializeField] private HelicopterInitArgs _initArgs;
-        [SerializeField] private LevelStage _stage1;
         [SerializeField] private MonsterController _monster;
+        [SerializeField] private List<LevelStage> _stages;
+        private int _stageIndex = 0;
         
         private IHelicopter _player;
         private IHitCounter _hitCounter;
@@ -36,7 +37,9 @@ namespace GiantsAttack
             // init player
             SpawnAndInitPlayer();
             InitEnemy();
-            InitStage(_stage1);
+            foreach (var st in _stages)
+                InitStage(st);
+            
             _player.CameraPoints.SetCameraToOutside();
             _player.CameraPoints.MoveCameraToInside(OnCameraSet);
         }
@@ -53,12 +56,12 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
-            _monster.Init();
+            _monster.Init(_gameplayMenu.EnemyBodySectionsUI);
         }
 
         private void OnCameraSet()
         {
-            _stage1.Activate();
+            _stages[_stageIndex].Activate();
         }
 
         private void InitStage(LevelStage stage)
@@ -73,6 +76,13 @@ namespace GiantsAttack
         private void OnStageCompleted()
         {
             CLog.LogGreen($"[Level] Stage competed callback");
+            _stageIndex++;
+            if (_stageIndex >= _stages.Count)
+            {
+                CLog.LogGreen("ALL STAGES PASSED");
+                return;
+            }
+            _stages[_stageIndex].Activate();
         }
     }
 }

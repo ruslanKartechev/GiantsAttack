@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using GameCore.Core;
 using GameCore.UI;
 using SleepDev;
 using SleepDev.Pooling;
@@ -65,13 +66,16 @@ namespace GiantsAttack
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.gameObject.CompareTag(GlobalConfig.PlayerTag))
+                return;
             // CLog.Log($"bullet trigger w {other.gameObject.name}");
             if (other.gameObject.TryGetComponent<ITarget>(out var target))
             {
                 target.Damageable.TakeDamage(new DamageArgs(_damage));
                 OnHit();
                 _counter.HitsCount++;
-                _hitsUI.ShowHit(transform.position, _damage);
+                if(target.Damageable.CanDamage)
+                    _hitsUI.ShowHit(transform.position, _damage);
             }
             else
             {

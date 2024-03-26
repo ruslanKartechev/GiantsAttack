@@ -76,15 +76,18 @@ namespace GiantsAttack
         {
             var elapsed = 0f;
             var t = 0f;
-            var startPos = _movable.position;
+            var p1 = _movable.position;
+            var r1 = _movable.rotation;
             while (t <= 1f)
             {
-                _movable.position = Vector3.Lerp(startPos, _moveToTarget.position, t);
+                _movable.position = Vector3.Lerp(p1, _moveToTarget.position, t);
+                _movable.rotation = Quaternion.Lerp(r1, _moveToTarget.rotation, t);
                 t = elapsed / time;
                 elapsed += Time.deltaTime;
                 yield return null;
             }
             _movable.position = _moveToTarget.position;
+            _movable.rotation = _moveToTarget.rotation;
             callback?.Invoke();
         }
     }

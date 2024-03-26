@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    public abstract class LevelStage : MonoBehaviour
+    public abstract class LevelStage : MonoExtended
     {
         public virtual IGameplayMenu UI { get; set; }
         public virtual IHelicopter Player { get; set; }

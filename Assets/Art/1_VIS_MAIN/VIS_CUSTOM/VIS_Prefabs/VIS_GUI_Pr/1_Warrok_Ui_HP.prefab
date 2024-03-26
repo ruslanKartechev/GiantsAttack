@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 1763444160534298157}
   - component: {fileID: 7243796282664842056}
   - component: {fileID: 3294943965547769560}
+  - component: {fileID: 4419363515122792265}
   m_Layer: 0
   m_Name: 1_Warrok_Body
   m_TagString: Untagged
@@ -226,6 +227,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4419363515122792265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991112433028625365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960589a3f0ec495bab871af64f0abc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 3294943965547769560}
 --- !u!1 &3037737945251359236
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +251,7 @@ GameObject:
   - component: {fileID: 7050297859330084371}
   - component: {fileID: 7054393480376128972}
   - component: {fileID: 4839405202736609924}
+  - component: {fileID: 9091070145722855769}
   m_Layer: 0
   m_Name: 1_Warrok_Head
   m_TagString: Untagged
@@ -302,6 +317,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9091070145722855769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037737945251359236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960589a3f0ec495bab871af64f0abc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 4839405202736609924}
 --- !u!1 &3348885349050509760
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +341,7 @@ GameObject:
   - component: {fileID: 5971592575971378748}
   - component: {fileID: 8769439189563596005}
   - component: {fileID: 6195512329172508294}
+  - component: {fileID: 3119621152268089783}
   m_Layer: 0
   m_Name: 1_Warrok_LHand
   m_TagString: Untagged
@@ -378,6 +407,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3119621152268089783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348885349050509760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960589a3f0ec495bab871af64f0abc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 6195512329172508294}
 --- !u!1 &3880467797475124516
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +431,7 @@ GameObject:
   - component: {fileID: 8954855486771515740}
   - component: {fileID: 3116514328681915596}
   - component: {fileID: 6252919308556442830}
+  - component: {fileID: 5938403723444553805}
   m_Layer: 0
   m_Name: 1_Warrok_Legs
   m_TagString: Untagged
@@ -454,6 +497,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5938403723444553805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3880467797475124516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960589a3f0ec495bab871af64f0abc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 6252919308556442830}
 --- !u!1 &4486161228495145991
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,6 +672,7 @@ GameObject:
   - component: {fileID: 1368824026900834349}
   - component: {fileID: 7196787314102013486}
   - component: {fileID: 9210600304290320186}
+  - component: {fileID: 916135189515864529}
   m_Layer: 0
   m_Name: 1_Warrok_Ui_HP
   m_TagString: Untagged
@@ -688,7 +745,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &9210600304290320186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,6 +763,29 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &916135189515864529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8325887636411066326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4da836c2d64a6d82eced34e1c6710b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _block: {fileID: 8325887636411066326}
+  _colorsByLevel:
+  - {r: 0.2469148, g: 0.9622642, b: 0.0127091, a: 1}
+  - {r: 1, g: 0.87292755, b: 0, a: 1}
+  - {r: 0.9490196, g: 0.07754261, b: 0, a: 1}
+  _parts:
+  - {fileID: 9091070145722855769}
+  - {fileID: 4419363515122792265}
+  - {fileID: 3119621152268089783}
+  - {fileID: 8497790151900701187}
+  - {fileID: 5938403723444553805}
 --- !u!1 &8452810140080656810
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,6 +912,7 @@ GameObject:
   - component: {fileID: 7120821093983153127}
   - component: {fileID: 1927207538522169199}
   - component: {fileID: 6185972188283274209}
+  - component: {fileID: 8497790151900701187}
   m_Layer: 0
   m_Name: 1_Warrok_RHand
   m_TagString: Untagged
@@ -897,3 +978,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8497790151900701187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9122160100618810989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960589a3f0ec495bab871af64f0abc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 6185972188283274209}
