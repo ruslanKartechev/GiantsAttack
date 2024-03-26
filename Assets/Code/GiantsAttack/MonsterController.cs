@@ -47,7 +47,7 @@ namespace GiantsAttack
 
         public void Idle()
         {
-            _animator.Play("Idle");
+            _animator.SetTrigger("Idle");
         }
 
         public void Attack(Transform target)

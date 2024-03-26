@@ -4,7 +4,6 @@ using GameCore.UI;
 using UnityEngine;
 using GameCore.Core;
 using SleepDev;
-using Unity.VisualScripting;
 
 namespace GiantsAttack
 {

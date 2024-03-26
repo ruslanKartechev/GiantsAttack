@@ -24,12 +24,13 @@ namespace GiantsAttack
         public AimerSettings Settings { get; set; }
         public IAimUI AimUI { get; set; }
         
-        public void Init(AimerSettings settings, IHelicopterShooter shooter, IControlsUI controlsUI)
+        public void Init(AimerSettings settings, IHelicopterShooter shooter, IControlsUI controlsUI, IAimUI aimUI)
         {
             Settings = settings;
             _shooter = shooter;
             shooter.FromPoint = _fromPoint;
             shooter.AtPoint = _atPoint;
+            AimUI = aimUI;
             _controlsUI = controlsUI;
             SetPointerToCenter();
         }
@@ -39,7 +40,6 @@ namespace GiantsAttack
             if (_isAiming)
                 return;
             _isAiming = true;
-            SetPointerToCenter();
             CLog.Log($"[HeliAimer] Begin aim");
             _screenLimits.x = Screen.width * _screenLimitPercent;
             _screenLimits.y = Screen.width * (1 - _screenLimitPercent);
@@ -58,6 +58,7 @@ namespace GiantsAttack
             Sub(false);
             _isDown = false;
             StopLoop();
+            AimUI.StopRotation();
         }
 
         public void SetInitialRotation()
@@ -101,6 +102,7 @@ namespace GiantsAttack
             _isDown = true;
             StartLoop();
             _shooter.BeginShooting();
+            AimUI.BeginRotation(Settings.aimRotSpeed);
         }
 
         private void OnUp()
@@ -108,6 +110,7 @@ namespace GiantsAttack
             _isDown = false;
             StopLoop();
             _shooter.StopShooting();
+            AimUI.StopRotation();
         }
 
         private void StopLoop()

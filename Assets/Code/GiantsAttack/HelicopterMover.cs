@@ -344,9 +344,9 @@ namespace GiantsAttack
             {
                 tr.position = Vector3.Lerp(p1, point.position, t);
                 if (t <= leanRotT)
-                    tr.rotation = Quaternion.Lerp(r1, leanRot, t * 1f / leanRotT);
+                    tr.rotation = Quaternion.Lerp(r1, leanRot, t / leanRotT);
                 else
-                    tr.rotation = Quaternion.Lerp(leanRot, endRot, (t - leanRotT) * 1f / leanRotT);
+                    tr.rotation = Quaternion.Lerp(leanRot, endRot, (t - leanRotT) / (1-leanRotT));
                 
                 elapsed += Time.deltaTime * curve.Evaluate(t);
                 t = elapsed / time;

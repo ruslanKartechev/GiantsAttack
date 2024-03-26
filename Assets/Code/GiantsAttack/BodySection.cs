@@ -55,8 +55,7 @@ namespace GiantsAttack
             foreach (var tr in _targets)
                 tr.DamageHandler = DamageCallback;
         }
-
-
+        
         public void SetUI(IBodySectionsUI ui)
         {
             _partUI = ui.GetBodyPartByID(_sectionID);
@@ -66,9 +65,7 @@ namespace GiantsAttack
         private void DamageCallback(BodyPartTarget target, DamageArgs args)
         {
             if (Health <= 0)
-            {
                 return;
-            }
             Health -= args.damage;
             var level = 0;
             var percent = _health / _maxHealth;
@@ -80,14 +77,16 @@ namespace GiantsAttack
             if (_currentHealthLevel != level)
             {
                 _currentHealthLevel = level;
-                CLog.LogBlue($"Body section id: {_sectionID}, health level {level}");
                 _partUI.SetDamageLevel(level);
             }
             _fullBodyHealth.TakeDamage(args);
-            
-       
+            _partUI.Animate();
+            _flicker.Flick();
+            if (Health <= 0)
+            {
+                _partUI.SetNonDamageable();
+                SetDamageable(false);
+            }
         }
     }
-    
-    
 }

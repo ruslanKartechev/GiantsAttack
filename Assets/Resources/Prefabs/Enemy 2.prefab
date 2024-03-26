@@ -1094,8 +1094,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7, y: 4, z: 4.869438}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 7.000025, y: 2.9964359, z: 4.869438}
+  m_Center: {x: 9.6397725e-12, y: 1.0040119, z: 3.1867984e-13}
 --- !u!54 &5501504582795224095
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1160,7 +1160,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.0122616
+  m_Radius: 1.6
   m_Height: 4.0490465
   m_Direction: 1
   m_Center: {x: 0, y: 2.0245233, z: 0}
@@ -1273,6 +1273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6591fbd09ec949399d7b97966cece8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colorKey: _Color
+  _renderer: {fileID: 7970385481086439225}
+  _flickerSettings: {fileID: 11400000, guid: a64cd1f582f0a0d4395628860df544c0, type: 2}
 --- !u!1 &1495467387277365210 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5172103027510946827, guid: 3a91ac63998d94d47a918a719f46000f,
@@ -1702,6 +1705,18 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 5983023200007250897}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &3306055613409429839 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9144154383564335774, guid: 3a91ac63998d94d47a918a719f46000f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5983023200007250897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4201927324729216094 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7590756996171984783, guid: 3a91ac63998d94d47a918a719f46000f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5983023200007250897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4798048493787069246 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1266039577359735023, guid: 3a91ac63998d94d47a918a719f46000f,
@@ -1834,6 +1849,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6591fbd09ec949399d7b97966cece8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colorKey: _Color
+  _renderer: {fileID: 3306055613409429839}
+  _flickerSettings: {fileID: 11400000, guid: a64cd1f582f0a0d4395628860df544c0, type: 2}
+--- !u!137 &5104449528007119667 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1572128092747215074, guid: 3a91ac63998d94d47a918a719f46000f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5983023200007250897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5167801399786938307 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1490761951021333522, guid: 3a91ac63998d94d47a918a719f46000f,
@@ -1859,7 +1883,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.0104642
+  m_Radius: 1.61
   m_Height: 4.041857
   m_Direction: 1
   m_Center: {x: 0, y: 2.0209284, z: 0}
@@ -1948,6 +1972,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c771dddd7bdf4b7583ea796db0c42d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!137 &5423152754845859244 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1748838476681240189, guid: 3a91ac63998d94d47a918a719f46000f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5983023200007250897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6202119992789493147 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 366388762253100618, guid: 3a91ac63998d94d47a918a719f46000f,
@@ -1973,7 +2003,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.2015903
+  m_Radius: 2.04
   m_Height: 4.005301
   m_Direction: 1
   m_Center: {x: 0, y: 2.0026505, z: 0}
@@ -2080,6 +2110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6591fbd09ec949399d7b97966cece8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colorKey: _Color
+  _renderer: {fileID: 4201927324729216094}
+  _flickerSettings: {fileID: 11400000, guid: a64cd1f582f0a0d4395628860df544c0, type: 2}
 --- !u!1 &7571465225680321115 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4185190299561073034, guid: 3a91ac63998d94d47a918a719f46000f,
@@ -2105,7 +2138,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.1942554
+  m_Radius: 2.36
   m_Height: 3.980851
   m_Direction: 1
   m_Center: {x: 0, y: 1.9904255, z: 0}
@@ -2420,6 +2453,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c771dddd7bdf4b7583ea796db0c42d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!137 &7970385481086439225 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4439292194918821096, guid: 3a91ac63998d94d47a918a719f46000f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5983023200007250897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8233562725713987255 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2397192953598453094, guid: 3a91ac63998d94d47a918a719f46000f,
@@ -2438,6 +2477,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6591fbd09ec949399d7b97966cece8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colorKey: _Color
+  _renderer: {fileID: 5104449528007119667}
+  _flickerSettings: {fileID: 11400000, guid: a64cd1f582f0a0d4395628860df544c0, type: 2}
 --- !u!1 &8234497579289259613 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2396258105928437132, guid: 3a91ac63998d94d47a918a719f46000f,
@@ -2456,3 +2498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6591fbd09ec949399d7b97966cece8f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colorKey: _Color
+  _renderer: {fileID: 5423152754845859244}
+  _flickerSettings: {fileID: 11400000, guid: a64cd1f582f0a0d4395628860df544c0, type: 2}
