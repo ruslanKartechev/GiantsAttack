@@ -31,7 +31,7 @@ namespace GiantsAttack
             shooter.FromPoint = _fromPoint;
             shooter.AtPoint = _atPoint;
             _controlsUI = controlsUI;
-     
+            SetPointerToCenter();
         }
 
         public void BeginAim()
@@ -57,6 +57,7 @@ namespace GiantsAttack
             CLog.Log($"[HeliAimer] Stop aim");
             Sub(false);
             _isDown = false;
+            StopLoop();
         }
 
         public void SetInitialRotation()

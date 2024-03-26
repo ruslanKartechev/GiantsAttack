@@ -14,14 +14,17 @@ namespace GameCore.UI
         [SerializeField] private AimUI _aimUI;
         [SerializeField] private DamageHitsUI _damageHits;
         [SerializeField] private EvadeUI _evadeUI;
+        [SerializeField] private ShootAtTargetUI _shootAtTargetUI;
 
         public IAimUI AimUI => _aimUI;
         public JoystickUI JoystickUI => _joystickUI;
         public IUIDamagedEffect DamagedEffect => _damagedEffect;
         public IDamageHitsUI DamageHits => _damageHits;
         public EvadeUI EvadeUI => _evadeUI;
+        public IShootAtTargetUI ShootAtTargetUI => _shootAtTargetUI;
         public GameObject Go => gameObject;
 
+        
         public void On()
         {
             gameObject.SetActive(true);

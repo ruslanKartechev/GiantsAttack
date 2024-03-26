@@ -8,6 +8,7 @@ namespace GiantsAttack
         IHelicopterAimer Aimer { get; }
         IDamageable Damageable { get; }
         IHelicopterCameraPoints CameraPoints { get; }
+        IDestroyer Destroyer { get; }
         void Init(HelicopterInitArgs args);
         
     }

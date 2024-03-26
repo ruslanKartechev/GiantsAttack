@@ -6,7 +6,7 @@ namespace GameCore.Core
     public class GlobalConfig : ScriptableObject
     {
         /// Constants
-        
+        public const string PlayerTag = "Player";
         /// 
         
         

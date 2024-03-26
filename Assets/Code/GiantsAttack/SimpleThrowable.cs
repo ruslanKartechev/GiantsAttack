@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
-using UnityEngine;
 using SleepDev;
+using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class ThrowableBox : MonoBehaviour, IThrowable
+    public class SimpleThrowable : MonoBehaviour, IThrowable
     {
         [SerializeField] private float _moveTimeOnGrab = .2f;
         [SerializeField] private float _rotationSpeed;
@@ -95,7 +95,7 @@ namespace GiantsAttack
         }
 
         
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         [ContextMenu("E_SaveLocalPosRot")]
         public void E_SaveLocalPosRot()
         {
@@ -104,7 +104,6 @@ namespace GiantsAttack
             UnityEditor.EditorUtility.SetDirty(this);
 
         }
-        #endif
+#endif
     }
-
 }

@@ -57,16 +57,7 @@ namespace GiantsAttack
         {
             _animator.Play("Roar");
         }
-
-        public void GrabTarget(IThrowable target, Action callback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ThrowAt(IThrowable target, Vector3 targetPoint, Action callback)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void PickAndThrow(IThrowable target, Action onThrowCallback)
         {

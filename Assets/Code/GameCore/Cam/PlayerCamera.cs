@@ -19,6 +19,9 @@ namespace GameCore.Cam
         private void Awake()
         {
             _commandsHolder = new CameraCommandsHolder();
+            CameraContainer.PlayerCamera = this;
+            CameraContainer.MainCam = Camera.main;
+            CameraContainer.Shaker = _shaker;
         }
 
         private void CallNextCommand()

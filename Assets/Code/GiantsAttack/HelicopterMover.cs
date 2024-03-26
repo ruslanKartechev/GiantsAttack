@@ -15,12 +15,15 @@ namespace GiantsAttack
 
         [SerializeField] private Transform _movable;
         [SerializeField] private Transform _internal;
-        [SerializeField] private HelicopterAnimSettings _animSettings;
+        [SerializeField] private HelicopterAnimSettingsSo _animSettingsSo;
+        private HelicopterAnimSettings _animSettings;
 
         private float _t;
         private float _movingTime;
         private Coroutine _moving;
         private Coroutine _animating;
+        private Coroutine _rotating;
+        
         
         public HelicopterAnimSettings animSettings
         {
@@ -31,7 +34,12 @@ namespace GiantsAttack
         public MoverSettings Settings { get; set; }
         
         public Transform LookAt { get; set; }
-  
+
+        
+        public void Awake()
+        {
+            animSettings = _animSettingsSo.settings;
+        }
 
         public void  BeginMovingOnCircle(CircularPath path, Transform lookAtTarget, bool loop, Action callback)
         {
@@ -56,6 +64,13 @@ namespace GiantsAttack
         {
             if(_animating != null)
                 StopCoroutine(_animating);
+        }
+
+        public void StopAll()
+        {
+            StopRotating();
+            StopMovement();
+            StopAnimating();
         }
 
         public void Evade(EDirection2D direction, Action callback)
@@ -87,6 +102,29 @@ namespace GiantsAttack
             StartCoroutine(EvadeRotation( _rotToEvadeTimeFraction * _evadeTime, 
                 (1-_rotToEvadeTimeFraction) * _evadeTime, 
                 angles));
+        }
+
+        public void RotateToLook(Transform lookAt, float time)
+        {
+            StopRotating();
+            _rotating = StartCoroutine(RotatingToLook(lookAt, time));
+        }
+
+        public void StopRotating()
+        {
+            if(_rotating != null)
+                StopCoroutine(_rotating);
+        }
+
+        public void Loiter(Transform lookAt)
+        {
+            StopAnimating();
+            _animating = StartCoroutine(Loitering(lookAt));
+        }
+
+        public void StopLoiter()
+        {
+            StopAnimating();
         }
 
         private IEnumerator Evading(Vector3 endPoint, Vector3 angles, Action callback)
@@ -175,6 +213,69 @@ namespace GiantsAttack
                 }
             }
         }
+
+        private IEnumerator RotatingToLook(Transform lookAt, float time)
+        {
+            var elapsed = 0f;
+            var t = elapsed / time;
+            var tr = transform;
+            var rot1 = tr.rotation;
+            var rot2 = Quaternion.LookRotation(lookAt.position - tr.position);
+            while (t <= 1f)
+            {
+                tr.rotation = Quaternion.Lerp(rot1, rot2, t);
+                elapsed += Time.deltaTime;
+                t = elapsed / time;
+                yield return null;
+            }
+            tr.rotation = rot2;
+        }
+
+        private IEnumerator Loitering(Transform lookAt)
+        {
+            var tr = _internal;
+            var rot1 = tr.rotation;
+            var rot2 = Quaternion.LookRotation(lookAt.position - tr.position);
+            var angle = Quaternion.Angle(rot1, rot2);
+            yield return ChangingRotation(transform, rot1, rot2, angle / _animSettings.loiteringRotationSpeed);
+            while (true)
+            {
+                var localPos = (Vector3)(UnityEngine.Random.insideUnitCircle * _animSettings.loiteringMagn);
+                var time = (localPos - _internal.localPosition).magnitude / _animSettings.loiteringMoveSpeed;
+                yield return MovingLocal(localPos, time, lookAt);
+            }
+        }
+        
+        /// <summary>
+        /// Moves "internal" to a given localPos. Also rotates "transform" itself to look at "lookAt"
+        /// </summary>
+        private IEnumerator MovingLocal(Vector3 localPos, float time, Transform lookAt)
+        {
+            var elapsed = 0f;
+            var p1 = _internal.localPosition;
+            while (elapsed <= time)
+            {
+                _internal.localPosition = Vector3.Lerp(p1, localPos, elapsed / time);
+                transform.rotation = Quaternion.LookRotation(lookAt.position - transform.position);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            _internal.localPosition = localPos;
+        }
+
+        private IEnumerator ChangingRotation(Transform target, Quaternion r1, Quaternion r2, float time)
+        {
+            CLog.Log($"**** Changing rotation: time: {time}");
+            var elapsed = 0f;
+            while (elapsed <= time)
+            {
+                target.rotation = Quaternion.Lerp(r1, r2, elapsed / time);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            target.rotation = r2;
+        }
+        
 
         private IEnumerator MovingOnCircle(CircularPath path, Transform lookAtTarget, bool loop, Action callback)
         {

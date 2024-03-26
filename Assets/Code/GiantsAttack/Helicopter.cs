@@ -11,6 +11,8 @@ namespace GiantsAttack
         public IHelicopterAimer Aimer { get; private set;}
         public IDamageable Damageable { get; private set; }
         public IHelicopterCameraPoints CameraPoints { get; private set; }
+        public IDestroyer Destroyer { get; private set; }
+        
         
         public void Init(HelicopterInitArgs args)
         {
@@ -18,6 +20,7 @@ namespace GiantsAttack
             Shooter = GetComponent<IHelicopterShooter>();
             Aimer = GetComponent<IHelicopterAimer>();
             CameraPoints = GetComponent<IHelicopterCameraPoints>();
+            Destroyer = GetComponent<IDestroyer>();
 
             Mover.Settings = args.moverSettings;
             Damageable = GetComponent<HelicopterHealth>();
@@ -27,7 +30,11 @@ namespace GiantsAttack
             Shooter.Gun = gun;
             // Aimer.SetInitialRotation();
             CameraPoints.SetCamera(args.camera);
-            
+        }
+
+        public void Kill()
+        {
+            Destroyer.DestroyMe();
         }
     }
 }

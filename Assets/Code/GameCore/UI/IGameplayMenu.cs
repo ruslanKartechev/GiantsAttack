@@ -9,5 +9,6 @@ namespace GameCore.UI
         IAimUI AimUI { get; }
         IDamageHitsUI DamageHits { get; }
         EvadeUI EvadeUI { get; }
+        IShootAtTargetUI ShootAtTargetUI { get; }
     }
 }

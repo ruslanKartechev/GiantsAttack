@@ -1,6 +1,7 @@
 ﻿using System;
 using GameCore.Cam;
 using GameCore.UI;
+using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -15,5 +16,10 @@ namespace GiantsAttack
         
         public abstract void Activate();
         public abstract void Stop();
+
+        protected virtual void DestroyPlayerAndFail()
+        {
+            CLog.LogRed($"FAILED LEVEL STAGE");
+        }
     }
 }
