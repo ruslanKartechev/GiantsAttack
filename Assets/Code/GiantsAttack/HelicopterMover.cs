@@ -5,17 +5,11 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    
     public class HelicopterMover : MonoBehaviour, IHelicopterMover
     {
-        [SerializeField] private float _evadeDistance;
-        [SerializeField] private Vector2 _evandeAngles;
-        [SerializeField] private float _evadeTime;
-        [SerializeField, Range(0f,1f)] private float _rotToEvadeTimeFraction = .5f;
-
         [SerializeField] private Transform _movable;
         [SerializeField] private Transform _internal;
-        [SerializeField] private HelicopterAnimSettingsSo _animSettingsSo;
+        [SerializeField] private HelicopterMoverSettingSo _settingSo;
         private HelicopterAnimSettings _animSettings;
 
         private float _t;
@@ -30,6 +24,9 @@ namespace GiantsAttack
             get => _animSettings;
             set => _animSettings = value;
         }
+        public MovementSettings movementSettings { get; set; }
+        
+        public EvasionSettings evasionSettings { get; set; }
         
         public MoverSettings Settings { get; set; }
         
@@ -38,7 +35,9 @@ namespace GiantsAttack
         
         public void Awake()
         {
-            animSettings = _animSettingsSo.settings;
+            evasionSettings = _settingSo.evasionSettings;
+            movementSettings = _settingSo.movementSettings;
+            animSettings = _settingSo.animSettingsSo.settings;
         }
 
         public void  BeginMovingOnCircle(CircularPath path, Transform lookAtTarget, bool loop, Action callback)
@@ -79,28 +78,30 @@ namespace GiantsAttack
             StopAnimating();
             var evadeToPoint = transform.position;
             var angles = transform.eulerAngles;
+            var dist = evasionSettings.evadeDistance;
             switch (direction)
             {
                 case EDirection2D.Up:
-                    evadeToPoint += Vector3.up * _evadeDistance;
-                    angles.x += _evandeAngles.x;
+                    evadeToPoint += Vector3.up * dist;
+                    angles.x += evasionSettings.evadeAngles.x;
                     break;
                 case EDirection2D.Down:
-                    evadeToPoint -= Vector3.up * _evadeDistance;
-                    angles.x -= _evandeAngles.x;
+                    evadeToPoint -= Vector3.up * dist;
+                    angles.x -= evasionSettings.evadeAngles.x;
                     break;
                 case EDirection2D.Right:
-                    evadeToPoint += transform.right * _evadeDistance;
-                    angles.z -= _evandeAngles.y;
+                    evadeToPoint += transform.right * dist;
+                    angles.z -= evasionSettings.evadeAngles.y;
                     break;
                 case EDirection2D.Left:
-                    evadeToPoint -= transform.right * _evadeDistance;
-                    angles.z += _evandeAngles.y;
+                    evadeToPoint -= transform.right * dist;
+                    angles.z += evasionSettings.evadeAngles.y;
                     break;
             }
-            _moving = StartCoroutine(Evading(evadeToPoint, angles, callback));
-            StartCoroutine(EvadeRotation( _rotToEvadeTimeFraction * _evadeTime, 
-                (1-_rotToEvadeTimeFraction) * _evadeTime, 
+            var time = evasionSettings.evadeTime;
+            _moving = StartCoroutine(Evading(evadeToPoint, angles, time, callback));
+            StartCoroutine(EvadeRotation( evasionSettings.rotToEvadeTimeFraction * time, 
+                (1 - evasionSettings.rotToEvadeTimeFraction) * time, 
                 angles));
         }
 
@@ -116,18 +117,28 @@ namespace GiantsAttack
                 StopCoroutine(_rotating);
         }
 
+        public void MoveTo(Transform point, float time, AnimationCurve curve, Action callback)
+        {
+            StopMovement();
+            if (curve == null)
+                curve = movementSettings.defaultMoveCurve;
+            _moving = StartCoroutine(MovingToPoint(point, time, curve, callback));
+        }
+
         public void Loiter(Transform lookAt)
         {
             StopAnimating();
             _animating = StartCoroutine(Loitering(lookAt));
         }
 
-        public void StopLoiter()
+        public void StopLoiter(bool moveBackToLocal = true)
         {
             StopAnimating();
+            if(moveBackToLocal)
+                _animating = StartCoroutine(MovingLocal(Vector3.zero, .5f));
         }
 
-        private IEnumerator Evading(Vector3 endPoint, Vector3 angles, Action callback)
+        private IEnumerator Evading(Vector3 endPoint, Vector3 angles, float time, Action callback)
         {
             var tr = transform;
             var p1 = tr.position;
@@ -135,7 +146,7 @@ namespace GiantsAttack
             var e1 = transform.localEulerAngles;
             var e2 = angles;
             var elapsed = Time.unscaledDeltaTime;
-            var t = elapsed / _evadeTime;
+            var t = elapsed / time;
             while (t <= 1f)
             {
                 tr.position = Vector3.Lerp(p1, p2, t);
@@ -144,7 +155,7 @@ namespace GiantsAttack
                 else
                     tr.localEulerAngles = Vector3.Lerp(e2, e1, (t - .5f) * 2);
                 elapsed += Time.unscaledDeltaTime;
-                t = elapsed / _evadeTime;
+                t = elapsed / time;
                 yield return null;
             }
             tr.position = p2;
@@ -233,23 +244,28 @@ namespace GiantsAttack
 
         private IEnumerator Loitering(Transform lookAt)
         {
-            var tr = _internal;
-            var rot1 = tr.rotation;
-            var rot2 = Quaternion.LookRotation(lookAt.position - tr.position);
-            var angle = Quaternion.Angle(rot1, rot2);
-            yield return ChangingRotation(transform, rot1, rot2, angle / _animSettings.loiteringRotationSpeed);
+            if (lookAt != null)
+            {
+                var rot1 = transform.rotation;
+                var rot2 = Quaternion.LookRotation(lookAt.position - transform.position);
+                var angle = Quaternion.Angle(rot1, rot2);
+                yield return ChangingRotation(transform, rot1, rot2, angle / _animSettings.loiteringRotationSpeed);
+            }
             while (true)
             {
                 var localPos = (Vector3)(UnityEngine.Random.insideUnitCircle * _animSettings.loiteringMagn);
                 var time = (localPos - _internal.localPosition).magnitude / _animSettings.loiteringMoveSpeed;
-                yield return MovingLocal(localPos, time, lookAt);
+                if(lookAt != null)
+                    yield return MovingLocalAndRotaing(localPos, time, lookAt);
+                else
+                    yield return MovingLocal(localPos, time);
             }
         }
         
         /// <summary>
         /// Moves "internal" to a given localPos. Also rotates "transform" itself to look at "lookAt"
         /// </summary>
-        private IEnumerator MovingLocal(Vector3 localPos, float time, Transform lookAt)
+        private IEnumerator MovingLocalAndRotaing(Vector3 localPos, float time, Transform lookAt)
         {
             var elapsed = 0f;
             var p1 = _internal.localPosition;
@@ -257,6 +273,19 @@ namespace GiantsAttack
             {
                 _internal.localPosition = Vector3.Lerp(p1, localPos, elapsed / time);
                 transform.rotation = Quaternion.LookRotation(lookAt.position - transform.position);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            _internal.localPosition = localPos;
+        }
+        
+        private IEnumerator MovingLocal(Vector3 localPos, float time)
+        {
+            var elapsed = 0f;
+            var p1 = _internal.localPosition;
+            while (elapsed <= time)
+            {
+                _internal.localPosition = Vector3.Lerp(p1, localPos, elapsed / time);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
@@ -275,7 +304,58 @@ namespace GiantsAttack
             }
             target.rotation = r2;
         }
+
         
+        /// <summary>
+        /// Angles to "lean" when moving to next point
+        /// </summary>
+        private void CalculateLeanAngles(Transform endPoint, out Quaternion leanRot, out Quaternion endRot)
+        {
+            var tr = transform;
+            var distVec = endPoint.position - tr.position;
+            var projZ = Vector3.Dot(distVec, tr.forward);
+            var projX = Vector3.Dot(distVec, tr.right);
+            leanRot = transform.rotation;
+            endRot = endPoint.rotation;
+            var angles = new Vector3();
+            if (projZ > 0)
+                angles.x += movementSettings.leanAngles.x;
+            else
+                angles.x -= movementSettings.leanAngles.x;
+
+            if (projX > 0)
+                angles.z -= movementSettings.leanAngles.y;
+            else
+                angles.z += movementSettings.leanAngles.y;
+            CLog.Log($"[HeliMover] LeanAngles {angles}");
+            leanRot *= Quaternion.Euler(angles);
+        }
+        
+        private IEnumerator MovingToPoint(Transform point, float time, AnimationCurve curve, Action callback)
+        {
+            var tr = transform;
+            var p1 = tr.position;
+            var r1 = tr.rotation;
+            var elapsed = Time.deltaTime;
+            var t = elapsed / time;
+            CalculateLeanAngles(point, out var leanRot, out var endRot);
+            var leanRotT = movementSettings.leanRotT;
+            while (t <= 1f)
+            {
+                tr.position = Vector3.Lerp(p1, point.position, t);
+                if (t <= leanRotT)
+                    tr.rotation = Quaternion.Lerp(r1, leanRot, t * 1f / leanRotT);
+                else
+                    tr.rotation = Quaternion.Lerp(leanRot, endRot, (t - leanRotT) * 1f / leanRotT);
+                
+                elapsed += Time.deltaTime * curve.Evaluate(t);
+                t = elapsed / time;
+                yield return null;
+            }
+            tr.SetPositionAndRotation(point.position, point.rotation);
+            callback?.Invoke();
+
+        }
 
         private IEnumerator MovingOnCircle(CircularPath path, Transform lookAtTarget, bool loop, Action callback)
         {

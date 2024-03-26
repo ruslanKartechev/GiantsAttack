@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 63413763}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.12, y: 57.02, z: 85.93}
+  m_LocalPosition: {x: -3.12, y: 57.02, z: 101.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 204078340}
   - component: {fileID: 204078341}
   m_Layer: 0
-  m_Name: stage 2
+  m_Name: stage throw 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,20 +205,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6891e8aba8d141da871213d213283821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doActivateBoss: 1
+  doActivateBoss: 0
   _doEvade: 1
+  _doSlowMo: 1
   _projectileHealth: 20
   _slowMoShooterSettings:
     fireDelay: 0.03333334
     damage: 10
     speed: 600
-  _doSlowMo: 1
   _grabTargetGo: {fileID: 822243554}
-  _lookAt: {fileID: 1901552618}
+  _lookAt: {fileID: 0}
   _doWalkToTarget: 1
   _moveToPoint: {fileID: 654280119}
   _enemyMoveTime: 1.9
-  _projectileMoveTime: 2
+  _projectileMoveTime: 1
   _throwAtPoint: {fileID: 63413764}
   _slowMotion: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   _evadeDirection: 2
@@ -291,6 +291,7 @@ Transform:
   - {fileID: 1123249785}
   - {fileID: 1708335386}
   - {fileID: 204078338}
+  - {fileID: 562594467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &204453637
@@ -316,8 +317,10 @@ MonoBehaviour:
       speed: 150
     moverSettings:
       angularSpeed: 4
-  _stage1: {fileID: 204078339}
   _monster: {fileID: 5963924130461237791}
+  _stages:
+  - {fileID: 204078339}
+  - {fileID: 562594468}
 --- !u!114 &204453638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +336,127 @@ MonoBehaviour:
   _moveForthAndBack: 0
   _circularPathBuilder: {fileID: 1790952409}
   _lookAtTarget: {fileID: 1790952408}
+--- !u!1 &562594466
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 562594467}
+  - component: {fileID: 562594468}
+  m_Layer: 0
+  m_Name: stage move
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &562594467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562594466}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 605195146}
+  m_Father: {fileID: 204453636}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &562594468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562594466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e896645a01d4884843d5292763f3b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _allowShooting: 1
+  _playerMoveToPoint: {fileID: 605195146}
+  _playerMoveTime: 1
+  _moveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.008254362
+      value: 1.116374
+      inSlope: -0.84702677
+      outSlope: -0.84702677
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.07978594
+    - serializedVersion: 3
+      time: 0.99394697
+      value: 0.6463382
+      inSlope: -0.16265571
+      outSlope: -0.16265571
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0834013
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!1 &605195145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605195146}
+  - component: {fileID: 605195147}
+  m_Layer: 0
+  m_Name: player move to point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &605195146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605195145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.998261, z: 0, w: 0.058949254}
+  m_LocalPosition: {x: -16.5, y: 57, z: 129.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 562594467}
+  m_LocalEulerAnglesHint: {x: 0, y: 173.241, z: 0}
+--- !u!114 &605195147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605195145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 0.9006487, g: 1, b: 0, a: 1}
+  radius: 1
+  drawDirection: 0
+  directionLength: 1
 --- !u!1 &610434488
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,8 +763,8 @@ Transform:
   m_GameObject: {fileID: 822243554}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.48, y: 2.41, z: 21}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 11.48, y: 3.34, z: 21}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 204078338}
@@ -796,7 +920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveTimeOnGrab: 0.2
   _rotationSpeed: 0
-  _localGrabbedPos: {x: 0, y: 0, z: 0}
+  _localGrabbedPos: {x: 0, y: 1.37, z: 1.57}
   _localGrabbedEulers: {x: 0, y: 0, z: 0}
   _hitTriggerReceiver: {fileID: 822243561}
 --- !u!1 &941914821
@@ -1290,6 +1414,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1482352967}
+  - component: {fileID: 1482352968}
   m_Layer: 0
   m_Name: Spawn point
   m_TagString: Untagged
@@ -1313,6 +1438,23 @@ Transform:
   - {fileID: 3240448270616428231}
   m_Father: {fileID: 610434489}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1482352968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482352966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 1, g: 0.94968677, b: 0, a: 1}
+  radius: 1
+  drawDirection: 0
+  directionLength: 1
 --- !u!1001 &1610166862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1447,7 +1589,7 @@ GameObject:
   - component: {fileID: 1708335386}
   - component: {fileID: 1708335387}
   m_Layer: 0
-  m_Name: stage 1
+  m_Name: stage fly around
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

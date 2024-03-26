@@ -61,14 +61,12 @@ namespace GameCore.Cam
         
         public void MoveToPoint(Transform point, float time, Action onEnd)
         {
-            CLog.LogBlue($"move to point time {time}");
             StopMoving();
             _processing = StartCoroutine(MovingToPoint(point, time, onEnd));
         }
 
         public void MoveToPointToFollow(Transform point, float time, Action callback)
         {
-            CLog.LogBlue($"move to point to FOLLOW time: {time}");
             StopMoving();
             _processing = StartCoroutine(TransitioningToFollow(point, time, callback));
         }

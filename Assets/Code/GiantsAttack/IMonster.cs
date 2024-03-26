@@ -1,4 +1,5 @@
 ﻿using System;
+using GameCore.UI;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -12,7 +13,7 @@ namespace GiantsAttack
         IMonsterAnimEventReceiver AnimEventReceiver { get; }
         void Kill();
         
-        void Init();
+        void Init(IBodySectionsUI sectionsUI);
         
         void Idle();
 

@@ -16,12 +16,14 @@ namespace GiantsAttack
         public void RotateToLook(Transform lookAt, float time);
         public void StopRotating();
 
+        public void MoveTo(Transform point, float time, AnimationCurve curve, Action callback);
+
         /// <summary>
         /// Way to animate while standing. Slowly moves locally in XY plane. Replaces Animating routine
         /// </summary>
-        /// <param name="lookAt"></param>
+        /// <param name="lookAt">If NULL will be ignored, if not will rotate and maintain lookAt rotation</param>
         void Loiter(Transform lookAt);
-        void StopLoiter();
+        void StopLoiter(bool moveBackToLocal = true);
 
     }
 }

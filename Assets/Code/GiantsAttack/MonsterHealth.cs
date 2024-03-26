@@ -10,6 +10,7 @@ namespace GiantsAttack
         public event Action<IDamageable> OnDamaged;
 
         [SerializeField] private HealthDisplayBar _healthBar;
+        
         private float _health;
         private float _maxHealth;
         private bool _canDamage;
@@ -55,6 +56,11 @@ namespace GiantsAttack
         public void HideDisplay()
         {
             _healthBar.Hide();
+        }
+
+        public void OnPartDamaged(BodyPartTarget partTarget, DamageArgs args)
+        {
+            
         }
     }
 }

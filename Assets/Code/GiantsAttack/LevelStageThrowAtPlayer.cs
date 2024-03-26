@@ -8,23 +8,25 @@ namespace GiantsAttack
 {
     public class LevelStageThrowAtPlayer : LevelStage
     {
+        [Header("Debugging")]
         public bool doActivateBoss = true;
-        [Space(20)]
-        [SerializeField, Tooltip("If true will call for evade, else will call shoot")] 
+        [Space(10)]
+        [SerializeField, Header("Mode"), Tooltip("If true will call for evade, else will call shoot")] 
         private bool _doEvade;
+        [SerializeField] private bool _doSlowMo;
+        [Header("Slow motion")]
         [SerializeField] private float _projectileHealth = 20;
         [SerializeField] private ShooterSettings _slowMoShooterSettings;
-        [SerializeField] private bool _doSlowMo;
         [Header("Throwable GameObject")]
         [SerializeField] private GameObject _grabTargetGo;
         [SerializeField] private Transform _lookAt;
         [Space(10)]
-        [Header("Walking")]
+        [Header("Enemy Walking")]
         [SerializeField] private bool _doWalkToTarget;
         [SerializeField] private Transform _moveToPoint;
         [SerializeField] private float _enemyMoveTime;
         [Space(10)]
-        [Header("Throwing")]
+        [Header("Enemy Throwing")]
         [SerializeField] private float _projectileMoveTime;
         [SerializeField] private Transform _throwAtPoint;
         [SerializeField] private SlowMotionEffectSO _slowMotion;
@@ -33,6 +35,8 @@ namespace GiantsAttack
         [SerializeField] private EDirection2D _evadeDirection;
         [SerializeField] private float _targetSwipeDistance = 10;
         [SerializeField] private SwipeInputTaker _swipeInputTaker;
+
+        private bool _checkProjectileHit;
         private IEnemyThrowWeapon _enemyWeapon;
         private ShooterSettings _shooterSettingsBeforeChange;
 
@@ -73,6 +77,7 @@ namespace GiantsAttack
 
         private void Throw()
         {
+            _checkProjectileHit = true;
             _enemyWeapon.Throwable.ThrowAt(_throwAtPoint.position, _projectileMoveTime, HideThrowable, OnThrowableHit);
             if(_doEvade)
                 StartEvadeMode();
@@ -87,7 +92,8 @@ namespace GiantsAttack
 
         private void OnThrowableHit(Collider collider)
         {
-            // CLog.Log($"Throwable Collider with {collider.gameObject.name}");
+            if (_checkProjectileHit)
+                return;
             if (collider.CompareTag(GlobalConfig.PlayerTag))
             {
                 FailAndKillPlayer();
@@ -115,6 +121,7 @@ namespace GiantsAttack
             _enemyWeapon.Throwable.Hide();
             Player.Shooter.Settings = _shooterSettingsBeforeChange;
             CameraContainer.Shaker.PlayDefault();
+            CompletedCallback.Invoke();
         }
         #endregion
 
@@ -146,6 +153,7 @@ namespace GiantsAttack
         private void OnEvadeSuccess()
         {
             StopSlowMo();
+            _checkProjectileHit = false;
             Player.Mover.Loiter(_lookAt);
             Player.Aimer.BeginAim();
             CompletedCallback.Invoke();
@@ -205,6 +213,9 @@ namespace GiantsAttack
             UI.ShootAtTargetUI.Hide();
             DestroyPlayerAndFail();
         }
+        
+        
+        
         
         #if UNITY_EDITOR
         [Space(30)] 
