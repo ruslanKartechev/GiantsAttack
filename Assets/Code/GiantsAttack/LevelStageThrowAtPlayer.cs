@@ -146,7 +146,8 @@ namespace GiantsAttack
         private void OnEvadeSuccess()
         {
             StopSlowMo();
-            Player.Mover.BeginAnimating();
+            Player.Mover.Loiter(_lookAt);
+            Player.Aimer.BeginAim();
             CompletedCallback.Invoke();
         }
         
@@ -206,8 +207,32 @@ namespace GiantsAttack
         }
         
         #if UNITY_EDITOR
-        [Space(10)] 
+        [Space(30)] 
+        [Header("Editor")]
         public OnGizmosLineDrawer lineDrawer;
+        public Transform rotateTarget;
+        public CameraPoint camPoint;
+
+        public void E_RotateToLook()
+        {
+            if (rotateTarget == null)
+            {
+                CLog.LogRed("rotateTarget is null");
+                return;
+            }
+            if (_lookAt == null)
+            {
+                CLog.LogRed("_lookAt is null");
+                return;
+            }
+            rotateTarget.rotation = Quaternion.LookRotation(_lookAt.position - rotateTarget.position);
+            UnityEditor.EditorUtility.SetDirty(rotateTarget);
+            if (camPoint != null)
+            {
+                CameraPointMover.SetToPoint(camPoint);
+            }
+        }
+        
         private void OnDrawGizmos()
         {
             if (lineDrawer != null

@@ -44,7 +44,7 @@ namespace GiantsAttack
         private void SpawnAndInitPlayer()
         {
             var spawner = new HelicopterSpawner();
-            var player = spawner.SpawnAt(_playerSpawnPoint, transform);
+            var player = spawner.SpawnAt(_playerSpawnPoint, _playerSpawnPoint.parent);
             player.Init(_initArgs);
             player.Aimer.AimUI = _gameplayMenu.AimUI;
             player.Shooter.DamageHitsUI = _gameplayMenu.DamageHits;

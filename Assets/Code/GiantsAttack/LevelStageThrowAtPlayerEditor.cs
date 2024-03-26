@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
 
 namespace GiantsAttack
 {
@@ -11,14 +12,14 @@ namespace GiantsAttack
             base.OnInspectorGUI();
             var me = target as LevelStageThrowAtPlayer;
             const float width = 200;
-            // if (GUILayout.Button("Boss to point", GUILayout.Width(width)))
-            // {
-            //     
-            // }
-            // if (GUILayout.Button("Player look at", GUILayout.Width(width)))
-            // {
-            //     
-            // }
+            if (GUILayout.Button("Boss to point", GUILayout.Width(width)))
+            {
+                
+            }
+            if (GUILayout.Button("Rotate to look", GUILayout.Width(width)))
+            {
+                me.E_RotateToLook();
+            }
             // if (GUILayout.Button("", GUILayout.Width(width)))
             // {
             //     
