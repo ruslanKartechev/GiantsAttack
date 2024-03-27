@@ -12,8 +12,10 @@ namespace GameCore.Core
 
         public void BuildPools()
         {
+            CLog.Log($"[Pools manager] Build pools call");
             if (_inited)
             {
+                CLog.Log($"[Pools manager] already intied");
                 Destroy(gameObject);
                 return;
             }
