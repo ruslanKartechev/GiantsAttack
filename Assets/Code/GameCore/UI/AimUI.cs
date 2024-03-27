@@ -51,6 +51,11 @@ namespace GameCore.UI
                 StopCoroutine(_rotating);
         }
 
+        public Vector3 GetScreenPos()
+        {
+            return _aim.position;
+        }
+
         private IEnumerator Rotation(float speed)
         {
             var elapsed = 0f;

@@ -28,6 +28,7 @@ namespace GiantsAttack
             _healthBar.UpdateHealth(HealthPercent);
             if (_health <= 0)
             {
+                _canDamage = false;
                 _health = 0f;
                 OnDead?.Invoke(this);
                 return;

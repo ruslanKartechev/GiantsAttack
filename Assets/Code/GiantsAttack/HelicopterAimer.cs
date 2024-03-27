@@ -9,8 +9,6 @@ namespace GiantsAttack
     public class HelicopterAimer : MonoBehaviour, IHelicopterAimer
     {
         [SerializeField] private Transform _body;
-        [SerializeField] private Transform _fromPoint;
-        [SerializeField] private Transform _atPoint;
         private float _screenLimitPercent = .05f;
         private Vector4 _screenLimits; // xMin, xMax, yMin, yMax;
 
@@ -29,11 +27,10 @@ namespace GiantsAttack
         {
             Settings = settings;
             _shooter = shooter;
-            shooter.FromPoint = _fromPoint;
-            shooter.AtPoint = _atPoint;
             AimUI = aimUI;
             _controlsUI = controlsUI;
-            SetPointerToCenter();
+            // SetPointerToCenter();
+            _pointerPos = AimUI.GetScreenPos();
         }
 
         public void BeginAim()
@@ -135,6 +132,7 @@ namespace GiantsAttack
             nextPos.y = Mathf.Clamp(nextPos.y, _screenLimits.z, _screenLimits.w);
             // CLog.Log($"Pointer pos: {nextPos}");
             _pointerPos = nextPos;
+            AimUI.SetPosition(_pointerPos);
             RotateShooter();
         }
 
@@ -144,11 +142,13 @@ namespace GiantsAttack
             var rot = _body.rotation;
             rot *= Quaternion.Euler(-delta.y, delta.x, 0f);
             _body.rotation = rot;
+            _pointerPos = AimUI.GetScreenPos();
+            _shooter.RotateToScreenPos(_pointerPos);
         }
         
         private void RotateShooter()
         {
-            // _shooter.RotateToScreenPos(_pointerPos);
+            _shooter.RotateToScreenPos(_pointerPos);
         }
         
         private IEnumerator Aiming()
@@ -163,7 +163,6 @@ namespace GiantsAttack
                 var delta = pos - oldPos;
                 delta *= Settings.sensitivity;
                 RotateToDelta(delta);
-                AimUI.SetPosition(_pointerPos);
                 oldPos = pos;
                 yield return null;
             }

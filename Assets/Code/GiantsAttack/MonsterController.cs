@@ -31,6 +31,7 @@ namespace GiantsAttack
         
         public void Init(IBodySectionsUI ui)
         {
+            CLog.Log($"[Monster] Init");
             _animator.enabled = true;
             _health.SetMaxHealth(_startHealth);
             _health.ShowDisplay();
