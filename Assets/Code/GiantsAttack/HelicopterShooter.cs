@@ -8,6 +8,7 @@ namespace GiantsAttack
     public class HelicopterShooter : MonoBehaviour, IHelicopterShooter
     {
         [SerializeField] private float _delayBetweenBarrels;
+        [SerializeField] private Transform _shootDirection;
         private Coroutine _shooting;
         private Camera _camera;
         private Coroutine _working;
@@ -42,10 +43,10 @@ namespace GiantsAttack
 
         public void RotateToScreenPos(Vector3 aimPos)
         {
-            aimPos.z = (_camera.transform.position - Gun.Rotatable.position).magnitude + 100; 
-            var endP = _camera.ScreenToWorldPoint(aimPos);
-            // Debug.DrawLine(endP, Gun.Rotatable.position, Color.black, 5f);
-            Gun.Rotatable.rotation = Quaternion.LookRotation(endP - Gun.Rotatable.position);
+            const float camDepth = 150;
+            aimPos.z = (_camera.transform.position - _shootDirection.position).magnitude + camDepth; 
+            _shootDirection.rotation = Quaternion.LookRotation(
+                _camera.ScreenToWorldPoint(aimPos) - _shootDirection.position);
         }
 
         private IEnumerator Shooting()
@@ -56,7 +57,7 @@ namespace GiantsAttack
                 {
                     var bullet = GCon.BulletsPool.GetObject();
                     bullet.SetRotation(barrel.FromPoint.rotation);
-                    bullet.Launch(barrel.FromPoint.position, barrel.FromPoint.forward, 
+                    bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, 
                         speed:Settings.speed, damage:Settings.damage, 
                         HitCounter, DamageHitsUI);
                     barrel.Recoil();

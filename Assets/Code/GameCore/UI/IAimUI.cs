@@ -9,5 +9,6 @@ namespace GameCore.UI
         void SetPosition(Vector3 screenPos);
         void BeginRotation(float speed);
         void StopRotation();
+        Vector3 GetScreenPos();
     }
 }

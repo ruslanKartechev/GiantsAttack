@@ -39,6 +39,7 @@ namespace GiantsAttack
             _initArgs.camera = _camera;
             _initArgs.controlsUI = _controlsUI;
             _gameplayMenu = GCon.UIFactory.GetGameplayMenu() as IGameplayMenu;
+            _initArgs.aimUI = _gameplayMenu.AimUI;
             // init player
             SpawnAndInitPlayer();
             InitEnemy();
@@ -54,7 +55,6 @@ namespace GiantsAttack
             var spawner = new HelicopterSpawner();
             var player = spawner.SpawnAt(_playerSpawnPoint, _playerSpawnPoint.parent);
             player.Init(_initArgs);
-            player.Aimer.AimUI = _gameplayMenu.AimUI;
             player.Shooter.DamageHitsUI = _gameplayMenu.DamageHits;
             _player = player;
         }

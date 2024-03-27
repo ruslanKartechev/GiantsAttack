@@ -71,6 +71,12 @@ namespace GameCore.Cam
             _processing = StartCoroutine(TransitioningToFollow(point, time, callback));
         }
 
+        public void MoveToPointToParent(Transform point, float time, Action callback)
+        {
+            StopMoving();
+            _processing = StartCoroutine(TransitioningToParent(point, time, callback));
+        }
+
         public void Wait(float time, Action onEnd)
         {
             StopMoving();
@@ -120,6 +126,13 @@ namespace GameCore.Cam
             yield return MovingToPoint(followPoint, time, onEnd);
             StopFollowing();
             _following = StartCoroutine(Following(followPoint));
+        }
+        
+        private IEnumerator TransitioningToParent(Transform followPoint, float time, Action onEnd)
+        {
+            yield return MovingToPoint(followPoint, time, onEnd);
+            StopFollowing();
+            transform.parent = followPoint;
         }
         
 
