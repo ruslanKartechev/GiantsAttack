@@ -50,6 +50,7 @@ namespace GiantsAttack
             Player.Aimer.BeginAim();
             Player.Mover.Loiter(_lookAt);
             _swipeInputTaker.enabled = false;
+            SubToEnemyKill();
             if (doActivateBoss)
             {
                 if (_doWalkToTarget)
@@ -62,6 +63,7 @@ namespace GiantsAttack
         public override void Stop()
         {
             GCon.SlowMotion.SetNormalTime();
+            
         }
 
         private void MoveToGrab()
@@ -71,34 +73,60 @@ namespace GiantsAttack
 
         private void GrabAndThrow()
         {
+            if (_isStopped)
+                return;
             Enemy.PickAndThrow(_enemyWeapon.Throwable, Throw);
-            // Enemy.ThrowAt(_grabTarget, );
         }
 
         private void Throw()
         {
+            if (_isStopped)
+                return;
             _checkProjectileHit = true;
-            _enemyWeapon.Throwable.ThrowAt(_throwAtPoint.position, _projectileMoveTime, HideThrowable, OnThrowableHit);
+            _enemyWeapon.Throwable.ThrowAt(_throwAtPoint.position, _projectileMoveTime, OnThrowableFlyEnd, OnThrowableHit);
             if(_doEvade)
                 StartEvadeMode();
             else
                 StartShootMode();
         }
 
-        private void HideThrowable()
+        private void ExplodeEnemyWeapon()
         {
-            _enemyWeapon.Throwable.Hide();
+            _enemyWeapon.Throwable.Explode();
+        }
+
+        private void OnThrowableFlyEnd()
+        {
+            if (!_checkProjectileHit)
+            {
+                _enemyWeapon.Throwable.Hide();
+                return;
+            }
+            StopSlowMo();
+            ExplodeEnemyWeapon();
+            FailAndKillPlayer();
         }
 
         private void OnThrowableHit(Collider collider)
         {
-            if (_checkProjectileHit)
+            if (!_checkProjectileHit)
                 return;
-            if (collider.CompareTag(GlobalConfig.PlayerTag))
+            if (collider.TryGetComponent<IHelicopter>(out var player))
             {
+                StopSlowMo();
                 FailAndKillPlayer();
             }
         }
+        
+        private void FailAndKillPlayer()
+        {
+            _enemyWeapon.Throwable.Hide();
+            UI.EvadeUI.Stop();
+            UI.ShootAtTargetUI.Hide();
+            DestroyPlayerAndFail();
+        }
+
+        
 
         #region Shooting at throwable
         private void StartShootMode()
@@ -116,12 +144,12 @@ namespace GiantsAttack
         private void OnThrowableDestroyed(IDamageable dd)
         {
             _enemyWeapon.Health.OnDead -= OnThrowableDestroyed;
-            GCon.SlowMotion.Exit(_slowMotion.Effect);
+            StopSlowMo();
             UI.ShootAtTargetUI.Hide();
-            _enemyWeapon.Throwable.Hide();
+            ExplodeEnemyWeapon();
             Player.Shooter.Settings = _shooterSettingsBeforeChange;
             CameraContainer.Shaker.PlayDefault();
-            CompletedCallback.Invoke();
+            ResultListener.OnCompleted(this);
         }
         #endregion
 
@@ -134,7 +162,6 @@ namespace GiantsAttack
             EnableSwipeInput();
             Player.Aimer.StopAim();
             Player.Shooter.StopShooting();
-            
             _enemyWeapon.Health.SetDamageable(false);
             StartSlowMo();
         }
@@ -146,24 +173,22 @@ namespace GiantsAttack
         
         private void OnEvadeFail()
         {
-            // fail game    
             FailAndKillPlayer();
         }
         
         private void OnEvadeSuccess()
         {
-            StopSlowMo();
-            _checkProjectileHit = false;
             Player.Mover.Loiter(_lookAt);
             Player.Aimer.BeginAim();
-            CompletedCallback.Invoke();
+            ResultListener.OnCompleted(this);
         }
         
         private void OnSwipe(EDirection2D direction)
         {
             DisableSwiper();
             UI.EvadeUI.Stop();
-            GCon.SlowMotion.Exit(_slowMotion.Effect);
+            _checkProjectileHit = false;
+            StopSlowMo();
             if (direction == _evadeDirection)
             {
                 CLog.Log($"[LevelStageEvade] Evade success");
@@ -206,16 +231,7 @@ namespace GiantsAttack
             _slowMotion.Stop();
         }
 
-        private void FailAndKillPlayer()
-        {
-            _enemyWeapon.Throwable.Hide();
-            UI.EvadeUI.Stop();
-            UI.ShootAtTargetUI.Hide();
-            DestroyPlayerAndFail();
-        }
-        
-        
-        
+
         
         #if UNITY_EDITOR
         [Space(30)] 

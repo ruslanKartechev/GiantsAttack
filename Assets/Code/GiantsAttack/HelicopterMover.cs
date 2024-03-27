@@ -72,6 +72,68 @@ namespace GiantsAttack
             StopAnimating();
         }
 
+
+
+        public void RotateToLook(Transform lookAt, float time)
+        {
+            StopRotating();
+            _rotating = StartCoroutine(RotatingToLook(lookAt, time));
+        }
+
+        public void StopRotating()
+        {
+            if(_rotating != null)
+                StopCoroutine(_rotating);
+        }
+
+        public void MoveTo(Transform point, float time, AnimationCurve curve, Action callback)
+        {
+            StopMovement();
+            if (curve == null)
+                curve = movementSettings.defaultMoveCurve;
+            _moving = StartCoroutine(MovingToPoint(point, time, curve, callback));
+        }
+
+        
+        
+        #region Loitering
+        public void Loiter(Transform lookAt)
+        {
+            StopAnimating();
+            _animating = StartCoroutine(Loitering(lookAt));
+        }
+
+        public void StopLoiter(bool moveBackToLocal = true)
+        {
+            const float returnTime = .5f;
+            StopAnimating();
+            if(moveBackToLocal)
+                _animating = StartCoroutine(MovingLocal(Vector3.zero, returnTime));
+        }
+        
+        private IEnumerator Loitering(Transform lookAt)
+        {
+            if (lookAt != null)
+            {
+                var rot1 = transform.rotation;
+                var rot2 = Quaternion.LookRotation(lookAt.position - transform.position);
+                var angle = Quaternion.Angle(rot1, rot2);
+                yield return ChangingRotation(transform, rot1, rot2, angle / _animSettings.loiteringRotationSpeed);
+            }
+            while (true)
+            {
+                var localPos = (Vector3)(UnityEngine.Random.insideUnitCircle * _animSettings.loiteringMagn);
+                var time = (localPos - _internal.localPosition).magnitude / _animSettings.loiteringMoveSpeed;
+                if(lookAt != null)
+                    yield return MovingLocalAndRotaing(localPos, time, lookAt);
+                else
+                    yield return MovingLocal(localPos, time);
+            }
+        }
+        #endregion
+
+
+        #region Evasion
         public void Evade(EDirection2D direction, Action callback)
         {
             StopMovement();
@@ -104,40 +166,7 @@ namespace GiantsAttack
                 (1 - evasionSettings.rotToEvadeTimeFraction) * time, 
                 angles));
         }
-
-        public void RotateToLook(Transform lookAt, float time)
-        {
-            StopRotating();
-            _rotating = StartCoroutine(RotatingToLook(lookAt, time));
-        }
-
-        public void StopRotating()
-        {
-            if(_rotating != null)
-                StopCoroutine(_rotating);
-        }
-
-        public void MoveTo(Transform point, float time, AnimationCurve curve, Action callback)
-        {
-            StopMovement();
-            if (curve == null)
-                curve = movementSettings.defaultMoveCurve;
-            _moving = StartCoroutine(MovingToPoint(point, time, curve, callback));
-        }
-
-        public void Loiter(Transform lookAt)
-        {
-            StopAnimating();
-            _animating = StartCoroutine(Loitering(lookAt));
-        }
-
-        public void StopLoiter(bool moveBackToLocal = true)
-        {
-            StopAnimating();
-            if(moveBackToLocal)
-                _animating = StartCoroutine(MovingLocal(Vector3.zero, .5f));
-        }
-
+        
         private IEnumerator Evading(Vector3 endPoint, Vector3 angles, float time, Action callback)
         {
             var tr = transform;
@@ -167,13 +196,13 @@ namespace GiantsAttack
         {
             var r1 = transform.localRotation;
             var r2 = Quaternion.Euler(angles);
-            yield return ChangingEulers(transform, toTime, r1, r2);
-            yield return ChangingEulers(transform, fromTime, r2, r1);
+            yield return ChangingRotationUnscaledTime(transform, toTime, r1, r2);
+            yield return ChangingRotationUnscaledTime(transform, fromTime, r2, r1);
         }
+        #endregion
 
-        private IEnumerator ChangingEulers(Transform tr, float time, Quaternion r1, Quaternion r2)
+        private IEnumerator ChangingRotationUnscaledTime(Transform tr, float time, Quaternion r1, Quaternion r2)
         {
-            var e1 = transform.localEulerAngles;
             var elapsed = Time.unscaledDeltaTime;
             var t = elapsed / time;
             while (t <= 1f)
@@ -185,6 +214,7 @@ namespace GiantsAttack
             }
             tr.localRotation = r2;
         }
+
         
         private IEnumerator ZeroInternalPosition()
         {
@@ -242,26 +272,6 @@ namespace GiantsAttack
             tr.rotation = rot2;
         }
 
-        private IEnumerator Loitering(Transform lookAt)
-        {
-            if (lookAt != null)
-            {
-                var rot1 = transform.rotation;
-                var rot2 = Quaternion.LookRotation(lookAt.position - transform.position);
-                var angle = Quaternion.Angle(rot1, rot2);
-                yield return ChangingRotation(transform, rot1, rot2, angle / _animSettings.loiteringRotationSpeed);
-            }
-            while (true)
-            {
-                var localPos = (Vector3)(UnityEngine.Random.insideUnitCircle * _animSettings.loiteringMagn);
-                var time = (localPos - _internal.localPosition).magnitude / _animSettings.loiteringMoveSpeed;
-                if(lookAt != null)
-                    yield return MovingLocalAndRotaing(localPos, time, lookAt);
-                else
-                    yield return MovingLocal(localPos, time);
-            }
-        }
-        
         /// <summary>
         /// Moves "internal" to a given localPos. Also rotates "transform" itself to look at "lookAt"
         /// </summary>
@@ -294,7 +304,6 @@ namespace GiantsAttack
 
         private IEnumerator ChangingRotation(Transform target, Quaternion r1, Quaternion r2, float time)
         {
-            CLog.Log($"**** Changing rotation: time: {time}");
             var elapsed = 0f;
             while (elapsed <= time)
             {

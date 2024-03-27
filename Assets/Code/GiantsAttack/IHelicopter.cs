@@ -10,7 +10,8 @@ namespace GiantsAttack
         IHelicopterCameraPoints CameraPoints { get; }
         IDestroyer Destroyer { get; }
         void Init(HelicopterInitArgs args);
-        
+        void Kill();
+
     }
     
 }

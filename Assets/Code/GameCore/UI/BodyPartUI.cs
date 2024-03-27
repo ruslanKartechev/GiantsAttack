@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,15 @@ namespace GameCore.UI
         private bool _isAnimating;
         
         public List<Color> ColorsByLevel { get; set; }
+        
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if(_image == null)
+                _image = GetComponent<Image>();
+            UnityEditor.EditorUtility.SetDirty(_image);
+        }
+#endif
         
         public void SetDamageLevel(int level)
         {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GiantsAttack
 {
@@ -10,14 +11,18 @@ namespace GiantsAttack
         [SerializeField] private Transform _playerMoveToPoint;
         [SerializeField] private float _playerMoveTime;
         [SerializeField] private AnimationCurve _moveCurve;
-        [Header("Enemy movement")]
+
+        [Header("Enemy movement")] 
+        [SerializeField] private bool _callEnemyMove = true;
         [SerializeField] private float _enemyDelay;
         [SerializeField] private Transform _enemyMovePoint;
         [SerializeField] private float _enemyMoveTime;
-
+        [SerializeField] private bool _callEenmyRoar;
 
         public override void Activate()
         {
+            SubToEnemyKill();
+
             if (_allowShooting)
                 Player.Aimer.BeginAim();
             else
@@ -26,11 +31,19 @@ namespace GiantsAttack
             if (_delay > 0)
                 Delay(CallMove, _delay);
             else
-                CallMove(); 
-            if (_enemyDelay > 0)
-                Delay(CallMoveEnemy, _enemyDelay);
-            else
-                CallMoveEnemy(); 
+                CallMove();
+            if (_callEnemyMove)
+            {
+                if (_enemyDelay > 0)
+                    Delay(CallMoveEnemy, _enemyDelay);
+                else
+                    CallMoveEnemy(); 
+            }
+            else if (_callEenmyRoar)
+            {
+                Enemy.Roar();
+            }
+
         }
 
         private void CallMove()
@@ -51,9 +64,16 @@ namespace GiantsAttack
         {
         }
 
+        protected override void OnEnemyKilled(IMonster obj)
+        {
+            StopAllCoroutines();
+            base.OnEnemyKilled(obj);
+            
+        }
+
         private void OnMovementDone()
         {
-            CompletedCallback.Invoke();
+            ResultListener.OnCompleted(this);
         }
     }
 }

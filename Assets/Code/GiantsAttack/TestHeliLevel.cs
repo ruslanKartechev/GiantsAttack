@@ -7,7 +7,11 @@ using SleepDev;
 
 namespace GiantsAttack
 {
-    public class TestHeliLevel : MonoBehaviour
+    public class Level : MonoExtended
+    {
+        protected bool _isCompleted;
+    } 
+    public class TestHeliLevel : Level, IStageResultListener
     {
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private PlayerCamera _camera;
@@ -15,6 +19,7 @@ namespace GiantsAttack
         [SerializeField] private MonsterController _monster;
         [SerializeField] private List<LevelStage> _stages;
         private int _stageIndex = 0;
+        
         
         private IHelicopter _player;
         private IHitCounter _hitCounter;
@@ -56,6 +61,7 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
+            _gameplayMenu.AddBodySectionsUI(_monster.BodySectionsManager.UIPrefab);
             _monster.Init(_gameplayMenu.EnemyBodySectionsUI);
         }
 
@@ -69,20 +75,49 @@ namespace GiantsAttack
             stage.Player = _player;
             stage.Camera = _camera;
             stage.Enemy = _monster;
-            stage.CompletedCallback = OnStageCompleted;
             stage.UI = _gameplayMenu;
+            stage.ResultListener = this;
         }
 
-        private void OnStageCompleted()
+        private void NextStage()
         {
             CLog.LogGreen($"[Level] Stage competed callback");
             _stageIndex++;
             if (_stageIndex >= _stages.Count)
             {
-                CLog.LogGreen("ALL STAGES PASSED");
+                OnAllStagesPassed();
                 return;
             }
             _stages[_stageIndex].Activate();
+        }
+        
+
+        public void OnCompleted(LevelStage stage)
+        {
+            if (_isCompleted)
+                return;
+            NextStage();
+        }
+
+        public void OnFailed(LevelStage stage)
+        {
+            if (_isCompleted)
+                return;
+        }
+
+        public void OnWin()
+        {
+            CLog.LogGreen($"{gameObject.name} Win call");
+            if (_isCompleted)
+                return;
+            _isCompleted = true;
+            //
+        }
+
+        private void OnAllStagesPassed()
+        {
+            CLog.LogGreen($"{gameObject.name} All stages passed");
+            OnWin();
         }
     }
 }

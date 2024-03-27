@@ -70,6 +70,23 @@ namespace SleepDev.Utils
             }
         }
         
+        public static GameObject FindInChildren(Transform parent, Condition<GameObject> condition)
+        {
+            if (parent.childCount == 0)
+                return null;
+            GameObject result = null;
+            for (var i = 0; i < parent.childCount; i++)
+            {
+                var go = parent.GetChild(i).gameObject;
+                if (condition(go))
+                    return go;
+                result = FindInChildren(go.transform, condition);
+                if (result != null)
+                    return result;
+            }
+            return result;
+        }
+        
         
         public static List<Transform> GetAllChildrenAndRename(Transform parent, string name)
         {

@@ -1,25 +1,43 @@
-﻿using System;
-using GameCore.Cam;
+﻿using GameCore.Cam;
 using GameCore.UI;
 using SleepDev;
-using UnityEngine;
 
 namespace GiantsAttack
 {
     public abstract class LevelStage : MonoExtended
     {
+        protected bool _isStopped;
+
         public virtual IGameplayMenu UI { get; set; }
         public virtual IHelicopter Player { get; set; }
         public virtual IMonster Enemy { get; set; }
         public virtual PlayerCamera Camera { get; set; }
-        public virtual Action CompletedCallback { get; set; }
+        public virtual IStageResultListener ResultListener { get; set; }
         
         public abstract void Activate();
         public abstract void Stop();
-
+        
         protected virtual void DestroyPlayerAndFail()
         {
-            CLog.LogRed($"FAILED LEVEL STAGE");
+            CLog.LogRed($"{gameObject.name} Stage failed");
+            Player.Kill();
+            ResultListener.OnFailed(this);
         }
+
+        protected virtual void SubToEnemyKill()
+        {
+            Enemy.OnKilled -= OnEnemyKilled;
+            Enemy.OnKilled += OnEnemyKilled;
+        }
+
+        protected virtual void OnEnemyKilled(IMonster obj)
+        {
+            CLog.LogRed($"On enemy killed");
+            _isStopped = true;
+            Stop();
+            ResultListener.OnWin();
+        }
+        
+        
     }
 }

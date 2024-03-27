@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using GameCore.UI;
-using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -81,7 +80,7 @@ namespace GiantsAttack
             }
             _fullBodyHealth.TakeDamage(args);
             _partUI.Animate();
-            _flicker.Flick();
+            _flicker?.Flick();
             if (Health <= 0)
             {
                 _partUI.SetNonDamageable();

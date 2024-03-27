@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using SleepDev;
+using UnityEngine;
 
 namespace GiantsAttack
 {
     public class Helicopter : MonoBehaviour, IHelicopter
     {
-        [SerializeField] private GameObject _gun;  
+        [SerializeField] private GameObject _gun;
+        private bool _isDead;
         
         public IHelicopterMover Mover { get; private set;}
         public IHelicopterShooter Shooter { get; private set; }
@@ -34,6 +36,15 @@ namespace GiantsAttack
 
         public void Kill()
         {
+            if (_isDead)
+            {
+                CLog.Log($"Helicopter already dead");
+                return;
+            }
+            _isDead = true;
+            Mover.StopAll();
+            Aimer.StopAim();
+            Shooter.StopShooting();
             Destroyer.DestroyMe();
         }
     }

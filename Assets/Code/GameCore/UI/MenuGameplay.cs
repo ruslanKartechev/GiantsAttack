@@ -9,22 +9,27 @@ namespace GameCore.UI
     public class MenuGameplay : MonoBehaviour, IGameplayMenu
     {
         [SerializeField] private Button _pauseButton;
-        [SerializeField] private JoystickUI _joystickUI;
         [SerializeField] private UIDamagedEffect _damagedEffect;
         [SerializeField] private AimUI _aimUI;
         [SerializeField] private DamageHitsUI _damageHits;
         [SerializeField] private EvadeUI _evadeUI;
         [SerializeField] private ShootAtTargetUI _shootAtTargetUI;
-        [SerializeField] private BodySectionsUI _bodySectionsUI;
+        private IBodySectionsUI _bodySectionsUI;
         
         public IAimUI AimUI => _aimUI;
-        public JoystickUI JoystickUI => _joystickUI;
         public IUIDamagedEffect DamagedEffect => _damagedEffect;
         public IDamageHitsUI DamageHits => _damageHits;
         public EvadeUI EvadeUI => _evadeUI;
         public IShootAtTargetUI ShootAtTargetUI => _shootAtTargetUI;
         public IBodySectionsUI EnemyBodySectionsUI => _bodySectionsUI;
         
+        
+        public void AddBodySectionsUI(GameObject prefab)
+        {
+            var go = Instantiate(prefab, transform);
+            _bodySectionsUI = go.GetComponent<IBodySectionsUI>();
+        }
+
         public GameObject Go => gameObject;
 
         

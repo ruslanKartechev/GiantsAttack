@@ -42,13 +42,13 @@ namespace SleepDev
         
         private IEnumerator Filling(float endVal, float time)
         {
-            var elapsed = Time.deltaTime;
+            var elapsed = Time.unscaledDeltaTime;
             var t = elapsed / time;
             var startval = _fillImage.fillAmount;
             while (t <= 1f)
             {
                 SetVal(Mathf.Lerp(startval, endVal, t));
-                elapsed += Time.deltaTime;
+                elapsed += Time.unscaledDeltaTime;
                 t = elapsed / time;
                 yield return null;
             }

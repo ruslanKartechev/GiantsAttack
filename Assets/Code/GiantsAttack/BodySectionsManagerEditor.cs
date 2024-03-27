@@ -21,9 +21,13 @@ namespace GiantsAttack
             {
                 me.E_GetFlickers();
             }
-            if (GUILayout.Button("Add parts", GUILayout.Width(width)))
+            if (GUILayout.Button("Add Targets", GUILayout.Width(width)))
             {
-                me.E_AddOrGrabAllBodyParts();
+                me.E_AddOrGrabBodyTargets();
+            }
+            if (GUILayout.Button("Assign to Sections", GUILayout.Width(width)))
+            {
+                me.E_AssignToSections();
             }
         }
     }

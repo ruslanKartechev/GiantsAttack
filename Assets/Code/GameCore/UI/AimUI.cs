@@ -6,6 +6,7 @@ namespace GameCore.UI
 {
     public class AimUI : MonoBehaviour, IAimUI
     {
+        private const float animTime = .33f;
         [SerializeField] private Transform _aim;
         private Coroutine _rotating;
         
@@ -16,7 +17,7 @@ namespace GameCore.UI
             {
                 _aim.transform.DOKill();
                 _aim.transform.localScale = Vector3.zero;
-                _aim.transform.DOScale(Vector3.one, .5f);
+                _aim.transform.DOScale(Vector3.one, animTime).SetEase(Ease.InBounce);
             }
         }
 
@@ -24,7 +25,7 @@ namespace GameCore.UI
         {
             if (animated)
             {
-                _aim.transform.DOScale(Vector3.zero, .5f).OnComplete(() =>
+                _aim.transform.DOScale(Vector3.zero, animTime).SetEase(Ease.InBounce).OnComplete(() =>
                 {
                     gameObject.SetActive(false);
                 });

@@ -9,9 +9,11 @@ namespace GiantsAttack
     {
         [SerializeField] private float _moveTimeOnGrab = .2f;
         [SerializeField] private float _rotationSpeed;
+        [SerializeField] private Vector3 _torqueVector;
         [SerializeField] private Vector3 _localGrabbedPos;
         [SerializeField] private Vector3 _localGrabbedEulers;
         [SerializeField] private HitTriggerReceiver _hitTriggerReceiver;
+        [SerializeField] private ParticleSystem _explosionParticles;
         
         private Coroutine _moving;
         private Action<Collider> _hitCallback;
@@ -52,6 +54,14 @@ namespace GiantsAttack
             gameObject.SetActive(false);
         }
 
+        public void Explode()
+        {
+            _explosionParticles.transform.parent = transform.parent;
+            _explosionParticles.gameObject.SetActive(true);
+            _explosionParticles.Play();
+            Hide();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             _hitCallback.Invoke(other);            
@@ -62,9 +72,14 @@ namespace GiantsAttack
             var startPos = transform.position;
             var elapsed = Time.deltaTime;
             var t = elapsed / time;
+            var rotVec = transform.forward * _torqueVector.z+
+                         transform.right * _torqueVector.x+
+                         transform.up * _torqueVector.y;
+            
             while (t <= 1f)
             {
                 transform.position = Vector3.Lerp(startPos, endPos, t);
+                transform.Rotate(rotVec, _rotationSpeed * Time.deltaTime);
                 elapsed += Time.deltaTime;
                 t = elapsed / time;
                 yield return null;

@@ -47,6 +47,7 @@ namespace GiantsAttack
             _screenLimits.w = Screen.height * (1 - _screenLimitPercent);
             Sub(false);
             Sub(true);
+            AimUI.Show(true);
         }
         
         public void StopAim()
@@ -59,6 +60,7 @@ namespace GiantsAttack
             _isDown = false;
             StopLoop();
             AimUI.StopRotation();
+            AimUI.Hide(true);
         }
 
         public void SetInitialRotation()

@@ -7,8 +7,12 @@ namespace GiantsAttack
 {
     public class BodySectionsManager : MonoBehaviour
     {
-        [Header("0-head, 1-left arm, 2-right arm, \n 3-left leg, 4-right leg, 5-body")]
+        [Header("0-head,1-body, 2-left arm, 3-right arm, \n4-left leg, 5-right leg, ")]
         [SerializeField] private List<BodySection> _sections;
+
+        [SerializeField] private GameObject _uiPrefab;
+
+        public GameObject UIPrefab => _uiPrefab;
 
         public void Init(IHealth health, IBodySectionsUI ui)
         {
@@ -40,6 +44,8 @@ namespace GiantsAttack
                 FlickerAnimator flicker = null;
                 foreach (var tr in sec.targets)
                 {
+                    if(tr == null)
+                        continue;
                     flicker = tr.gameObject.GetComponent<FlickerAnimator>();
                     if (flicker != null)
                         break;
@@ -48,8 +54,8 @@ namespace GiantsAttack
             UnityEditor.EditorUtility.SetDirty(this);
         }
         
-        [ContextMenu("E_AddOrGrabAllBodyParts")]
-        public void E_AddOrGrabAllBodyParts()
+        [ContextMenu("E_GrabParts")]
+        public void E_AddOrGrabBodyTargets()
         {
             var bodyParts = new List<BodyPartTarget>(10);
             foreach (var rp in e_ragdoll.parts)
@@ -63,6 +69,54 @@ namespace GiantsAttack
             }
             UnityEditor.EditorUtility.SetDirty(this);
         }
+
+        public void E_AssignToSections()
+        {
+            var names = new List<string>() { "Head" };
+            for (var i = 0; i < _sections.Count; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        names = new List<string>() { "Head" };
+                        break;
+                    case 1:
+                        names = new List<string>() { "Spine2", "Hips" };
+                        break;
+                    case 2:
+                        names = new List<string>() { "LeftArm","LeftForeArm" };
+                        break;
+                    case 3:
+                        names = new List<string>() { "RightArm","RightForeArm" };
+                        break;
+                    case 4:
+                        names = new List<string>() { "LeftUpLeg","LeftLeg" };
+                        break;
+                    case 5:
+                        names = new List<string>() { "RightUpLeg","RightLeg" };
+                        break;
+                }
+                E_Add(names, _sections[i]);
+            }
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+
+        private void E_Add(List<string> names, BodySection section)
+        {
+            section.targets.Clear();
+            foreach (var tName in names)
+            {
+                var go = SleepDev.Utils.GameUtils.FindInChildren(transform, (go) => go.name.Contains(tName));
+                if (go != null)
+                {
+                    var target = go.GetComponent<BodyPartTarget>();
+                    if (target == null)
+                        target = go.AddComponent<BodyPartTarget>();
+                    section.targets.Add(target);
+                }
+            }
+        }
+        
 #endif
 
     }
