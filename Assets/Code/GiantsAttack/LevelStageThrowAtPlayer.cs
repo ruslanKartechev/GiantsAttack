@@ -149,7 +149,7 @@ namespace GiantsAttack
             ExplodeEnemyWeapon();
             Player.Shooter.Settings = _shooterSettingsBeforeChange;
             CameraContainer.Shaker.PlayDefault();
-            ResultListener.OnCompleted(this);
+            CallCompleted();
         }
         #endregion
 
@@ -180,7 +180,7 @@ namespace GiantsAttack
         {
             Player.Mover.Loiter(_lookAt);
             Player.Aimer.BeginAim();
-            ResultListener.OnCompleted(this);
+            CallCompleted();
         }
         
         private void OnSwipe(EDirection2D direction)

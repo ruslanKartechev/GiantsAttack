@@ -9,6 +9,9 @@ namespace GiantsAttack
     public class HelicopterAimer : MonoBehaviour, IHelicopterAimer
     {
         [SerializeField] private Transform _body;
+        [SerializeField] private Transform _arm;
+        [SerializeField] private Vector4 _armAngleLimits;
+        
         private float _screenLimitPercent = .05f;
         private Vector4 _screenLimits; // xMin, xMax, yMin, yMax;
 
@@ -63,13 +66,14 @@ namespace GiantsAttack
 
         public void SetInitialRotation()
         {
+            RotateArm();
             SetPointerToCenter();
             RotateShooter();
         }
         
         public void Reset()
         {
-            ResetPointerAndUI();
+            // ResetPointerAndUI();
         }
 
         private void ResetPointerAndUI()
@@ -144,11 +148,23 @@ namespace GiantsAttack
             _body.rotation = rot;
             _pointerPos = AimUI.GetScreenPos();
             _shooter.RotateToScreenPos(_pointerPos);
+            RotateArm();
         }
         
         private void RotateShooter()
         {
             _shooter.RotateToScreenPos(_pointerPos);
+        }
+
+        private void RotateArm()
+        {
+            var angles = _body.localEulerAngles;
+            angles = angles.AnglesTo180();
+            var xt = Mathf.InverseLerp(-45, 45, angles.x);
+            var yt = Mathf.InverseLerp(-45, 45, angles.y);
+            var ax = Mathf.Lerp(_armAngleLimits.x, _armAngleLimits.y, xt);
+            var az = -Mathf.Lerp(_armAngleLimits.z, _armAngleLimits.w, yt);
+            _arm.localRotation = Quaternion.Euler(ax, 0f, az);
         }
         
         private IEnumerator Aiming()

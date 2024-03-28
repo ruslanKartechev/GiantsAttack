@@ -25,11 +25,10 @@ namespace GiantsAttack
             if (_canDamage == false)
                 return;
             _health -= args.damage;
-            _healthBar.UpdateHealth(HealthPercent);
             if (_health <= 0)
             {
-                _canDamage = false;
                 _health = 0f;
+                _canDamage = false;
                 OnDead?.Invoke(this);
                 return;
             }

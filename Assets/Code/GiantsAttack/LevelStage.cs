@@ -20,6 +20,7 @@ namespace GiantsAttack
         protected virtual void DestroyPlayerAndFail()
         {
             CLog.LogRed($"{gameObject.name} Stage failed");
+            UnsubFromEnemy();
             Player.Kill();
             ResultListener.OnFailed(this);
         }
@@ -30,14 +31,24 @@ namespace GiantsAttack
             Enemy.OnKilled += OnEnemyKilled;
         }
 
+        protected virtual void UnsubFromEnemy()
+        {
+            Enemy.OnKilled -= OnEnemyKilled;
+        }
+        
         protected virtual void OnEnemyKilled(IMonster obj)
         {
-            CLog.LogRed($"On enemy killed");
+            UnsubFromEnemy();
             _isStopped = true;
             Stop();
             ResultListener.OnWin();
         }
-        
+
+        protected virtual void CallCompleted()
+        {
+            UnsubFromEnemy();
+            ResultListener.OnCompleted(this);
+        }
         
     }
 }

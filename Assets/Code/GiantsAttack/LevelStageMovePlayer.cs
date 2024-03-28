@@ -43,7 +43,6 @@ namespace GiantsAttack
             {
                 Enemy.Roar();
             }
-
         }
 
         private void CallMove()
@@ -61,19 +60,17 @@ namespace GiantsAttack
         }
 
         public override void Stop()
-        {
-        }
+        { }
 
         protected override void OnEnemyKilled(IMonster obj)
         {
             StopAllCoroutines();
             base.OnEnemyKilled(obj);
-            
         }
 
         private void OnMovementDone()
         {
-            ResultListener.OnCompleted(this);
+            CallCompleted();
         }
     }
 }

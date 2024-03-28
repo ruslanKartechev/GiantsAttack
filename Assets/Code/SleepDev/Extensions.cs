@@ -5,6 +5,17 @@ namespace SleepDev
 {
     public static class Extensions
     {
+        public static Vector3 AnglesTo180(this Vector3 angles)
+        {
+            if (angles.x > 180)
+                angles.x -= 360;
+            if (angles.y > 180)
+                angles.y -= 360;
+            if (angles.z > 180)
+                angles.z -= 360;
+            return angles;
+        }
+        
         public static Transform CopyPosRot(this Transform me, Transform other)
         {
             me.SetPositionAndRotation(other.position, other.rotation);
