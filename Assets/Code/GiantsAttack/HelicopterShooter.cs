@@ -9,6 +9,7 @@ namespace GiantsAttack
     {
         [SerializeField] private float _delayBetweenBarrels;
         [SerializeField] private Transform _shootDirection;
+        [SerializeField] private BulletCasing _casePrefab;
         private Coroutine _shooting;
         private Camera _camera;
         private Coroutine _working;
@@ -33,12 +34,16 @@ namespace GiantsAttack
         {
             if(_working != null)
                 StopCoroutine(_working);
+            foreach (var barrel in Gun.Barrels)
+                barrel.Rotate(false);
         }
 
         public void BeginShooting()
         {
             StopShooting();
             _working = StartCoroutine(Shooting());
+            foreach (var barrel in Gun.Barrels)
+                barrel.Rotate(true);
         }
 
         public void RotateToScreenPos(Vector3 aimPos)
@@ -60,7 +65,9 @@ namespace GiantsAttack
                     bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, 
                         speed:Settings.speed, damage:Settings.damage, 
                         HitCounter, DamageHitsUI);
-                    barrel.Recoil();
+                    var casing = Instantiate(_casePrefab);
+                    casing.Drop(barrel.DropPoint);
+                    // barrel.Recoil();
                     yield return new WaitForSeconds(_delayBetweenBarrels);
                 }
                 yield return new WaitForSeconds( Settings.fireDelay);
