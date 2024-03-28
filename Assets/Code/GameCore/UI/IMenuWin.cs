@@ -4,6 +4,6 @@ namespace GameCore.UI
 {
     public interface IMenuWin : IUIScreen
     {
-        void Show(float addedTowerProgress, Action buttonCallback, Action onDone);
+        void Show(int level, Action buttonCallback, Action onDone);
     }
 }

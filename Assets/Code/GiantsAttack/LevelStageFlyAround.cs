@@ -28,7 +28,7 @@ namespace GiantsAttack
         private void OnDoneMoving()
         {
             CLog.Log($"[LevelStageA] completed");
-            ResultListener.OnCompleted(this);
+            ResultListener.OnStageComplete(this);
         }
     }
 }

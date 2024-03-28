@@ -2,8 +2,8 @@
 {
     public interface IStageResultListener
     {
-        void OnCompleted(LevelStage stage);
-        void OnFailed(LevelStage stage);
-        void OnWin();
+        void OnStageComplete(LevelStage stage);
+        void OnStageFail(LevelStage stage);
+        void OnMainEnemyDead();
     }
 }

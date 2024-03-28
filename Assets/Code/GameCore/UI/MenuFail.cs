@@ -1,5 +1,6 @@
 ﻿using System;
 using SleepDev.UIUtils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ namespace GameCore.UI
     {
         [SerializeField] private PopAnimator _popAnimator;
         [SerializeField] private Button _playButton;
-        [SerializeField] private LevelUI _levelUI;
+        [SerializeField] private TextMeshProUGUI _levelUI;
         private Action _onPlayCallback;
         
         public GameObject Go => gameObject;
@@ -34,20 +35,19 @@ namespace GameCore.UI
             gameObject.SetActive(false);
         }
 
-        public void Show(Action buttonCallback, Action onDone)
+        public void Show(int level, Action buttonCallback, Action onDone)
         {
             _onPlayCallback = buttonCallback;
+            _levelUI.text = $"LEVEL {level}";
             Show(onDone);
         }
 
         public void Show(Action onDone)
         {
             On();
-            _levelUI.SetLevelFromPlayerData();
             _playButton.interactable = false;
             _popAnimator.HideAndPlay(() =>
             {
-                _levelUI.AnimateFail();
                 _playButton.interactable = true;
                 onDone?.Invoke();
             });
@@ -66,7 +66,7 @@ namespace GameCore.UI
         [ContextMenu("Debug Show")]
         public void E_Show()
         {
-            Show(() => {}, () => {});
+            Show(1,() => {}, () => {});
         }
 #endif
     }

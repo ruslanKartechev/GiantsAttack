@@ -22,7 +22,7 @@ namespace GiantsAttack
             CLog.LogRed($"{gameObject.name} Stage failed");
             UnsubFromEnemy();
             Player.Kill();
-            ResultListener.OnFailed(this);
+            ResultListener.OnStageFail(this);
         }
 
         protected virtual void SubToEnemyKill()
@@ -41,13 +41,13 @@ namespace GiantsAttack
             UnsubFromEnemy();
             _isStopped = true;
             Stop();
-            ResultListener.OnWin();
+            ResultListener.OnMainEnemyDead();
         }
 
         protected virtual void CallCompleted()
         {
             UnsubFromEnemy();
-            ResultListener.OnCompleted(this);
+            ResultListener.OnStageComplete(this);
         }
         
     }

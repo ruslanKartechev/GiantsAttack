@@ -1,5 +1,7 @@
 ﻿using System;
+using GameCore.Core;
 using SleepDev.UIUtils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +11,7 @@ namespace GameCore.UI
     {
         [SerializeField] private PopAnimator _popAnimator;
         [SerializeField] private Button _playButton;
-        [SerializeField] private LevelUI _levelUI;
-        [SerializeField] private TowerProgressUI _towerProgUI;
+        [SerializeField] private TextMeshProUGUI _levelUI;
         private Action _onPlayCallback;
         
         public GameObject Go => gameObject;
@@ -35,8 +36,9 @@ namespace GameCore.UI
             gameObject.SetActive(false);
         }
 
-        public void Show(float addedTowerProgress, Action buttonCallback, Action onDone)
+        public void Show(int level, Action buttonCallback, Action onDone)
         {
+            _levelUI.text = $"LEVEL {level}";
             _onPlayCallback = buttonCallback;
             _playButton.interactable = false;
             Show(onDone);
@@ -45,7 +47,6 @@ namespace GameCore.UI
         public void Show(Action onDone)
         {
             On();
-            _levelUI.SetLevelFromPlayerData();
             _popAnimator.HideAndPlay(() =>
             {
                 OnShowAnimated();
@@ -63,7 +64,6 @@ namespace GameCore.UI
 
         private void OnShowAnimated()
         {
-            _levelUI.AnimateWin();
         }
 
         private void AllowButton()
@@ -74,13 +74,11 @@ namespace GameCore.UI
         
         
         
-        
-        
 #if UNITY_EDITOR
         [ContextMenu("Debug Show")]
         public void E_Show()
         {
-            Show(.5f, () => { }, () => { });
+            Show(1, () => { }, () => { });
         }
 #endif
     }

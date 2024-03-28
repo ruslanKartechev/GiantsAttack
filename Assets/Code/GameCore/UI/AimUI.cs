@@ -25,7 +25,7 @@ namespace GameCore.UI
         {
             if (animated)
             {
-                _aim.transform.DOScale(Vector3.zero, animTime).SetEase(Ease.InBounce).OnComplete(() =>
+                _aim.transform.DOScale(Vector3.zero, animTime).OnComplete(() =>
                 {
                     gameObject.SetActive(false);
                 });

@@ -68,7 +68,8 @@ namespace GameCore.UI
         {
             Stop();
             _current = _directions[index];
-            _animating = StartCoroutine(Animating(_current));
+            _current.root.gameObject.SetActive(true);
+            // _animating = StartCoroutine(Animating(_current));
         }
 
         public void Stop()

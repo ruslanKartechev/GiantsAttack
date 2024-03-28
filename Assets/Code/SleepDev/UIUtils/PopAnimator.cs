@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
 
 namespace SleepDev.UIUtils
@@ -46,14 +47,35 @@ namespace SleepDev.UIUtils
         }
 
         #if UNITY_EDITOR
+        [Space(20)] 
         public float e_durationAll;
         public float e_delayAll;
         public Ease e_easeAll;
+        public List<GameObject> e_buildFrom;
 
         [ContextMenu("Play")]
         public void E_Play()
         {
             HideAndPlay();
+        }
+
+        public void E_Build()
+        {
+            _elements.Clear();
+            foreach (var go in e_buildFrom)
+            {
+                var element = go.GetComponent<PopElement>();
+                if (element == null)
+                    element = go.AddComponent<SimplePopElement>();
+                element.Delay = e_delayAll;
+                element.Duration = e_durationAll;
+                var pp = (SimplePopElement)element;
+                if(pp != null)
+                    pp.Ease = e_easeAll;
+                EditorUtility.SetDirty(element);
+                _elements.Add(element);
+            }
+            EditorUtility.SetDirty(this);
         }
         
         [ContextMenu("Hide")]
@@ -98,7 +120,42 @@ namespace SleepDev.UIUtils
                 UnityEditor.EditorUtility.SetDirty(pop);
             }
         }
-
-        #endif
+#endif
     }
+    
+    
+    
+    #if UNITY_EDITOR
+    [CustomEditor(typeof(PopAnimator))]
+    public class PopAnimatorEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            var me = target as PopAnimator;
+            var width = 150;
+            GUILayout.Space(20);
+            if (GUILayout.Button($"Play", GUILayout.Width(width)))
+            {
+                me.E_Play();
+            }            
+            if (GUILayout.Button($"Build from go", GUILayout.Width(width)))
+            {
+                me.E_Build();
+            }
+            if (GUILayout.Button($"Set Duration",GUILayout.Width(width)))
+            {
+                me.SetDurationAll();   
+            }
+            if (GUILayout.Button($"Build Delay",GUILayout.Width(width)))
+            {
+                me.SetDelayAll();
+            }
+            if (GUILayout.Button($"Build Ease", GUILayout.Width(width)))
+            {
+                me.SetEaseAll();   
+            }
+        }
+    }
+    #endif
 }

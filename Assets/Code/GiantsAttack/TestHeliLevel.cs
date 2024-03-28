@@ -7,11 +7,7 @@ using SleepDev;
 
 namespace GiantsAttack
 {
-    public class Level : MonoExtended
-    {
-        protected bool _isCompleted;
-    } 
-    public class TestHeliLevel : Level, IStageResultListener
+    public class TestHeliLevel : GameCore.Levels.Level, IStageResultListener
     {
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private PlayerCamera _camera;
@@ -20,18 +16,24 @@ namespace GiantsAttack
         [SerializeField] private List<LevelStage> _stages;
         private int _stageIndex = 0;
         
-        
         private IHelicopter _player;
         private IHitCounter _hitCounter;
         private IControlsUI _controlsUI;
         private IGameplayMenu _gameplayMenu;
+        #if UNITY_EDITOR
+        private LevelDebugger _debugger;
+        #endif
 
         private void Start()
         {
+#if UNITY_EDITOR
+            _debugger = gameObject.AddComponent<LevelDebugger>();
+            _debugger.level = this;
+#endif
             Init();
         }
 
-        public void Init()
+        public override void Init()
         {
             _controlsUI = GCon.UIFactory.GetControlsUI();
             _hitCounter = new PlayerHitCounter();
@@ -45,9 +47,43 @@ namespace GiantsAttack
             InitEnemy();
             foreach (var st in _stages)
                 InitStage(st);
-            
             _player.CameraPoints.SetCameraToOutside();
             _player.CameraPoints.MoveCameraToInside(OnCameraSet);
+            StartTiming();
+        }
+
+        public override void Win()
+        {
+            CLog.LogGreen($"{gameObject.name} Win call");
+            if (_isCompleted)
+                return;
+            _isCompleted = true;
+            StopTiming();
+            var utils = new LevelUtils();
+            var level = GCon.PlayerData.LevelTotal;
+            utils.SendWinEvent(level, _timePassed, _hitCounter);
+            utils.CallWinScreen(level);
+        }
+
+        public override void Fail()
+        {
+            if (_isCompleted)
+                return;
+            StopTiming();
+            var utils = new LevelUtils();
+            var level = GCon.PlayerData.LevelTotal;
+            utils.SendFailEvent(level, _timePassed, _hitCounter);
+            utils.CallFailScreen(level);
+        }
+
+        public override void Pause()
+        {
+            Time.timeScale = 0f;
+        }
+
+        public override void Resume()
+        {
+            Time.timeScale = 1f;
         }
 
         private void SpawnAndInitPlayer()
@@ -81,6 +117,8 @@ namespace GiantsAttack
 
         private void NextStage()
         {
+            if (_isCompleted)
+                return;
             CLog.LogGreen($"[Level] Stage competed callback");
             _stageIndex++;
             if (_stageIndex >= _stages.Count)
@@ -92,32 +130,27 @@ namespace GiantsAttack
         }
         
 
-        public void OnCompleted(LevelStage stage)
+        public void OnStageComplete(LevelStage stage)
         {
             if (_isCompleted)
                 return;
             NextStage();
         }
 
-        public void OnFailed(LevelStage stage)
+        public void OnStageFail(LevelStage stage)
         {
-            if (_isCompleted)
-                return;
+            Fail();
         }
 
-        public void OnWin()
+        public void OnMainEnemyDead()
         {
-            CLog.LogGreen($"{gameObject.name} Win call");
-            if (_isCompleted)
-                return;
-            _isCompleted = true;
-            //
+            Win();
         }
 
         private void OnAllStagesPassed()
         {
             CLog.LogGreen($"{gameObject.name} All stages passed");
-            OnWin();
+            Win();
         }
     }
 }

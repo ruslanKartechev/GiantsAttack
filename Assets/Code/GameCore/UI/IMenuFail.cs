@@ -4,7 +4,7 @@ namespace GameCore.UI
 {
     public interface IMenuFail : IUIScreen
     {
-        void Show(Action buttonCallback, Action onDone);
+        void Show(int level, Action buttonCallback, Action onDone);
 
     }
 }
