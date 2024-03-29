@@ -47,7 +47,19 @@ namespace GameCore.Cam
         {
             SetPosition(point);
             SetRotation(point);
-        }        
+        }
+
+        public void Unparent()
+        {
+            transform.parent = null;
+        }
+        
+        public void SetPointAndParent(Transform point)
+        {
+            transform.parent = point;
+            SetPosition(point);
+            SetRotation(point);
+        }       
         
         public void SetPosition(Transform point)
         {
@@ -77,6 +89,15 @@ namespace GameCore.Cam
             _processing = StartCoroutine(TransitioningToParent(point, time, callback));
         }
 
+        /// <summary>
+        /// Also unparents camera
+        /// </summary>
+        public void FollowWithOffset(Transform point)
+        {
+            StopMoving();
+            _processing = StartCoroutine(FollowingWithOffset(point));
+        }
+
         public void Wait(float time, Action onEnd)
         {
             StopMoving();
@@ -94,6 +115,16 @@ namespace GameCore.Cam
         public void Shake()
         {
             _shaker.PlayDefault();
+        }
+
+        private IEnumerator FollowingWithOffset(Transform target)
+        {
+            var offset = target.position - _movable.position;
+            while (true)
+            {
+                _movable.position = target.position + offset;
+                yield return null;
+            }
         }
         
         private IEnumerator MovingToPoint(Transform followPoint, float time, Action onEnd)

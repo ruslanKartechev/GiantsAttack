@@ -27,13 +27,13 @@ namespace GiantsAttack
 
         protected virtual void SubToEnemyKill()
         {
-            Enemy.OnKilled -= OnEnemyKilled;
-            Enemy.OnKilled += OnEnemyKilled;
+            Enemy.OnDefeated -= OnEnemyKilled;
+            Enemy.OnDefeated += OnEnemyKilled;
         }
 
         protected virtual void UnsubFromEnemy()
         {
-            Enemy.OnKilled -= OnEnemyKilled;
+            Enemy.OnDefeated -= OnEnemyKilled;
         }
         
         protected virtual void OnEnemyKilled(IMonster obj)

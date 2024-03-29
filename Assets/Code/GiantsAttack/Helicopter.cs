@@ -1,4 +1,5 @@
-﻿using SleepDev;
+﻿using System.Collections.Generic;
+using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -6,6 +7,8 @@ namespace GiantsAttack
     public class Helicopter : MonoBehaviour, IHelicopter
     {
         [SerializeField] private GameObject _gun;
+        [SerializeField] private List<Transform> _rocketPoint;
+        [SerializeField] private Transform _rocketCamPoint;
         private bool _isDead;
         
         public IHelicopterMover Mover { get; private set;}
@@ -15,7 +18,9 @@ namespace GiantsAttack
         public IHelicopterCameraPoints CameraPoints { get; private set; }
         public IDestroyer Destroyer { get; private set; }
         
-        
+        public List<Transform> RocketPoints => _rocketPoint;
+        public Transform RocketCamPoint => _rocketCamPoint;
+
         public void Init(HelicopterInitArgs args)
         {
             Mover = GetComponent<IHelicopterMover>();
@@ -47,5 +52,6 @@ namespace GiantsAttack
             Shooter.StopShooting();
             Destroyer.DestroyMe();
         }
+
     }
 }

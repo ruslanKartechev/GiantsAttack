@@ -25,8 +25,9 @@ namespace GiantsAttack
         public IHealth Health => _health;
         public IMonsterAnimEventReceiver AnimEventReceiver => _eventReceiver;
         public BodySectionsManager BodySectionsManager => _sectionsManager;
-        
-        public event Action<IMonster> OnKilled;
+        public Transform Point => transform;
+
+        public event Action<IMonster> OnDefeated;
         
         
         public void Init(IBodySectionsUI ui)
@@ -44,24 +45,30 @@ namespace GiantsAttack
 
         public void Kill()
         {
-            CLog.Log($"{gameObject.name} Kill call");
+            CLog.Log($"{gameObject.name} Kill");
             if (_isDead)
                 return;
             _isDead = true;
             Destroyer.DestroyMe();
             _health.HideDisplay();
             _health.SetDamageable(false);
-            OnKilled?.Invoke(this);
         }
 
+        public void PreKillState()
+        {
+            CLog.Log($"{gameObject.name} Prekill");
+            _animator.Play("Prekill");
+            _health.HideDisplay();
+            _health.SetDamageable(false);
+            OnDefeated?.Invoke(this);
+
+        }
+        
         public void Idle()
         {
             _animator.SetTrigger("Idle");
         }
 
-        public void Attack(Transform target)
-        {
-        }
 
         public void Roar()
         {
@@ -76,7 +83,7 @@ namespace GiantsAttack
         private void OnHealthOut(IDamageable obj)
         {
             _health.OnDead -= OnHealthOut;
-            Kill();
+            PreKillState();
         }
 
     }

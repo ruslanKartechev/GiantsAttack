@@ -14,6 +14,7 @@ namespace GiantsAttack
         [SerializeField] private HelicopterInitArgs _initArgs;
         [SerializeField] private MonsterController _monster;
         [SerializeField] private List<LevelStage> _stages;
+        [SerializeField] private LevelFinalSequence _finalSequence;
         private int _stageIndex = 0;
         
         private IHelicopter _player;
@@ -60,7 +61,7 @@ namespace GiantsAttack
             _isCompleted = true;
             StopTiming();
             var utils = new LevelUtils();
-            var level = GCon.PlayerData.LevelTotal;
+            var level = GCon.PlayerData.LevelTotal+1;
             utils.SendWinEvent(level, _timePassed, _hitCounter);
             utils.CallWinScreen(level);
         }
@@ -71,9 +72,18 @@ namespace GiantsAttack
                 return;
             StopTiming();
             var utils = new LevelUtils();
-            var level = GCon.PlayerData.LevelTotal;
+            var level = GCon.PlayerData.LevelTotal+1;
             utils.SendFailEvent(level, _timePassed, _hitCounter);
             utils.CallFailScreen(level);
+        }
+
+        private void LaunchFinalSequence()
+        {
+            CLog.LogGreen($"{gameObject.name} LaunchFinalSequence");
+            _finalSequence.Enemy = _monster;
+            _finalSequence.Player = _player;
+            _finalSequence.Camera = _camera;
+            _finalSequence.Begin(Win);
         }
 
         public override void Pause()
@@ -144,13 +154,13 @@ namespace GiantsAttack
 
         public void OnMainEnemyDead()
         {
-            Win();
+            LaunchFinalSequence();
         }
 
         private void OnAllStagesPassed()
         {
             CLog.LogGreen($"{gameObject.name} All stages passed");
-            Win();
+            LaunchFinalSequence();
         }
     }
 }

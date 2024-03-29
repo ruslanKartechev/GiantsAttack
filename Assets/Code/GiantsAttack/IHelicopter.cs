@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace GiantsAttack
 {
     public interface IHelicopter
@@ -11,7 +14,8 @@ namespace GiantsAttack
         IDestroyer Destroyer { get; }
         void Init(HelicopterInitArgs args);
         void Kill();
-
+        List<Transform> RocketPoints { get; }
+        Transform RocketCamPoint { get; }
     }
     
 }
