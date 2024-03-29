@@ -44,6 +44,12 @@ namespace GiantsAttack
             _compas.BeginTracking(args.enemyTransform);
         }
 
+        public void StopAll()
+        {
+            Shooter.StopShooting();
+            Aimer.StopAim();
+        }
+        
         public void Kill()
         {
             if (_isDead)

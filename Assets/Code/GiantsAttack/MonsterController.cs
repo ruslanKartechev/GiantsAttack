@@ -56,6 +56,7 @@ namespace GiantsAttack
                 return;
             _isDead = true;
             Destroyer.DestroyMe();
+            _health.SetDamageable(false);
             _health.HideDisplay();
             _health.SetDamageable(false);
         }

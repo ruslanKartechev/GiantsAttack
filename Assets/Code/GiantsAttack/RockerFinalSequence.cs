@@ -22,6 +22,7 @@ namespace GiantsAttack
         
         public override void Begin(Action callback)
         {
+            Player.StopAll();
             _endCallback = callback;
             Enemy.PreKillState();
             Delay(OnEnemyAnimated, _afterEnemyAnimationDelay);
@@ -29,7 +30,8 @@ namespace GiantsAttack
 
         private void OnEnemyAnimated()
         {
-            Player.Mover.RotateToLook(Enemy.Point,_helicopterRotTime, OnRotated,true);
+            OnRotated();
+            // Player.Mover.RotateToLook(Enemy.Point,_helicopterRotTime, OnRotated,true);
         }
 
         private void OnRotated()

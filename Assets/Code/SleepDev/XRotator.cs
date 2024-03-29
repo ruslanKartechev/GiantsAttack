@@ -9,9 +9,10 @@ namespace SleepDev
 
         private void Update()
         {
-            var angles = _target.localEulerAngles;
-            angles.x += _speed * Time.deltaTime;
-            _target.localEulerAngles = angles;
+            // var angles = _target.localEulerAngles;
+            // angles.x += _speed * Time.deltaTime;
+            // _target.localEulerAngles = angles;
+            _target.localRotation *= Quaternion.Euler( _speed * Time.deltaTime, 0f, 0f);
         }
     }
 }

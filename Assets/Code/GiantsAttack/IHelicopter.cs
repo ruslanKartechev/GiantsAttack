@@ -15,6 +15,7 @@ namespace GiantsAttack
         IBodySectionsUI BodySectionsUI { get; }
         IDestroyer Destroyer { get; }
         void Init(HelicopterInitArgs args);
+        void StopAll();
         void Kill();
         List<Transform> RocketPoints { get; }
         Transform RocketCamPoint { get; }
