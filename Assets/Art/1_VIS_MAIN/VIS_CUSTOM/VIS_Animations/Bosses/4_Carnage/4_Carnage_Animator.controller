@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1102 &-8975209664346639850
+--- !u!1102 &-7976271083755732938
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Jump_AOE
+  m_Name: 4_Carnage_Throw
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -20,20 +20,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 07c9231fe5d349449881a77b3dc4df08, type: 2}
+  m_Motion: {fileID: 7400000, guid: a23ccc10904ceb246b0cd2302c3ec417, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-6690088158598506215
+--- !u!1102 &-4160487941784713510
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Punchforward
+  m_Name: 4_Carnage_Death
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -46,33 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d2031953c0d91b94c91332dbf44c089d, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &-6113767806624773631
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Run
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: de185178690cd6b45951b5ddbe8c8b26, type: 2}
+  m_Motion: {fileID: 7400000, guid: 3400722b288e5c0478539cf20e4c51ef, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -104,14 +78,14 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-1029510943542255174
+--- !u!1102 &-1276497586908031151
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Throw
+  m_Name: 4_Carnage_Punch
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -124,7 +98,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b4fdbc17cf16cb64e9459b05896c3e9e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4ec7bee949cf73344b7fb28174d11849, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -152,14 +126,14 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &797784839447720991
+--- !u!1102 &1654036851503153479
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Death1
+  m_Name: 4_Carnage_Punchforward
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -172,20 +146,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 20ffa2b776fe5844f9037218dfa02d85, type: 2}
+  m_Motion: {fileID: 7400000, guid: eef2b8125eec3e04fb5c1ebf43479d0e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &2936259345539685656
+--- !u!1102 &1870317097324668418
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Punch
+  m_Name: 4_Carnage_Kick
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -198,20 +172,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 6714396c91a714648a99812284069772, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4733b70f53ad91d4ca3e4e1015520df2, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &3401354229339606544
+--- !u!1102 &2936316020034617550
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Idle
+  m_Name: 4_Carnage_PickUpThrow
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -224,20 +198,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 80a2cfbf530c7c64c8ea33aef124954f, type: 2}
+  m_Motion: {fileID: 7400000, guid: 463e5df9da345be44ab2458ef2578bb0, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &4099823706862681836
+--- !u!1102 &3563548859212038841
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_PickUpThrow
+  m_Name: 4_Carnage_Jump_AOE
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -250,20 +224,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 44483ae8080ff0a459c587dcc80c77c5, type: 2}
+  m_Motion: {fileID: 7400000, guid: 57c0fb5996806854f82e62926eebcecf, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &6227706964779451906
+--- !u!1102 &5358522671174215583
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Kick
+  m_Name: 4_Carnage_Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -276,7 +250,85 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 292e5142bb0356f4e8bf8677c2dca857, type: 2}
+  m_Motion: {fileID: 7400000, guid: 333dc6ebbd69f064a96a4cd88e3f6709, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &5753017361539054290
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 4_Carnage_Run
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 57ee04ca21d64ac4496bc26d7bbb1f08, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &6624142545209280435
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 4_Carnage_PickUp
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 24af681bd22147f4a9e9e337b11b0f9f, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &6868692493306179673
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 4_Carnage_Death1
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 3da685a272fa93a498f7673cd8b95dc1, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -295,41 +347,41 @@ AnimatorStateMachine:
     m_State: {fileID: -1492697334642645661}
     m_Position: {x: 190, y: 90, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 8078486975608746050}
-    m_Position: {x: -264.27826, y: 166.30688, z: 0}
+    m_State: {fileID: -4160487941784713510}
+    m_Position: {x: -270, y: 180, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 797784839447720991}
+    m_State: {fileID: 6868692493306179673}
     m_Position: {x: -270, y: 250, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 3401354229339606544}
+    m_State: {fileID: 3563548859212038841}
+    m_Position: {x: -270, y: 320, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 5358522671174215583}
     m_Position: {x: -30, y: 210, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -8975209664346639850}
-    m_Position: {x: -270, y: 330, z: 0}
+    m_State: {fileID: 7285445952636240186}
+    m_Position: {x: -30, y: 290, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 6227706964779451906}
-    m_Position: {x: 230, y: 160, z: 0}
+    m_State: {fileID: 5753017361539054290}
+    m_Position: {x: -30, y: 360, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 9025065806608808844}
-    m_Position: {x: 550, y: 180, z: 0}
+    m_State: {fileID: 1870317097324668418}
+    m_Position: {x: 230, y: 170, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 4099823706862681836}
-    m_Position: {x: 550, y: 350, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 2936259345539685656}
+    m_State: {fileID: -1276497586908031151}
     m_Position: {x: 230, y: 240, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -6690088158598506215}
+    m_State: {fileID: 1654036851503153479}
     m_Position: {x: 230, y: 320, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -6113767806624773631}
-    m_Position: {x: -30, y: 370, z: 0}
+    m_State: {fileID: 6624142545209280435}
+    m_Position: {x: 550, y: 190, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -1029510943542255174}
+    m_State: {fileID: -7976271083755732938}
     m_Position: {x: 550, y: 260, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 8903361233130677153}
-    m_Position: {x: -30, y: 290, z: 0}
+    m_State: {fileID: 2936316020034617550}
+    m_Position: {x: 550, y: 330, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -340,14 +392,14 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -1492697334642645661}
---- !u!1102 &8078486975608746050
+--- !u!1102 &7285445952636240186
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Death
+  m_Name: 4_Carnage_Walk
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -360,59 +412,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0131f5d8f48ac3d4080f4bb11214462e, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &8903361233130677153
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_Walk
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 877bfaeeae6c9d4428310b80a3d12e64, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &9025065806608808844
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 3_IronMan_PickUp
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 8c1d8daa73b3c67439bc242cf3ef9205, type: 2}
+  m_Motion: {fileID: 7400000, guid: ac18f87bcc186c14ba3f4761a60a974e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
