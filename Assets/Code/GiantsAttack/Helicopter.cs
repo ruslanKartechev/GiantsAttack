@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameCore.UI;
 using SleepDev;
 using UnityEngine;
 
@@ -9,15 +10,18 @@ namespace GiantsAttack
         [SerializeField] private GameObject _gun;
         [SerializeField] private List<Transform> _rocketPoint;
         [SerializeField] private Transform _rocketCamPoint;
+        [SerializeField] private PlayerAltitudeMeter _altitudeMeter;
+        [SerializeField] private PlayerCompas _compas;
+        [SerializeField] private BodySectionsUI _bodySectionsUI;
         private bool _isDead;
-        
+
         public IHelicopterMover Mover { get; private set;}
         public IHelicopterShooter Shooter { get; private set; }
         public IHelicopterAimer Aimer { get; private set;}
         public IDamageable Damageable { get; private set; }
         public IHelicopterCameraPoints CameraPoints { get; private set; }
         public IDestroyer Destroyer { get; private set; }
-        
+        public IBodySectionsUI BodySectionsUI => _bodySectionsUI;
         public List<Transform> RocketPoints => _rocketPoint;
         public Transform RocketCamPoint => _rocketCamPoint;
 
@@ -35,8 +39,9 @@ namespace GiantsAttack
             Shooter.Init(args.shooterSettings, args.hitCounter);
             var gun = _gun.GetComponent<IHelicopterGun>();
             Shooter.Gun = gun;
-            // Aimer.SetInitialRotation();
             CameraPoints.SetCamera(args.camera);
+            _altitudeMeter.Begin();
+            _compas.BeginTracking(args.enemyTransform);
         }
 
         public void Kill()

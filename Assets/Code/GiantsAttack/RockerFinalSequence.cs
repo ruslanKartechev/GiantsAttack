@@ -15,7 +15,8 @@ namespace GiantsAttack
         [SerializeField] private float _rocketMoveTime;
         [SerializeField] private float _rocketOffset;
         [Space(10)] 
-        [SerializeField] private float _callDelay;        
+        [SerializeField] private float _endCallbackDelay;        
+        [SerializeField] private float _afterEnemyAnimationDelay;
         private Action _endCallback;
         
         
@@ -23,6 +24,11 @@ namespace GiantsAttack
         {
             _endCallback = callback;
             Enemy.PreKillState();
+            Delay(OnEnemyAnimated, _afterEnemyAnimationDelay);
+        }
+
+        private void OnEnemyAnimated()
+        {
             Player.Mover.RotateToLook(Enemy.Point,_helicopterRotTime, OnRotated,true);
         }
 
@@ -71,7 +77,7 @@ namespace GiantsAttack
         {
             CLog.LogRed($"Rocket hit");
             Enemy.Kill();
-            Invoke(nameof(RaiseCallback), _callDelay);
+            Invoke(nameof(RaiseCallback), _endCallbackDelay);
         }
 
         private void RaiseCallback()

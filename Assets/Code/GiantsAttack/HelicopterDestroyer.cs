@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameCore.Cam;
 using SleepDev;
+using SleepDev.Ragdoll;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -11,6 +12,7 @@ namespace GiantsAttack
         [SerializeField] private List<MonoBehaviour> _rotators;
         [SerializeField] private ByPartsDestroyer _byParts;
         [SerializeField] private ParticleSystem _particles;
+
         
         public void DestroyMe()
         {

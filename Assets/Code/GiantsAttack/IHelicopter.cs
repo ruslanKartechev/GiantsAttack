@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using GameCore.UI;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -11,6 +12,7 @@ namespace GiantsAttack
         IHelicopterAimer Aimer { get; }
         IDamageable Damageable { get; }
         IHelicopterCameraPoints CameraPoints { get; }
+        IBodySectionsUI BodySectionsUI { get; }
         IDestroyer Destroyer { get; }
         void Init(HelicopterInitArgs args);
         void Kill();

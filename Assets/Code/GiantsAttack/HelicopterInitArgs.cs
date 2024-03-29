@@ -1,5 +1,6 @@
 ﻿using GameCore.Cam;
 using GameCore.UI;
+using UnityEngine;
 
 namespace GiantsAttack
 {
@@ -9,6 +10,7 @@ namespace GiantsAttack
         public AimerSettings aimerSettings;
         public ShooterSettings shooterSettings;
         public MoverSettings moverSettings;
+        public Transform enemyTransform;
         
         public IHitCounter hitCounter;
         public IPlayerCamera camera;

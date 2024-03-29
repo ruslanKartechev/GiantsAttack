@@ -49,7 +49,7 @@ namespace GiantsAttack
             foreach (var st in _stages)
                 InitStage(st);
             _player.CameraPoints.SetCameraToOutside();
-            _player.CameraPoints.MoveCameraToInside(OnCameraSet);
+            _player.CameraPoints.MoveCameraToInside(BeginLevel);
             StartTiming();
         }
 
@@ -84,6 +84,7 @@ namespace GiantsAttack
             _finalSequence.Player = _player;
             _finalSequence.Camera = _camera;
             _finalSequence.Begin(Win);
+            _gameplayMenu.Hide(() => {});
         }
 
         public override void Pause()
@@ -98,6 +99,7 @@ namespace GiantsAttack
 
         private void SpawnAndInitPlayer()
         {
+            _initArgs.enemyTransform = _monster.Point;
             var spawner = new HelicopterSpawner();
             var player = spawner.SpawnAt(_playerSpawnPoint, _playerSpawnPoint.parent);
             player.Init(_initArgs);
@@ -107,14 +109,14 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
-            _gameplayMenu.AddBodySectionsUI(_monster.BodySectionsManager.UIPrefab);
-            _monster.Init(_gameplayMenu.EnemyBodySectionsUI);
+            // _gameplayMenu.AddBodySectionsUI(_monster.BodySectionsManager.UIPrefab);
+            _monster.Init(_player.BodySectionsUI);
         }
 
-        private void OnCameraSet()
+        private void BeginLevel()
         {
-            // _stages[_stageIndex].Activate();
-            LaunchFinalSequence();
+            _stages[_stageIndex].Activate();
+            // LaunchFinalSequence();
         }
 
         private void InitStage(LevelStage stage)

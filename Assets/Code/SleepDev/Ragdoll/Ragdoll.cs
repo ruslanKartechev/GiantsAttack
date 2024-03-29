@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SleepDev.Utils;
+using TMPro;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,8 +12,11 @@ namespace SleepDev.Ragdoll
     {
         public List<RagdollPart> parts;
         public List<Transform> ignoredParents;
-        public int layerToSet;
-
+        [Header("Editor")]
+        [SerializeField] private int e_layerToSet;
+        [SerializeField] private float e_massToSet;
+        public int E_layerToSet => e_layerToSet;
+        
         public override bool IsActive { get; protected set; }
 
         public override void Activate()
@@ -69,7 +73,7 @@ namespace SleepDev.Ragdoll
         public void SetLayer()
         {
             foreach (var part in parts)
-                part.rb.gameObject.layer = layerToSet;
+                part.rb.gameObject.layer = e_layerToSet;
         }
 
         public void SetCollidersOnly()
@@ -99,7 +103,7 @@ namespace SleepDev.Ragdoll
         }
         
 #if UNITY_EDITOR
-        public void GetAllParts()
+        public void E_GetParts()
         {
             ignoredParents.RemoveAll(t => t == null);
             var gos = GameUtils.GetFromAllChildren<Transform>(transform, (tr) =>
@@ -126,11 +130,13 @@ namespace SleepDev.Ragdoll
                     collider =  go.GetComponent<Collider>(),
                     name = go.name
                 };
+                UnityEditor.EditorUtility.SetDirty(go);
                 parts.Add(part);
             }
+            UnityEditor.EditorUtility.SetDirty(this);
         }
         
-        public void DestroyAll()
+        public void E_DestroyAll()
         {
             foreach (var pp in parts)
             {
@@ -142,31 +148,46 @@ namespace SleepDev.Ragdoll
                     DestroyImmediate(pp.rb);
                 if(pp.collider != null)
                     DestroyImmediate(pp.collider);
+                UnityEditor.EditorUtility.SetDirty(pp.rb.gameObject);
             }
             parts.Clear();
+            UnityEditor.EditorUtility.SetDirty(this);
         }
         
-        public void SetAllInterpolate()
-        {
-            foreach (var part in parts)
-                part.rb.interpolation = RigidbodyInterpolation.Interpolate;
-        }
-        
-        public void SetAllExtrapolate()
-        {
-            foreach (var part in parts)
-                part.rb.interpolation = RigidbodyInterpolation.Extrapolate;
-        }
-
-        public void SetAllNoInterpolate()
+        public void E_SetInterpolate()
         {
             foreach (var part in parts)
             {
-                part.rb.interpolation = RigidbodyInterpolation.None;
+                if(part.rb == null)
+                    continue;
+                part.rb.interpolation = RigidbodyInterpolation.Interpolate;
+                UnityEditor.EditorUtility.SetDirty(part.rb);
             }
         }
         
-        public void SetProjection()
+        public void E_SetExtrapolate()
+        {
+            foreach (var part in parts)
+            {
+                if(part.rb == null)
+                    continue;
+                part.rb.interpolation = RigidbodyInterpolation.Extrapolate;
+                UnityEditor.EditorUtility.SetDirty(part.rb);
+            }
+        }
+
+        public void E_SetNoInterpolate()
+        {
+            foreach (var part in parts)
+            {
+                if(part.rb == null)
+                    continue;
+                part.rb.interpolation = RigidbodyInterpolation.None;
+                UnityEditor.EditorUtility.SetDirty(part.rb);
+            }
+        }
+        
+        public void E_SetProjection()
         {
             foreach (var part in parts)
             {
@@ -174,10 +195,11 @@ namespace SleepDev.Ragdoll
                 if(joint == null)
                     continue;
                 joint.enableProjection = true;
+                UnityEditor.EditorUtility.SetDirty(joint);
             }
         }
 
-        public void SetNoProjection()
+        public void E_SetNoProjection()
         {
             foreach (var part in parts)
             {
@@ -185,16 +207,29 @@ namespace SleepDev.Ragdoll
                 if(joint == null)
                     continue;
                 joint.enableProjection = false;
+                UnityEditor.EditorUtility.SetDirty(joint);
             }
         }
         
-        public void SetAllPreprocess(bool preprocess)
+        public void E_SetPreprocessAll(bool preprocess)
         {
             foreach (var part in parts)
             {
                 var joint = part.rb.gameObject.GetComponent<Joint>();
                 if(joint != null)
                     joint.enablePreprocessing = preprocess;
+                UnityEditor.EditorUtility.SetDirty(joint);
+            }
+        }
+
+        public void E_SetMassAll()
+        {
+            foreach (var part in parts)
+            {
+                if(part.rb == null)
+                    continue;
+                part.rb.mass = e_massToSet;
+                UnityEditor.EditorUtility.SetDirty(part.rb);
             }
         }
 #endif

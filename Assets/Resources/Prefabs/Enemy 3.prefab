@@ -73,12 +73,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7720101877807912582}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.035990983, y: -3.5403142e-11, z: -4.3465457e-12, w: 0.99935216}
-  m_LocalPosition: {x: -4.41, y: -2.23, z: 0.39}
-  m_LocalScale: {x: 0.59192604, y: 0.59192616, z: 0.59192604}
+  m_LocalRotation: {x: 0.035990987, y: -3.5470297e-11, z: -7.30438e-12, w: 0.99935216}
+  m_LocalPosition: {x: -4.4000006, y: -3.6362815, z: 0}
+  m_LocalScale: {x: 0.591926, y: 0.59192616, z: 0.591926}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7712681211053979532}
+  m_Father: {fileID: 3417979088534702765}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7874933819084568038
 GameObject:
@@ -104,12 +104,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7874933819084568038}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.035990983, y: -3.5403142e-11, z: -4.3465457e-12, w: 0.99935216}
-  m_LocalPosition: {x: 2.9602025, y: -1.9170847, z: 0.41617864}
-  m_LocalScale: {x: 0.59192604, y: 0.59192616, z: 0.59192604}
+  m_LocalRotation: {x: 0.035990987, y: -3.5470297e-11, z: -7.30438e-12, w: 0.99935216}
+  m_LocalPosition: {x: 3, y: -3.3362813, z: 0}
+  m_LocalScale: {x: 0.591926, y: 0.59192616, z: 0.591926}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7712681211053979532}
+  m_Father: {fileID: 3417979088534702765}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3721485897886623386
 PrefabInstance:
@@ -971,11 +971,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5974284752809644822}
-    - targetCorrespondingSourceObject: {fileID: 6389953689177280790, guid: 220cf7f667c34b14a8c7891c67242153,
+    - targetCorrespondingSourceObject: {fileID: 2074548007390112823, guid: 220cf7f667c34b14a8c7891c67242153,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 337933334587425061}
-    - targetCorrespondingSourceObject: {fileID: 6389953689177280790, guid: 220cf7f667c34b14a8c7891c67242153,
+    - targetCorrespondingSourceObject: {fileID: 2074548007390112823, guid: 220cf7f667c34b14a8c7891c67242153,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5189561892726580935}
@@ -1186,8 +1186,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.89, y: 5.93, z: 5.59}
-  m_Center: {x: 0, y: -2.45, z: 0}
+  m_Size: {x: 9.890003, y: 5.324807, z: 5.59}
+  m_Center: {x: 0.000000004883096, y: -2.7525916, z: -0.000000018154287}
 --- !u!54 &3247306861650322866
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1196,7 +1196,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904333087169993256}
   serializedVersion: 4
-  m_Mass: 3.125
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1252,7 +1252,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -1310,7 +1310,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2390268050902994692}
   serializedVersion: 4
-  m_Mass: 1.875
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1366,7 +1366,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -1387,6 +1387,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c771dddd7bdf4b7583ea796db0c42d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3417979088534702765 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2074548007390112823, guid: 220cf7f667c34b14a8c7891c67242153,
+    type: 3}
+  m_PrefabInstance: {fileID: 3721485897886623386}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3501241739124916402 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 230729745932199464, guid: 220cf7f667c34b14a8c7891c67242153,
@@ -1424,7 +1430,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3501241739124916402}
   serializedVersion: 4
-  m_Mass: 1.25
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1480,7 +1486,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -1546,26 +1552,27 @@ MonoBehaviour:
     name: mixamorig:Spine2
   - collider: {fileID: 1270342169390217291}
     rb: {fileID: 6747126213730521107}
-    push: 0
+    push: 1
     name: mixamorig:LeftArm
   - collider: {fileID: 1440086892772351938}
     rb: {fileID: 1995895142169752246}
-    push: 0
+    push: 1
     name: mixamorig:LeftForeArm
   - collider: {fileID: 7579539690839511457}
     rb: {fileID: 3556832495647407921}
-    push: 0
+    push: 1
     name: mixamorig:Head
   - collider: {fileID: 8481241470923611422}
     rb: {fileID: 7096074521444946921}
-    push: 0
+    push: 1
     name: mixamorig:RightArm
   - collider: {fileID: 8991476108179051978}
     rb: {fileID: 8409324395317196297}
-    push: 0
+    push: 1
     name: mixamorig:RightForeArm
   ignoredParents: []
-  layerToSet: 0
+  e_layerToSet: 0
+  e_massToSet: 10
 --- !u!114 &8032118843718396566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1621,7 +1628,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5958541248653194043}
   serializedVersion: 4
-  m_Mass: 1.875
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1677,7 +1684,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -1735,7 +1742,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6854832730236701428}
   serializedVersion: 4
-  m_Mass: 1.25
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1791,7 +1798,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -1849,7 +1856,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7192326105733611931}
   serializedVersion: 4
-  m_Mass: 1.875
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1905,7 +1912,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -1951,8 +1958,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 8.84, y: 3.81, z: 5.0373263}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 8.84, y: 2.11, z: 5.0373263}
+  m_Center: {x: -2.9011574e-12, y: -0.36051103, z: -1.7081693e-12}
 --- !u!54 &5249549105977763312
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1961,7 +1968,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7521331229616741403}
   serializedVersion: 4
-  m_Mass: 3.125
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1992,12 +1999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c771dddd7bdf4b7583ea796db0c42d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &7712681211053979532 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6389953689177280790, guid: 220cf7f667c34b14a8c7891c67242153,
-    type: 3}
-  m_PrefabInstance: {fileID: 3721485897886623386}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7868157804838860889 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6815090153070747331, guid: 220cf7f667c34b14a8c7891c67242153,
@@ -2035,7 +2036,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7868157804838860889}
   serializedVersion: 4
-  m_Mass: 1.875
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2091,7 +2092,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -2149,7 +2150,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7880424647300107414}
   serializedVersion: 4
-  m_Mass: 1.25
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2205,7 +2206,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -2261,7 +2262,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8421638049948108833}
   serializedVersion: 4
-  m_Mass: 1.25
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2317,7 +2318,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -2375,7 +2376,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8630185463411573400}
   serializedVersion: 4
-  m_Mass: 1.25
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2431,7 +2432,7 @@ CharacterJoint:
     limit: 0
     bounciness: 0
     contactDistance: 0
-  m_EnableProjection: 0
+  m_EnableProjection: 1
   m_ProjectionDistance: 0.1
   m_ProjectionAngle: 180
   m_BreakForce: Infinity
@@ -2719,8 +2720,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e810b275183b4c3fa0bfe1139954051e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pushForce: 60
+  _pushForceUp: 45
   _killTriggerName: Die
   _animator: {fileID: 8790522193476531784}
+  _ragdoll: {fileID: 3358741654266093632}
 --- !u!4 &8649438891392773173 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3679215892950861318, guid: 761de7a689409614fbe21894075cdda3,

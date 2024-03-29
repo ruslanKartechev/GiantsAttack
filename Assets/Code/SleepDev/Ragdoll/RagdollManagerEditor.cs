@@ -16,7 +16,7 @@ namespace SleepDev.Ragdoll
             GUILayout.BeginHorizontal();
             if (EU.ButtonMidSize("Get", Color.cyan))
             {
-                me.GetAllParts();
+                me.E_GetParts();
                 EditorUtility.SetDirty(me);
             }
             if (EU.ButtonMidSize("On", Color.green))
@@ -37,65 +37,77 @@ namespace SleepDev.Ragdoll
             GUILayout.EndHorizontal();
             GUILayout.Space((10));
             
-            EU.Label("Interpolate", Color.white, 'c', true);
+            EU.Label("Interpolate", Color.white, 'l', true);
             GUILayout.BeginHorizontal();
             if (EU.ButtonSmall("I", Color.green))
             {
-                me.SetAllInterpolate();   
+                me.E_SetInterpolate();   
                 EditorUtility.SetDirty(me);
             }
             if (EU.ButtonSmall("E", Color.yellow))
             {
-                me.SetAllExtrapolate();   
+                me.E_SetExtrapolate();   
                 EditorUtility.SetDirty(me);
             }
             if (EU.ButtonSmall("N", Color.red))
             {
-                me.SetAllNoInterpolate();   
+                me.E_SetNoInterpolate();   
                 EditorUtility.SetDirty(me);
             }
             GUILayout.EndHorizontal();
             
             GUILayout.Space((10));
 
-            EU.Label("Projection", Color.white, 'c', true);
             GUILayout.BeginHorizontal();
-            if (EU.ButtonSmall("Y", Color.green))
             {
-                me.SetProjection();   
-                EditorUtility.SetDirty(me);
-            }       
-            if (EU.ButtonSmall("N", Color.red))
-            {
-                me.SetNoProjection();   
-                EditorUtility.SetDirty(me);
+                GUILayout.BeginVertical();
+                EU.Label("Projection", Color.white, 'l', true);
+                GUILayout.BeginHorizontal();
+                if (EU.ButtonSmall("Y", Color.green))
+                {
+                    me.E_SetProjection();   
+                    EditorUtility.SetDirty(me);
+                }       
+                if (EU.ButtonSmall("N", Color.red))
+                {
+                    me.E_SetNoProjection();   
+                    EditorUtility.SetDirty(me);
+                }
+                GUILayout.EndHorizontal();
+                GUILayout.EndVertical();
+                
+                GUILayout.BeginVertical();
+                EU.Label("Preprocessing", Color.white, 'l', true);
+                GUILayout.BeginHorizontal();
+                if (EU.ButtonSmall("Y", Color.green))
+                {
+                    me.E_SetPreprocessAll(true);
+                    EditorUtility.SetDirty(me);
+                }       
+                if (EU.ButtonSmall("N", Color.red))
+                {
+                    me.E_SetPreprocessAll(false);
+                    EditorUtility.SetDirty(me);
+                }
+                GUILayout.EndHorizontal();
+                GUILayout.EndVertical();
             }
             GUILayout.EndHorizontal();
             
-            EU.Label("Preprocessing", Color.white, 'c', true);
+            GUILayout.Space(15);
             GUILayout.BeginHorizontal();
-            if (EU.ButtonSmall("Y", Color.green))
-            {
-                me.SetAllPreprocess(true);
-                EditorUtility.SetDirty(me);
-            }       
-            if (EU.ButtonSmall("N", Color.red))
-            {
-                me.SetAllPreprocess(false);
-                EditorUtility.SetDirty(me);
-            }
-            GUILayout.EndHorizontal();
-            
-            GUILayout.Space(5);
-            if (EU.ButtonBig($"Set Layer {me.layerToSet}", Color.green))
+            if (EU.ButtonBig($"Set Layer {me.E_layerToSet}", Color.green))
                 me.SetLayer();
+            if (EU.ButtonBig($"Set Mass", Color.yellow))
+                me.E_SetMassAll();
+            GUILayout.EndHorizontal();
             
-            GUILayout.Space((10));
+            GUILayout.Space(15);
 
             GUILayout.BeginHorizontal();
             GUILayout.Space(100);
-            if (EU.ButtonBig($"! CLEAR !", Color.red))
-                me.DestroyAll();
+            if (EU.ButtonBig($"! DELETE !", Color.red))
+                me.E_DestroyAll();
             GUILayout.EndHorizontal();
             
             GUILayout.Space((10));

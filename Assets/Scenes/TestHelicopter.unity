@@ -564,9 +564,13 @@ MonoBehaviour:
       speed: 170
     moverSettings:
       angularSpeed: 4
+    enemyTransform: {fileID: 0}
   _monster: {fileID: 5227457298314919639}
   _stages:
   - {fileID: 204078339}
+  - {fileID: 562594468}
+  - {fileID: 566695115}
+  - {fileID: 903142407}
   _finalSequence: {fileID: 204453639}
 --- !u!114 &204453638
 MonoBehaviour:
@@ -595,13 +599,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1cf52e41f84ad8ac352d0a61077881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _helicopterRotTime: 0.3
-  _cameraMoveTime: 1.8
-  _cameraOffset: 60
+  _helicopterRotTime: 0.2
+  _cameraMoveTime: 1.7
+  _cameraOffset: 70
   _cameraSendDelay: 0.3
-  _rocketMoveTime: 2
-  _rocketOffset: 10
-  _callDelay: 1.2
+  _rocketMoveTime: 1.8
+  _rocketOffset: 9
+  _endCallbackDelay: 1.4
+  _afterEnemyAnimationDelay: 0.5
 --- !u!1 &249620067
 GameObject:
   m_ObjectHideFlags: 0
@@ -3507,6 +3512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.30380893
+      objectReference: {fileID: 0}
+    - target: {fileID: 8900326594782475660, guid: 985fe1995e577d04783d09d857209da3,
+        type: 3}
+      propertyPath: _pushForce
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 9048490595088789256, guid: 985fe1995e577d04783d09d857209da3,
         type: 3}
