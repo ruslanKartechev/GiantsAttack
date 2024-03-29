@@ -16,6 +16,7 @@ namespace GiantsAttack
             _trail.gameObject.SetActive(true);
             _trail.Play();
             _model.gameObject.SetActive(true);
+            transform.rotation = Quaternion.LookRotation(endPoint - transform.position);
             StartCoroutine(Flying(endPoint, time, onEnd));
 
         }

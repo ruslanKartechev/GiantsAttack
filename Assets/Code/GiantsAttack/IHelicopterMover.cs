@@ -13,7 +13,7 @@ namespace GiantsAttack
         void BeginAnimating();
         void StopAnimating();
         void StopAll();
-        public void RotateToLook(Transform lookAt, float time);
+        public void RotateToLook(Transform lookAt, float time, Action onEnd, bool centerInternal = true);
         public void StopRotating();
 
         public void MoveTo(Transform point, float time, AnimationCurve curve, Action callback);

@@ -76,7 +76,7 @@ namespace GameCore.Cam
             StopMoving();
             _processing = StartCoroutine(MovingToPoint(point, time, onEnd));
         }
-
+        
         public void MoveToPointToFollow(Transform point, float time, Action callback)
         {
             StopMoving();
@@ -122,7 +122,7 @@ namespace GameCore.Cam
             var offset = target.position - _movable.position;
             while (true)
             {
-                _movable.position = target.position + offset;
+                _movable.position = target.position - offset;
                 yield return null;
             }
         }

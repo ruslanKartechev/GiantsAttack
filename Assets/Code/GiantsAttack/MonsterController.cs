@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameCore.UI;
 using SleepDev;
 using SleepDev.Ragdoll;
@@ -17,6 +18,9 @@ namespace GiantsAttack
         [SerializeField] private MonsterAnimEventReceiver _eventReceiver;
         [SerializeField] private BodySectionsManager _sectionsManager;
         [SerializeField] private Ragdoll _ragdoll;
+        [SerializeField] private Transform _lookAtPoint;
+        [SerializeField] private List<Transform> _damagePoints;
+
         private bool _isDead;
         
         public IDestroyer Destroyer { get; private set; }
@@ -26,6 +30,8 @@ namespace GiantsAttack
         public IMonsterAnimEventReceiver AnimEventReceiver => _eventReceiver;
         public BodySectionsManager BodySectionsManager => _sectionsManager;
         public Transform Point => transform;
+        public Transform LookAtPoint => _lookAtPoint;
+        public List<Transform> DamagePoints => _damagePoints;
 
         public event Action<IMonster> OnDefeated;
         
@@ -57,11 +63,9 @@ namespace GiantsAttack
         public void PreKillState()
         {
             CLog.Log($"{gameObject.name} Prekill");
-            _animator.Play("Prekill");
+            _animator.SetTrigger("Prekill");
             _health.HideDisplay();
             _health.SetDamageable(false);
-            OnDefeated?.Invoke(this);
-
         }
         
         public void Idle()
@@ -83,7 +87,7 @@ namespace GiantsAttack
         private void OnHealthOut(IDamageable obj)
         {
             _health.OnDead -= OnHealthOut;
-            PreKillState();
+            OnDefeated?.Invoke(this);
         }
 
     }

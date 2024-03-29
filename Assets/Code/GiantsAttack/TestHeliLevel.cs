@@ -113,7 +113,8 @@ namespace GiantsAttack
 
         private void OnCameraSet()
         {
-            _stages[_stageIndex].Activate();
+            // _stages[_stageIndex].Activate();
+            LaunchFinalSequence();
         }
 
         private void InitStage(LevelStage stage)

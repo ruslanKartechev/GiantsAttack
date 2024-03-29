@@ -74,10 +74,11 @@ namespace GiantsAttack
 
 
 
-        public void RotateToLook(Transform lookAt, float time)
+        public void RotateToLook(Transform lookAt, float time, Action onEnd, bool centerInternal = true)
         {
             StopRotating();
-            _rotating = StartCoroutine(RotatingToLook(lookAt, time));
+            var endRotation = Quaternion.LookRotation(lookAt.position - transform.position);
+            _rotating = StartCoroutine(RotatingTo(endRotation, time, onEnd, centerInternal));
         }
 
         public void StopRotating()
@@ -255,13 +256,18 @@ namespace GiantsAttack
             }
         }
 
-        private IEnumerator RotatingToLook(Transform lookAt, float time)
+        private IEnumerator RotatingTo(Quaternion endRotation, float time, Action onEnd, bool centerInternal)
         {
-            var elapsed = 0f;
+            if (centerInternal)
+            {
+                const float internalRotTime = .3f;
+                yield return ChangingRotationInternal(_internal.localRotation, Quaternion.identity, internalRotTime);
+            }
+            var elapsed = Time.deltaTime;
             var t = elapsed / time;
             var tr = transform;
             var rot1 = tr.rotation;
-            var rot2 = Quaternion.LookRotation(lookAt.position - tr.position);
+            var rot2 = endRotation;
             while (t <= 1f)
             {
                 tr.rotation = Quaternion.Lerp(rot1, rot2, t);
@@ -270,6 +276,7 @@ namespace GiantsAttack
                 yield return null;
             }
             tr.rotation = rot2;
+            onEnd?.Invoke();
         }
 
         /// <summary>
@@ -302,6 +309,18 @@ namespace GiantsAttack
             _internal.localPosition = localPos;
         }
 
+        private IEnumerator ChangingRotationInternal(Quaternion localR1, Quaternion localR2, float time)
+        {
+            var elapsed = 0f;
+            while (elapsed <= time)
+            {
+                _internal.localRotation = Quaternion.Lerp(localR1, localR2, elapsed / time);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            _internal.localRotation = localR2;
+        }        
+        
         private IEnumerator ChangingRotation(Transform target, Quaternion r1, Quaternion r2, float time)
         {
             var elapsed = 0f;
