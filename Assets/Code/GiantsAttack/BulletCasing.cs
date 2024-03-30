@@ -7,7 +7,7 @@ namespace GiantsAttack
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private Collider _collider;
 
-        private const float Force = 2.8f;
+        private const float Force = 10f;
         
         public void Drop(Transform fromPoint)
         {

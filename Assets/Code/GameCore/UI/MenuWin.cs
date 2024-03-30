@@ -64,16 +64,9 @@ namespace GameCore.UI
 
         private void OnShowAnimated()
         {
-        }
-
-        private void AllowButton()
-        {
             _playButton.interactable = true;
         }
-        
-        
-        
-        
+
 #if UNITY_EDITOR
         [ContextMenu("Debug Show")]
         public void E_Show()

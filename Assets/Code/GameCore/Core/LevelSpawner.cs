@@ -30,7 +30,6 @@ namespace GameCore.Core
         }
 #endif
 
-        // On Enable is called when a scene is realoed
         private void Start()
         {
 #if !UNITY_EDITOR

@@ -555,8 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9e5f9a8955842d19afc894a1ea12917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpawnPoint: {fileID: 1482352967}
-  _camera: {fileID: 1430849992}
+  _useStartUi: 1
   _initArgs:
     aimerSettings:
       sensitivity: 2
@@ -564,10 +563,11 @@ MonoBehaviour:
     shooterSettings:
       fireDelay: 0.05
       damage: 30
-      speed: 170
+      speed: 220
     moverSettings:
       angularSpeed: 4
     enemyTransform: {fileID: 0}
+  _playerSpawnPoint: {fileID: 1482352967}
   _monster: {fileID: 5227457298314919639}
   _stages:
   - {fileID: 204078339}
@@ -1729,18 +1729,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f6209c3097fac64385c8c34b5990297, type: 3}
---- !u!114 &1430849992 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2388943360026788500, guid: 2f6209c3097fac64385c8c34b5990297,
-    type: 3}
-  m_PrefabInstance: {fileID: 1430849991}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 481787de919d4405ba66099d7d20aaf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1477124377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 398582414428822070, guid: 8a72f94ae8fb67d409184f21108967ab,
@@ -2419,7 +2407,7 @@ PrefabInstance:
     - target: {fileID: 398582414428822070, guid: 8a72f94ae8fb67d409184f21108967ab,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -81.6
+      value: -107.5
       objectReference: {fileID: 0}
     - target: {fileID: 398582414428822070, guid: 8a72f94ae8fb67d409184f21108967ab,
         type: 3}
@@ -2429,7 +2417,7 @@ PrefabInstance:
     - target: {fileID: 398582414428822070, guid: 8a72f94ae8fb67d409184f21108967ab,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -184
+      value: -188.8
       objectReference: {fileID: 0}
     - target: {fileID: 398582414428822070, guid: 8a72f94ae8fb67d409184f21108967ab,
         type: 3}
@@ -2471,6 +2459,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: VehiclePassBy
       objectReference: {fileID: 0}
+    - target: {fileID: 8553014012045339282, guid: 8a72f94ae8fb67d409184f21108967ab,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8553014012045339282, guid: 8a72f94ae8fb67d409184f21108967ab,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 182.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2484,16 +2482,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3389149085631731490, guid: 175c30b808260c946b9f09760955acf1,
-        type: 3}
-      propertyPath: autoSpawn
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3389149085631731490, guid: 175c30b808260c946b9f09760955acf1,
-        type: 3}
-      propertyPath: initLevel
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3389149085631731490, guid: 175c30b808260c946b9f09760955acf1,
         type: 3}
       propertyPath: m_Enabled

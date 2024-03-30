@@ -9,18 +9,21 @@ namespace GiantsAttack
 {
     public class TestHeliLevel : GameCore.Levels.Level, IStageResultListener
     {
-        [SerializeField] private Transform _playerSpawnPoint;
-        [SerializeField] private PlayerCamera _camera;
+        [SerializeField] private bool _useStartUi = true;
         [SerializeField] private HelicopterInitArgs _initArgs;
+        [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private MonsterController _monster;
         [SerializeField] private List<LevelStage> _stages;
         [SerializeField] private LevelFinalSequence _finalSequence;
+        private PlayerCamera _camera;
         private int _stageIndex = 0;
-        
+        private bool _isFinalizing;
+
         private IHelicopter _player;
         private IHitCounter _hitCounter;
         private IControlsUI _controlsUI;
         private IGameplayMenu _gameplayMenu;
+        
         #if UNITY_EDITOR
         private LevelDebugger _debugger;
         #endif
@@ -31,11 +34,11 @@ namespace GiantsAttack
             _debugger = gameObject.AddComponent<LevelDebugger>();
             _debugger.level = this;
 #endif
-            Init();
         }
 
         public override void Init()
         {
+            _camera = CameraContainer.PlayerCamera as PlayerCamera;
             _controlsUI = GCon.UIFactory.GetControlsUI();
             _hitCounter = new PlayerHitCounter();
             _initArgs.hitCounter = _hitCounter;
@@ -49,8 +52,11 @@ namespace GiantsAttack
             foreach (var st in _stages)
                 InitStage(st);
             _player.CameraPoints.SetCameraToOutside();
-            _player.CameraPoints.MoveCameraToInside(BeginLevel);
             StartTiming();
+            if (_useStartUi)
+                ShowStartUI();
+            else
+                BeginGameplay();
         }
 
         public override void Win()
@@ -76,17 +82,7 @@ namespace GiantsAttack
             utils.SendFailEvent(level, _timePassed, _hitCounter);
             utils.CallFailScreen(level);
         }
-
-        private void LaunchFinalSequence()
-        {
-            CLog.LogGreen($"{gameObject.name} LaunchFinalSequence");
-            _finalSequence.Enemy = _monster;
-            _finalSequence.Player = _player;
-            _finalSequence.Camera = _camera;
-            _finalSequence.Begin(Win);
-            _gameplayMenu.Hide(() => {});
-        }
-
+        
         public override void Pause()
         {
             Time.timeScale = 0f;
@@ -97,6 +93,32 @@ namespace GiantsAttack
             Time.timeScale = 1f;
         }
 
+        private void LaunchFinalSequence()
+        {
+            if (_isFinalizing)
+                return;
+            _isFinalizing = true;
+            CLog.LogGreen($"{gameObject.name} LaunchFinalSequence");
+            _finalSequence.Enemy = _monster;
+            _finalSequence.Player = _player;
+            _finalSequence.Camera = _camera;
+            _finalSequence.Begin(Win);
+            _gameplayMenu.Hide(() => {});
+        }
+
+        
+        private void ShowStartUI()
+        {
+            var ui = GCon.UIFactory.GetStartMenu() as IMenuStart;
+            ui.Show(OnStartLevel, () => {});
+        }
+
+        private void OnStartLevel()
+        {
+            GCon.UIFactory.GetStartMenu().Hide(() => {});
+            _player.CameraPoints.MoveCameraToInside(BeginGameplay);
+        }
+        
         private void SpawnAndInitPlayer()
         {
             _initArgs.enemyTransform = _monster.Point;
@@ -109,14 +131,12 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
-            // _gameplayMenu.AddBodySectionsUI(_monster.BodySectionsManager.UIPrefab);
             _monster.Init(_player.BodySectionsUI);
         }
 
-        private void BeginLevel()
+        private void BeginGameplay()
         {
             _stages[_stageIndex].Activate();
-            // LaunchFinalSequence();
         }
 
         private void InitStage(LevelStage stage)
@@ -142,7 +162,6 @@ namespace GiantsAttack
             _stages[_stageIndex].Activate();
         }
         
-
         public void OnStageComplete(LevelStage stage)
         {
             if (_isCompleted)

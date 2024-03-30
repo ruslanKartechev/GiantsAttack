@@ -1,7 +1,5 @@
 ﻿using System;
-using GameCore.Core;
 using SleepDev.UIUtils;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,11 +9,10 @@ namespace GameCore.UI
     {
         [SerializeField] private PopAnimator _popAnimator;
         [SerializeField] private Button _playButton;
-        [SerializeField] private TextMeshProUGUI _levelText;
-        [SerializeField] private MoneyUI _moneyUI;
         private Action _callback;
         
         public GameObject Go => gameObject;
+        
         private void OnEnable()
         {
             _playButton.onClick.AddListener(OnPlay);
@@ -28,7 +25,6 @@ namespace GameCore.UI
 
         public void On()
         {
-            UpdateStats();
             gameObject.SetActive(true);
         }
 
@@ -39,7 +35,6 @@ namespace GameCore.UI
 
         public void Show(Action onDone)
         {
-            UpdateStats();
             _playButton.interactable = false;
             _popAnimator.HideAndPlay(() =>
             {
@@ -70,10 +65,5 @@ namespace GameCore.UI
             _callback?.Invoke();
         }
         
-        private void UpdateStats()
-        {
-            var level = GCon.PlayerData.LevelTotal + 1;
-            _levelText.text = $"LEVEL {level}";
-        }
     }
 }
