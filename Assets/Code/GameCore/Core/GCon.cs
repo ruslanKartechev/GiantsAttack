@@ -2,6 +2,7 @@
 using GiantsAttack;
 using SleepDev;
 using SleepDev.Levels;
+using SleepDev.Pooling;
 using SleepDev.Saving;
 using SleepDev.Scenes;
 using SleepDev.SlowMotion;
@@ -23,6 +24,8 @@ namespace GameCore.Core
         public static GameObjectFactory GOFactory { get; set; }
         
         public static IObjectPoolsManager PoolsManager { get; set; }
-        public static BulletsPool BulletsPool { get; set; }
+        public static IObjectPool<IBullet> BulletsPool { get; set; }
+        public static IObjectPool<BulletCasing> BulletCasingsPool { get; set; }
+
     }
 }

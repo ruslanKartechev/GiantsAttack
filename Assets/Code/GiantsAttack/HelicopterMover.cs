@@ -53,7 +53,7 @@ namespace GiantsAttack
                 StopCoroutine(_moving);
         }
 
-        public void BeginAnimating()
+        public void BeginAnimatingVertically()
         {
             StopAnimating();
             _animating = StartCoroutine(Animating());
@@ -98,10 +98,10 @@ namespace GiantsAttack
         
         
         #region Loitering
-        public void Loiter(Transform lookAt)
+        public void Loiter()
         {
             StopAnimating();
-            _animating = StartCoroutine(Loitering(lookAt));
+            _animating = StartCoroutine(Loitering());
         }
 
         public void StopLoiter(bool moveBackToLocal = true)
@@ -112,36 +112,28 @@ namespace GiantsAttack
                 _animating = StartCoroutine(MovingLocal(Vector3.zero, returnTime));
         }
         
-        private IEnumerator Loitering(Transform lookAt)
+        private IEnumerator Loitering()
         {
-            if (lookAt != null)
-            {
-                var rot1 = transform.rotation;
-                var rot2 = Quaternion.LookRotation(lookAt.position - transform.position);
-                var angle = Quaternion.Angle(rot1, rot2);
-                yield return ChangingRotation(transform, rot1, rot2, angle / _animSettings.loiteringRotationSpeed);
-            }
             while (true)
             {
                 var localPos = (Vector3)(UnityEngine.Random.insideUnitCircle * _animSettings.loiteringMagn);
                 var time = (localPos - _internal.localPosition).magnitude / _animSettings.loiteringMoveSpeed;
-                if(lookAt != null)
-                    yield return MovingLocalAndRotaing(localPos, time, lookAt);
-                else
-                    yield return MovingLocal(localPos, time);
+                yield return MovingLocal(localPos, time);
             }
         }
         #endregion
 
 
         #region Evasion
-        public void Evade(EDirection2D direction, Action callback)
+        public void Evade(EDirection2D direction, Action callback, float evasionDistance)
         {
             StopMovement();
             StopAnimating();
             var evadeToPoint = transform.position;
             var angles = transform.eulerAngles;
-            var dist = evasionSettings.evadeDistance;
+            var dist = evasionDistance;
+            if (dist == default)
+                dist = evasionSettings.evadeDistance;
             switch (direction)
             {
                 case EDirection2D.Up:
@@ -279,23 +271,6 @@ namespace GiantsAttack
             onEnd?.Invoke();
         }
 
-        /// <summary>
-        /// Moves "internal" to a given localPos. Also rotates "transform" itself to look at "lookAt"
-        /// </summary>
-        private IEnumerator MovingLocalAndRotaing(Vector3 localPos, float time, Transform lookAt)
-        {
-            var elapsed = 0f;
-            var p1 = _internal.localPosition;
-            while (elapsed <= time)
-            {
-                _internal.localPosition = Vector3.Lerp(p1, localPos, elapsed / time);
-                transform.rotation = Quaternion.LookRotation(lookAt.position - transform.position);
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-            _internal.localPosition = localPos;
-        }
-        
         private IEnumerator MovingLocal(Vector3 localPos, float time)
         {
             var elapsed = 0f;
@@ -308,7 +283,7 @@ namespace GiantsAttack
             }
             _internal.localPosition = localPos;
         }
-
+        
         private IEnumerator ChangingRotationInternal(Quaternion localR1, Quaternion localR2, float time)
         {
             var elapsed = 0f;
@@ -333,7 +308,6 @@ namespace GiantsAttack
             target.rotation = r2;
         }
 
-        
         /// <summary>
         /// Angles to "lean" when moving to next point
         /// </summary>
@@ -433,13 +407,13 @@ namespace GiantsAttack
         public void Update()
         {
             if(Input.GetKeyDown(KeyCode.W))
-                Evade(EDirection2D.Up, () => {});
+                Evade(EDirection2D.Up, () => {}, 0);
             if(Input.GetKeyDown(KeyCode.S))
-                Evade(EDirection2D.Down, () => {});
+                Evade(EDirection2D.Down, () => {}, 0);
             if(Input.GetKeyDown(KeyCode.D))
-                Evade(EDirection2D.Right, () => {});
+                Evade(EDirection2D.Right, () => {}, 0);
             if(Input.GetKeyDown(KeyCode.A))
-                Evade(EDirection2D.Left, () => {});
+                Evade(EDirection2D.Left, () => {}, 0);
 
         }
 #endif

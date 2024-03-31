@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using SleepDev.Utils;
-using TMPro;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -103,6 +102,66 @@ namespace SleepDev.Ragdoll
         }
         
 #if UNITY_EDITOR
+        [Space(20)] 
+        [SerializeField] private Ragdoll _copyFromRagdoll;
+
+        public void E_Copy()
+        {
+            if (_copyFromRagdoll == null)
+            {
+                CLog.LogRed($"_copyFromRagdoll == null");
+                return;
+            }
+            parts = new List<RagdollPart>();
+            foreach (var p in _copyFromRagdoll.parts)
+            {
+                var newPart = CopyPart(p);
+                if(newPart != null)
+                    parts.Add(newPart);
+            }
+            UnityEditor.EditorUtility.SetDirty(this);
+            
+            
+            RagdollPart CopyPart(RagdollPart from)
+            {
+                var go = GameUtils.FindInChildren(transform, (g) => g.name.Contains(from.rb.gameObject.name));
+                if (go == null)
+                    return null;
+                var newPart = new RagdollPart();
+                newPart.push = from.push;
+                newPart.name = from.name;
+                // Rigidbody
+                var rb = go.GetOrAdd<Rigidbody>();
+                UnityEditor.EditorUtility.CopySerialized(from.rb, rb);
+                newPart.rb = rb;
+                // Collider
+                Collider coll = null;
+                switch (from.collider)
+                {
+                    case SphereCollider sph:
+                        coll = go.GetOrAdd<SphereCollider>();
+                        break;
+                    case BoxCollider box:
+                        coll = go.GetOrAdd<BoxCollider>();
+                        break;
+                    case CapsuleCollider caps:
+                        coll = go.GetOrAdd<CapsuleCollider>();
+                        break;
+                }
+                UnityEditor.EditorUtility.CopySerialized(from.collider, coll);
+                newPart.collider = coll;
+                // Joint
+                var fromJoint = from.rb.gameObject.GetOrAdd<CharacterJoint>();
+                if (fromJoint != null)
+                {
+                    var joint = go.GetOrAdd<CharacterJoint>();
+                    UnityEditor.EditorUtility.CopySerialized(fromJoint, joint);
+                }
+                UnityEditor.EditorUtility.SetDirty(go);
+                return newPart;
+            }
+        }
+        
         public void E_GetParts()
         {
             ignoredParents.RemoveAll(t => t == null);

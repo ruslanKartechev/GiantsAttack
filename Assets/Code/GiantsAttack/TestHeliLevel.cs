@@ -53,6 +53,7 @@ namespace GiantsAttack
                 InitStage(st);
             _player.CameraPoints.SetCameraToOutside();
             StartTiming();
+            _player.Mover.Loiter();
             if (_useStartUi)
                 ShowStartUI();
             else
@@ -106,7 +107,6 @@ namespace GiantsAttack
             _gameplayMenu.Hide(() => {});
         }
 
-        
         private void ShowStartUI()
         {
             var ui = GCon.UIFactory.GetStartMenu() as IMenuStart;

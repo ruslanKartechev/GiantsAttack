@@ -7,7 +7,19 @@ namespace GiantsAttack
     {
         public event Action OnPickup;
         public event Action OnThrow;
+        public event Action OnPunch;
+        public event Action OnPunchBegan;
 
+        public void EventOnPunch()
+        {
+            OnPunch?.Invoke();
+        }    
+        
+        public void EventOnPunchBegan()
+        {
+            OnPunchBegan?.Invoke();
+        }        
+        
         public void EventOnPickup()
         {
             OnPickup?.Invoke();

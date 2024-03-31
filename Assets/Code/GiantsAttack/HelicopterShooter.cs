@@ -9,7 +9,6 @@ namespace GiantsAttack
     {
         [SerializeField] private float _delayBetweenBarrels;
         [SerializeField] private Transform _shootDirection;
-        [SerializeField] private BulletCasing _casePrefab;
         private Coroutine _shooting;
         private Camera _camera;
         private Coroutine _working;
@@ -65,9 +64,9 @@ namespace GiantsAttack
                     bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, 
                         speed:Settings.speed, damage:Settings.damage, 
                         HitCounter, DamageHitsUI);
-                    var casing = Instantiate(_casePrefab);
+                    var casing = GCon.BulletCasingsPool.GetObject();
                     casing.Drop(barrel.DropPoint);
-                    // barrel.Recoil();
+                    barrel.Recoil();
                     yield return new WaitForSeconds(_delayBetweenBarrels);
                 }
                 yield return new WaitForSeconds( Settings.fireDelay);

@@ -8,6 +8,7 @@ namespace GiantsAttack
     public class SimpleThrowable : MonoBehaviour, IThrowable
     {
         [SerializeField] private bool _doRotateWhenGrabbed;
+        [SerializeField] private bool _doMoveToLocalPos;
         [SerializeField] private float _moveTimeOnGrab = .2f;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private Vector3 _torqueVector;
@@ -34,7 +35,8 @@ namespace GiantsAttack
             _hitTriggerReceiver.enabled = false;
             if(_moving != null)
                 StopCoroutine(_moving);
-            // _moving = StartCoroutine(MovingToGrabPos(callback));
+            if(_doMoveToLocalPos)
+                _moving = StartCoroutine(MovingToGrabPos(callback));
             callback?.Invoke();
         }
 

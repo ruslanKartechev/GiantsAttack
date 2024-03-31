@@ -15,7 +15,7 @@ namespace GiantsAttack
         public override void Activate()
         {
             Player.Aimer.BeginAim();
-            Player.Mover.BeginAnimating();
+            Player.Mover.BeginAnimatingVertically();
             Player.Mover.BeginMovingOnCircle(_circularPathBuilder.Path, _lookAtTarget, _moveForthAndBack, OnDoneMoving);
             Enemy.Roar();
         }

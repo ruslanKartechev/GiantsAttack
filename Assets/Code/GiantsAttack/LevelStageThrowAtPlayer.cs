@@ -8,33 +8,33 @@ namespace GiantsAttack
 {
     public class LevelStageThrowAtPlayer : LevelStage
     {
+        public enum Mode {Evade, ShootDown}
+        
         [Header("Debugging")]
         public bool doActivateBoss = true;
-        [Space(10)]
-        [SerializeField, Header("Mode"), Tooltip("If true will call for evade, else will call shoot")] 
-        private bool _doEvade;
+        [Space(5)]
+        [Header("Mode"), Tooltip("If true will call for evade, else will call shoot")] 
+        [SerializeField] private Mode _mode;
         [SerializeField] private bool _doSlowMo;
-        [Header("Slow motion")]
+        [Header("Throwable")]
+        [SerializeField] private GameObject _grabTargetGo;
         [SerializeField] private float _projectileHealth = 20;
         [SerializeField] private ShooterSettings _slowMoShooterSettings;
-        [Header("Throwable GameObject")]
-        [SerializeField] private GameObject _grabTargetGo;
-        [SerializeField] private Transform _lookAt;
-        [Space(10)]
-        [Header("Enemy Walking")]
+        [Space(5)]
+        [Header("Enemy Movement")]
         [SerializeField] private bool _doWalkToTarget;
         [SerializeField] private Transform _moveToPoint;
         [SerializeField] private float _enemyMoveTime;
-        [Space(10)]
+        [Space(5)]
         [Header("Enemy Throwing")]
         [SerializeField] private float _projectileMoveTime;
         [SerializeField] private Transform _throwAtPoint;
         [SerializeField] private SlowMotionEffectSO _slowMotion;
-        [Space(10)]
+        [Space(5)]
         [Header("Evasion")]
-        [SerializeField] private EDirection2D _evadeDirection;
-        [SerializeField] private float _targetSwipeDistance = 10;
-        [SerializeField] private SwipeInputTaker _swipeInputTaker;
+        [SerializeField] private float _evadeDistance = 10;
+        [SerializeField] private CorrectSwipeChecker _correctSwipeChecker;
+
 
         private bool _checkProjectileHit;
         private IEnemyThrowWeapon _enemyWeapon;
@@ -48,8 +48,7 @@ namespace GiantsAttack
 #endif
             Player.Mover.StopMovement();
             Player.Aimer.BeginAim();
-            Player.Mover.Loiter(_lookAt);
-            _swipeInputTaker.enabled = false;
+            Player.Mover.Loiter();
             SubToEnemyKill();
             if (doActivateBoss)
             {
@@ -64,7 +63,7 @@ namespace GiantsAttack
         {
             _isStopped = true;
             GCon.SlowMotion.SetNormalTime();
-            _swipeInputTaker.enabled = false;
+            _correctSwipeChecker.Off();
         }
 
         private void MoveToGrab()
@@ -85,7 +84,7 @@ namespace GiantsAttack
                 return;
             _checkProjectileHit = true;
             _enemyWeapon.Throwable.ThrowAt(_throwAtPoint.position, _projectileMoveTime, OnThrowableFlyEnd, OnThrowableHit);
-            if(_doEvade)
+            if(_mode == Mode.Evade)
                 StartEvadeMode();
             else
                 StartShootMode();
@@ -159,8 +158,9 @@ namespace GiantsAttack
         private void StartEvadeMode()
         {
             CallEvadeUI();
-            _swipeInputTaker.enabled = true;
-            EnableSwipeInput();
+            _correctSwipeChecker.On();
+            _correctSwipeChecker.OnCorrect = OnCorrectSwipe;
+            _correctSwipeChecker.OnWrong = OnWrongSwipe;
             Player.Aimer.StopAim();
             Player.Shooter.StopShooting();
             _enemyWeapon.Health.SetDamageable(false);
@@ -169,7 +169,7 @@ namespace GiantsAttack
         
         private void CallEvadeUI()
         {
-            UI.EvadeUI.AnimateByDirection(_evadeDirection);
+            UI.EvadeUI.AnimateByDirection(_correctSwipeChecker.CorrectDirection);
         }
         
         private void OnEvadeFail()
@@ -179,41 +179,33 @@ namespace GiantsAttack
         
         private void OnEvadeSuccess()
         {
-            Player.Mover.Loiter(_lookAt);
+            Player.Mover.Loiter();
             Player.Aimer.BeginAim();
             CallCompleted();
         }
-        
-        private void OnSwipe(EDirection2D direction)
+
+        private void OnCorrectSwipe()
         {
-            DisableSwiper();
+            CLog.Log($"[LevelStageEvade] Evade success");
+            OnSwipeMade();
+            Player.Mover.Evade(_correctSwipeChecker.LastSwipeDir, OnEvadeSuccess, _evadeDistance);
+        }
+
+        private void OnWrongSwipe()
+        {
+            CLog.Log($"[LevelStageEvade] Evade failed");
+            OnSwipeMade();
+            Player.Mover.Evade(_correctSwipeChecker.LastSwipeDir, OnEvadeFail, _evadeDistance);
+        }
+
+        private void OnSwipeMade()
+        {
+            _correctSwipeChecker.Off();
             UI.EvadeUI.Stop();
             _checkProjectileHit = false;
             StopSlowMo();
-            if (direction == _evadeDirection)
-            {
-                CLog.Log($"[LevelStageEvade] Evade success");
-                Player.Mover.Evade(direction, OnEvadeSuccess);
-            }
-            else
-            {
-                CLog.Log($"[LevelStageEvade] Evade failed");
-                Player.Mover.Evade(direction, OnEvadeFail);
-            }
         }
         
-        private void EnableSwipeInput()
-        {
-            _swipeInputTaker.Refresh();
-            _swipeInputTaker.TargetDistance = _targetSwipeDistance;
-            _swipeInputTaker.OnSwipeIndirection += OnSwipe;
-        }
-
-        private void DisableSwiper()
-        {
-            _swipeInputTaker.OnSwipeIndirection -= OnSwipe;
-            _swipeInputTaker.enabled = false;   
-        }
         #endregion
 
 
@@ -238,29 +230,7 @@ namespace GiantsAttack
         [Space(30)] 
         [Header("Editor")]
         public OnGizmosLineDrawer lineDrawer;
-        public Transform rotateTarget;
-        public CameraPoint camPoint;
 
-        public void E_RotateToLook()
-        {
-            if (rotateTarget == null)
-            {
-                CLog.LogRed("rotateTarget is null");
-                return;
-            }
-            if (_lookAt == null)
-            {
-                CLog.LogRed("_lookAt is null");
-                return;
-            }
-            rotateTarget.rotation = Quaternion.LookRotation(_lookAt.position - rotateTarget.position);
-            UnityEditor.EditorUtility.SetDirty(rotateTarget);
-            if (camPoint != null)
-            {
-                CameraPointMover.SetToPoint(camPoint);
-            }
-        }
-        
         private void OnDrawGizmos()
         {
             if (lineDrawer != null

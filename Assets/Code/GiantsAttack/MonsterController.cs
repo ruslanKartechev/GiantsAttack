@@ -49,6 +49,11 @@ namespace GiantsAttack
             Destroyer = GetComponent<IDestroyer>();
         }
 
+        public void Punch(string key, Action punchStartedCallback, Action onPunch)
+        {
+            var s = new PunchBehaviour(this, _animator, key, punchStartedCallback, onPunch);
+        }
+
         public void Kill()
         {
             CLog.Log($"{gameObject.name} Kill");

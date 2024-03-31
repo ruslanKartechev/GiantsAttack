@@ -8,9 +8,10 @@ namespace GiantsAttack
     {
         private Vector3 _pointerPos;
         private float _magnitude;
-        
+        private bool _isDown;    
+
         public EDirection2D Direction { get; private set; }
-        public float TargetDistance { get; set; } = 10f;
+        public float TargetDistance { get; set; } = 50f;
         public float Distance { get; private set; }
         
         
@@ -24,21 +25,23 @@ namespace GiantsAttack
         private void OnEnable()
         {
             _pointerPos = Input.mousePosition;
+            _isDown = false;
         }
 
-    
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
+                _isDown = true;
                 _pointerPos = Input.mousePosition;
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                _isDown = false;
                 Distance = 0f;
                 _pointerPos = Input.mousePosition;
             }
-            else if (Input.GetMouseButton(0))
+            else if (Input.GetMouseButton(0) && _isDown)
             {
                 var pos = Input.mousePosition;
                 var delta = pos - _pointerPos;

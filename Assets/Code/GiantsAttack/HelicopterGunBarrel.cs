@@ -7,8 +7,8 @@ namespace GiantsAttack
     {
         [SerializeField] private Transform _fromPoint;
         [SerializeField] private Transform _dropPoint;
-        [SerializeField] private Animator _animator;
         [SerializeField] private ZRotator _rotator;
+        [SerializeField] private ParticleSystem _particles;
         
         public Transform FromPoint => _fromPoint;
         public Transform DropPoint => _dropPoint;
@@ -20,7 +20,8 @@ namespace GiantsAttack
 
         public void Recoil()
         {
-            _animator.Play("Recoil");
+            _particles.Play();
+            // _animator.Play("Recoil");
         }
     }
 }

@@ -12,6 +12,10 @@ namespace GiantsAttack
             base.OnInspectorGUI();
             GUILayout.Space(20);
             var me = target as MonsterController;
+            if (GUILayout.Button($"Pre Kill", GUILayout.Width(100)))
+            {
+                me.PreKillState();
+            }
             if (GUILayout.Button($"Kill", GUILayout.Width(100)))
             {
                 me.Kill();

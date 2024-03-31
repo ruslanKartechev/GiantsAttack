@@ -12,6 +12,11 @@ namespace SleepDev
         {
             return StartCoroutine(DelayedAction(time, callback));
         }
+        
+        protected Coroutine DelayRealtime(Action callback, float time)
+        {
+            return StartCoroutine(DelayedActionRealtime(time, callback));
+        }
 
         protected void StopDelayedAction()
         {
@@ -22,6 +27,12 @@ namespace SleepDev
         protected IEnumerator DelayedAction(float time, Action action)
         {
             yield return new WaitForSeconds(time);
+            action.Invoke();
+        }
+        
+        protected IEnumerator DelayedActionRealtime(float time, Action action)
+        {
+            yield return new WaitForSecondsRealtime(time);
             action.Invoke();
         }
     }

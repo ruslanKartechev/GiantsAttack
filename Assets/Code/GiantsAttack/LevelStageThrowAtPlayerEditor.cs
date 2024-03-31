@@ -16,15 +16,6 @@ namespace GiantsAttack
             {
                 
             }
-            if (GUILayout.Button("Rotate to look", GUILayout.Width(width)))
-            {
-                me.E_RotateToLook();
-            }
-            // if (GUILayout.Button("", GUILayout.Width(width)))
-            // {
-            //     
-            // }
-
         }
     }
 }

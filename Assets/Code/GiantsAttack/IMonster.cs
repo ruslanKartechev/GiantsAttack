@@ -20,10 +20,11 @@ namespace GiantsAttack
         
         void Init(IBodySectionsUI sectionsUI);
         void Idle();
+        void Roar();
         void Kill();
         void PreKillState();
-        void Roar();
         void PickAndThrow(IThrowable target, Action onThrowCallback);
-        
+        void Punch(string key, Action punchStartedCallback, Action onPunch);
+
     }
 }

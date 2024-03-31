@@ -6,7 +6,7 @@ namespace GameCore.UI
 {
     public class AimUI : MonoBehaviour, IAimUI
     {
-        private const float animTime = .33f;
+        private const float animTime = .25f;
         [SerializeField] private Transform _aim;
         private Coroutine _rotating;
         
@@ -17,7 +17,7 @@ namespace GameCore.UI
             {
                 _aim.transform.DOKill();
                 _aim.transform.localScale = Vector3.zero;
-                _aim.transform.DOScale(Vector3.one, animTime).SetEase(Ease.InBounce);
+                _aim.transform.DOScale(Vector3.one, animTime);
             }
         }
 

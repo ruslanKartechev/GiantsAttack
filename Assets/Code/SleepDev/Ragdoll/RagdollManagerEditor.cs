@@ -105,7 +105,9 @@ namespace SleepDev.Ragdoll
             GUILayout.Space(15);
 
             GUILayout.BeginHorizontal();
-            GUILayout.Space(100);
+            if (EU.ButtonBig($"Copy", Color.blue))
+                me.E_Copy();
+            GUILayout.Space(30);
             if (EU.ButtonBig($"! DELETE !", Color.red))
                 me.E_DestroyAll();
             GUILayout.EndHorizontal();

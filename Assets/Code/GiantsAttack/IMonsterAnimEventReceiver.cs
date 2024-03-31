@@ -6,6 +6,8 @@ namespace GiantsAttack
     {
         event Action OnPickup;
         event Action OnThrow;
-        
+        event Action OnPunch;
+        event Action OnPunchBegan;
+
     }
 }

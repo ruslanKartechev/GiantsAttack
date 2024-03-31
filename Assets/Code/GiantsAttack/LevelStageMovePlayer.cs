@@ -1,4 +1,5 @@
 ﻿using System;
+using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -17,7 +18,7 @@ namespace GiantsAttack
         [SerializeField] private float _enemyDelay;
         [SerializeField] private Transform _enemyMovePoint;
         [SerializeField] private float _enemyMoveTime;
-        [SerializeField] private bool _callEenmyRoar;
+        [SerializeField] private bool _callEnemyRoar;
 
         public override void Activate()
         {
@@ -26,7 +27,10 @@ namespace GiantsAttack
             if (_allowShooting)
                 Player.Aimer.BeginAim();
             else
+            {
                 Player.Aimer.StopAim();
+                Player.Shooter.StopShooting();
+            }
 
             if (_delay > 0)
                 Delay(CallMove, _delay);
@@ -39,7 +43,7 @@ namespace GiantsAttack
                 else
                     CallMoveEnemy(); 
             }
-            else if (_callEenmyRoar)
+            else if (_callEnemyRoar)
             {
                 Enemy.Roar();
             }
@@ -55,12 +59,15 @@ namespace GiantsAttack
         {
             Enemy.Mover.MoveTo(_enemyMovePoint, _enemyMoveTime, () =>
             {
-                Enemy.Idle();
+                if(_isStopped == false)
+                    Enemy.Idle();
             });
         }
 
         public override void Stop()
-        { }
+        {
+            _isStopped = true;
+        }
 
         protected override void OnEnemyKilled(IMonster obj)
         {
@@ -70,6 +77,8 @@ namespace GiantsAttack
 
         private void OnMovementDone()
         {
+            CLog.Log($"[StageMove] movement end, calling completed");
+            _isStopped = true;
             CallCompleted();
         }
     }

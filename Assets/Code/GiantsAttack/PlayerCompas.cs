@@ -7,12 +7,12 @@ namespace GiantsAttack
     public class PlayerCompas : MonoBehaviour
     {
         [SerializeField] private Transform _arrow;
+        [SerializeField] private Transform _body;
         private Coroutine _working;
         
         public void BeginTracking(Transform point)
         {
             _working = StartCoroutine(Working(point));
-
         }
 
         public void Stop()
@@ -25,12 +25,11 @@ namespace GiantsAttack
         {
             while (true)
             {
-                var dir = (point.position - transform.position).XZPlane();
-                var angle = Vector3.SignedAngle(transform.forward, dir, Vector3.up);
+                var dir = (point.position - _body.position).XZPlane();
+                var angle = Vector3.Angle(_body.forward, dir);
                 var eulers = _arrow.localEulerAngles;
                 eulers.y = angle;
                 _arrow.localEulerAngles = eulers;
-                // _arrow.localRotation = Quaternion.AngleAxis(angle, _arrow.up);
                 yield return null;
             }
         }

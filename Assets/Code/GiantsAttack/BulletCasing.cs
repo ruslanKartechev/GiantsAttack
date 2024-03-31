@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using SleepDev.Pooling;
+using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class BulletCasing : MonoBehaviour
+    public class BulletCasing : MonoBehaviour, IPooledObject<BulletCasing>
     {
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private Collider _collider;
@@ -17,6 +18,30 @@ namespace GiantsAttack
             gameObject.SetActive(true);
             _rb.AddForce(fromPoint.forward * Force, ForceMode.Impulse);
             _rb.AddTorque(fromPoint.up * Force, ForceMode.Impulse);
+            Invoke(nameof(ReturnToPool), 3f);   
+        }
+
+        private void ReturnToPool()
+        {
+            Hide();
+            Pool.ReturnObject(this);
+        }
+        
+
+        public IObjectPool<BulletCasing> Pool { get; set; }
+        public BulletCasing Obj => this;
+        public void Parent(Transform parent)
+        {
+            transform.parent = parent;
+        }
+
+        public void Destroy()
+        {
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace GameCore.Core
         private static bool _inited;
         [SerializeField] private int _startBulletsPoolSize = 100;
         [SerializeField] private BulletsPool _bulletsPool; 
+        [SerializeField] private BulletCasingPool _casingsPool; 
 
         public void BuildPools()
         {
@@ -22,11 +23,14 @@ namespace GameCore.Core
             _inited = true;
             transform.parent = null;
             DontDestroyOnLoad(gameObject);
-            _bulletsPool.GOFactory = GCon.GOFactory;
+            _bulletsPool.GOFactory = _casingsPool.GOFactory = GCon.GOFactory;
             _bulletsPool.BuildPool(_startBulletsPoolSize);
+            _casingsPool.BuildPool(_startBulletsPoolSize);
+            
             // Setup container
             GCon.PoolsManager = this;
             GCon.BulletsPool = _bulletsPool;
+            GCon.BulletCasingsPool = _casingsPool;
         }
 
         public void RecollectAll()
