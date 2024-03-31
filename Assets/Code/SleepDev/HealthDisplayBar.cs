@@ -7,6 +7,7 @@ namespace SleepDev
     {
         [SerializeField] private Canvas _canvas;
         [SerializeField] private UnityEngine.UI.Image _fillImage;
+        [SerializeField] private UnityEngine.UI.Image _fillImageBack;
         [SerializeField] private float _defaultTime;
         
         private Coroutine _filling;
@@ -25,12 +26,13 @@ namespace SleepDev
         public void SetHealth(float val)
         {
             StopUpdate();
-            SetVal(val);
+            _fillImageBack.fillAmount = _fillImage.fillAmount = val;
         }
 
         public void UpdateHealth(float val)
         {
             StopUpdate();
+            _fillImage.fillAmount = val;
             _filling = StartCoroutine(Filling(val, _defaultTime));
         }
 
@@ -44,21 +46,17 @@ namespace SleepDev
         {
             var elapsed = Time.unscaledDeltaTime;
             var t = elapsed / time;
-            var startval = _fillImage.fillAmount;
+            var startval = _fillImageBack.fillAmount;
             while (t <= 1f)
             {
-                SetVal(Mathf.Lerp(startval, endVal, t));
+                _fillImageBack.fillAmount = (Mathf.Lerp(startval, endVal, t));
                 elapsed += Time.unscaledDeltaTime;
                 t = elapsed / time;
                 yield return null;
             }
-            SetVal(endVal);
-        }
-
-        private void SetVal(float val)
-        {
-            _fillImage.fillAmount = val;
+            _fillImageBack.fillAmount = endVal;
 
         }
+        
     }
 }

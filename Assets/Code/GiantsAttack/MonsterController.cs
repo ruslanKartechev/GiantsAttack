@@ -64,6 +64,7 @@ namespace GiantsAttack
         public void PreKillState()
         {
             CLog.Log($"{gameObject.name} Prekill");
+            _mover.StopMovement();
             _animator.SetTrigger("Prekill");
             _health.HideDisplay();
             _health.SetDamageable(false);

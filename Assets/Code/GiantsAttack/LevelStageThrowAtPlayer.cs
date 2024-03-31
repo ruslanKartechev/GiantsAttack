@@ -62,8 +62,9 @@ namespace GiantsAttack
 
         public override void Stop()
         {
+            _isStopped = true;
             GCon.SlowMotion.SetNormalTime();
-            
+            _swipeInputTaker.enabled = false;
         }
 
         private void MoveToGrab()

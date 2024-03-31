@@ -7,6 +7,7 @@ namespace GiantsAttack
 {
     public class SimpleThrowable : MonoBehaviour, IThrowable
     {
+        [SerializeField] private bool _doRotateWhenGrabbed;
         [SerializeField] private float _moveTimeOnGrab = .2f;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private Vector3 _torqueVector;
@@ -33,7 +34,8 @@ namespace GiantsAttack
             _hitTriggerReceiver.enabled = false;
             if(_moving != null)
                 StopCoroutine(_moving);
-            _moving = StartCoroutine(MovingToGrabPos(callback));
+            // _moving = StartCoroutine(MovingToGrabPos(callback));
+            callback?.Invoke();
         }
 
         public void ThrowAt(Vector3 position, float time, Action flyEndCallback, Action<Collider> callbackHit)
@@ -89,24 +91,48 @@ namespace GiantsAttack
         
         private IEnumerator MovingToGrabPos(Action callback)
         {
+            var posChange = StartCoroutine(PositionChanging());
+            if (_doRotateWhenGrabbed)
+            {
+                var rotChange = StartCoroutine(RotationChanging());
+                yield return rotChange;
+            }
+            yield return posChange;
+            callback?.Invoke();
+        }
+
+        private IEnumerator PositionChanging()
+        {
             var elapsed = 0f;
             var time = _moveTimeOnGrab;
             var t = elapsed / time;
             var p1 = transform.localPosition;
             var p2 = _localGrabbedPos;
-            var r1 = transform.localRotation;
-            var r2 = Quaternion.Euler(_localGrabbedEulers);
             while (t <= 1f)
             {
                 transform.localPosition = Vector3.Lerp(p1, p2, t);
-                transform.localRotation = Quaternion.Lerp(r1, r2, t);
                 elapsed += Time.deltaTime;
                 t = elapsed / time;
                 yield return null;
             }
             transform.localPosition = p2;
+        }
+        
+        private IEnumerator RotationChanging()
+        {
+            var elapsed = 0f;
+            var time = _moveTimeOnGrab;
+            var t = elapsed / time;
+            var r1 = transform.localRotation;
+            var r2 = Quaternion.Euler(_localGrabbedEulers);
+            while (t <= 1f)
+            {
+                transform.localRotation = Quaternion.Lerp(r1, r2, t);
+                elapsed += Time.deltaTime;
+                t = elapsed / time;
+                yield return null;
+            }
             transform.localRotation = r2;
-            callback?.Invoke();
         }
 
         

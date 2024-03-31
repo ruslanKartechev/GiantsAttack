@@ -5,6 +5,15 @@ namespace SleepDev
 {
     public class TransformHelper : MonoBehaviour
     {
+        [SerializeField] private Transform _copyFrom;
+
+        public void CopyPosRot()
+        {
+            if (_copyFrom == null)
+                return;
+            transform.SetPositionAndRotation(_copyFrom.position, _copyFrom.rotation);
+        }
+        
         public void ZeroLocalPosRot()
         {
             transform.localPosition = Vector3.zero;
@@ -36,7 +45,11 @@ namespace SleepDev
                 me.OneScale();
                 UnityEditor.EditorUtility.SetDirty(me);
             }
-
+            if (GUILayout.Button("Copy", GUILayout.Width(120)))
+            {
+                me.CopyPosRot();
+                UnityEditor.EditorUtility.SetDirty(me);
+            }
         }
     }
     #endif

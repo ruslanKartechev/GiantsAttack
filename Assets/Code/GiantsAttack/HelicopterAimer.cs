@@ -2,6 +2,7 @@
 using GameCore.UI;
 using GameCore.Core;
 using SleepDev;
+using SleepDev.Utils;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -10,7 +11,9 @@ namespace GiantsAttack
     {
         [SerializeField] private Transform _body;
         [SerializeField] private Transform _arm;
+        [Header("xMin, xMax, yMin, yMax")]
         [SerializeField] private Vector4 _armAngleLimits;
+        [SerializeField] private Vector3 _localAngleLimits;
         
         private float _screenLimitPercent = .05f;
         private Vector4 _screenLimits; // xMin, xMax, yMin, yMax;
@@ -72,15 +75,7 @@ namespace GiantsAttack
         }
         
         public void Reset()
-        {
-            // ResetPointerAndUI();
-        }
-
-        private void ResetPointerAndUI()
-        {
-            SetPointerToCenter();
-            AimUI.SetPosition(_pointerPos);
-        }
+        { }
 
         private void SetPointerToCenter()
         {
@@ -129,27 +124,19 @@ namespace GiantsAttack
             _inputLoop = StartCoroutine(Aiming());
         }
 
-        private void MoveToDelta(Vector3 delta)
-        {
-            var nextPos = _pointerPos + delta;
-            nextPos.x = Mathf.Clamp(nextPos.x, _screenLimits.x, _screenLimits.y);
-            nextPos.y = Mathf.Clamp(nextPos.y, _screenLimits.z, _screenLimits.w);
-            // CLog.Log($"Pointer pos: {nextPos}");
-            _pointerPos = nextPos;
-            AimUI.SetPosition(_pointerPos);
-            RotateShooter();
-        }
-
         private void RotateToDelta(Vector3 delta)
         {
             delta *= Settings.sensitivity / 100;
             var rot = _body.rotation;
             rot *= Quaternion.Euler(-delta.y, delta.x, 0f);
             _body.rotation = rot;
+            _body.ClampLocalRotation(_localAngleLimits);
             _pointerPos = AimUI.GetScreenPos();
             _shooter.RotateToScreenPos(_pointerPos);
             RotateArm();
         }
+        
+  
         
         private void RotateShooter()
         {

@@ -39,7 +39,6 @@ namespace GiantsAttack
         protected virtual void OnEnemyKilled(IMonster obj)
         {
             UnsubFromEnemy();
-            _isStopped = true;
             Stop();
             ResultListener.OnMainEnemyDead();
         }

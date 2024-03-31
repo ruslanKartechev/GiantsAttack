@@ -104,6 +104,36 @@ namespace SleepDev.Utils
             return list;
         }
 
+        public static void ClampLocalRotation(this Transform transform, Vector3 bounds)
+        {
+            transform.localRotation = ClampQuaternion(transform.localRotation, bounds);
+        }        
+        
+        public static Quaternion ClampQuaternion(Quaternion q, Vector3 bounds)
+        {
+            q.x /= q.w;
+            q.y /= q.w;
+            q.z /= q.w;
+            q.w = 1.0f;
+            var angleX = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.x);
+            angleX = Mathf.Clamp(angleX, -bounds.x, bounds.x);
+            q.x = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleX);
+ 
+            var angleY = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.y);
+            angleY = Mathf.Clamp(angleY, -bounds.y, bounds.y);
+            q.y = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleY);
+ 
+            var angleZ = 2.0f * Mathf.Rad2Deg * Mathf.Atan(q.z);
+            angleZ = Mathf.Clamp(angleZ, -bounds.z, bounds.z);
+            q.z = Mathf.Tan(0.5f * Mathf.Deg2Rad * angleZ);
+            return q;
+        }
+        
+        
+        
+        
+        
+        
         public static T FindClosestTo<T>(ICollection<T> collection, Vector3 center) where T : MonoBehaviour
         {
             T result = null;
@@ -134,6 +164,68 @@ namespace SleepDev.Utils
                 }
             }
             return result;
+        }
+        
+        public static void Destroy(GameObject go)
+        {
+#if UNITY_EDITOR
+            if(Application.isPlaying)
+                 UnityEngine.Object.Destroy(go);
+            else
+                UnityEngine.Object.DestroyImmediate(go);
+#else
+                Object.Destroy(go);
+#endif
+            
+        }
+        
+        
+        
+        
+        
+        
+        public static T[] ExtendAndCopy<T>(T[] original, int addedLength)
+        {
+            T[] tempArray = new T[original.Length + addedLength];
+            int i = 0;
+            foreach (var item in original)
+            {
+                tempArray[i] = item;
+                i++;
+            }
+            
+            return tempArray;
+        }
+        public static T[] CopyFromArray<T>(this T[] original, T[] from)
+        {
+            T[] tempArray = new T[original.Length + from.Length];
+            int i = 0;
+            foreach (var item in original)
+            {
+                tempArray[i] = item;
+                i++;
+            }
+
+            foreach (var item in from)
+            {
+                tempArray[i] = item;
+                i++;
+            }
+            return tempArray;
+        }
+
+        public static T[] AddToArray<T>(this T[] original, T nextItem)
+        {
+            T[] tempArray = new T[original.Length + 1];
+            int i = 0;
+            foreach (var item in original)
+            {
+                tempArray[i] = item;
+                i++;
+            }
+            tempArray[i] = nextItem;
+            return tempArray;
+
         }
     }
 }
