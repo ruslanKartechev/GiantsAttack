@@ -6,9 +6,10 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
+    public enum Mode {Evade, ShootDown}
+
     public class LevelStageThrowAtPlayer : LevelStage
     {
-        public enum Mode {Evade, ShootDown}
         
         [Header("Debugging")]
         public bool doActivateBoss = true;
@@ -75,7 +76,7 @@ namespace GiantsAttack
         {
             if (_isStopped)
                 return;
-            Enemy.PickAndThrow(_enemyWeapon.Throwable, Throw);
+            Enemy.PickAndThrow(_enemyWeapon.Throwable, ()=>{} ,Throw);
         }
 
         private void Throw()
@@ -83,7 +84,7 @@ namespace GiantsAttack
             if (_isStopped)
                 return;
             _checkProjectileHit = true;
-            _enemyWeapon.Throwable.ThrowAt(_throwAtPoint.position, _projectileMoveTime, OnThrowableFlyEnd, OnThrowableHit);
+            _enemyWeapon.Throwable.ThrowAt(_throwAtPoint, _projectileMoveTime, OnThrowableFlyEnd, OnThrowableHit);
             if(_mode == Mode.Evade)
                 StartEvadeMode();
             else

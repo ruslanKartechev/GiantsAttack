@@ -16,6 +16,7 @@ namespace GiantsAttack
         [SerializeField] private Vector3 _localGrabbedEulers;
         [SerializeField] private HitTriggerReceiver _hitTriggerReceiver;
         [SerializeField] private ParticleSystem _explosionParticles;
+        [SerializeField] private Collider _collider;
         
         private Coroutine _moving;
         private Action<Collider> _hitCallback;
@@ -40,7 +41,7 @@ namespace GiantsAttack
             callback?.Invoke();
         }
 
-        public void ThrowAt(Vector3 position, float time, Action flyEndCallback, Action<Collider> callbackHit)
+        public void ThrowAt(Transform point, float time, Action flyEndCallback, Action<Collider> callbackHit)
         {
             _hitTriggerReceiver.Callback = _hitCallback;
             _hitTriggerReceiver.Collider.enabled = true;
@@ -49,7 +50,7 @@ namespace GiantsAttack
             _hitCallback = callbackHit;
             if(_moving != null)
                 StopCoroutine(_moving);
-            _moving = StartCoroutine(Flying(position, time, flyEndCallback));
+            _moving = StartCoroutine(Flying(point, time, flyEndCallback));
         }
 
         public void Hide()
@@ -66,12 +67,17 @@ namespace GiantsAttack
             Hide();
         }
 
+        public void SetColliderActive(bool on)
+        {
+            _collider.enabled = on;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             _hitCallback.Invoke(other);            
         }
 
-        private IEnumerator Flying(Vector3 endPos, float time, Action onEnd)
+        private IEnumerator Flying(Transform point, float time, Action onEnd)
         {
             var startPos = transform.position;
             var elapsed = Time.deltaTime;
@@ -82,7 +88,7 @@ namespace GiantsAttack
             
             while (t <= 1f)
             {
-                transform.position = Vector3.Lerp(startPos, endPos, t);
+                transform.position = Vector3.Lerp(startPos, point.position, t);
                 transform.Rotate(rotVec, _rotationSpeed * Time.deltaTime);
                 elapsed += Time.deltaTime;
                 t = elapsed / time;

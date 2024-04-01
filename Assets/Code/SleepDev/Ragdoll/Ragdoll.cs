@@ -119,6 +119,27 @@ namespace SleepDev.Ragdoll
                 if(newPart != null)
                     parts.Add(newPart);
             }
+
+            for (var i = 0; i < _copyFromRagdoll.parts.Count; i++)
+            {
+                var fromPart = _copyFromRagdoll.parts[i];
+                var myPart = parts[i];
+                if(myPart.rb.gameObject.name != fromPart.rb.gameObject.name)
+                    continue;
+                var fromJoint = fromPart.rb.gameObject.GetComponent<Joint>();
+                if (fromJoint != null && fromJoint.connectedBody != null)
+                {
+                    var connectedName = fromJoint.connectedBody.gameObject.name;
+                    var myRb = parts.Find(t => t.rb.gameObject.name == connectedName);
+                    if (myRb != null)
+                    {
+                        var myJoint = myPart.rb.gameObject.GetComponent<Joint>();
+                        myJoint.connectedBody = myRb.rb;
+                        UnityEditor.EditorUtility.SetDirty(myJoint);
+                    }
+                }
+            }
+
             UnityEditor.EditorUtility.SetDirty(this);
             
             
@@ -151,7 +172,7 @@ namespace SleepDev.Ragdoll
                 UnityEditor.EditorUtility.CopySerialized(from.collider, coll);
                 newPart.collider = coll;
                 // Joint
-                var fromJoint = from.rb.gameObject.GetOrAdd<CharacterJoint>();
+                var fromJoint = from.rb.gameObject.GetComponent<CharacterJoint>();
                 if (fromJoint != null)
                 {
                     var joint = go.GetOrAdd<CharacterJoint>();

@@ -34,6 +34,7 @@ namespace GiantsAttack
         public void MoveTo(Transform target, float time, Action callback)
         {
             StopMovement();
+            StopLookAt();
             _moveToTarget = target;
             _animator.SetTrigger(_walkTriggerKey);
             _moving = StartCoroutine(Moving(time, callback));
@@ -76,10 +77,10 @@ namespace GiantsAttack
 
         private IEnumerator RotatingTo(Quaternion rotation, float rotationSpeed)
         {
-            var elapsed = 0f;
+            var elapsed = Time.deltaTime;
             var t = 0f;
-            var time = Quaternion.Angle(rotation, _movable.rotation) / rotationSpeed;
             var r1 = _movable.rotation;
+            var time = Quaternion.Angle(rotation, r1) / rotationSpeed;
             while (t <= 1f)
             {
                 _movable.rotation = Quaternion.Lerp(r1, rotation, t);
@@ -105,7 +106,9 @@ namespace GiantsAttack
                 yield return null;
             }
             _movable.position = _moveToTarget.position;
+            CLog.LogRed($"Movement end, rotate to match");
             yield return RotatingTo(_moveToTarget.rotation, _rotationSpeed);
+            CLog.LogRed($"Rotation end, callback...");
             callback?.Invoke();
         }
     }

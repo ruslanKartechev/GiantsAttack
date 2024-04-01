@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using SleepDev;
 
@@ -10,7 +11,8 @@ namespace GiantsAttack
         public event Action<IDamageable> OnDamaged;
 
         [SerializeField] private HealthDisplayBar _healthBar;
-        
+        [SerializeField] private List<ParticleSystem> _bloodParticles;
+        private int _bloodPartsInd;
         private float _health;
         private float _maxHealth;
         private bool _canDamage;
@@ -32,6 +34,16 @@ namespace GiantsAttack
                 OnDead?.Invoke(this);
                 return;
             }
+            //
+            var bp = _bloodParticles[_bloodPartsInd];
+            bp.transform.position = args.point;
+            bp.transform.rotation = Quaternion.LookRotation(-args.direction);
+            bp.gameObject.SetActive(true);
+            bp.Play();
+            _bloodPartsInd++;
+            if (_bloodPartsInd >= _bloodParticles.Count)
+                _bloodPartsInd = 0;
+            //
             _healthBar.UpdateHealth(HealthPercent);
             OnDamaged?.Invoke(this);
         }
@@ -57,10 +69,6 @@ namespace GiantsAttack
         {
             _healthBar.Hide();
         }
-
-        public void OnPartDamaged(BodyPartTarget partTarget, DamageArgs args)
-        {
-            
-        }
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using GameCore.UI;
 using SleepDev;
 using UnityEngine;
 
@@ -49,6 +50,11 @@ namespace GameCore.Cam
             SetRotation(point);
         }
 
+        public void Parent(Transform parent)
+        {
+            transform.SetParent(parent);
+        }
+        
         public void Unparent()
         {
             transform.parent = null;
@@ -75,6 +81,12 @@ namespace GameCore.Cam
         {
             StopMoving();
             _processing = StartCoroutine(MovingToPoint(point, time, onEnd));
+        }
+        
+        public void MoveToPointLocal(Transform point, float time, Action onEnd)
+        {
+            StopMoving();
+            _processing = StartCoroutine(MovingToPointLocal(point, time, onEnd));
         }
         
         public void MoveToPointToFollow(Transform point, float time, Action callback)
@@ -146,6 +158,25 @@ namespace GameCore.Cam
             onEnd?.Invoke();
         }
 
+        private IEnumerator MovingToPointLocal(Transform followPoint, float time, Action onEnd)
+        {
+            var pos1 = _movable.localPosition;
+            var rot1 = _movable.localRotation;
+            var elapsed = Time.deltaTime;
+            var t = elapsed / time;
+            while (t <= 1f)
+            {
+                _movable.localPosition = Vector3.Lerp(pos1, followPoint.localPosition, t);
+                _movable.localRotation = Quaternion.Lerp(rot1, followPoint.localRotation, t);
+                elapsed += Time.deltaTime;
+                t = elapsed / time;
+                yield return null;
+            }
+            _movable.localPosition = followPoint.localPosition;
+            _movable.localRotation = followPoint.localRotation;
+            onEnd?.Invoke();
+        }
+        
         private void StopFollowing()
         {
             if(_following != null)
@@ -163,6 +194,7 @@ namespace GameCore.Cam
         {
             yield return MovingToPoint(followPoint, time, onEnd);
             StopFollowing();
+            transform.SetPositionAndRotation(followPoint.position, followPoint.rotation);
             transform.parent = followPoint;
         }
         

@@ -71,7 +71,7 @@ namespace GiantsAttack
             // CLog.Log($"bullet trigger w {other.gameObject.name}");
             if (other.gameObject.TryGetComponent<ITarget>(out var target))
             {
-                target.Damageable.TakeDamage(new DamageArgs(_damage));
+                target.Damageable.TakeDamage(new DamageArgs(_damage, transform.position, transform.forward));
                 OnHit();
                 _counter.HitsCount++;
                 if(target.Damageable.CanDamage)

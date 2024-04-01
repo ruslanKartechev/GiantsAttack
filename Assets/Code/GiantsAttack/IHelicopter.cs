@@ -19,6 +19,7 @@ namespace GiantsAttack
         void Kill();
         List<Transform> RocketPoints { get; }
         Transform RocketCamPoint { get; }
+        Transform Point { get; }
     }
     
 }

@@ -86,9 +86,10 @@ namespace GiantsAttack
             _animator.SetTrigger("Roar");
         }
         
-        public void PickAndThrow(IThrowable target, Action onThrowCallback)
+        public void PickAndThrow(IThrowable target,Action onPickCallback, Action onThrowCallback)
         {
-            var bahaviour = new PickAndThrowBehaviour(target, this, _animator, _grabHand, onThrowCallback);
+            var bahaviour = new PickAndThrowBehaviour(target, this, _animator, _grabHand, 
+                onPickCallback, onThrowCallback);
         }
         
         private void OnHealthOut(IDamageable obj)

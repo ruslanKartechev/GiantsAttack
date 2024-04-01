@@ -12,17 +12,20 @@ namespace GiantsAttack
         private IThrowable _target;
         private IMonster _monster;
         private Transform _grabHand;
-        private Action _callback;
-        
+        private Action _throwCallback;
+        private Action _pickCallback;
+
         private static readonly int PickUp = Animator.StringToHash("PickUp");
 
         public PickAndThrowBehaviour(IThrowable target, IMonster monster, 
             Animator animator, Transform grabHand, 
-            Action callback)
+            Action onPickCallback, Action throwCallback)
         {
             _target = target;
             _monster = monster;
-            _callback = callback;
+            _throwCallback = throwCallback;
+            _pickCallback = onPickCallback;
+            
             _grabHand = grabHand;
             _monster.AnimEventReceiver.OnPickup += OnPickup;
             _monster.AnimEventReceiver.OnThrow += OnThrow;
@@ -34,11 +37,12 @@ namespace GiantsAttack
             CLog.Log($"[Grab&Throw] On Throw event");
             _monster.AnimEventReceiver.OnPickup -= OnPickup;
             _monster.AnimEventReceiver.OnThrow -= OnThrow;
-            _callback.Invoke();
+            _throwCallback.Invoke();
         }
 
         private void OnPickup()
         {
+            _pickCallback?.Invoke();
             _target.GrabBy(_grabHand, () =>
             {
                 CLog.Log($"[Grab&Throw] On object grabbed");

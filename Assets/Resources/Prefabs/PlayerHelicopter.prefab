@@ -52,7 +52,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228982142633460818}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -381,8 +381,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2432978667442735602}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -465,7 +465,7 @@ MeshRenderer:
   m_GameObject: {fileID: 2527957659164920778}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -917,7 +917,7 @@ MeshRenderer:
   m_GameObject: {fileID: 4114966716128865340}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -1038,7 +1038,7 @@ MeshRenderer:
   m_GameObject: {fileID: 4283919536116945009}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -1434,8 +1434,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6451177733613738658}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -1859,7 +1859,7 @@ MeshRenderer:
   m_GameObject: {fileID: 8116527794575742665}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -1997,6 +1997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _copyFrom: {fileID: 0}
+  _lookAt: {fileID: 0}
 --- !u!114 &3480385878896382995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2090,8 +2091,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delayBetweenBarrels: 0.1
   _shootDirection: {fileID: 6146981450273323367}
-  _casePrefab: {fileID: 6327638775308030886, guid: c9f6097c35b65c94fb59b7adce532635,
-    type: 3}
 --- !u!114 &4213751461523378110
 MonoBehaviour:
   m_ObjectHideFlags: 0

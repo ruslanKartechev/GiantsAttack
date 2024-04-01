@@ -7,8 +7,9 @@ namespace GiantsAttack
     {
         Transform Transform { get;}
         void GrabBy(Transform hand, Action callback);
-        void ThrowAt(Vector3 position, float time, Action flyEndCallback, Action<Collider> callbackHit);
+        void ThrowAt(Transform point, float time, Action flyEndCallback, Action<Collider> callbackHit);
         void Hide();
         void Explode();
+        void SetColliderActive(bool on);
     }
 }

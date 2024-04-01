@@ -24,6 +24,7 @@ namespace GiantsAttack
         public IBodySectionsUI BodySectionsUI => _bodySectionsUI;
         public List<Transform> RocketPoints => _rocketPoint;
         public Transform RocketCamPoint => _rocketCamPoint;
+        public Transform Point => transform;
 
         public void Init(HelicopterInitArgs args)
         {

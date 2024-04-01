@@ -16,7 +16,7 @@ namespace GiantsAttack
         {
             Player.Aimer.BeginAim();
             Player.Mover.BeginAnimatingVertically();
-            Player.Mover.BeginMovingOnCircle(_circularPathBuilder.Path, _lookAtTarget, _moveForthAndBack, OnDoneMoving);
+            // Player.Mover.BeginMovingOnCircle(_circularPathBuilder.Path, _lookAtTarget, _moveForthAndBack, OnDoneMoving);
             Enemy.Roar();
         }
 

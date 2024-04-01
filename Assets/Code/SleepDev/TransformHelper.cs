@@ -5,8 +5,17 @@ namespace SleepDev
 {
     public class TransformHelper : MonoBehaviour
     {
+#if UNITY_EDITOR
         [SerializeField] private Transform _copyFrom;
-
+        [SerializeField] private Transform _lookAt;
+        public void LookAt()
+        {
+            if (_lookAt == null)
+                return;
+            transform.rotation = Quaternion.LookRotation(_lookAt.position - transform.position);
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+        
         public void CopyPosRot()
         {
             if (_copyFrom == null)
@@ -24,8 +33,9 @@ namespace SleepDev
         {
             transform.localScale = Vector3.one;
         }
-        
+#endif
     }
+    
     #if UNITY_EDITOR
     [CustomEditor(typeof(TransformHelper))]
     public class TransformHelperEditor : Editor
@@ -48,6 +58,11 @@ namespace SleepDev
             if (GUILayout.Button("Copy", GUILayout.Width(120)))
             {
                 me.CopyPosRot();
+                UnityEditor.EditorUtility.SetDirty(me);
+            }
+            if (GUILayout.Button("Look at", GUILayout.Width(120)))
+            {
+                me.LookAt();
                 UnityEditor.EditorUtility.SetDirty(me);
             }
         }

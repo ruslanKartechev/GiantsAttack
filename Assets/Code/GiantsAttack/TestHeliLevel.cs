@@ -10,6 +10,7 @@ namespace GiantsAttack
     public class TestHeliLevel : GameCore.Levels.Level, IStageResultListener
     {
         [SerializeField] private bool _useStartUi = true;
+        [SerializeField] private bool _enemyRoarOnStart;
         [SerializeField] private HelicopterInitArgs _initArgs;
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private MonsterController _monster;
@@ -34,6 +35,7 @@ namespace GiantsAttack
             _debugger = gameObject.AddComponent<LevelDebugger>();
             _debugger.level = this;
 #endif
+
         }
 
         public override void Init()
@@ -132,10 +134,13 @@ namespace GiantsAttack
         private void InitEnemy()
         {
             _monster.Init(_player.BodySectionsUI);
+            if(_enemyRoarOnStart)
+                _monster.Roar();
         }
 
         private void BeginGameplay()
         {
+            //LaunchFinalSequence();
             _stages[_stageIndex].Activate();
         }
 

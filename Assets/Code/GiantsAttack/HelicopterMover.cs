@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using SleepDev;
+using TMPro;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -40,13 +42,13 @@ namespace GiantsAttack
             animSettings = _settingSo.animSettingsSo.settings;
         }
 
-        public void  BeginMovingOnCircle(CircularPath path, Transform lookAtTarget, bool loop, Action callback)
+        public void BeginMovingOnCircle(CircularPath path, Transform lookAt, MoveOnCircleArgs args)
         {
             CLog.Log($"[HeliMover] Begin moving on circle");
             StopMovement();
-            _moving = StartCoroutine(MovingOnCircle(path, lookAtTarget, loop, callback));
+            _moving = StartCoroutine(MovingOnCircle(path, lookAt, args));
         }
-
+        
         public void StopMovement()
         {
             if(_moving != null)
@@ -72,8 +74,6 @@ namespace GiantsAttack
             StopAnimating();
         }
 
-
-
         public void RotateToLook(Transform lookAt, float time, Action onEnd, bool centerInternal = true)
         {
             StopRotating();
@@ -94,7 +94,6 @@ namespace GiantsAttack
                 curve = movementSettings.defaultMoveCurve;
             _moving = StartCoroutine(MovingToPoint(point, time, curve, callback));
         }
-
         
         
         #region Loitering
@@ -127,8 +126,7 @@ namespace GiantsAttack
         #region Evasion
         public void Evade(EDirection2D direction, Action callback, float evasionDistance)
         {
-            StopMovement();
-            StopAnimating();
+            StopAll();
             var evadeToPoint = transform.position;
             var angles = transform.eulerAngles;
             var dist = evasionDistance;
@@ -356,15 +354,68 @@ namespace GiantsAttack
             }
             tr.SetPositionAndRotation(point.position, point.rotation);
             callback?.Invoke();
-
+        }
+        
+        private IEnumerator ChangingPosition(Transform target, Vector3 endPos, float time)
+        {
+            var p1 = target.position;
+            var elapsed = 0f;
+            while (elapsed <= time)
+            {
+                target.position = Vector3.Lerp(p1, endPos, elapsed / time);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            target.position = endPos;
         }
 
-        private IEnumerator MovingOnCircle(CircularPath path, Transform lookAtTarget, bool loop, Action callback)
+        private IEnumerator MovingOnCircle(CircularPath path, Transform lookAt, MoveOnCircleArgs args)
+        {
+            var startAngle = path.startAngle;
+            var vec = (_movable.position - path.root.position).XZPlane();
+            
+            if (args.refreshAngleOnStart == false)
+            {
+                startAngle = Vector3.Angle(path.root.forward, vec);
+                // CLog.LogRed($"Angle calculated: {startAngle}");    
+            }
+            var startPos =  path.GetCirclePosAtAngle(startAngle);
+            var awaitCoroutins = new List<Coroutine>();
+            var lookAtRot = Quaternion.LookRotation(lookAt.position - startPos);
+            var rotationTime = Quaternion.Angle(lookAtRot, _movable.rotation) / args.rotateToStartAngleSpeed;
+            // CLog.LogYellow($"Rotation time: {rotationTime}");
+            awaitCoroutins.Add(StartCoroutine(ChangingRotation(_movable,_movable.rotation, lookAtRot, rotationTime)));
+            if (args.moveToStartPoint)
+            {
+                var startPosSetupTime = (_movable.position - startPos).magnitude / args.moveToStartPointSpeed;
+                // CLog.LogYellow($"MovementTime time: {startPosSetupTime}");
+                if (startPosSetupTime > .01)
+                {
+                    var movingToStart = StartCoroutine(ChangingPosition(_movable, startPos, startPosSetupTime));
+                    awaitCoroutins.Add(movingToStart);       
+                }
+            }
+            else
+                _movable.position = startPos;
+            foreach (var cor in awaitCoroutins)
+                yield return cor;
+            var angle = startAngle;
+            while (true)
+            {
+                _movable.position = path.GetCirclePosAtAngle(angle);
+                var rot = Quaternion.LookRotation(lookAt.position - _movable.position);
+                _movable.rotation = rot;
+                angle += Time.deltaTime * args.angleMoveSpeed;
+                yield return null;
+            }
+        }
+
+        private IEnumerator MovingOnCircle3(CircularPath path, Transform lookAtTarget, bool loop, Action callback)
         {
             var time = Mathf.Abs(path.endAngle - path.startAngle) / Settings.angularSpeed;
             var elapsed = 0f;
-            // do
-            // {
+            do
+            {
                 while (_t <= 1f)
                 {
                     SetPos(_t);
@@ -374,13 +425,6 @@ namespace GiantsAttack
                 }
                 _t = 1f;
                 SetPos(_t);
-                
-                if (!loop)
-                {
-                    callback?.Invoke();
-                    yield break;
-                }
-                
                 while (_t >= 0)
                 {
                     SetPos(_t);
@@ -389,7 +433,7 @@ namespace GiantsAttack
                     yield return null;
                 }
                 _t = 0;
-            // } while (loop);
+            } while (loop);
             
             callback?.Invoke();
             

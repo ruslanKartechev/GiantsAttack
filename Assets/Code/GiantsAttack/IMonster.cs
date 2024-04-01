@@ -23,7 +23,7 @@ namespace GiantsAttack
         void Roar();
         void Kill();
         void PreKillState();
-        void PickAndThrow(IThrowable target, Action onThrowCallback);
+        void PickAndThrow(IThrowable target, Action onPickCallback, Action onThrowCallback);
         void Punch(string key, Action punchStartedCallback, Action onPunch);
 
     }
