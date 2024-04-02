@@ -400,12 +400,26 @@ namespace GiantsAttack
             foreach (var cor in awaitCoroutins)
                 yield return cor;
             var angle = startAngle;
+            var tiltAngle = args.maxTiltAngle;
+            var tiltAngleMax = args.maxTiltAngle;
+            var tiltAngleMin = args.minTiltAngle;
+            var elapsed = 0f;
+            var period = args.tiltPeriod;
             while (true)
             {
                 _movable.position = path.GetCirclePosAtAngle(angle);
                 var rot = Quaternion.LookRotation(lookAt.position - _movable.position);
-                _movable.rotation = rot;
-                angle += Time.deltaTime * args.angleMoveSpeed;
+                rot *= Quaternion.Euler(new Vector3(0f, 0f,  tiltAngle * Mathf.Sign(args.circleAngleSpeed)));
+                angle += Time.deltaTime * args.circleAngleSpeed;
+                
+                tiltAngle = Mathf.Lerp(tiltAngleMin, tiltAngleMax, elapsed / period);
+                elapsed += Time.deltaTime;
+                if (elapsed >= period)
+                {
+                    elapsed = 0f;
+                    (tiltAngleMax, tiltAngleMin) = (tiltAngleMin, tiltAngleMax);
+                }
+                _movable.rotation = Quaternion.Lerp(_movable.rotation, rot, args.angularSpeed);
                 yield return null;
             }
         }

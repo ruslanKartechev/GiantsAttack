@@ -106,9 +106,7 @@ namespace GiantsAttack
                 yield return null;
             }
             _movable.position = _moveToTarget.position;
-            CLog.LogRed($"Movement end, rotate to match");
             yield return RotatingTo(_moveToTarget.rotation, _rotationSpeed);
-            CLog.LogRed($"Rotation end, callback...");
             callback?.Invoke();
         }
     }

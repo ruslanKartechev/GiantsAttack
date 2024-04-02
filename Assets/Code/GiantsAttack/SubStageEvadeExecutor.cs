@@ -1,5 +1,6 @@
 ﻿using System;
 using GameCore.UI;
+using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -15,6 +16,7 @@ namespace GiantsAttack
         private SlowMotionExecutor _slowMotionExecutor; 
         private bool _isStopped;
         private bool _didSetSlowSlowMoSettings;
+        private Transform _flyAtTarget;
             
         public Action FailCallback;
         public Action SuccessCallback;
@@ -43,8 +45,11 @@ namespace GiantsAttack
         public override void Stop()
         {
             _isStopped = true;
-            if(_didSetSlowSlowMoSettings)
+            if (_didSetSlowSlowMoSettings)
+            {
                 _slowMotionExecutor.RevertSettings();
+                StopSwipe();
+            }
         }
             
         private void CallPickAndThrow()
@@ -65,8 +70,10 @@ namespace GiantsAttack
         {
             if (_isStopped)
                 return;
+            _flyAtTarget = new GameObject("throw_at").transform;
+            _flyAtTarget.SetParentAndCopy(_player.Point);
             _slowMotionExecutor.BeginSlowMo();
-            _currentWeapon.Throwable.ThrowAt(_player.Point, _stage.projectileMoveTime, OnFlyEnd, OnCollide );
+            _currentWeapon.Throwable.ThrowAt(_flyAtTarget, _stage.projectileMoveTime, OnFlyEnd, OnCollide );
             _player.Aimer.StopAim();
             _player.Shooter.StopShooting();
             _swipeChecker.OnCorrect = OnCorrectSwipe;
@@ -78,6 +85,7 @@ namespace GiantsAttack
             
         private void OnCorrectSwipe()
         {
+            _flyAtTarget.parent = null;
             _isStopped = true;
             _currentWeapon.Throwable.SetColliderActive(false);
             _slowMotionExecutor.StopSlowMo();
@@ -87,8 +95,9 @@ namespace GiantsAttack
 
         private void OnWrongSwipe()
         {
-            _slowMotionExecutor.StopSlowMo();
             _isStopped = true;
+            _slowMotionExecutor.StopSlowMo();
+            StopSwipe();
             _player.Mover.Evade(_swipeChecker.LastSwipeDir, OnWrongSwipeDone, _stage.evadeDistance);
         }
             

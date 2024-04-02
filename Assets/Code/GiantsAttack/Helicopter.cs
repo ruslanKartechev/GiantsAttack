@@ -13,6 +13,7 @@ namespace GiantsAttack
         [SerializeField] private PlayerAltitudeMeter _altitudeMeter;
         [SerializeField] private PlayerCompas _compas;
         [SerializeField] private BodySectionsUI _bodySectionsUI;
+        [SerializeField] private List<ParticleSystem> _bladeParticles;
         private bool _isDead;
 
         public IHelicopterMover Mover { get; private set;}
@@ -58,6 +59,9 @@ namespace GiantsAttack
                 CLog.Log($"Helicopter already dead");
                 return;
             }
+
+            foreach (var particle in _bladeParticles)
+                particle.gameObject.SetActive(false);
             _isDead = true;
             Mover.StopAll();
             Aimer.StopAim();

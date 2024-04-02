@@ -16,7 +16,6 @@ namespace GiantsAttack
         [SerializeField] private Vector3 _localAngleLimits;
         
         private float _screenLimitPercent = .05f;
-        private Vector4 _screenLimits; // xMin, xMax, yMin, yMax;
 
         private IHelicopterShooter _shooter;
         private Vector3 _pointerPos;
@@ -45,10 +44,6 @@ namespace GiantsAttack
                 return;
             _isAiming = true;
             CLog.Log($"[HeliAimer] Begin aim");
-            _screenLimits.x = Screen.width * _screenLimitPercent;
-            _screenLimits.y = Screen.width * (1 - _screenLimitPercent);
-            _screenLimits.z = Screen.height * _screenLimitPercent;
-            _screenLimits.w = Screen.height * (1 - _screenLimitPercent);
             Sub(false);
             Sub(true);
             AimUI.Show(true);
@@ -129,15 +124,14 @@ namespace GiantsAttack
             delta *= Settings.sensitivity / 100;
             var rot = _body.rotation;
             rot *= Quaternion.Euler(-delta.y, delta.x, 0f);
+            rot *= Quaternion.Euler(UnityEngine.Random.insideUnitSphere * Settings.noiseMagnitude);
             _body.rotation = rot;
             _body.ClampLocalRotation(_localAngleLimits);
             _pointerPos = AimUI.GetScreenPos();
             _shooter.RotateToScreenPos(_pointerPos);
             RotateArm();
         }
-        
-  
-        
+
         private void RotateShooter()
         {
             _shooter.RotateToScreenPos(_pointerPos);

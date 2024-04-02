@@ -5,6 +5,7 @@
     {
         public float sensitivity;
         public float aimRotSpeed;
+        public float noiseMagnitude;
 
     }
 }

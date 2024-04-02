@@ -85,7 +85,7 @@ namespace GiantsAttack
             var rotVec = transform.forward * _torqueVector.z+
                          transform.right * _torqueVector.x+
                          transform.up * _torqueVector.y;
-            
+            // var endPos = point.position;
             while (t <= 1f)
             {
                 transform.position = Vector3.Lerp(startPos, point.position, t);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44905794, g: 0.6682292, b: 0.6552985, a: 1}
+  m_IndirectSpecularColor: {r: 0.45067206, g: 0.6689887, b: 0.6559678, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useStartUi: 1
+  _enemyRoarOnStart: 0
   _initArgs:
     aimerSettings:
       sensitivity: 1.5
@@ -4373,6 +4374,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 5_Boss_Kong
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158068054393537104, guid: 99594c4ddaf5d2e429171be0837b64a5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
