@@ -41,8 +41,11 @@ namespace GiantsAttack
         public override void Stop()
         {
             _isStopped = true;
-            if(_didSetSlowSlowMoSettings)
+            if (_didSetSlowSlowMoSettings)
+            {
+                _ui.ShootAtTargetUI.Hide();
                 _slowMotionExecutor.RevertSettings();
+            }
         }
             
         private void CallPickAndThrow()
@@ -87,6 +90,7 @@ namespace GiantsAttack
         private void OnFlyEnd()
         {
             _currentWeapon.Throwable.Hide();
+            _ui.ShootAtTargetUI.Hide();
             if (_isStopped)
                 return;
             Fail();

@@ -19,8 +19,12 @@ namespace GiantsAttack
         [SerializeField] private float _endCallbackDelay;        
         [SerializeField] private float _afterEnemyAnimationDelay;
         private Action _endCallback;
-        
-        
+
+#if UNITY_EDITOR
+        public override void E_Init()
+        { }
+#endif
+
         public override void Begin(Action callback)
         {
             Player.Mover.StopAll();

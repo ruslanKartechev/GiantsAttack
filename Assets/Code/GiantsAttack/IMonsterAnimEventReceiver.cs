@@ -8,6 +8,7 @@ namespace GiantsAttack
         event Action OnThrow;
         event Action OnPunch;
         event Action OnPunchBegan;
-
+        event Action OnAnimationOver;
+        event Action OnJumpDown;
     }
 }

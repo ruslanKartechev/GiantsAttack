@@ -34,6 +34,8 @@ namespace GiantsAttack
                 OnDead?.Invoke(this);
                 return;
             }
+            _healthBar.Flick();
+            _healthBar.UpdateHealth(HealthPercent);
             //
             var bp = _bloodParticles[_bloodPartsInd];
             bp.transform.position = args.point;
@@ -44,7 +46,6 @@ namespace GiantsAttack
             if (_bloodPartsInd >= _bloodParticles.Count)
                 _bloodPartsInd = 0;
             //
-            _healthBar.UpdateHealth(HealthPercent);
             OnDamaged?.Invoke(this);
         }
 

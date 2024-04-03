@@ -7,11 +7,13 @@ namespace GiantsAttack
     public class LevelStagePunch : LevelStage
     {
         [SerializeField] private string _animKey;
+        [SerializeField] private bool _resetAnimRootBone;
         [SerializeField] private bool _doMoveEnemy;
         [SerializeField] private float _enemyMoveTime;
         [SerializeField] private Transform _enemyPoint;
         [Space(10)]
         [SerializeField] private bool _doMovePlayer;
+        [SerializeField] private bool _loiterPlayer;
         [SerializeField] private AnimationCurve _playerMoveCurve;
         [SerializeField] private float _playerMoveTime;
         [SerializeField] private Transform _playerPoint;
@@ -26,17 +28,13 @@ namespace GiantsAttack
         {
             Player.Aimer.BeginAim();
             if (_doMoveEnemy)
-            {
                 Enemy.Mover.MoveTo(_enemyPoint, _enemyMoveTime, Punch);                
-            }
             else
-            {
                 Punch();
-            }
             if (_doMovePlayer)
-            {
                 Player.Mover.MoveTo(_playerPoint, _playerMoveTime, _playerMoveCurve,() => {});
-            }
+            else if (_loiterPlayer)
+                Player.Mover.Loiter();
         }
 
         public override void Stop()
@@ -59,18 +57,24 @@ namespace GiantsAttack
         {
             if (_isStopped)
                 return;
-            Enemy.Punch(_animKey, OnPunchStarted, OnPunchEnd);
+            Enemy.Punch(_animKey, OnPunchStarted, OnPunchEnd, OnAnimationEnd);
             DelayedSwipeOn();
+        }
+
+        private void OnAnimationEnd()
+        {
+            if(_resetAnimRootBone)
+                Enemy.AlignPositionToAnimRootBone(true);
         }
 
         private void OnCorrectSwipe()
         {
-            CLog.Log($"On Correct swipe");
+            CLog.Log($"[{nameof(LevelStagePunch)}] On Correct swipe");
             if (_isStopped)
                 return;
             _evaded = true;
-            Player.Mover.Evade(_correctSwipeChecker.CorrectDirection, OnEvadeMoveEnd, _evasionDistance);
             SwipeOff();
+            Player.Mover.Evade(_correctSwipeChecker.CorrectDirection, OnEvadeMoveEnd, _evasionDistance);
             Player.Aimer.BeginAim();
         }
 
@@ -81,7 +85,7 @@ namespace GiantsAttack
         
         private void OnWrongSwipe()
         {
-            CLog.Log($"On wrong swipe");
+            CLog.Log($"[{nameof(LevelStagePunch)}] On wrong swipe");
             if (_isStopped)
                 return;
             SwipeOff();

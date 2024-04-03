@@ -29,6 +29,7 @@ namespace GiantsAttack
             _enemy = enemy;
             _player = player;
             _slowMotionExecutor = slowMotionExecutor;
+            swipeChecker.SetCorrectDir(stage.evadeDir);
             _currentWeapon = stage.throwTarget.GetComponent<IEnemyThrowWeapon>();
             _currentWeapon.Health.SetMaxHealth(_stage.projectileHealth);
             _currentWeapon.Throwable.SetColliderActive(false);

@@ -42,7 +42,7 @@ namespace GiantsAttack
             {
                 var a = Mathf.Lerp(from, to, t);
                 var angles = _arrow.localEulerAngles;
-                angles.y = a;
+                angles.z = a;
                 _arrow.localEulerAngles = angles;
                 elapsed += Time.deltaTime;
                 t = elapsed / time;

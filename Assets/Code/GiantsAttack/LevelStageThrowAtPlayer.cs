@@ -6,60 +6,58 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    public enum Mode {Evade, ShootDown}
-
     public class LevelStageThrowAtPlayer : LevelStage
     {
-        
-        [Header("Debugging")]
-        public bool doActivateBoss = true;
-        [Space(5)]
-        [Header("Mode"), Tooltip("If true will call for evade, else will call shoot")] 
-        [SerializeField] private Mode _mode;
-        [SerializeField] private bool _doSlowMo;
-        [Header("Throwable")]
-        [SerializeField] private GameObject _grabTargetGo;
-        [SerializeField] private float _projectileHealth = 20;
-        [SerializeField] private ShooterSettings _slowMoShooterSettings;
-        [Space(5)]
-        [Header("Enemy Movement")]
-        [SerializeField] private bool _doWalkToTarget;
-        [SerializeField] private Transform _moveToPoint;
-        [SerializeField] private float _enemyMoveTime;
-        [Space(5)]
-        [Header("Enemy Throwing")]
+        [Header("Main")] 
+        [SerializeField] private ProjectileStageMode _mode;
+        [SerializeField] private float _startDelay = 0f;
+        [SerializeField] private bool _waitForPosInPosition;
+        [SerializeField] private GameObject _throwable;
+        [SerializeField] private bool _doAnimateThrowable;
+        [SerializeField] private float _animateThrowableTime;
+        [Header("Throwing")]
         [SerializeField] private float _projectileMoveTime;
         [SerializeField] private Transform _throwAtPoint;
+        [SerializeField] private bool _doSlowMo;
         [SerializeField] private SlowMotionEffectSO _slowMotion;
-        [Space(5)]
+        [Header("Enemy Movement")]
+        [SerializeField] private bool _doMoveEnemy;
+        [SerializeField] private float _enemyMoveTime;
+        [SerializeField] private Transform _moveToPoint;
+        [Header("PlayerMovement")]
+        [SerializeField] private bool _doMovePlayer;
+        [SerializeField] private float _playerMoveTime;
+        [SerializeField] private Transform _moveToPointPlayer;
         [Header("Evasion")]
         [SerializeField] private float _evadeDistance = 10;
         [SerializeField] private CorrectSwipeChecker _correctSwipeChecker;
-
-
-        private bool _checkProjectileHit;
+        [Header("ShootDown")]
+        [SerializeField] private float _projectileHealth = 20;
+        [SerializeField] private ShooterSettings _slowMoShooterSettings;
+        
+        private bool _playerInPos;
+        private bool _enemyInPos;
+        private bool _didThrow;
+        private bool _doProjectileCollision;
+        
         private IEnemyThrowWeapon _enemyWeapon;
         private ShooterSettings _shooterSettingsBeforeChange;
 
         public override void Activate()
         {
-            _enemyWeapon = _grabTargetGo.GetComponent<IEnemyThrowWeapon>();
+            _enemyWeapon = _throwable.GetComponent<IEnemyThrowWeapon>();
 #if UNITY_EDITOR
             UnityEngine.Assertions.Assert.IsNotNull(_enemyWeapon);
 #endif
             Player.Mover.StopMovement();
             Player.Aimer.BeginAim();
-            Player.Mover.Loiter();
             SubToEnemyKill();
-            if (doActivateBoss)
-            {
-                if (_doWalkToTarget)
-                    MoveToGrab();
-                else
-                    GrabAndThrow();
-            }
+            if (_startDelay > 0)
+                Delay(Begin, _startDelay);
+            else
+                Begin();
         }
-
+        
         public override void Stop()
         {
             _isStopped = true;
@@ -67,15 +65,71 @@ namespace GiantsAttack
             _correctSwipeChecker.Off();
         }
 
-        private void MoveToGrab()
+        private void Begin()
         {
-            Enemy.Mover.MoveTo(_moveToPoint, _enemyMoveTime, GrabAndThrow);
+            if (_doAnimateThrowable)
+            {
+                Delay(() => { _enemyWeapon.AnimateMove(OnWeaponAnimateMoved); }, _animateThrowableTime);
+            }
+            if (_doMoveEnemy)
+                MoveEnemy();
+            else
+                OnEnemyMoved();
+            
+            if (_doMovePlayer)
+                MovePlayer();
+            else
+            {
+                _playerInPos = true;
+                Player.Mover.Loiter();
+            }
         }
 
+        private void OnWeaponAnimateMoved()
+        {
+            _enemyWeapon.StopAnimate();
+        }
+        
+        private void MoveEnemy()
+        {
+            Enemy.Mover.MoveTo(_moveToPoint, _enemyMoveTime, OnEnemyMoved);
+        }
+
+
+        private void MovePlayer()
+        {
+            Player.Mover.MoveTo(_moveToPointPlayer, _playerMoveTime, null, OnPlayerMoved);    
+        }
+        
+        private void OnPlayerMoved()
+        {
+            CLog.Log("[StageThrow] OnPlayerMoved");
+            Player.Mover.Loiter();
+            _playerInPos = true;
+            if (_waitForPosInPosition && _enemyInPos && !_didThrow)
+            {
+                GrabAndThrow();
+            }
+        }
+        
+        private void OnEnemyMoved()
+        {
+            CLog.Log("[StageThrow] OnEnemyMoved");
+            _enemyInPos = true;
+            if (_waitForPosInPosition && !_playerInPos)
+            {
+                CLog.Log("[StageThrow] Player not yet in pos");
+                return;
+            }
+            GrabAndThrow();    
+        }
+        
         private void GrabAndThrow()
         {
+            CLog.Log("[StageThrow] GrabAndThrow");
             if (_isStopped)
                 return;
+            _didThrow = true;
             Enemy.PickAndThrow(_enemyWeapon.Throwable, ()=>{} ,Throw);
         }
 
@@ -83,9 +137,9 @@ namespace GiantsAttack
         {
             if (_isStopped)
                 return;
-            _checkProjectileHit = true;
+            _doProjectileCollision = true;
             _enemyWeapon.Throwable.ThrowAt(_throwAtPoint, _projectileMoveTime, OnThrowableFlyEnd, OnThrowableHit);
-            if(_mode == Mode.Evade)
+            if(_mode == ProjectileStageMode.Evade)
                 StartEvadeMode();
             else
                 StartShootMode();
@@ -98,7 +152,7 @@ namespace GiantsAttack
 
         private void OnThrowableFlyEnd()
         {
-            if (!_checkProjectileHit)
+            if (!_doProjectileCollision)
             {
                 _enemyWeapon.Throwable.Hide();
                 return;
@@ -110,7 +164,7 @@ namespace GiantsAttack
 
         private void OnThrowableHit(Collider collider)
         {
-            if (!_checkProjectileHit)
+            if (!_doProjectileCollision)
                 return;
             if (collider.TryGetComponent<IHelicopter>(out var player))
             {
@@ -201,9 +255,9 @@ namespace GiantsAttack
 
         private void OnSwipeMade()
         {
+            _doProjectileCollision = false;
             _correctSwipeChecker.Off();
             UI.EvadeUI.Stop();
-            _checkProjectileHit = false;
             StopSlowMo();
         }
         

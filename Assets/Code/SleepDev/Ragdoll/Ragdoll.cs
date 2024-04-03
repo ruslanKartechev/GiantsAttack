@@ -185,6 +185,8 @@ namespace SleepDev.Ragdoll
         
         public void E_GetParts()
         {
+            if(ignoredParents == null)
+                ignoredParents = new List<Transform>();
             ignoredParents.RemoveAll(t => t == null);
             var gos = GameUtils.GetFromAllChildren<Transform>(transform, (tr) =>
             {
@@ -296,9 +298,11 @@ namespace SleepDev.Ragdoll
             foreach (var part in parts)
             {
                 var joint = part.rb.gameObject.GetComponent<Joint>();
-                if(joint != null)
+                if (joint != null)
+                {
                     joint.enablePreprocessing = preprocess;
-                UnityEditor.EditorUtility.SetDirty(joint);
+                    UnityEditor.EditorUtility.SetDirty(joint);
+                }
             }
         }
 

@@ -10,15 +10,19 @@ namespace GiantsAttack
     public class TestHeliLevel : GameCore.Levels.Level, IStageResultListener
     {
         [SerializeField] private bool _useStartUi = true;
-        [SerializeField] private bool _enemyRoarOnStart;
+        [SerializeField] private float _enemyHealth = 1000;
+        [SerializeField] private AimerSettingsSo _aimerSettings;
         [SerializeField] private HelicopterInitArgs _initArgs;
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private MonsterController _monster;
         [SerializeField] private List<LevelStage> _stages;
+        [SerializeField] private LevelStartSequence _startSequence;
         [SerializeField] private LevelFinalSequence _finalSequence;
         private PlayerCamera _camera;
         private int _stageIndex = 0;
         private bool _isFinalizing;
+        private bool _startSequenceComplete;
+        private bool _gameplayStartCalled;
 
         private IHelicopter _player;
         private IHitCounter _hitCounter;
@@ -35,9 +39,31 @@ namespace GiantsAttack
             _debugger = gameObject.AddComponent<LevelDebugger>();
             _debugger.level = this;
 #endif
-
         }
 
+#if UNITY_EDITOR
+        public void E_Init()
+        {
+            if (_startSequence == null)
+            {
+                _startSequence = FindObjectOfType<LevelStartSequence>();
+                _startSequence?.E_Init();
+            }
+
+            if (_finalSequence == null)
+            {
+                _finalSequence = FindObjectOfType<LevelFinalSequence>();
+                _finalSequence?.E_Init();
+            }
+
+            if (_monster == null)
+            {
+                _monster = FindObjectOfType<MonsterController>();
+            }
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+#endif
+        
         public override void Init()
         {
             _camera = CameraContainer.PlayerCamera as PlayerCamera;
@@ -46,6 +72,7 @@ namespace GiantsAttack
             _initArgs.hitCounter = _hitCounter;
             _initArgs.camera = _camera;
             _initArgs.controlsUI = _controlsUI;
+            _initArgs.aimerSettings = _aimerSettings.aimerSettings;
             _gameplayMenu = GCon.UIFactory.GetGameplayMenu() as IGameplayMenu;
             _initArgs.aimUI = _gameplayMenu.AimUI;
             // init player
@@ -56,6 +83,8 @@ namespace GiantsAttack
             _player.CameraPoints.SetCameraToOutside();
             StartTiming();
             _player.Mover.Loiter();
+            _startSequence.Begin(OnStartSequenceFinished);
+            
             if (_useStartUi)
                 ShowStartUI();
             else
@@ -133,14 +162,21 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
-            _monster.Init(_player.BodySectionsUI);
-            if(_enemyRoarOnStart)
-                _monster.Roar();
+            _monster.Init(_player.BodySectionsUI, _enemyHealth);
         }
 
+        private void OnStartSequenceFinished()
+        {
+            _startSequenceComplete = true;
+            if(_gameplayStartCalled)
+                BeginGameplay();
+        }
+        
         private void BeginGameplay()
         {
-            //LaunchFinalSequence();
+            _gameplayStartCalled = true;
+            if (!_startSequenceComplete)
+                return;
             _stages[_stageIndex].Activate();
         }
 

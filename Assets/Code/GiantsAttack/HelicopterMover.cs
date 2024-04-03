@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using SleepDev;
-using TMPro;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -30,10 +29,7 @@ namespace GiantsAttack
         
         public EvasionSettings evasionSettings { get; set; }
         
-        public MoverSettings Settings { get; set; }
-        
-        public Transform LookAt { get; set; }
-
+        // public MoverSettings Settings { get; set; }
         
         public void Awake()
         {
@@ -373,17 +369,15 @@ namespace GiantsAttack
         {
             var startAngle = path.startAngle;
             var vec = (_movable.position - path.root.position).XZPlane();
-            
             if (args.refreshAngleOnStart == false)
-            {
-                startAngle = Vector3.Angle(path.root.forward, vec);
-                // CLog.LogRed($"Angle calculated: {startAngle}");    
-            }
+                startAngle = Vector3.SignedAngle(path.root.forward, vec, path.root.up);
             var startPos =  path.GetCirclePosAtAngle(startAngle);
+            var y = transform.position.y;
+            startPos.y = y;
+            
             var awaitCoroutins = new List<Coroutine>();
             var lookAtRot = Quaternion.LookRotation(lookAt.position - startPos);
             var rotationTime = Quaternion.Angle(lookAtRot, _movable.rotation) / args.rotateToStartAngleSpeed;
-            // CLog.LogYellow($"Rotation time: {rotationTime}");
             awaitCoroutins.Add(StartCoroutine(ChangingRotation(_movable,_movable.rotation, lookAtRot, rotationTime)));
             if (args.moveToStartPoint)
             {
@@ -407,7 +401,9 @@ namespace GiantsAttack
             var period = args.tiltPeriod;
             while (true)
             {
-                _movable.position = path.GetCirclePosAtAngle(angle);
+                var pos = path.GetCirclePosAtAngle(angle);
+                pos.y = y;
+                _movable.position = pos;
                 var rot = Quaternion.LookRotation(lookAt.position - _movable.position);
                 rot *= Quaternion.Euler(new Vector3(0f, 0f,  tiltAngle * Mathf.Sign(args.circleAngleSpeed)));
                 angle += Time.deltaTime * args.circleAngleSpeed;
@@ -421,43 +417,6 @@ namespace GiantsAttack
                 }
                 _movable.rotation = Quaternion.Lerp(_movable.rotation, rot, args.angularSpeed);
                 yield return null;
-            }
-        }
-
-        private IEnumerator MovingOnCircle3(CircularPath path, Transform lookAtTarget, bool loop, Action callback)
-        {
-            var time = Mathf.Abs(path.endAngle - path.startAngle) / Settings.angularSpeed;
-            var elapsed = 0f;
-            do
-            {
-                while (_t <= 1f)
-                {
-                    SetPos(_t);
-                    elapsed += Time.deltaTime;
-                    _t = elapsed / time;
-                    yield return null;
-                }
-                _t = 1f;
-                SetPos(_t);
-                while (_t >= 0)
-                {
-                    SetPos(_t);
-                    elapsed -= Time.deltaTime;
-                    _t = elapsed / time;
-                    yield return null;
-                }
-                _t = 0;
-            } while (loop);
-            
-            callback?.Invoke();
-            
-            void SetPos(float t)
-            {
-                var angle = Mathf.Lerp(path.startAngle, path.endAngle, t);
-                var pos = path.GetCirclePosAtAngle(angle);
-                _movable.position = pos;
-                var rot = Quaternion.LookRotation(lookAtTarget.position - pos);
-                _movable.rotation = rot;
             }
         }
 

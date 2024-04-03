@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using GameCore.Core;
 using GameCore.UI;
+using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -62,7 +63,7 @@ namespace GiantsAttack
                     var bullet = GCon.BulletsPool.GetObject();
                     bullet.SetRotation(barrel.FromPoint.rotation);
                     bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, 
-                        speed:Settings.speed, damage:Settings.damage, 
+                        speed:Settings.speed, damage:Settings.damage.Random(), 
                         HitCounter, DamageHitsUI);
                     var casing = GCon.BulletCasingsPool.GetObject();
                     casing.Drop(barrel.DropPoint);

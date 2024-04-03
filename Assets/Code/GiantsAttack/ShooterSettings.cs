@@ -4,7 +4,7 @@
     public struct ShooterSettings
     {
         public float fireDelay;
-        public float damage;
         public float speed;
+        public UnityEngine.Vector2 damage;
     }
 }

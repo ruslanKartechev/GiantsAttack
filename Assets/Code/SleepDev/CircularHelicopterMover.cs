@@ -13,6 +13,9 @@ namespace SleepDev
         [SerializeField] private float _tiltAngleZ;
         [SerializeField] private float _tiltAngleX;
         [SerializeField] private bool _autoStart;
+        [Space(10)]
+        [SerializeField] private float _heightDiffMax;
+        [SerializeField] private float _bouncePeriod;
         private Coroutine _working;
         
         private void Start()
@@ -38,13 +41,25 @@ namespace SleepDev
             var angle = 0f;
             var radVec = _center.forward * _radius;
             var center = _center.position;
+            var height = 0f;
+            var h1 = 0f;
+            var h2 = _heightDiffMax;
+            var elapsed = 0f;
             while (true)
             {
                 var pos = center + Quaternion.Euler(0f, angle, 0f) * radVec;
+                elapsed += Time.deltaTime;
+                if (elapsed > _bouncePeriod)
+                {
+                    elapsed = 0f;
+                    (h1, h2) = (h2, h1);
+                }
+                pos.y += Mathf.Lerp(h1, h2, elapsed / _bouncePeriod);
+                
                 var forw = Vector3.Cross(pos - center, Vector3.up);
                 var rot = Quaternion.LookRotation(forw) * Quaternion.Euler(_tiltAngleX, 0f, _tiltAngleZ);
-                _movable.SetPositionAndRotation(pos, rot);
                 angle += Time.deltaTime * _angularSpeed;
+                _movable.SetPositionAndRotation(pos, rot);
                 yield return null;
             }
         }

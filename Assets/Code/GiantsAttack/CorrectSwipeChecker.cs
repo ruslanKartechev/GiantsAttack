@@ -14,7 +14,13 @@ namespace GiantsAttack
         public EDirection2D CorrectDirection => _correctDirection;
         public EDirection2D LastSwipeDir { get; private set; }
         public Action OnCorrect { get; set; }
-        public Action OnWrong { get; set; }      
+        public Action OnWrong { get; set; }
+
+
+        public void SetCorrectDir(EDirection2D dir)
+        {
+            _correctDirection = dir;
+        }
         
         public void On()
         {

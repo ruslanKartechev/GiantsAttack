@@ -37,7 +37,7 @@ namespace GiantsAttack
             Player.Mover.BeginMovingOnCircle(_circularPathBuilder.Path, _lookAt, _moveOnCircleArgs);
             
             var stage = _subStages[_stageInd];
-            if (stage.mode == Mode.Evade)
+            if (stage.mode == ProjectileStageMode.Evade)
             {
                 _currentExecutor = new SubStageEvadeExecutor(stage, Enemy, Player, _correctSwipeChecker, UI,
                     _slowMotionExecutor, OnSubStageSuccess, OnSubStageFailed);

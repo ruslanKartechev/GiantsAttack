@@ -9,6 +9,8 @@ namespace GiantsAttack
         public event Action OnThrow;
         public event Action OnPunch;
         public event Action OnPunchBegan;
+        public event Action OnAnimationOver;
+        public event Action OnJumpDown;
 
         public void EventOnPunch()
         {
@@ -29,5 +31,16 @@ namespace GiantsAttack
         {
             OnThrow?.Invoke();
         }
+
+        public void EventOnJumpDown()
+        {
+            OnJumpDown?.Invoke();   
+        }
+    
+        public void EventOnAnimationOver()
+        {
+            OnAnimationOver?.Invoke();   
+        }
     }
+    
 }

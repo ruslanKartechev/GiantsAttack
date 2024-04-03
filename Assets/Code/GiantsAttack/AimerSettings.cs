@@ -1,10 +1,18 @@
-﻿namespace GiantsAttack
+﻿using UnityEngine;
+
+namespace GiantsAttack
 {
     [System.Serializable]
-    public struct AimerSettings
+    public class AimerSettings
     {
-        public float sensitivity;
+        [Header("UI")]
+        public float sensitivityUI;
+        public float aimCenterSpeed;
+        public float aimUIMaxDiv; 
         public float aimRotSpeed;
+        [Header("Body Rotation")]
+        public float sensitivity;
+        public float rotCenterSpeed;
         public float noiseMagnitude;
 
     }

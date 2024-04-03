@@ -28,7 +28,7 @@ namespace GiantsAttack
                 var dir = (point.position - _body.position).XZPlane();
                 var angle = Vector3.Angle(_body.forward, dir);
                 var eulers = _arrow.localEulerAngles;
-                eulers.y = angle;
+                eulers.z = angle;
                 _arrow.localEulerAngles = eulers;
                 yield return null;
             }

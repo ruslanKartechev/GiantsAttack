@@ -18,13 +18,15 @@ namespace GiantsAttack
         public Transform LookAtPoint { get; }
         public List<Transform> DamagePoints { get; }
         
-        void Init(IBodySectionsUI sectionsUI);
+        void Init(IBodySectionsUI sectionsUI, float health);
         void Idle();
         void Roar();
+        void Jump(bool transition);
+        void KickUp();
         void Kill();
         void PreKillState();
         void PickAndThrow(IThrowable target, Action onPickCallback, Action onThrowCallback);
-        void Punch(string key, Action punchStartedCallback, Action onPunch);
-
+        void Punch(string key, Action punchStartedCallback, Action onPunch, Action onAnimationEnd);
+        void AlignPositionToAnimRootBone(bool playIdle);
     }
 }

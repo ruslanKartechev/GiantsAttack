@@ -9,6 +9,11 @@ namespace SleepDev
         [SerializeField] private UnityEngine.UI.Image _fillImage;
         [SerializeField] private UnityEngine.UI.Image _fillImageBack;
         [SerializeField] private float _defaultTime;
+        [SerializeField] private float _flickTime;
+        [SerializeField] private Color _mainColor;
+        [SerializeField] private Color _flickColor;
+        private bool _isFlicking;
+
         
         private Coroutine _filling;
         
@@ -36,6 +41,13 @@ namespace SleepDev
             _filling = StartCoroutine(Filling(val, _defaultTime));
         }
 
+        public void Flick()
+        {
+            if (_isFlicking)
+                return;
+            StartCoroutine(Flicking());
+        }
+        
         private void StopUpdate()
         {
             if(_filling != null)
@@ -55,8 +67,15 @@ namespace SleepDev
                 yield return null;
             }
             _fillImageBack.fillAmount = endVal;
-
         }
-        
+
+        private IEnumerator Flicking()
+        {
+            _isFlicking = true;
+            _fillImage.color = _flickColor;
+            yield return new WaitForSeconds(_flickTime);
+            _fillImage.color = _mainColor;
+            _isFlicking = false;
+        }
     }
 }

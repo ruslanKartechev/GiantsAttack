@@ -35,24 +35,30 @@ namespace SleepDev
 
         private IEnumerator Working()
         {
+            var vec = _movable.position - _startPoint.position;
+            var vec2End = (_endPoint.position - _startPoint.position);
+            var maxLength = vec2End.magnitude;
+            vec2End /= maxLength;
+            var dot = Vector3.Dot(vec, vec2End);
+            var t = Mathf.InverseLerp(0f, maxLength, dot);
+            var time = _moveTime;
+            var elapsed = time * t;
+            // CLog.LogBlue($"Dot {dot}, t {t}, max length {maxLength}");
             while (true)
             {
                 _movable.gameObject.SetActive(true);
-                _movable.position = _startPoint.position;
-                var elapsed = 0f;
-                var time = _moveTime;
-                var p1 = _movable.position;
-                var p2 = _endPoint.position;
-                var t = 0f;
                 while (t <= 1f)
                 {
-                    _movable.position = Vector3.Lerp(p1, p2, t);
-                    elapsed += Time.deltaTime * _curve.Evaluate(t);
+                    var l = Mathf.Lerp(0f, maxLength, t);
+                    _movable.position = _startPoint.position + vec2End * l;
+                    elapsed += Time.deltaTime;
                     t = elapsed / time;
+                    
                     yield return null;
                 }
-                _movable.position = p2;
+                _movable.position = _endPoint.position;
                 _movable.gameObject.SetActive(false);
+                elapsed = t = 0f;
                 yield return new WaitForSeconds(_repeatDelay);
             }
    

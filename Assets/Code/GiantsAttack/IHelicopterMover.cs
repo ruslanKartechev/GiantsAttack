@@ -6,7 +6,6 @@ namespace GiantsAttack
 {
     public interface IHelicopterMover
     {
-        MoverSettings Settings { get; set; }
         void BeginMovingOnCircle(CircularPath path, Transform lookAt, MoveOnCircleArgs args);
         
         void Evade(EDirection2D direction, Action callback, float evadeDistance);

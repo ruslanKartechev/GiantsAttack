@@ -25,7 +25,7 @@ namespace GameCore.UI
             if (_index >= _texts.Count)
                 _index = 0;
             var t = _texts[_index];
-            t.text = $"-{damage}";
+            t.text = $"-{Mathf.RoundToInt(damage)}";
             t.DOKill();
             t.transform.localScale = Vector3.one;
             t.transform.position = screenPos;
