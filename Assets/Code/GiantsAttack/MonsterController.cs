@@ -46,6 +46,11 @@ namespace GiantsAttack
             Destroyer = GetComponent<IDestroyer>();
         }
 
+        public void SetMoveAnimationSpeed(float speed)
+        {
+            _animator.SetFloat("MoveSpeed", speed);
+        }
+
         public void Punch(string key, Action punchStartedCallback, Action onPunch, Action onAnimationEnd)
         {
             var s = new PunchBehaviour(this, _animator, key, 
@@ -72,7 +77,15 @@ namespace GiantsAttack
             _health.HideDisplay();
             _health.SetDamageable(false);
         }
-        
+
+        public void Animate(string key, bool trigger)
+        {
+            if(trigger)
+                _animator.SetTrigger(key);
+            else
+                _animator.Play(key);
+        }
+
         public void Idle()
         {
             CLog.LogRed("[Enemy] Idle");
@@ -101,10 +114,10 @@ namespace GiantsAttack
             _animator.Play("KickUp");
         }
         
-        public void PickAndThrow(IThrowable target,Action onPickCallback, Action onThrowCallback)
+        public void PickAndThrow(IThrowable target,Action onPickCallback, Action onThrowCallback, bool pickFromTop)
         {
             var bahaviour = new PickAndThrowBehaviour(target, this, _animator, _grabHand, 
-                onPickCallback, onThrowCallback);
+                onPickCallback, onThrowCallback, pickFromTop);
         }
 
         public void AlignPositionToAnimRootBone(bool playIdle)

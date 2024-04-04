@@ -16,10 +16,11 @@ namespace GiantsAttack
         private Action _pickCallback;
 
         private static readonly int PickUp = Animator.StringToHash("PickUp");
+        private static readonly int PickUpFromTop = Animator.StringToHash("PickUpTop");
 
         public PickAndThrowBehaviour(IThrowable target, IMonster monster, 
             Animator animator, Transform grabHand, 
-            Action onPickCallback, Action throwCallback)
+            Action onPickCallback, Action throwCallback, bool pickFromTop)
         {
             _target = target;
             _monster = monster;
@@ -29,7 +30,7 @@ namespace GiantsAttack
             _grabHand = grabHand;
             _monster.AnimEventReceiver.OnPickup += OnPickup;
             _monster.AnimEventReceiver.OnThrow += OnThrow;
-            animator.SetTrigger(PickUp);
+            animator.SetTrigger(pickFromTop ? PickUpFromTop : PickUp);
         }
 
         private void OnThrow()

@@ -29,6 +29,13 @@ namespace GiantsAttack
             _currentExecutor.Stop();
         }
 
+        protected override void OnEnemyKilled(IMonster obj)
+        {
+            _slowMotionExecutor.StopSlowMo();
+            _currentExecutor.Stop();
+            base.OnEnemyKilled(obj);
+        }
+        
         private void ActivateCurrentStage()
         {
             if (_isStopped)

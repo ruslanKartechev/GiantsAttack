@@ -14,8 +14,9 @@ namespace GiantsAttack
         [SerializeField] private bool _waitForPosInPosition;
         [SerializeField] private GameObject _throwable;
         [SerializeField] private bool _doAnimateThrowable;
-        [SerializeField] private float _animateThrowableTime;
-        [Header("Throwing")]
+        [SerializeField] private float _animateThrowableDelay;
+        [Header("Throwing")] 
+        [SerializeField] private bool _pickFromTop;
         [SerializeField] private float _projectileMoveTime;
         [SerializeField] private Transform _throwAtPoint;
         [SerializeField] private bool _doSlowMo;
@@ -69,7 +70,7 @@ namespace GiantsAttack
         {
             if (_doAnimateThrowable)
             {
-                Delay(() => { _enemyWeapon.AnimateMove(OnWeaponAnimateMoved); }, _animateThrowableTime);
+                Delay(() => { _enemyWeapon.AnimateMove(OnWeaponAnimateMoved); }, _animateThrowableDelay);
             }
             if (_doMoveEnemy)
                 MoveEnemy();
@@ -130,7 +131,7 @@ namespace GiantsAttack
             if (_isStopped)
                 return;
             _didThrow = true;
-            Enemy.PickAndThrow(_enemyWeapon.Throwable, ()=>{} ,Throw);
+            Enemy.PickAndThrow(_enemyWeapon.Throwable, ()=>{} ,Throw, _pickFromTop);
         }
 
         private void Throw()

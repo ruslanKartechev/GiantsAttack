@@ -8,6 +8,7 @@ namespace GiantsAttack
     {
         [SerializeField] private string _animKey;
         [SerializeField] private bool _resetAnimRootBone;
+        [SerializeField] private bool _idleAfterReset = true;
         [SerializeField] private bool _doMoveEnemy;
         [SerializeField] private float _enemyMoveTime;
         [SerializeField] private Transform _enemyPoint;
@@ -63,8 +64,9 @@ namespace GiantsAttack
 
         private void OnAnimationEnd()
         {
+            CLog.Log($"[{nameof(LevelStagePunch)}] OnAnimationEnd");
             if(_resetAnimRootBone)
-                Enemy.AlignPositionToAnimRootBone(true);
+                Enemy.AlignPositionToAnimRootBone(_idleAfterReset);
         }
 
         private void OnCorrectSwipe()
@@ -80,6 +82,7 @@ namespace GiantsAttack
 
         private void OnEvadeMoveEnd()
         {
+            Player.Mover.Loiter();
             Delay(CallCompleted, _endCallbackDelay);
         }
         

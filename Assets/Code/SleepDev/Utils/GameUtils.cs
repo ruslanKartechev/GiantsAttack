@@ -174,7 +174,7 @@ namespace SleepDev.Utils
             else
                 UnityEngine.Object.DestroyImmediate(go);
 #else
-                Object.Destroy(go);
+                UnityEngine.Object.Destroy(go);
 #endif
             
         }

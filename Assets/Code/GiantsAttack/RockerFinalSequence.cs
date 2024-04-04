@@ -9,7 +9,7 @@ namespace GiantsAttack
     public class RockerFinalSequence : LevelFinalSequence
     {
         [SerializeField] private GameObject _rocketCamPointsPrefab;
-        [SerializeField] private float _helicopterRotTime = .1f;
+        [SerializeField] private float _enemyRotTime = .33f;
         [SerializeField] private float _cameraMoveTime;
         [SerializeField] private float  _cameraSendDelay;
         [Space(10)]
@@ -31,7 +31,12 @@ namespace GiantsAttack
             Player.StopAll();
             _endCallback = callback;
             Enemy.PreKillState();
+            Enemy.Mover.RotateToLookAt(Player.Point, _enemyRotTime, OnEnemyRotated);
             Delay(OnEnemyAnimated, _afterEnemyAnimationDelay);
+        }
+
+        private void OnEnemyRotated()
+        {
         }
 
         private void OnEnemyAnimated()

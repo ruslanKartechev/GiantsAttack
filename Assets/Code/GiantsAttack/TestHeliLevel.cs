@@ -11,6 +11,7 @@ namespace GiantsAttack
     {
         [SerializeField] private bool _useStartUi = true;
         [SerializeField] private float _enemyHealth = 1000;
+        [SerializeField] private float _moveAnimationSpeed = .8f;
         [SerializeField] private AimerSettingsSo _aimerSettings;
         [SerializeField] private HelicopterInitArgs _initArgs;
         [SerializeField] private Transform _playerSpawnPoint;
@@ -163,6 +164,7 @@ namespace GiantsAttack
         private void InitEnemy()
         {
             _monster.Init(_player.BodySectionsUI, _enemyHealth);
+            _monster.SetMoveAnimationSpeed(_moveAnimationSpeed);
         }
 
         private void OnStartSequenceFinished()

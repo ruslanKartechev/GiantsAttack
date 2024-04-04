@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -23,7 +24,10 @@ namespace GiantsAttack
         public void SetPoint(Transform point)
         {
             if (_movable == null)
-                _movable = transform;
+            {
+                CLog.Log("movable is null");
+                return;
+            }
             _movable.parent = point;
             _movable.SetPositionAndRotation(point.position, point.rotation);
             UnityEditor.EditorUtility.SetDirty(gameObject);

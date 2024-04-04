@@ -57,7 +57,7 @@ namespace GiantsAttack
         {
             if (_isStopped)
                 return;
-            _enemy.PickAndThrow(_currentWeapon.Throwable, OnPicked, Throw);
+            _enemy.PickAndThrow(_currentWeapon.Throwable, OnPicked, Throw, false);
         }
 
         private void OnPicked()

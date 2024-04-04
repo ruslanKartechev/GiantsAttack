@@ -5,31 +5,32 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
+
     public class SimpleThrowable : MonoBehaviour, IThrowable
     {
-        [SerializeField] private bool _doRotateWhenGrabbed;
-        [SerializeField] private bool _doMoveToLocalPos;
-        [SerializeField] private float _moveTimeOnGrab = .2f;
-        [SerializeField] private float _rotationSpeed;
-        [SerializeField] private Vector3 _torqueVector;
-        [SerializeField] private Vector3 _localGrabbedPos;
-        [SerializeField] private Vector3 _localGrabbedEulers;
-        [SerializeField] private HitTriggerReceiver _hitTriggerReceiver;
-        [SerializeField] private ParticleSystem _explosionParticles;
-        [SerializeField] private Collider _collider;
+        [SerializeField] protected bool _doRotateWhenGrabbed;
+        [SerializeField] protected bool _doMoveToLocalPos;
+        [SerializeField] protected float _moveTimeOnGrab = .2f;
+        [SerializeField] protected float _rotationSpeed;
+        [SerializeField] protected Vector3 _torqueVector;
+        [SerializeField] protected Vector3 _localGrabbedPos;
+        [SerializeField] protected Vector3 _localGrabbedEulers;
+        [SerializeField] protected HitTriggerReceiver _hitTriggerReceiver;
+        [SerializeField] protected ParticleSystem _explosionParticles;
+        [SerializeField] protected Collider _collider;
         
         private Coroutine _moving;
         private Action<Collider> _hitCallback;
 
         public Transform Transform => transform;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _hitTriggerReceiver.Collider.enabled = false;
         }
         
 
-        public void GrabBy(Transform hand, Action callback)
+        public virtual void GrabBy(Transform hand, Action callback)
         {
             _hitTriggerReceiver.Collider.enabled = false;
             transform.parent = hand;

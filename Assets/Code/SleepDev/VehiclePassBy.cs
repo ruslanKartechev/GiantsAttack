@@ -8,7 +8,6 @@ namespace SleepDev
         [SerializeField] private bool _autoStart;
         [SerializeField] private float _moveTime;
         [SerializeField] private float _repeatDelay;
-        [SerializeField] private AnimationCurve _curve;
         [SerializeField] private Transform _movable;
         [SerializeField] private Transform _endPoint;
         [SerializeField] private Transform _startPoint;
