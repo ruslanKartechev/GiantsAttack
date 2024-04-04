@@ -525,6 +525,55 @@ MonoBehaviour:
     speed: 800
     damage: {x: 30, y: 40}
   lineDrawer: {fileID: 0}
+--- !u!1 &342517269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 342517270}
+  - component: {fileID: 342517271}
+  m_Layer: 0
+  m_Name: player point 0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &342517270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342517269}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.035194013, y: -0.7391154, z: 0.038735367, w: 0.6715426}
+  m_LocalPosition: {x: -5.59, y: 52.65, z: -125.24}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1976018702}
+  m_LocalEulerAnglesHint: {x: 6, y: -95.485, z: 0}
+--- !u!114 &342517271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342517269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 0, g: 0, b: 0, a: 1}
+  radius: 2
+  drawDirection: 0
+  directionLength: 1
 --- !u!1 &404302666
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +694,7 @@ MonoBehaviour:
   _doSlowMo: 1
   _slowMotion: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   _doMoveEnemy: 1
-  _enemyMoveTime: 1.6
+  _enemyMoveTime: 1.4
   _moveToPoint: {fileID: 1313411354}
   _doMovePlayer: 0
   _playerMoveTime: 0
@@ -1220,12 +1269,12 @@ PrefabInstance:
     - target: {fileID: 4080904590066632204, guid: 0260faece6dbb2c48ad55166a1915c35,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -179.5
+      value: -188.4
       objectReference: {fileID: 0}
     - target: {fileID: 4080904590066632204, guid: 0260faece6dbb2c48ad55166a1915c35,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -104.5
+      value: -103.9
       objectReference: {fileID: 0}
     - target: {fileID: 4080904590066632204, guid: 0260faece6dbb2c48ad55166a1915c35,
         type: 3}
@@ -3712,6 +3761,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 342517270}
   - {fileID: 1554378596}
   m_Father: {fileID: 248958811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3773,6 +3823,13 @@ MonoBehaviour:
     m_RotationOrder: 4
   _playerMoveTime: 1
   _playerPoint: {fileID: 0}
+  _waitType: 0
+  _moveAfterEvaded: 1
+  _afterEvasionMoveTime: 1.5
+  _afterEvasionMovePoint: {fileID: 342517270}
+  _enemyMoveAfterEvaded: 0
+  _enemyAfterEvasionMoveTime: 0
+  _enemyAfterEvasionMovePoint: {fileID: 0}
   _evasionDistance: 25
   _endCallbackDelay: 1
   _slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}

@@ -18,6 +18,16 @@ namespace GiantsAttack
         [SerializeField] private AnimationCurve _playerMoveCurve;
         [SerializeField] private float _playerMoveTime;
         [SerializeField] private Transform _playerPoint;
+
+        [Space(10)] [Header("After evasion movement Player")] 
+        [SerializeField] private EWaitForMovement _waitType;
+        [SerializeField] private bool _moveAfterEvaded;
+        [SerializeField] private float _afterEvasionMoveTime;
+        [SerializeField] private Transform _afterEvasionMovePoint;
+        [Header("After evasion movement Enemy")] 
+        [SerializeField] private bool _enemyMoveAfterEvaded;
+        [SerializeField] private float _enemyAfterEvasionMoveTime;
+        [SerializeField] private Transform _enemyAfterEvasionMovePoint;
         [Space(10)] 
         [SerializeField] private float _evasionDistance;
         [SerializeField] private float _endCallbackDelay;
@@ -65,8 +75,18 @@ namespace GiantsAttack
         private void OnAnimationEnd()
         {
             CLog.Log($"[{nameof(LevelStagePunch)}] OnAnimationEnd");
+            if (_enemyMoveAfterEvaded)
+            {
+                Enemy.Mover.MoveTo(_enemyAfterEvasionMovePoint, _enemyAfterEvasionMoveTime, () => {});
+                return;
+            }
             if(_resetAnimRootBone)
                 Enemy.AlignPositionToAnimRootBone(_idleAfterReset);
+        }
+
+        private void OnEnemyMoved()
+        {
+            
         }
 
         private void OnCorrectSwipe()
@@ -82,9 +102,23 @@ namespace GiantsAttack
 
         private void OnEvadeMoveEnd()
         {
+            if (_moveAfterEvaded)
+            {
+                Player.Mover.MoveTo(_afterEvasionMovePoint, _afterEvasionMoveTime, null, Complete);        
+            }
+            else
+            {
+                Complete();
+            }
+        }
+        
+
+        private void Complete()
+        {
             Player.Mover.Loiter();
             Delay(CallCompleted, _endCallbackDelay);
         }
+        
         
         private void OnWrongSwipe()
         {
