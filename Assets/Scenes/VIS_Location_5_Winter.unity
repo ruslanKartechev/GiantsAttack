@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45067206, g: 0.6689887, b: 0.6559678, a: 1}
+  m_IndirectSpecularColor: {r: 0.44905794, g: 0.6682292, b: 0.6552985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -274,22 +274,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useStartUi: 1
-  _enemyRoarOnStart: 0
+  _enemyHealth: 1000
+  _moveAnimationSpeed: 0.8
+  _aimerSettings: {fileID: 0}
   _initArgs:
-    aimerSettings:
-      sensitivity: 1.5
-      aimRotSpeed: 0
     shooterSettings:
       fireDelay: 0.1
-      damage: 10
       speed: 150
-    moverSettings:
-      angularSpeed: 4
+      damage: {x: 0, y: 0}
     enemyTransform: {fileID: 0}
   _playerSpawnPoint: {fileID: 1482352967}
   _monster: {fileID: 0}
   _stages: []
+  _startSequence: {fileID: 0}
   _finalSequence: {fileID: 0}
+  _playerMover: {fileID: 0}
 --- !u!1001 &289513234
 PrefabInstance:
   m_ObjectHideFlags: 0
