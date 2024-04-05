@@ -17,7 +17,7 @@ namespace GiantsAttack
         [SerializeField] private Transform _lookAtPoint;
         [SerializeField] private List<Transform> _damagePoints;
         [SerializeField] private Transform _animRootBone;
-
+        private IDefeatedBehaviour _defeatedBehaviour;
         private bool _isDead;
         
         public IDestroyer Destroyer { get; private set; }
@@ -44,6 +44,7 @@ namespace GiantsAttack
             ui.Init();
             _sectionsManager.Init(_health, ui);
             Destroyer = GetComponent<IDestroyer>();
+            _defeatedBehaviour = GetComponent<IDefeatedBehaviour>();
         }
 
         public void SetMoveAnimationSpeed(float speed)
@@ -73,9 +74,9 @@ namespace GiantsAttack
         {
             CLog.Log($"{gameObject.name} Prekill");
             _mover.StopMovement();
-            _animator.SetTrigger("Prekill");
             _health.HideDisplay();
             _health.SetDamageable(false);
+            _defeatedBehaviour.Play(() => {});
         }
 
         public void Animate(string key, bool trigger)
@@ -130,6 +131,7 @@ namespace GiantsAttack
             _animRootBone.parent = parent;
             if(playIdle)
                 _animator.Play("Idle");
+            Debug.DrawLine(pos, pos + Vector3.up * 100, Color.red, 10f);
         }
         
         private void OnHealthOut(IDamageable obj)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using DG.Tweening;
 using GameCore.Core;
 using SleepDev;
 using UnityEngine;
@@ -8,17 +9,21 @@ namespace GiantsAttack
 {
     public class RockerFinalSequence : LevelFinalSequence
     {
+        [SerializeField] private float _playerRotateTime = 1f;
         [SerializeField] private GameObject _rocketCamPointsPrefab;
         [SerializeField] private float _enemyRotTime = .33f;
         [SerializeField] private float _cameraMoveTime;
-        [SerializeField] private float  _cameraSendDelay;
+        [SerializeField] private float _cameraMoveTime2;
+        [SerializeField] private float _cameraSendDelay;
+        [SerializeField] private Ease _ease1;
+        [SerializeField] private Ease _ease2;
         [Space(10)]
         [SerializeField] private float _rocketMoveTime;
-        [SerializeField] private float _rocketOffset;
         [Space(10)] 
         [SerializeField] private float _endCallbackDelay;        
         [SerializeField] private float _afterEnemyAnimationDelay;
         private Action _endCallback;
+        private GameObject _camPointsParent;
 
 #if UNITY_EDITOR
         public override void E_Init()
@@ -27,8 +32,10 @@ namespace GiantsAttack
 
         public override void Begin(Action callback)
         {
-            Player.Mover.StopAll();
             Player.StopAll();
+            Player.Mover.StopAll();
+            Player.Mover.Loiter();
+            Player.Mover.RotateToLook(Enemy.LookAtPoint,_playerRotateTime, () => {});
             _endCallback = callback;
             Enemy.PreKillState();
             Enemy.Mover.RotateToLookAt(Player.Point, _enemyRotTime, OnEnemyRotated);
@@ -57,18 +64,15 @@ namespace GiantsAttack
             Action callbackSub = OnRocketHit;
             for (var i = 0; i < points.Count; i++)
             {
-                var p = points[i];
+                var spawnPoint = points[i];
                 var atPoint = Enemy.DamagePoints[i];
-                var rocket = SpawnRocket(p);
-                var vec = atPoint.position - p.position;
-                var length = vec.magnitude;
-                length -= _rocketOffset;
-                var endPoint = p.position + vec.normalized * length;
-                rocket.Fly(endPoint, _rocketMoveTime, callbackSub);
+                var rocket = SpawnRocket(spawnPoint);
+                rocket.Fly(atPoint, _rocketMoveTime, callbackSub);
                 if (i == 0)
                 {
                     callbackSub = null;
                     var camPoints = Instantiate(_rocketCamPointsPrefab, rocket.transform);
+                    _camPointsParent = camPoints;
                     StartCoroutine(DelayedCameraSend(camPoints.transform, _cameraSendDelay));
                 }
             }
@@ -77,28 +81,29 @@ namespace GiantsAttack
         private IEnumerator DelayedCameraSend(Transform camPointsParent, float delay)
         {
             yield return new WaitForSeconds(delay);
-            var startP = camPointsParent.GetChild(0);
-            var endP = camPointsParent.GetChild(1);
-            Camera.SetPoint(startP);
+            var p1 = camPointsParent.GetChild(0);
+            var p2 = camPointsParent.GetChild(1);
+            Camera.SetPoint(p1);
             Camera.Parent(camPointsParent);
-            Camera.MoveToPointLocal(endP, _cameraMoveTime, () => {});
+            
+            var seq = DOTween.Sequence();
+            var p3 = camPointsParent.GetChild(2);
+            seq.Append(Camera.transform.DOLocalMove(p2.localPosition, _cameraMoveTime).SetEase(_ease1));
+            seq.Join(Camera.transform.DOLocalRotate(p2.localRotation.eulerAngles, _cameraMoveTime).SetEase(_ease1));
+            seq.Append(Camera.transform.DOLocalMove(p3.localPosition, _cameraMoveTime2).SetEase(_ease2));
+            seq.Join(Camera.transform.DOLocalRotate(p3.localRotation.eulerAngles, _cameraMoveTime2).SetEase(_ease2));
+            // Camera.MoveToPointLocal(endP, _cameraMoveTime, OnCameraMovedToPos2);
+        }
+
+        private void OnCameraMovedToPos2()
+        {
+            var p2 = _camPointsParent.transform.GetChild(2);
+            // var point = new GameObject("temp").transform;
+            // point.position = p2.position;
+            // point.rotation = Quaternion.LookRotation(Enemy.Point.position - p2.position);
+            Camera.MoveToPoint(p2, _cameraMoveTime2, () => {});
         }
         
-        // private void SendCamera()
-        // {
-        //     var enemyPos = Enemy.LookAtPoint.position;
-        //     Camera.StopMoving();
-        //     Camera.Unparent();
-        //     var vec = enemyPos - Camera.transform.position;
-        //     vec.y = 0f;
-        //     var length = vec.magnitude;
-        //     length -= _cameraOffset;
-        //     var endCamPoint = Camera.transform.position + vec.normalized * length;
-        //     var camPoint = new GameObject("gg").transform;
-        //     camPoint.position = endCamPoint;
-        //     camPoint.rotation = Quaternion.LookRotation(enemyPos - endCamPoint);
-        //     Camera.MoveToPoint(camPoint, _cameraMoveTime, () => {});
-        // }
 
         private void OnRocketHit()
         {

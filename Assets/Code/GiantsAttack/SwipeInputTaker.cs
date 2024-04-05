@@ -20,6 +20,8 @@ namespace GiantsAttack
         public void Refresh()
         {
             Distance = 0f;
+            _isDown = false;
+            _pointerPos = Input.mousePosition;
         }
 
         private void OnEnable()

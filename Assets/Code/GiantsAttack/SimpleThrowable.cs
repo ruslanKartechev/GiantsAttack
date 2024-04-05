@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-
     public class SimpleThrowable : MonoBehaviour, IThrowable
     {
         [SerializeField] protected bool _doRotateWhenGrabbed;

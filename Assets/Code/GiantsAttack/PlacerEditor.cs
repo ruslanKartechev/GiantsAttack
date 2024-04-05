@@ -31,6 +31,10 @@ namespace GiantsAttack
                 me.Place();
             }
             GUILayout.EndHorizontal();
+            if (GUILayout.Button($"On Off",GUILayout.Width(50)))
+            {
+                me.OnOff();
+            }
         }
     }
 }

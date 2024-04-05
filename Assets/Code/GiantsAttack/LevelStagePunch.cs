@@ -9,21 +9,12 @@ namespace GiantsAttack
         [SerializeField] private string _animKey;
         [SerializeField] private bool _resetAnimRootBone;
         [SerializeField] private bool _idleAfterReset = true;
+        [SerializeField] private bool _waitForBoth;
+        [SerializeField] private bool _resumePlayerMoveRightAfterEvasion;
+        [Space(10)]
         [SerializeField] private bool _doMoveEnemy;
         [SerializeField] private float _enemyMoveTime;
         [SerializeField] private Transform _enemyPoint;
-        [Space(10)]
-        [SerializeField] private bool _doMovePlayer;
-        [SerializeField] private bool _loiterPlayer;
-        [SerializeField] private AnimationCurve _playerMoveCurve;
-        [SerializeField] private float _playerMoveTime;
-        [SerializeField] private Transform _playerPoint;
-
-        [Space(10)] [Header("After evasion movement Player")] 
-        [SerializeField] private EWaitForMovement _waitType;
-        [SerializeField] private bool _moveAfterEvaded;
-        [SerializeField] private float _afterEvasionMoveTime;
-        [SerializeField] private Transform _afterEvasionMovePoint;
         [Header("After evasion movement Enemy")] 
         [SerializeField] private bool _enemyMoveAfterEvaded;
         [SerializeField] private float _enemyAfterEvasionMoveTime;
@@ -34,6 +25,9 @@ namespace GiantsAttack
         [SerializeField] private SlowMotionEffectSO _slowMotionEffect;
         [SerializeField] private CorrectSwipeChecker _correctSwipeChecker;
         private bool _evaded;
+        private bool _playerCompleted;
+        private bool _enemyCompleted;
+        
         
         public override void Activate()
         {
@@ -42,10 +36,6 @@ namespace GiantsAttack
                 Enemy.Mover.MoveTo(_enemyPoint, _enemyMoveTime, Punch);                
             else
                 Punch();
-            if (_doMovePlayer)
-                Player.Mover.MoveTo(_playerPoint, _playerMoveTime, _playerMoveCurve,() => {});
-            else if (_loiterPlayer)
-                Player.Mover.Loiter();
         }
 
         public override void Stop()
@@ -68,27 +58,25 @@ namespace GiantsAttack
         {
             if (_isStopped)
                 return;
-            Enemy.Punch(_animKey, OnPunchStarted, OnPunchEnd, OnAnimationEnd);
+            Enemy.Punch(_animKey, OnPunchStarted, OnPunchEnd, OnEnemyAnimationEnd);
             DelayedSwipeOn();
         }
 
-        private void OnAnimationEnd()
+        private void OnEnemyAnimationEnd()
         {
             CLog.Log($"[{nameof(LevelStagePunch)}] OnAnimationEnd");
-            if (_enemyMoveAfterEvaded)
-            {
-                Enemy.Mover.MoveTo(_enemyAfterEvasionMovePoint, _enemyAfterEvasionMoveTime, () => {});
-                return;
-            }
             if(_resetAnimRootBone)
                 Enemy.AlignPositionToAnimRootBone(_idleAfterReset);
+            if (_enemyMoveAfterEvaded)
+                Enemy.Mover.MoveTo(_enemyAfterEvasionMovePoint, _enemyAfterEvasionMoveTime, () => {});
+            else
+            {
+                _enemyCompleted = true;
+                if(_waitForBoth && _playerCompleted)
+                    Complete();
+            }
         }
-
-        private void OnEnemyMoved()
-        {
-            
-        }
-
+        
         private void OnCorrectSwipe()
         {
             CLog.Log($"[{nameof(LevelStagePunch)}] On Correct swipe");
@@ -96,30 +84,32 @@ namespace GiantsAttack
                 return;
             _evaded = true;
             SwipeOff();
-            Player.Mover.Evade(_correctSwipeChecker.CorrectDirection, OnEvadeMoveEnd, _evasionDistance);
-            Player.Aimer.BeginAim();
+            PlayerMover.Evade(_correctSwipeChecker.CorrectDirection, OnPlayerEvaded, _evasionDistance);
         }
 
-        private void OnEvadeMoveEnd()
+        private void OnPlayerEvaded()
         {
-            if (_moveAfterEvaded)
-            {
-                Player.Mover.MoveTo(_afterEvasionMovePoint, _afterEvasionMoveTime, null, Complete);        
-            }
-            else
-            {
-                Complete();
-            }
+            _playerCompleted = true;
+            if(_resumePlayerMoveRightAfterEvasion)
+                PlayerMover.Resume();
+            if (_waitForBoth && !_enemyCompleted)
+                return;
+            Complete();
         }
         
-
         private void Complete()
         {
-            Player.Mover.Loiter();
-            Delay(CallCompleted, _endCallbackDelay);
+            Player.Aimer.BeginAim();
+            Delay(() =>
+            {
+                if (_isStopped)
+                    return;
+                if(!_resumePlayerMoveRightAfterEvasion)
+                    PlayerMover.Resume();
+                CallCompleted();
+            }, _endCallbackDelay);
         }
-        
-        
+
         private void OnWrongSwipe()
         {
             CLog.Log($"[{nameof(LevelStagePunch)}] On wrong swipe");

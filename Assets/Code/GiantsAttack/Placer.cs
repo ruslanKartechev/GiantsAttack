@@ -55,6 +55,15 @@ namespace GiantsAttack
             SetPoint(_points[_index]);
             UnityEditor.EditorUtility.SetDirty(this);
         }
+
+        public void OnOff()
+        {
+            if (_movable == null)
+                return;
+            var on = _movable.gameObject.activeSelf;
+            _movable.gameObject.SetActive(!on);
+            UnityEditor.EditorUtility.SetDirty(_movable);
+        }
 #endif
     }
 }

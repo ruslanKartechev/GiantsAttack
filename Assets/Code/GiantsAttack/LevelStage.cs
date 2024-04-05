@@ -13,6 +13,7 @@ namespace GiantsAttack
         public virtual IMonster Enemy { get; set; }
         public virtual PlayerCamera Camera { get; set; }
         public virtual IStageResultListener ResultListener { get; set; }
+        public virtual IPlayerMover PlayerMover { get; set; }
         
         public abstract void Activate();
         public abstract void Stop();

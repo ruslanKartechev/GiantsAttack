@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SleepDev;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace GiantsAttack
         [SerializeField] private EnemyThrowWeaponHealth _health;
         [SerializeField] private SimpleForwardMover _mover;
         [SerializeField] private Animator _animator;
+    
         private Action _animateCallback;
         
         public GameObject GameObject => gameObject;

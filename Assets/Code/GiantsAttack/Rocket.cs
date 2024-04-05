@@ -11,29 +11,28 @@ namespace GiantsAttack
         [SerializeField] private GameObject _model;
         
         
-        public void Fly(Vector3 endPoint, float time, Action onEnd)
+        public void Fly(Transform endPoint, float time, Action onEnd)
         {
             _trail.gameObject.SetActive(true);
             _trail.Play();
             _model.gameObject.SetActive(true);
-            transform.rotation = Quaternion.LookRotation(endPoint - transform.position);
+            transform.rotation = Quaternion.LookRotation(endPoint.position - transform.position);
             StartCoroutine(Flying(endPoint, time, onEnd));
 
         }
 
-        private IEnumerator Flying(Vector3 endPoint, float time, Action onEnd)
+        private IEnumerator Flying(Transform endPoint, float time, Action onEnd)
         {
             var tr = transform;
             var p1 = tr.position;
             var elapsed = 0f;
             while (elapsed <= time)
             {
-                tr.position = Vector3.Lerp(p1, endPoint, elapsed / time);
+                tr.position = Vector3.Lerp(p1, endPoint.position, elapsed / time);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-
-            tr.position = endPoint;
+            tr.position = endPoint.position;
             _model.gameObject.SetActive(false);
             _explosion.gameObject.SetActive(true);
             _explosion.Play();

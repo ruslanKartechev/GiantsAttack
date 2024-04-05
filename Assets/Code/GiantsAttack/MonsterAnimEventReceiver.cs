@@ -11,6 +11,12 @@ namespace GiantsAttack
         public event Action OnPunchBegan;
         public event Action OnAnimationOver;
         public event Action OnJumpDown;
+        public event Action OnStoodUp;
+
+        public void EventOnStoodUp()
+        {
+            OnStoodUp?.Invoke();
+        }        
 
         public void EventOnPunch()
         {

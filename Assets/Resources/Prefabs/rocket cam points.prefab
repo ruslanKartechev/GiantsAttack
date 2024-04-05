@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 934253390278641721}
   - component: {fileID: 3681257122196130113}
+  - component: {fileID: 7892498991991888911}
   m_Layer: 0
-  m_Name: Camera end point
+  m_Name: Camera side point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +46,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoSet: 1
+--- !u!114 &7892498991991888911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3532645313103867508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 1, g: 0.8625782, b: 0, a: 1}
+  radius: 1
+  drawDirection: 0
+  directionLength: 1
 --- !u!1 &6223112164556142982
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,6 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7059110638747062543}
   - component: {fileID: 1522949691419613767}
+  - component: {fileID: 8859053910595377979}
   m_Layer: 0
   m_Name: Camera start point
   m_TagString: Untagged
@@ -90,6 +109,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoSet: 1
+--- !u!114 &8859053910595377979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6223112164556142982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 1, g: 0.8625782, b: 0, a: 1}
+  radius: 1
+  drawDirection: 0
+  directionLength: 1
 --- !u!1 &8339324356989994203
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,5 +157,69 @@ Transform:
   m_Children:
   - {fileID: 7059110638747062543}
   - {fileID: 934253390278641721}
+  - {fileID: 1240759248206559741}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8584174883618753029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240759248206559741}
+  - component: {fileID: 2203313339824939322}
+  - component: {fileID: 4914513335572180157}
+  m_Layer: 0
+  m_Name: Cam 3rd point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1240759248206559741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8584174883618753029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.3265772, y: 0.11348524, z: -0.039532475, w: 0.93749964}
+  m_LocalPosition: {x: -27.76, y: 48.41, z: -75.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4741632923224453866}
+  m_LocalEulerAnglesHint: {x: 38.411, y: 13.804, z: 0}
+--- !u!114 &2203313339824939322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8584174883618753029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8d604885c2433faf6f48806b86b6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutoSet: 1
+--- !u!114 &4914513335572180157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8584174883618753029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 1, g: 0.8625782, b: 0, a: 1}
+  radius: 1
+  drawDirection: 0
+  directionLength: 1

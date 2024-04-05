@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using GameCore.Core;
 using GameCore.UI;
 using SleepDev;
@@ -9,9 +10,10 @@ namespace GiantsAttack
 {
     public class Bullet : MonoExtended, IBullet, IPooledObject<IBullet>
     {
+        [SerializeField] private float _maxDistance2;
         [SerializeField] private Transform _movable;
         [SerializeField] private GameObject _model;
-        [SerializeField] private Collider _collider;
+        // [SerializeField] private Collider _collider;
         [SerializeField] private ParticleSystem _explosionParticles;
         [SerializeField] private ParticleSystem _trailParticles;
         
@@ -30,7 +32,7 @@ namespace GiantsAttack
         {
             _explosionParticles.gameObject.SetActive(false);
             _model.gameObject.SetActive(true);
-            _collider.enabled = true;
+            // _collider.enabled = true;
             _movable.position = from;
             _damage = damage;
             _counter = counter;
@@ -49,14 +51,25 @@ namespace GiantsAttack
         {
             while (true)
             {
-                _movable.position += direction * (speed * Time.deltaTime);
+                var delta = speed * Time.deltaTime;
+                var pos = _movable.position + direction * (delta);
+                if (Physics.Raycast(_movable.position, _movable.forward, out var hit, 
+                        delta* 2f, GlobalConfig.BulletMask))
+                {
+                    var d2 = (hit.point - pos).sqrMagnitude;
+                    if (d2 <= delta * delta)
+                    {
+                        ProcessHit(hit.collider);
+                    }
+                }
+                _movable.position = pos;
                 yield return null;
             }
         }
 
         private void OnHit()
         {
-            _collider.enabled = false;
+            // _collider.enabled = false;
             _model.gameObject.SetActive(false);
             _explosionParticles.gameObject.SetActive(true);
             _explosionParticles.Play();
@@ -64,7 +77,7 @@ namespace GiantsAttack
             Delay(ReturnToPool, 2f);
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void ProcessHit(Collider other)
         {
             if (other.gameObject.CompareTag(GlobalConfig.PlayerTag))
                 return;
@@ -84,6 +97,7 @@ namespace GiantsAttack
             }
         }
 
+        // Pooling
         public IObjectPool<IBullet> Pool { get; set; }
         public void Parent(Transform parent)
         {

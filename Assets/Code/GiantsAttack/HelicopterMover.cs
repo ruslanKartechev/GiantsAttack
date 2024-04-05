@@ -12,6 +12,7 @@ namespace GiantsAttack
         [SerializeField] private Transform _internal;
         [SerializeField] private HelicopterMoverSettingSo _settingSo;
         private HelicopterAnimSettings _animSettings;
+        private HelicopterMoveToData _currentMoveToData;
 
         private float _t;
         private float _movingTime;
@@ -90,6 +91,40 @@ namespace GiantsAttack
                 curve = movementSettings.defaultMoveCurve;
             _moving = StartCoroutine(MovingToPoint(point, time, curve, callback));
         }
+
+        public void MoveTo(HelicopterMoveToData moveToData)
+        {
+            _currentMoveToData = moveToData;
+            StopMovement();
+            if (moveToData.curve == null)
+                moveToData.curve = movementSettings.defaultMoveCurve;
+            if (moveToData.HasStarted ==false)
+            {
+                moveToData.HasStarted = true;
+                moveToData.StartPos = _movable.position;
+                moveToData.StartRot = _movable.rotation;
+            }
+            _moving = StartCoroutine(MovingToPoint(_currentMoveToData));
+        }
+
+        public void PauseMovement()
+        {
+            StopMovement(); 
+        }
+
+        public bool ResumeMovement()
+        {
+            if (_currentMoveToData == null)
+            {
+                CLog.Log($"[{nameof(HelicopterMover)}] _currentMoveToData == null. Cannot resume");
+                return false;
+            }
+            _currentMoveToData.time *= 1 - _currentMoveToData.LerpT;
+            _currentMoveToData.RefreshStartPosAndRot(_movable);
+            CLog.Log($"[HelicopterMover] Movement resumed with old data");
+            MoveTo(_currentMoveToData);
+            return true;
+        }
         
         
         #region Loitering
@@ -123,83 +158,99 @@ namespace GiantsAttack
         public void Evade(EDirection2D direction, Action callback, float evasionDistance)
         {
             StopAll();
-            var evadeToPoint = transform.position;
-            var angles = transform.eulerAngles;
+            var endPoint = transform.position;
+            var angles = Vector3.zero;
             var dist = evasionDistance;
             if (dist == default)
                 dist = evasionSettings.evadeDistance;
             switch (direction)
             {
                 case EDirection2D.Up:
-                    evadeToPoint += Vector3.up * dist;
+                    endPoint += Vector3.up * dist;
                     angles.x += evasionSettings.evadeAngles.x;
                     break;
                 case EDirection2D.Down:
-                    evadeToPoint -= Vector3.up * dist;
+                    endPoint -= Vector3.up * dist;
                     angles.x -= evasionSettings.evadeAngles.x;
                     break;
                 case EDirection2D.Right:
-                    evadeToPoint += transform.right * dist;
+                    endPoint += transform.right * dist;
                     angles.z -= evasionSettings.evadeAngles.y;
                     break;
                 case EDirection2D.Left:
-                    evadeToPoint -= transform.right * dist;
+                    endPoint -= transform.right * dist;
                     angles.z += evasionSettings.evadeAngles.y;
                     break;
             }
             var time = evasionSettings.evadeTime;
-            _moving = StartCoroutine(Evading(evadeToPoint, angles, time, callback));
-            StartCoroutine(EvadeRotation( evasionSettings.rotToEvadeTimeFraction * time, 
-                (1 - evasionSettings.rotToEvadeTimeFraction) * time, 
-                angles));
+            _moving = StartCoroutine(Evading(endPoint, time, callback, angles));
+        }
+
+        private IEnumerator Evading(Vector3 endPoint, float time, Action callback, Vector3 angles)
+        {
+            _rotating = StartCoroutine(EvadeRotation( evasionSettings.rotToEvadeTimeFraction * time, 
+                (1 - evasionSettings.rotToEvadeTimeFraction) * time, angles));
+            _animating = StartCoroutine(EvadeMoving(endPoint, time));
+            yield return _rotating;
+            yield return _animating;
+            callback.Invoke();
         }
         
-        private IEnumerator Evading(Vector3 endPoint, Vector3 angles, float time, Action callback)
+        private IEnumerator EvadeMoving(Vector3 endPoint, float time)
         {
             var tr = transform;
             var p1 = tr.position;
             var p2 = endPoint;
-            var e1 = transform.localEulerAngles;
-            var e2 = angles;
             var elapsed = Time.unscaledDeltaTime;
             var t = elapsed / time;
             while (t <= 1f)
             {
                 tr.position = Vector3.Lerp(p1, p2, t);
-                if (t <= .5f)
-                    tr.localEulerAngles = Vector3.Lerp(e1, e2, t * 2);
-                else
-                    tr.localEulerAngles = Vector3.Lerp(e2, e1, (t - .5f) * 2);
                 elapsed += Time.unscaledDeltaTime;
                 t = elapsed / time;
                 yield return null;
             }
             tr.position = p2;
-            tr.localEulerAngles = e1;
-            callback.Invoke();
         }
 
         private IEnumerator EvadeRotation(float toTime, float fromTime, Vector3 angles)
         {
-            var r1 = transform.localRotation;
-            var r2 = Quaternion.Euler(angles);
-            yield return ChangingRotationUnscaledTime(transform, toTime, r1, r2);
-            yield return ChangingRotationUnscaledTime(transform, fromTime, r2, r1);
+            var tr = _movable;
+            var r1 = tr.rotation;
+            var r2 = r1 * Quaternion.Euler(angles);
+            var elapsed = Time.unscaledDeltaTime;
+            while (elapsed <= toTime)
+            {
+                tr.rotation = Quaternion.Lerp(r1, r2, elapsed / toTime);
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            tr.rotation = r2;
+            yield return null;
+            elapsed = 0f;
+            while (elapsed <= fromTime)
+            {
+                tr.rotation = Quaternion.Lerp(r2, r1, elapsed / fromTime);
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            tr.rotation = r1;
+            
+            // yield return ChangingRotationUnscaledTime(transform, toTime, r1, r2);
+            // yield return ChangingRotationUnscaledTime(transform, fromTime, r2, r1);
         }
         #endregion
 
         private IEnumerator ChangingRotationUnscaledTime(Transform tr, float time, Quaternion r1, Quaternion r2)
         {
             var elapsed = Time.unscaledDeltaTime;
-            var t = elapsed / time;
-            while (t <= 1f)
+            while (elapsed <= time)
             {
-                tr.localRotation = Quaternion.Lerp(r1, r2, t);
+                tr.rotation = Quaternion.Lerp(r1, r2, elapsed / time);
                 elapsed += Time.unscaledDeltaTime;
-                t = elapsed / time;
                 yield return null;
             }
-            tr.localRotation = r2;
+            tr.rotation = r2;
         }
 
         
@@ -325,6 +376,33 @@ namespace GiantsAttack
                 angles.z += movementSettings.leanAngles.y;
             CLog.Log($"[HeliMover] LeanAngles {angles}");
             leanRot *= Quaternion.Euler(angles);
+        }
+        
+        private IEnumerator MovingToPoint(HelicopterMoveToData moveToData)
+        {
+            var tr = transform;
+            var p1 = moveToData.StartPos;
+            var r1 = moveToData.StartRot;
+            var t = moveToData.LerpT;
+            var time = moveToData.time;
+            var elapsed = t * time;
+            CalculateLeanAngles(moveToData.endPoint, out var leanRot, out var endRot);
+            var leanRotT = movementSettings.leanRotT;
+            // CLog.LogRed($"****** Start t {t}, elapsed {elapsed}, time {time}");
+            while (t <= 1f)
+            {
+                tr.position = Vector3.Lerp(p1, moveToData.endPoint.position, t);
+                if (t <= leanRotT)
+                    tr.rotation = Quaternion.Lerp(r1, leanRot, t / leanRotT);
+                else
+                    tr.rotation = Quaternion.Lerp(leanRot, endRot, (t - leanRotT) / (1-leanRotT));
+                
+                elapsed += Time.deltaTime * moveToData.curve.Evaluate(t);
+                moveToData.LerpT = t = elapsed / time;
+                yield return null;
+            }
+            tr.SetPositionAndRotation(moveToData.endPoint.position, moveToData.endPoint.rotation);
+            moveToData.callback?.Invoke();
         }
         
         private IEnumerator MovingToPoint(Transform point, float time, AnimationCurve curve, Action callback)

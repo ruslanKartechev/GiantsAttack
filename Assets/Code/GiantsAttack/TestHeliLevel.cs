@@ -19,6 +19,7 @@ namespace GiantsAttack
         [SerializeField] private List<LevelStage> _stages;
         [SerializeField] private LevelStartSequence _startSequence;
         [SerializeField] private LevelFinalSequence _finalSequence;
+        [SerializeField] private PlayerMover _playerMover;
         private PlayerCamera _camera;
         private int _stageIndex = 0;
         private bool _isFinalizing;
@@ -58,9 +59,10 @@ namespace GiantsAttack
             }
 
             if (_monster == null)
-            {
                 _monster = FindObjectOfType<MonsterController>();
-            }
+
+            if (_playerMover == null)
+                _playerMover = FindObjectOfType<PlayerMover>();
             UnityEditor.EditorUtility.SetDirty(this);
         }
 #endif
@@ -84,6 +86,7 @@ namespace GiantsAttack
             _player.CameraPoints.SetCameraToOutside();
             StartTiming();
             _player.Mover.Loiter();
+            _playerMover.Player = _player;
             _startSequence.Begin(OnStartSequenceFinished);
             
             if (_useStartUi)
@@ -179,6 +182,7 @@ namespace GiantsAttack
             _gameplayStartCalled = true;
             if (!_startSequenceComplete)
                 return;
+            _playerMover.Begin();
             _stages[_stageIndex].Activate();
         }
 
@@ -189,6 +193,7 @@ namespace GiantsAttack
             stage.Enemy = _monster;
             stage.UI = _gameplayMenu;
             stage.ResultListener = this;
+            stage.PlayerMover = _playerMover;
         }
 
         private void NextStage()

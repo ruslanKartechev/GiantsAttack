@@ -25,6 +25,7 @@ namespace GiantsAttack
         public void On()
         {
             _swipeInputTaker.enabled = true;
+            _swipeInputTaker.Refresh();
             _swipeInputTaker.TargetDistance = _targetSwipeDistance;
             _swipeInputTaker.OnSwipeIndirection -= OnSwiped;
             _swipeInputTaker.OnSwipeIndirection += OnSwiped;

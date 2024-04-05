@@ -7,17 +7,20 @@ namespace GameCore.Core
     {
         /// Constants
         public const string PlayerTag = "Player";
+
         /// 
-        
-        
-        
+
+
+
         /// Global Static Config
-        
+        public static LayerMask BulletMask;
         /// 
+
+        public LayerMask bulletMask;
         
         public void SetupStaticFields()
         {
-
+            BulletMask = bulletMask;
         }
     }
     

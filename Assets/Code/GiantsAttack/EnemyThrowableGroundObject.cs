@@ -10,8 +10,10 @@ namespace GiantsAttack
         [SerializeField] private EnemyThrowWeaponHealth _health;
         [SerializeField] private SimpleForwardMover _mover;
         [SerializeField] private Animator _animator;
+        [SerializeField] private float _animationSpeed = 1f;
         private Action _animateCallback;
-        
+        private static readonly int Speed = Animator.StringToHash("Speed");
+
         public GameObject GameObject => gameObject;
         
         public IThrowable Throwable => _throwable;
@@ -28,6 +30,7 @@ namespace GiantsAttack
 
         public void AnimateMove(Action onEnd)
         {
+            _animator.SetFloat(Speed, _animationSpeed);
             gameObject.SetActive(true);
             _animateCallback = onEnd;
             _animator.enabled = true;
