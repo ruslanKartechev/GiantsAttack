@@ -1140,6 +1140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _copyFrom: {fileID: 0}
+  _lookAt: {fileID: 0}
 --- !u!114 &5660656358139774355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1158,6 +1159,7 @@ MonoBehaviour:
   _altitudeMeter: {fileID: 0}
   _compas: {fileID: 0}
   _bodySectionsUI: {fileID: 0}
+  _bladeParticles: []
 --- !u!114 &3836150193453849928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,6 +1175,7 @@ MonoBehaviour:
   _body: {fileID: 501346878249152201}
   _arm: {fileID: 5802738878218485021}
   _armAngleLimits: {x: -8, y: 4.4, z: -8, w: 8}
+  _localAngleLimits: {x: 0, y: 0, z: 0}
 --- !u!114 &751760892721643663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1230,8 +1233,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delayBetweenBarrels: 0.1
   _shootDirection: {fileID: 306970911899731986}
-  _casePrefab: {fileID: 6327638775308030886, guid: c9f6097c35b65c94fb59b7adce532635,
-    type: 3}
 --- !u!114 &1711155403607664607
 MonoBehaviour:
   m_ObjectHideFlags: 0
