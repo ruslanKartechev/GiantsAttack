@@ -52,6 +52,11 @@ namespace GiantsAttack
             _animator.SetFloat("MoveSpeed", speed);
         }
 
+        public void PunchStatic(string key, Action onHit, Action onCompleted)
+        {
+            var behaviour = new PunchStaticBehaviour(key, onHit, onCompleted, _eventReceiver, _animator);
+        }
+
         public void Punch(string key, Action punchStartedCallback, Action onPunch, Action onAnimationEnd)
         {
             var s = new PunchBehaviour(this, _animator, key, 
@@ -139,6 +144,5 @@ namespace GiantsAttack
             _health.OnDead -= OnHealthOut;
             OnDefeated?.Invoke(this);
         }
-
     }
 }

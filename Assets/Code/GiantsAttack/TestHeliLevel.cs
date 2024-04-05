@@ -7,6 +7,7 @@ using SleepDev;
 
 namespace GiantsAttack
 {
+ 
     public class TestHeliLevel : GameCore.Levels.Level, IStageResultListener
     {
         [SerializeField] private bool _useStartUi = true;
@@ -224,6 +225,7 @@ namespace GiantsAttack
 
         public void OnMainEnemyDead()
         {
+            _playerMover.Pause(false);
             LaunchFinalSequence();
         }
 

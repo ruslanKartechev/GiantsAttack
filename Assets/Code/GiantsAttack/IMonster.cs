@@ -25,10 +25,11 @@ namespace GiantsAttack
         void KickUp();
         void Kill();
         void PreKillState();
-        void Animate(string key, bool trigger);
         void SetMoveAnimationSpeed(float speed);
         void PickAndThrow(IThrowable target, Action onPickCallback, Action onThrowCallback, bool pickFromTop);
+        void PunchStatic(string key, Action onHit, Action onCompleted);
         void Punch(string key, Action punchStartedCallback, Action onPunch, Action onAnimationEnd);
         void AlignPositionToAnimRootBone(bool playIdle);
+        
     }
 }
