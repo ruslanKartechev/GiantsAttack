@@ -20,13 +20,14 @@ namespace GiantsAttack
         [SerializeField] private List<LevelStage> _stages;
         [SerializeField] private LevelStartSequence _startSequence;
         [SerializeField] private LevelFinalSequence _finalSequence;
-        [SerializeField] private PlayerMover _playerMover;
+        [SerializeField] private GameObject _playerMoverGo;
         private PlayerCamera _camera;
         private int _stageIndex = 0;
         private bool _isFinalizing;
         private bool _startSequenceComplete;
         private bool _gameplayStartCalled;
 
+        private IPlayerMover _playerMover;
         private IHelicopter _player;
         private IHitCounter _hitCounter;
         private IControlsUI _controlsUI;
@@ -62,14 +63,25 @@ namespace GiantsAttack
             if (_monster == null)
                 _monster = FindObjectOfType<MonsterController>();
 
-            if (_playerMover == null)
-                _playerMover = FindObjectOfType<PlayerMover>();
+            if (_playerMoverGo == null)
+            {
+                var chance = FindObjectOfType<PlayerMover>();
+                if (chance != null)
+                    _playerMoverGo = chance.gameObject;
+                else
+                {
+                    var chance2 = FindObjectOfType<PlayerAroundMover>();
+                    if(chance2 != null)
+                        _playerMoverGo = chance2.gameObject;
+                }
+            }
             UnityEditor.EditorUtility.SetDirty(this);
         }
 #endif
         
         public override void Init()
         {
+            _playerMover = _playerMoverGo.GetComponent<IPlayerMover>();
             _camera = CameraContainer.PlayerCamera as PlayerCamera;
             _controlsUI = GCon.UIFactory.GetControlsUI();
             _hitCounter = new PlayerHitCounter();

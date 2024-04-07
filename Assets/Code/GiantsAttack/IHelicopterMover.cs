@@ -18,9 +18,16 @@ namespace GiantsAttack
 
         public void MoveTo(Transform point, float time, AnimationCurve curve, Action callback);
         public void MoveTo(HelicopterMoveToData moveToData);
-        public void PauseMovement();
-        public bool ResumeMovement();
+        /// <summary>
+        /// Resume movement on previous HelicopterMoveToData
+        /// </summary>
+        /// <returns> True if possible, false is not (no HelicopterMoveToData cashed) </returns>
+        bool ResumeMovement();
+        void PauseMovement();
 
+        void BeginMovingAround(HelicopterMoveAroundData moveAroundData);
+        void ChangeMovingAroundNode(HelicopterMoveAroundNode node);
+        
         /// <summary>
         /// Way to animate while standing. Slowly moves locally in XY plane. Replaces Animating routine
         /// </summary>

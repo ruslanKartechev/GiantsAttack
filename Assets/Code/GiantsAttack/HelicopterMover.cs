@@ -13,10 +13,12 @@ namespace GiantsAttack
         [SerializeField] private HelicopterMoverSettingSo _settingSo;
         private HelicopterAnimSettings _animSettings;
         private HelicopterMoveToData _currentMoveToData;
+        private HelicopterMoveAroundData _moveAroundData;
 
         private float _t;
         private float _movingTime;
         private Coroutine _moving;
+        private Coroutine _subMoving;
         private Coroutine _animating;
         private Coroutine _rotating;
         
@@ -121,9 +123,30 @@ namespace GiantsAttack
             }
             _currentMoveToData.time *= 1 - _currentMoveToData.LerpT;
             _currentMoveToData.RefreshStartPosAndRot(_movable);
-            CLog.Log($"[HelicopterMover] Movement resumed with old data");
+            // CLog.Log($"[HelicopterMover] Movement resumed with old data");
             MoveTo(_currentMoveToData);
             return true;
+        }
+        
+        public void BeginMovingAround(HelicopterMoveAroundData moveAroundData)
+        {
+            StopMovement();
+            StopRotating();
+            _moveAroundData = moveAroundData;
+            _moveAroundData.CalculateAngleHeightRadius(_movable);
+            _moving = StartCoroutine(MovingAround());
+        }
+
+        public void ChangeMovingAroundNode(HelicopterMoveAroundNode node)
+        {
+            StopSubMoving();
+            _subMoving = StartCoroutine(ChangingMoveAroundNode(node));
+        }
+
+        public void StopSubMoving()
+        {
+            if (_subMoving != null)
+                StopCoroutine(_subMoving);
         }
         
         
@@ -152,8 +175,7 @@ namespace GiantsAttack
             }
         }
         #endregion
-
-
+        
         #region Evasion
         public void Evade(EDirection2D direction, Action callback, float evasionDistance)
         {
@@ -241,19 +263,7 @@ namespace GiantsAttack
         }
         #endregion
 
-        private IEnumerator ChangingRotationUnscaledTime(Transform tr, float time, Quaternion r1, Quaternion r2)
-        {
-            var elapsed = Time.unscaledDeltaTime;
-            while (elapsed <= time)
-            {
-                tr.rotation = Quaternion.Lerp(r1, r2, elapsed / time);
-                elapsed += Time.unscaledDeltaTime;
-                yield return null;
-            }
-            tr.rotation = r2;
-        }
-
-        
+        #region Rotation and local movement
         private IEnumerator ZeroInternalPosition()
         {
             const float timeToZero = .3f;
@@ -352,6 +362,7 @@ namespace GiantsAttack
             }
             target.rotation = r2;
         }
+        #endregion
 
         /// <summary>
         /// Angles to "lean" when moving to next point
@@ -498,6 +509,90 @@ namespace GiantsAttack
             }
         }
 
+        #region MovingAround Coroutines
+        private IEnumerator MovingAround()
+        {
+            while (true)
+            {
+                _moveAroundData.CalculatePositionAndRotation(out var pos, out var rot);
+                _movable.SetPositionAndRotation(pos, rot);
+                CLog.Log($"Angle {_moveAroundData.angle}, Radius {_moveAroundData.radius}, Height {_moveAroundData.height}");
+                yield return null;
+            }
+        }
+
+        private IEnumerator ChangingMoveAroundNode(HelicopterMoveAroundNode node)
+        {
+            CLog.LogRed($"ChangingMoveAroundNode, Angle {node.changeAngle}, Radius {node.changeRadius}");
+            var awaitCors = new List<Coroutine>(3);
+            if (node.changeAngle)
+            {
+                _moveAroundData.targetAngle = node.angle;
+                _moveAroundData.timeToChangeAngle = node.timeToChangeAngle;
+                _moveAroundData.elapsedAngleTime = 0f;
+                awaitCors.Add(StartCoroutine(ChangingMoveAroundAngle()));
+            }
+            if (node.changeRadius)
+            {
+                _moveAroundData.targetRadius = node.radius;
+                _moveAroundData.timeToChangeRadius = node.timeToChangeRadius;
+                _moveAroundData.elapsedRadiusTime = 0f;
+                awaitCors.Add(StartCoroutine(ChangingMoveAroundRadius()));
+            }
+            if (node.changeHeight)
+            {
+                _moveAroundData.targetHeight = node.height;
+                _moveAroundData.timeToChangeHeight = node.timeToChangeHeight;
+                _moveAroundData.elapsedHeightTime = 0f;
+                awaitCors.Add(StartCoroutine(ChangingMoveAroundHeight()));
+            }
+            
+            foreach (var cor in awaitCors)
+                yield return cor;
+            
+        }
+
+        private IEnumerator ChangingMoveAroundAngle()
+        {
+            _moveAroundData.angleCashed = _moveAroundData.angle;
+            while (_moveAroundData.elapsedAngleTime < _moveAroundData.timeToChangeAngle)
+            {
+                _moveAroundData.angle = Mathf.Lerp(_moveAroundData.angleCashed, _moveAroundData.targetAngle,
+                    _moveAroundData.elapsedAngleTime / _moveAroundData.timeToChangeAngle);
+                _moveAroundData.elapsedAngleTime += Time.deltaTime;
+                yield return null;
+            }
+            _moveAroundData.angle = _moveAroundData.targetAngle;
+        }
+
+        private IEnumerator ChangingMoveAroundRadius()
+        {
+            _moveAroundData.radiusCashed = _moveAroundData.radius;
+            while (_moveAroundData.elapsedRadiusTime < _moveAroundData.timeToChangeRadius)
+            {
+                _moveAroundData.radius = Mathf.Lerp(_moveAroundData.radiusCashed, _moveAroundData.targetRadius,
+                    _moveAroundData.elapsedRadiusTime / _moveAroundData.timeToChangeRadius);
+                _moveAroundData.elapsedRadiusTime += Time.deltaTime;
+                yield return null;
+            }
+            _moveAroundData.radius = _moveAroundData.targetRadius;
+        }
+        
+        private IEnumerator ChangingMoveAroundHeight()
+        {
+            _moveAroundData.heightCashed = _moveAroundData.height;
+            while (_moveAroundData.elapsedHeightTime < _moveAroundData.timeToChangeHeight)
+            {
+                _moveAroundData.height = Mathf.Lerp(_moveAroundData.heightCashed, _moveAroundData.targetHeight,
+                    _moveAroundData.elapsedHeightTime / _moveAroundData.timeToChangeHeight);
+                _moveAroundData.elapsedHeightTime += Time.deltaTime;
+                yield return null;
+            }
+            _moveAroundData.height = _moveAroundData.targetHeight;
+        }
+        #endregion
+
+        
 #if UNITY_EDITOR
         public void Update()
         {

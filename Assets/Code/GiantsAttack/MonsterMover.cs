@@ -81,7 +81,7 @@ namespace GiantsAttack
             var t = 0f;
             var r1 = _movable.rotation;
             var time = Quaternion.Angle(rotation, r1) / rotationSpeed;
-            while (t <= 1f)
+            while (t < 1f)
             {
                 _movable.rotation = Quaternion.Lerp(r1, rotation, t);
                 t = elapsed / time;
@@ -98,7 +98,7 @@ namespace GiantsAttack
             var elapsed = 0f;
             var t = 0f;
             var p1 = _movable.position;
-            while (t <= 1f)
+            while (t < 1f)
             {
                 _movable.position = Vector3.Lerp(p1, _moveToTarget.position, t);
                 t = elapsed / time;

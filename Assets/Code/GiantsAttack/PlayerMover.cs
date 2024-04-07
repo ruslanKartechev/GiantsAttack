@@ -63,7 +63,6 @@ namespace GiantsAttack
             _elapsedAwaiting = 0f;
             _currentNode = _nodes[_nodeIndex];
             WaitForNode();
-            // MoveToNode(_currentNode);
         }
 
         private void MoveToNode(PathNode node)
@@ -75,19 +74,16 @@ namespace GiantsAttack
 
         private void OnMovedToNode()
         {
-            CLog.Log($"[PlayerMover] On moved to node index {_nodeIndex}");
+            CLog.Log($"[{nameof(PlayerMover)}] On moved to node index {_nodeIndex}");
             _nodeIndex++;
             if (_nodeIndex >= _nodes.Count)
             {
-                CLog.LogRed("ALL NODES PASSED");
+                CLog.LogRed($"[{nameof(PlayerMover)}] All nodes passed");
                 return;
             }
             _elapsedAwaiting = 0f;
             WaitForNode();
-            // var node = _nodes[_nodeIndex];
-            // MoveToNode(node);
         }
-
 
         private void StopWaiting()
         {
@@ -120,6 +116,8 @@ namespace GiantsAttack
 #if UNITY_EDITOR
         [Header("Gizmos"), Space(10)] 
         public bool e_drawGizmos;
+        public float e_moveSpeed;
+        public Color e_color = Color.black;
         
         public void OnDrawGizmos()
         {
@@ -128,7 +126,7 @@ namespace GiantsAttack
             if (_nodes.Count < 2 || _startPoint == null)
                 return;
             var oldColor = Gizmos.color;
-            Gizmos.color = Color.black;
+            Gizmos.color = e_color;
             var cubeSize = 1f;
             var prevPoint = _startPoint;
             for (var i = 0; i < _nodes.Count; i++)
@@ -143,8 +141,31 @@ namespace GiantsAttack
                 Gizmos.DrawCube(_nodes[i].point.position, Vector3.one * cubeSize);
                 prevPoint = _nodes[i].point;
             }
-            
             Gizmos.color = oldColor;
+        }
+
+        [ContextMenu("E_CalculateTimeFromSpeed")]
+        public void E_CalculateTimeFromSpeed()
+        {
+            if (_nodes.Count == 0)
+                return;
+            if (_startPoint != null)
+            {
+                _nodes[0].moveTime = (_nodes[0].point.position - _startPoint.position).magnitude / e_moveSpeed;
+                UnityEditor.EditorUtility.SetDirty(this);
+            }
+
+            if (_nodes.Count < 2)
+                return;
+            for (var i = 1; i < _nodes.Count; i++)
+            {
+                var prev = _nodes[i - 1].point;
+                var curr = _nodes[i].point;
+                var distance = (curr.position - prev.position).magnitude;
+                var time = distance / e_moveSpeed;
+                _nodes[i].moveTime = time;
+            }
+            UnityEditor.EditorUtility.SetDirty(this);
         }
 #endif
     }
