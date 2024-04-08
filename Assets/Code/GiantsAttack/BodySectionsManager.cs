@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameCore.UI;
+using SleepDev;
 using SleepDev.Ragdoll;
 using UnityEngine;
 
@@ -23,9 +24,23 @@ namespace GiantsAttack
                 section.Init(health);
             }
         }
-        
-        
-        #if UNITY_EDITOR
+
+        public BodySection GetRandomSection()
+        {
+            if (_sections.Count == 0)
+                return null;
+            var sc = _sections.Random();
+            var it = 0;
+            do
+            {
+                sc = _sections.Random();
+                it++;
+            } while (sc.Health <= 0 && it < _sections.Count);
+            return sc;
+        }
+
+        #region Editor
+#if UNITY_EDITOR
         public float e_maxHealth;
         public Ragdoll e_ragdoll;
         public void E_SetHealthAll()
@@ -118,6 +133,7 @@ namespace GiantsAttack
         }
         
 #endif
+        #endregion
 
     }
 }

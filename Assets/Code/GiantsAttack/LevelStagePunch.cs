@@ -33,7 +33,7 @@ namespace GiantsAttack
         {
             Player.Aimer.BeginAim();
             if (_doMoveEnemy)
-                Enemy.Mover.MoveTo(_enemyPoint, _enemyMoveTime, Punch);                
+                Enemy.Mover.MoveToPoint(_enemyPoint, _enemyMoveTime, Punch);                
             else
                 Punch();
         }
@@ -68,7 +68,7 @@ namespace GiantsAttack
             if(_resetAnimRootBone)
                 Enemy.AlignPositionToAnimRootBone(_idleAfterReset);
             if (_enemyMoveAfterEvaded)
-                Enemy.Mover.MoveTo(_enemyAfterEvasionMovePoint, _enemyAfterEvasionMoveTime, () => {});
+                Enemy.Mover.MoveToPoint(_enemyAfterEvasionMovePoint, _enemyAfterEvasionMoveTime, () => {});
             else
             {
                 _enemyCompleted = true;

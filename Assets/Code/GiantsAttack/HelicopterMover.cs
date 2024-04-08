@@ -76,8 +76,7 @@ namespace GiantsAttack
         public void RotateToLook(Transform lookAt, float time, Action onEnd, bool centerInternal = true)
         {
             StopRotating();
-            var endRotation = Quaternion.LookRotation(lookAt.position - transform.position);
-            _rotating = StartCoroutine(RotatingTo(endRotation, time, onEnd, centerInternal));
+            _rotating = StartCoroutine(RotatingToLookAt(lookAt, time, onEnd, centerInternal));
         }
 
         public void StopRotating()
@@ -139,11 +138,17 @@ namespace GiantsAttack
 
         public void ChangeMovingAroundNode(HelicopterMoveAroundNode node)
         {
-            StopSubMoving();
+            StopSubMovement();
             _subMoving = StartCoroutine(ChangingMoveAroundNode(node));
         }
 
-        public void StopSubMoving()
+        public void StopMovingAround()
+        {
+            StopMovement();
+            StopSubMovement();
+        }
+
+        public void StopSubMovement()
         {
             if (_subMoving != null)
                 StopCoroutine(_subMoving);
@@ -303,6 +308,27 @@ namespace GiantsAttack
             }
         }
 
+        private IEnumerator RotatingToLookAt(Transform lookAt, float time, Action onEnd, bool centerInternal)
+        {
+            if (centerInternal)
+            {
+                const float internalRotTime = .3f;
+                yield return ChangingRotationInternal(_internal.localRotation, Quaternion.identity, internalRotTime);
+            }
+            var elapsed = Time.deltaTime;
+            var tr = transform;
+            var rot1 = tr.rotation;
+            while (elapsed < time)
+            {
+                var rot2 = Quaternion.LookRotation(lookAt.position - tr.position);
+                tr.rotation = Quaternion.Lerp(rot1, rot2, elapsed / time);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            tr.rotation = Quaternion.LookRotation(lookAt.position - tr.position);
+            onEnd?.Invoke();
+        }
+        
         private IEnumerator RotatingTo(Quaternion endRotation, float time, Action onEnd, bool centerInternal)
         {
             if (centerInternal)
@@ -311,15 +337,13 @@ namespace GiantsAttack
                 yield return ChangingRotationInternal(_internal.localRotation, Quaternion.identity, internalRotTime);
             }
             var elapsed = Time.deltaTime;
-            var t = elapsed / time;
             var tr = transform;
             var rot1 = tr.rotation;
             var rot2 = endRotation;
-            while (t <= 1f)
+            while (elapsed < time)
             {
-                tr.rotation = Quaternion.Lerp(rot1, rot2, t);
+                tr.rotation = Quaternion.Lerp(rot1, rot2, elapsed / time);
                 elapsed += Time.deltaTime;
-                t = elapsed / time;
                 yield return null;
             }
             tr.rotation = rot2;
@@ -516,14 +540,14 @@ namespace GiantsAttack
             {
                 _moveAroundData.CalculatePositionAndRotation(out var pos, out var rot);
                 _movable.SetPositionAndRotation(pos, rot);
-                CLog.Log($"Angle {_moveAroundData.angle}, Radius {_moveAroundData.radius}, Height {_moveAroundData.height}");
+                // CLog.Log($"Angle {_moveAroundData.angle}, Radius {_moveAroundData.radius}, Height {_moveAroundData.height}");
                 yield return null;
             }
         }
 
         private IEnumerator ChangingMoveAroundNode(HelicopterMoveAroundNode node)
         {
-            CLog.LogRed($"ChangingMoveAroundNode, Angle {node.changeAngle}, Radius {node.changeRadius}");
+            // CLog.LogRed($"ChangingMoveAroundNode, Angle {node.changeAngle}, Radius {node.changeRadius}");
             var awaitCors = new List<Coroutine>(3);
             if (node.changeAngle)
             {

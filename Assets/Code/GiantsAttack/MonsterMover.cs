@@ -15,7 +15,7 @@ namespace GiantsAttack
 
         private Coroutine _moving;
         private Coroutine _rotating;
-        private Transform _moveToTarget;
+        private Transform _targetPoint;
         private Transform _lookAtTarget;
 
         public void RotateToLookAt(Transform target, float time, Action callback)
@@ -31,13 +31,22 @@ namespace GiantsAttack
                 StopCoroutine(_rotating);
         }
 
-        public void MoveTo(Transform target, float time, Action callback)
+        public void MoveToPoint(Transform target, float time, Action callback)
         {
             StopMovement();
             StopLookAt();
-            _moveToTarget = target;
+            _targetPoint = target;
             _animator.SetTrigger(_walkTriggerKey);
-            _moving = StartCoroutine(Moving(time, callback));
+            _moving = StartCoroutine(MovingToTargetPoint(time, callback));
+        }
+        
+        public void MoveToPointSimRotation(Transform target, float time, Action callback)
+        {
+            StopMovement();
+            StopLookAt();
+            _targetPoint = target;
+            _animator.SetTrigger(_walkTriggerKey);
+            _moving = StartCoroutine(MovingToTargetPointSimRotation(time, callback));
         }
 
         public void StopMovement()
@@ -91,22 +100,44 @@ namespace GiantsAttack
             _movable.rotation = rotation;
         }
         
-        private IEnumerator Moving(float time, Action callback)
+        private IEnumerator MovingToTargetPointSimRotation(float time, Action callback)
         {
-            var lookAtRotation = Quaternion.LookRotation(_moveToTarget.position - _movable.position);
+            var lookAtRotation = Quaternion.LookRotation(_targetPoint.position - _movable.position);
+            yield return RotatingTo(lookAtRotation, _rotationSpeed);
+            var elapsed = 0f;
+            var t = 0f;
+            var p1 = _movable.position;
+            var r1 = _movable.rotation;
+            var r2 = _targetPoint.rotation;
+            while (t < 1f)
+            {
+                var pos = Vector3.Lerp(p1, _targetPoint.position, t);
+                var rot = Quaternion.Lerp(r1, r2, t);
+                _movable.SetPositionAndRotation(pos, rot);
+                t = elapsed / time;
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            _movable.SetPositionAndRotation(_targetPoint.position, _targetPoint.rotation);
+            callback?.Invoke();
+        }
+        
+        private IEnumerator MovingToTargetPoint(float time, Action callback)
+        {
+            var lookAtRotation = Quaternion.LookRotation(_targetPoint.position - _movable.position);
             yield return RotatingTo(lookAtRotation, _rotationSpeed);
             var elapsed = 0f;
             var t = 0f;
             var p1 = _movable.position;
             while (t < 1f)
             {
-                _movable.position = Vector3.Lerp(p1, _moveToTarget.position, t);
+                _movable.position = Vector3.Lerp(p1, _targetPoint.position, t);
                 t = elapsed / time;
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-            _movable.position = _moveToTarget.position;
-            yield return RotatingTo(_moveToTarget.rotation, _rotationSpeed);
+            _movable.position = _targetPoint.position;
+            yield return RotatingTo(_targetPoint.rotation, _rotationSpeed);
             callback?.Invoke();
         }
     }

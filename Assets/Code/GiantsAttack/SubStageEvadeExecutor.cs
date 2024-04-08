@@ -38,7 +38,7 @@ namespace GiantsAttack
             FailCallback = failCallback;
             SuccessCallback = successCallback;
             if (stage.doWalkToTarget)
-                _enemy.Mover.MoveTo(stage.moveToPoint, stage.enemyMoveTime, CallPickAndThrow);
+                _enemy.Mover.MoveToPoint(stage.moveToPoint, stage.enemyMoveTime, CallPickAndThrow);
             else
                 CallPickAndThrow();
         }

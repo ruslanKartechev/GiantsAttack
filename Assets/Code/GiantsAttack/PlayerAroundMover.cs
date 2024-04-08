@@ -13,26 +13,28 @@ namespace GiantsAttack
         [SerializeField] private Transform _lookAt;
         [SerializeField] private Transform _orientation;
         [SerializeField] private List<HelicopterMoveAroundNode> _nodes;
-
+        private Coroutine _working;
+        
         public IHelicopter Player { get; set; }
 
-        public void Pause(bool loiter)
-        {
-        }
-
         public void Resume()
-        {
-        }
+        { }
 
         public void Evade(EDirection2D direction2D, Action callback, float distance)
+        { }
+        
+        public void Pause(bool loiter)
         {
+            if(_working != null)
+                StopCoroutine(_working);
         }
 
         public void Begin()
         {
-            StartCoroutine(Working());
+            if(_working != null)
+                StopCoroutine(_working);
+            _working = StartCoroutine(Working());
         }
-
 
         private IEnumerator Working()
         {
@@ -44,12 +46,38 @@ namespace GiantsAttack
                 _orientation = orientation;
             }
             Player.Mover.BeginMovingAround(new HelicopterMoveAroundData(_center, _lookAt, _orientation));
-            foreach (var node in _nodes)
+            for (var i = 0; i < _nodes.Count; i++)
             {
+                var node = _nodes[i];
                 yield return new WaitForSeconds(node.startDelay);
+                #if UNITY_EDITOR
+                LogNode(i);
+                #endif
                 Player.Mover.ChangeMovingAroundNode(node);
             }
+#if UNITY_EDITOR
+            CLog.LogRed($"All Nodes passed");
+#endif
         }
-        
+
+        private void LogNode(int index)
+        {
+            var node = _nodes[index];
+            var msg = $"[PAM] Node {index}, ";
+            if (node.changeAngle)
+            {
+                msg += $"Ang {node.angle}, {node.timeToChangeAngle}s, ";
+            }
+            if (node.changeHeight)
+            {
+                msg += $"H {node.height}, {node.timeToChangeHeight}s, ";
+            }
+            if (node.changeRadius)
+            {
+                msg += $"Rad {node.radius}, {node.timeToChangeRadius}s";
+            }
+            CLog.Log(msg);
+        }
+
     }
 }

@@ -27,6 +27,7 @@ namespace GiantsAttack
 
         void BeginMovingAround(HelicopterMoveAroundData moveAroundData);
         void ChangeMovingAroundNode(HelicopterMoveAroundNode node);
+        void StopMovingAround();
         
         /// <summary>
         /// Way to animate while standing. Slowly moves locally in XY plane. Replaces Animating routine

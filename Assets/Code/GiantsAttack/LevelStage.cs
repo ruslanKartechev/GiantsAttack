@@ -1,11 +1,14 @@
-﻿using GameCore.Cam;
+﻿using System.Collections.Generic;
+using GameCore.Cam;
 using GameCore.UI;
 using SleepDev;
+using UnityEngine;
 
 namespace GiantsAttack
 {
     public abstract class LevelStage : MonoExtended
     {
+        [SerializeField] protected List<StageListener> _stageListeners;
         protected bool _isStopped;
 
         public virtual IGameplayMenu UI { get; set; }
@@ -37,7 +40,7 @@ namespace GiantsAttack
             Enemy.OnDefeated -= OnEnemyKilled;
         }
         
-        protected virtual void OnEnemyKilled(IMonster obj)
+        protected virtual void OnEnemyKilled(IMonster enemy)
         {
             UnsubFromEnemy();
             Stop();

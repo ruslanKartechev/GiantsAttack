@@ -28,13 +28,13 @@ namespace SleepDev
             Stop();
             _working = StartCoroutine(Moving(point, time));
         }
-
-
+        
         public void Stop()
         {
             if(_working != null)
                 StopCoroutine(_working);
         }
+        
         private IEnumerator Moving(Transform point, float time)
         {
             var elapsed = 0f;

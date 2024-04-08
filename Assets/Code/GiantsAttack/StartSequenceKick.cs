@@ -10,7 +10,7 @@ namespace GiantsAttack
         [SerializeField] private MonsterController _enemy;
         [SerializeField] private float _force;
         [SerializeField] private Transform _pushDirection;
-        [SerializeField] private ExplodingVehicle _target;
+        [SerializeField] private ExplosiveVehicle _target;
         private Action _callback;
 
 #if UNITY_EDITOR

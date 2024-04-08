@@ -1,10 +1,4 @@
-﻿using System;
-using GameCore.Cam;
-using GameCore.Core;
-using SleepDev;
-using SleepDev.SlowMotion;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GiantsAttack
 {
@@ -37,6 +31,7 @@ namespace GiantsAttack
             Delay(InitRunaway, _runawayInitDelay);
             Delay(StartMovingRunaway, _runawayMoveDelay);
             Delay(MoveEnemyToStart, _enemyToStartMoveDelay);
+            SubToEnemyKill();
         }
 
         public override void Stop()
@@ -51,15 +46,15 @@ namespace GiantsAttack
 
         private void MoveEnemyToStart()
         {
-            Enemy.Mover.MoveTo(_enemyStartPoint, _enemyToStartMoveTime, OnEnemyMovedToStart);
+            Enemy.Mover.MoveToPoint(_enemyStartPoint, _enemyToStartMoveTime, OnEnemyMovedToStart);
         }
 
         private void OnEnemyMovedToStart()
         {
             _enemyMover.Speed = _enemyStartSpeed;
             _enemyMover.InterpolationT = _enemyStartSplineT;
-            // Debug.Break();
             _enemyMover.MoveNow();
+            // Debug.Break();
         }
 
         private void StartMovingRunaway()
@@ -71,8 +66,14 @@ namespace GiantsAttack
 
         private void AccelerateRunaway()
         {
-            CLog.LogRed($"Runaway Accelerated");
             _runaway.Mover.ChangeSpeed(_runawayAcceleratedSpeed, _runawayAccelerationTime);
+        }
+
+        protected override void OnEnemyKilled(IMonster enemy)
+        {
+            PlayerMover.Pause(false);
+            _enemyMover.Stop();
+            base.OnEnemyKilled(enemy);
         }
         
         #if UNITY_EDITOR

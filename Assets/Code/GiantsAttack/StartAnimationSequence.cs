@@ -12,7 +12,7 @@ namespace GiantsAttack
         [SerializeField] private MonsterController _enemy;
         [SerializeField] private Vector2 _explosionForce;
         [SerializeField] private Vector3 _explosionVector;
-        [SerializeField] private List<ExplodingVehicle> _explodingVehicles;
+        [SerializeField] private List<ExplosiveVehicle> _explodingVehicles;
 
 #if UNITY_EDITOR
         public override void E_Init()

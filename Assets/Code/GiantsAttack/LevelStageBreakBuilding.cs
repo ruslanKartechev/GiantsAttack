@@ -14,7 +14,12 @@ namespace GiantsAttack
         {
             SubToEnemyKill();
             Player.Aimer.BeginAim();
-            Enemy.Mover.MoveTo(_enemyPoint, _moveTime, OnEnemyMoved);
+            Enemy.Mover.MoveToPoint(_enemyPoint, _moveTime, OnEnemyMoved);
+            foreach (var listener in _stageListeners)
+            {
+                listener.Enemy = Enemy;
+                listener.OnActivated();
+            }
         }
 
         private void OnEnemyMoved()
@@ -35,12 +40,21 @@ namespace GiantsAttack
         {
             if (_isStopped)
                 return;
-            Delay(CallCompleted, _endDelay);
+            Delay(Complete, _endDelay);
         }
 
         public override void Stop()
         {
             _isStopped = true;
+            foreach (var listener in _stageListeners)
+                listener.OnStopped();
+        }
+
+        private void Complete()
+        {
+            foreach (var listener in _stageListeners)
+                listener.OnCompleted();
+            CallCompleted();
         }
     }
 }

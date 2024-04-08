@@ -8,7 +8,7 @@ using SleepDev;
 namespace GiantsAttack
 {
  
-    public class TestHeliLevel : GameCore.Levels.Level, IStageResultListener
+    public class StageBasedLevel : GameCore.Levels.Level, IStageResultListener
     {
         [SerializeField] private bool _useStartUi = true;
         [SerializeField] private float _enemyHealth = 1000;
@@ -150,6 +150,7 @@ namespace GiantsAttack
             CLog.LogGreen($"{gameObject.name} LaunchFinalSequence");
             _finalSequence.Enemy = _monster;
             _finalSequence.Player = _player;
+            _finalSequence.PlayerMover = _playerMover;
             _finalSequence.Camera = _camera;
             _finalSequence.Begin(Win);
             _gameplayMenu.Hide(() => {});
@@ -179,7 +180,7 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
-            _monster.Init(_player.BodySectionsUI, _enemyHealth);
+            _monster.Init(_gameplayMenu.EnemyBodySectionsUI, _enemyHealth);
             _monster.SetMoveAnimationSpeed(_moveAnimationSpeed);
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using SleepDev;
 using UnityEngine;
 using UnityEngine.UI;
 using GCon = GameCore.Core.GCon;
@@ -14,7 +13,8 @@ namespace GameCore.UI
         [SerializeField] private DamageHitsUI _damageHits;
         [SerializeField] private EvadeUI _evadeUI;
         [SerializeField] private ShootAtTargetUI _shootAtTargetUI;
-        private IBodySectionsUI _bodySectionsUI;
+        [SerializeField] private BodySectionsUI _bodySectionsUI;
+        // private IBodySectionsUI _bodySectionsUI;
         
         public IAimUI AimUI => _aimUI;
         public IUIDamagedEffect DamagedEffect => _damagedEffect;
@@ -26,8 +26,9 @@ namespace GameCore.UI
         
         public void AddBodySectionsUI(GameObject prefab)
         {
-            var go = Instantiate(prefab, transform);
-            _bodySectionsUI = go.GetComponent<IBodySectionsUI>();
+            throw new NotImplementedException();
+            // var go = Instantiate(prefab, transform);
+            // _bodySectionsUI = go.GetComponent<IBodySectionsUI>();
         }
 
         public GameObject Go => gameObject;

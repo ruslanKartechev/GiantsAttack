@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameCore.Cam;
 using SleepDev.Utils;
 using UnityEditor;
 using UnityEngine;
@@ -8,6 +8,7 @@ namespace GiantsAttack
 {
     public class BrokenBuilding : MonoBehaviour
     {
+        [SerializeField] private bool _shakeCameraOnHit = true;
         [SerializeField] private float _force;
         [SerializeField] private List<Part> _parts;
         [SerializeField] private List<MeshRenderer> _rendsToDisable;
@@ -19,11 +20,10 @@ namespace GiantsAttack
                 rend.enabled = false;
             foreach (var p in _parts)
                 p.Push(_force);
-            if (_particles != null)
-            {
-                _particles.gameObject.SetActive(true);
-                _particles.Play();
-            }
+            _particles.gameObject.SetActive(true);
+            _particles.Play();
+            if (_shakeCameraOnHit)
+                CameraContainer.Shaker.PlayDefault();
         }
         
 #if UNITY_EDITOR
@@ -89,10 +89,9 @@ namespace GiantsAttack
         {
             base.OnInspectorGUI();
             var me = target as BrokenBuilding;
-            if (GUILayout.Button("Get Or Build"))
-            {
+            GUILayout.Space(25);
+            if (GUILayout.Button("Get Or Build", GUILayout.Width(120)))
                 me.E_GetOrBuild();                
-            }
         }
     }
     #endif

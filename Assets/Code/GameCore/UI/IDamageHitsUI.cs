@@ -4,6 +4,6 @@ namespace GameCore.UI
 {
     public interface IDamageHitsUI
     {
-        void ShowHit(Vector3 worldPos, float damage);
+        void ShowHit(Vector3 worldPos, float damage, bool crit);
     }
 }

@@ -9,32 +9,23 @@ namespace GameCore.Core
         public const string PlayerTag = "Player";
 
         /// 
-
-
+        public static float DamageMultiplier;
 
         /// Global Static Config
         public static LayerMask BulletMask;
         /// 
 
         public LayerMask bulletMask;
-        
+        public float damageMultiplier;
+
         public void SetupStaticFields()
         {
             BulletMask = bulletMask;
+            DamageMultiplier = damageMultiplier;
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
     

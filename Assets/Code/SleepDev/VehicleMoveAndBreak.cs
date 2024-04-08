@@ -7,7 +7,7 @@ namespace SleepDev
         [SerializeField] private bool _autoStart;
         [SerializeField] private SimpleForwardMover _mover;
         [SerializeField] private float _pushForceUp;
-        [SerializeField] private ExplodingVehicle _explodingVehicle;
+        [SerializeField] private ExplosiveVehicle _explodingVehicle;
         private Coroutine _working;
 
         private void Start()

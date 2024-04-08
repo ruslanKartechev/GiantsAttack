@@ -31,6 +31,7 @@ namespace GiantsAttack
 
         public void Pause(bool loiter)
         {
+            StopWaiting();
             Player.Mover.StopAll();
             if(loiter)
                 Player.Mover.Loiter();

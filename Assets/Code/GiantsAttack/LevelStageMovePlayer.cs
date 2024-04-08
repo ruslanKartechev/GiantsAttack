@@ -57,7 +57,7 @@ namespace GiantsAttack
 
         private void CallMoveEnemy()
         {
-            Enemy.Mover.MoveTo(_enemyMovePoint, _enemyMoveTime, () =>
+            Enemy.Mover.MoveToPointSimRotation(_enemyMovePoint, _enemyMoveTime, () =>
             {
                 if(_isStopped == false)
                     Enemy.Idle();
@@ -69,10 +69,10 @@ namespace GiantsAttack
             _isStopped = true;
         }
 
-        protected override void OnEnemyKilled(IMonster obj)
+        protected override void OnEnemyKilled(IMonster enemy)
         {
             StopAllCoroutines();
-            base.OnEnemyKilled(obj);
+            base.OnEnemyKilled(enemy);
         }
 
         private void OnMovementDone()

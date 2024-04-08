@@ -11,6 +11,7 @@ namespace GiantsAttack
 #endif
         
         public IHelicopter Player { get; set; }
+        public IPlayerMover PlayerMover { get; set; }
         public IMonster Enemy { get; set; }
         public PlayerCamera Camera { get; set; }
         

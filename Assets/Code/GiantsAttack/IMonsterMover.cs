@@ -10,7 +10,8 @@ namespace GiantsAttack
         void StopLookAt();
 
         // Will move to the point
-        void MoveTo(Transform target, float time, Action callback);
+        void MoveToPoint(Transform target, float time, Action callback);
+        void MoveToPointSimRotation(Transform target, float time, Action callback);
         void StopMovement();
     }
 }

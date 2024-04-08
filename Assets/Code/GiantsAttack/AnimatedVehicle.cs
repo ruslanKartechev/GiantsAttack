@@ -8,8 +8,26 @@ namespace GiantsAttack
     public class AnimatedVehicle : MonoBehaviour
     {
         [SerializeField] private bool _doMove;
-        [SerializeField] private ExplodingVehicle _explodingVehicle;
+        [SerializeField] private ExplosiveVehicle _explodingVehicle;
         [SerializeField] private SimpleForwardMover _mover;
+
+        public bool doMove
+        {
+            get => _doMove;
+            set => _doMove = value;
+        }
+
+        public ExplosiveVehicle explodingVehicle
+        {
+            get => _explodingVehicle;
+            set => _explodingVehicle = value;
+        }
+
+        public SimpleForwardMover mover
+        {
+            get => _mover;
+            set => _mover = value;
+        }
 
         private void Start()
         {

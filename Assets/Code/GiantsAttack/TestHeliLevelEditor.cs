@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    [CustomEditor(typeof(TestHeliLevel))]
+    [CustomEditor(typeof(StageBasedLevel))]
     public class TestHeliLevelEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            var me = target as TestHeliLevel;
+            var me = target as StageBasedLevel;
             GUILayout.Space((20));
             if (GUILayout.Button("E_Init", GUILayout.Width(100)))
             {

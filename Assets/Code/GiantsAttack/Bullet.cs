@@ -18,7 +18,7 @@ namespace GiantsAttack
         [SerializeField] private ParticleSystem _trailParticles;
         
         private Coroutine _flying;
-        private float _damage;
+        private DamageArgs _damageArgs;
         private IHitCounter _counter;
         private IDamageHitsUI _hitsUI;
         
@@ -27,14 +27,14 @@ namespace GiantsAttack
             _movable.rotation = rotation;
         }
 
-        public void Launch(Vector3 from, Vector3 direction, float speed, float damage, 
+        public void Launch(Vector3 from, Vector3 direction, float speed, DamageArgs args, 
             IHitCounter counter, IDamageHitsUI hitsUI)
         {
             _explosionParticles.gameObject.SetActive(false);
             _model.gameObject.SetActive(true);
             // _collider.enabled = true;
             _movable.position = from;
-            _damage = damage;
+            _damageArgs = args;
             _counter = counter;
             _hitsUI = hitsUI;
             StopAllCoroutines();
@@ -84,11 +84,13 @@ namespace GiantsAttack
             // CLog.Log($"bullet trigger w {other.gameObject.name}");
             if (other.gameObject.TryGetComponent<ITarget>(out var target))
             {
-                target.Damageable.TakeDamage(new DamageArgs(_damage, transform.position, transform.forward));
+                _damageArgs.point = transform.position;
+                _damageArgs.direction = transform.forward;
+                target.Damageable.TakeDamage(_damageArgs);
                 OnHit();
                 _counter.HitsCount++;
                 if(target.Damageable.CanDamage)
-                    _hitsUI.ShowHit(transform.position, _damage);
+                    _hitsUI.ShowHit(transform.position, _damageArgs.damage, _damageArgs.isCrit);
             }
             else
             {

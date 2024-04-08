@@ -80,7 +80,7 @@ namespace GiantsAttack
         
         private void MoveEnemy()
         {
-            Enemy.Mover.MoveTo(_moveToPoint, _enemyMoveTime, OnEnemyMoved);
+            Enemy.Mover.MoveToPoint(_moveToPoint, _enemyMoveTime, OnEnemyMoved);
         }
 
         private void OnEnemyMoved()

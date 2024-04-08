@@ -33,8 +33,8 @@ namespace GiantsAttack
         public override void Begin(Action callback)
         {
             Player.StopAll();
-            Player.Mover.StopAll();
-            Player.Mover.Loiter();
+            PlayerMover.Pause(true);
+            CLog.LogRed($"STOPPED PLAYER MOVER, MAKING IT TO ROTATE");
             Player.Mover.RotateToLook(Enemy.LookAtPoint,_playerRotateTime, () => {});
             _endCallback = callback;
             Enemy.PreKillState();

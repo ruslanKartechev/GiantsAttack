@@ -62,9 +62,23 @@ namespace GiantsAttack
                 {
                     var bullet = GCon.BulletsPool.GetObject();
                     bullet.SetRotation(barrel.FromPoint.rotation);
+                    float damage = 0f;
+                    var chance = UnityEngine.Random.Range(0f, 1f);
+                    var args = new DamageArgs();
+                    if (chance < Settings.critChance)
+                    {
+                        damage = Settings.critDamage;
+                        args.isCrit = true;
+                    }
+                    else
+                        damage = Settings.damage.Random();
+#if UNITY_EDITOR
+                    damage *= GlobalConfig.DamageMultiplier;
+#endif
+                    args.damage = damage;
+                    
                     bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, 
-                        speed:Settings.speed, damage:Settings.damage.Random(), 
-                        HitCounter, DamageHitsUI);
+                        speed:Settings.speed, args, HitCounter, DamageHitsUI);
                     var casing = GCon.BulletCasingsPool.GetObject();
                     casing.Drop(barrel.DropPoint);
                     barrel.Recoil();

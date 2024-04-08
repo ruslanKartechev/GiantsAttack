@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SleepDev
 {
-    public class ExplodingVehicle : MonoBehaviour
+    public class ExplosiveVehicle : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private Collider _collider;
@@ -23,9 +23,10 @@ namespace SleepDev
             }
 
             _collider.enabled = true;
+            _collider.isTrigger = false;
             _rb.isKinematic = false;
-            _rb.AddForce(forceVector, ForceMode.VelocityChange);
-            _rb.AddTorque(Vector3.Cross(-forceVector, Vector3.up), ForceMode.VelocityChange);
+            _rb.AddForce(forceVector, ForceMode.Impulse);
+            _rb.AddTorque(Vector3.Cross(-forceVector, Vector3.up), ForceMode.Impulse);
         }
         
     }
