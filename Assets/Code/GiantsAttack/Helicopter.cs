@@ -8,12 +8,11 @@ namespace GiantsAttack
     public class Helicopter : MonoBehaviour, IHelicopter
     {
         [SerializeField] private GameObject _gun;
-        [SerializeField] private List<Transform> _rocketPoint;
-        [SerializeField] private Transform _rocketCamPoint;
         [SerializeField] private PlayerAltitudeMeter _altitudeMeter;
         [SerializeField] private PlayerCompas _compas;
         [SerializeField] private BodySectionsUI _bodySectionsUI;
         [SerializeField] private List<ParticleSystem> _bladeParticles;
+        [SerializeField] private Transform _internalTransform;
         private bool _isDead;
 
         public IHelicopterMover Mover { get; private set;}
@@ -23,9 +22,7 @@ namespace GiantsAttack
         public IHelicopterCameraPoints CameraPoints { get; private set; }
         public IDestroyer Destroyer { get; private set; }
         public IBodySectionsUI BodySectionsUI => _bodySectionsUI;
-        public List<Transform> RocketPoints => _rocketPoint;
-        public Transform RocketCamPoint => _rocketCamPoint;
-        public Transform Point => transform;
+        public Transform Point => _internalTransform;
 
         public void Init(HelicopterInitArgs args)
         {

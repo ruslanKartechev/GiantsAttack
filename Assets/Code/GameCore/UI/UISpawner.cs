@@ -12,6 +12,7 @@ namespace GameCore.UI
         [SerializeField] private string _tutorialName;
         [SerializeField] private string _pauseMenuName;
         [SerializeField] private string _controlsName;
+        [SerializeField] private string _rouletteName;
 
         private IUIScreen _startMenu;
         private IUIScreen _gameplayMenu;
@@ -19,11 +20,12 @@ namespace GameCore.UI
         private IUIScreen _failedMenu;
         private IUIScreen _tutorial;
         private IUIScreen _pause;
+        private IUIScreen _roulette;
         private IControlsUI _controlsUI;
 
         public void Clear()
         {
-            _startMenu = _gameplayMenu = _completedMenu = _failedMenu = _tutorial = _pause = null;
+            _startMenu = _gameplayMenu = _completedMenu = _failedMenu = _tutorial = _pause = _roulette = null;
         }
 
 
@@ -85,6 +87,14 @@ namespace GameCore.UI
                 return _pause;
             _pause = LoadScreen(_pauseMenuName);
             return _pause;
+        }
+
+        public IUIScreen GetRouletteUI()
+        {
+            if (_roulette != null)
+                return _roulette;
+            _roulette = LoadScreen(_rouletteName);
+            return _roulette;
         }
 
         public IControlsUI GetControlsUI()

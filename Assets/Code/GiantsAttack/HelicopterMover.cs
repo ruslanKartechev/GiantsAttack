@@ -73,10 +73,16 @@ namespace GiantsAttack
             StopAnimating();
         }
 
-        public void RotateToLook(Transform lookAt, float time, Action onEnd, bool centerInternal = true)
+        public void RotateToLook(Transform lookAtlookAtPoint, float time, Action onEnd, bool centerInternal = true)
         {
             StopRotating();
-            _rotating = StartCoroutine(RotatingToLookAt(lookAt, time, onEnd, centerInternal));
+            _rotating = StartCoroutine(RotatingToLookAt(lookAtlookAtPoint, time, onEnd, centerInternal));
+        }
+        
+        public void RotateToLook(Vector3 lookAtPosition, float time, Action onEnd, bool centerInternal = true)
+        {
+            StopRotating();
+            _rotating = StartCoroutine(RotatingToLookAt(lookAtPosition, time, onEnd, centerInternal));
         }
 
         public void StopRotating()
@@ -307,8 +313,28 @@ namespace GiantsAttack
                 }
             }
         }
+        private IEnumerator RotatingToLookAt(Vector3 lookPosition, float time, Action onEnd, bool centerInternal)
+        {
+            if (centerInternal)
+            {
+                const float internalRotTime = .3f;
+                yield return ChangingRotationInternal(_internal.localRotation, Quaternion.identity, internalRotTime);
+            }
+            var elapsed = Time.deltaTime;
+            var tr = transform;
+            var rot1 = tr.rotation;
+            var rot2 = Quaternion.LookRotation(lookPosition - tr.position);
+            while (elapsed < time)
+            {
+                tr.rotation = Quaternion.Lerp(rot1, rot2, elapsed / time);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            tr.rotation = rot2;
+            onEnd?.Invoke();
+        }
 
-        private IEnumerator RotatingToLookAt(Transform lookAt, float time, Action onEnd, bool centerInternal)
+        private IEnumerator RotatingToLookAt(Transform lookPoint, float time, Action onEnd, bool centerInternal)
         {
             if (centerInternal)
             {
@@ -320,12 +346,12 @@ namespace GiantsAttack
             var rot1 = tr.rotation;
             while (elapsed < time)
             {
-                var rot2 = Quaternion.LookRotation(lookAt.position - tr.position);
+                var rot2 = Quaternion.LookRotation(lookPoint.position - tr.position);
                 tr.rotation = Quaternion.Lerp(rot1, rot2, elapsed / time);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-            tr.rotation = Quaternion.LookRotation(lookAt.position - tr.position);
+            tr.rotation = Quaternion.LookRotation(lookPoint.position - tr.position);
             onEnd?.Invoke();
         }
         

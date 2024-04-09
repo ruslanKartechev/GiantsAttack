@@ -6,6 +6,7 @@ namespace GameCore.Cam
 {
     public interface IPlayerCamera
     {
+        void Parent(Transform parent);
         void AddCommand(ICommand<IPlayerCamera> command);
         void SetPoint(Transform point);
         void SetRotation(Transform point);
@@ -17,5 +18,6 @@ namespace GameCore.Cam
         void Wait(float time, Action onEnd);
         void StopMoving();
         void Shake();
+        Transform Transform { get; }
     }
 }

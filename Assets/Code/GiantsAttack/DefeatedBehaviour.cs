@@ -20,7 +20,10 @@ namespace GiantsAttack
             _eventReceiver.OnJumpDown += OnJumpDown;
             _animator.Play(_animKey);
             foreach (var particle in _playParticles)
+            {
+                particle.gameObject.SetActive(true);
                 particle.Play();
+            }
         }
 
         private void OnJumpDown()

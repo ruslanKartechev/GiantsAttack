@@ -129,6 +129,8 @@ namespace GameCore.Cam
             _shaker.PlayDefault();
         }
 
+        public Transform Transform => transform;
+
         private IEnumerator FollowingWithOffset(Transform target)
         {
             var offset = target.position - _movable.position;

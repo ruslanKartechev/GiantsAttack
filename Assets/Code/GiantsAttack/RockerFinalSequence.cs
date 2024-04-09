@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
-using DG.Tweening;
+using System.Collections.Generic;
 using GameCore.Core;
+using GameCore.UI;
 using SleepDev;
 using UnityEngine;
 
@@ -9,22 +9,30 @@ namespace GiantsAttack
 {
     public class RockerFinalSequence : LevelFinalSequence
     {
+        public byte e_debugInd;
+        [SerializeField] private List<FatalityData> _fatalityData;
         [SerializeField] private float _playerRotateTime = 1f;
-        [SerializeField] private GameObject _rocketCamPointsPrefab;
         [SerializeField] private float _enemyRotTime = .33f;
-        [SerializeField] private float _cameraMoveTime;
-        [SerializeField] private float _cameraMoveTime2;
-        [SerializeField] private float _cameraSendDelay;
-        [SerializeField] private Ease _ease1;
-        [SerializeField] private Ease _ease2;
-        [Space(10)]
-        [SerializeField] private float _rocketMoveTime;
-        [Space(10)] 
-        [SerializeField] private float _endCallbackDelay;        
+        [SerializeField] private float _endcallbackDelay = .44f;
         [SerializeField] private float _afterEnemyAnimationDelay;
+        [SerializeField] private float _lookAtEnemyUpOffset = 20;
+        
         private Action _endCallback;
         private GameObject _camPointsParent;
+        private bool _enemyAnimated;
+        /// <summary>
+        /// value = 2 => ready
+        /// </summary>
+        private byte _readyStage;
 
+        [System.Serializable]
+        private class FatalityData
+        {
+            public string uiId;
+            public string prefabId;
+            public FatalityType type;
+        }
+        
 #if UNITY_EDITOR
         public override void E_Init()
         { }
@@ -34,95 +42,56 @@ namespace GiantsAttack
         {
             Player.StopAll();
             PlayerMover.Pause(true);
-            CLog.LogRed($"STOPPED PLAYER MOVER, MAKING IT TO ROTATE");
-            Player.Mover.RotateToLook(Enemy.LookAtPoint,_playerRotateTime, () => {});
+            Player.Mover.RotateToLook(Enemy.Point.position + Vector3.up * _lookAtEnemyUpOffset, _playerRotateTime, () => {});
             _endCallback = callback;
             Enemy.PreKillState();
-            Enemy.Mover.RotateToLookAt(Player.Point, _enemyRotTime, OnEnemyRotated);
+            Enemy.Mover.RotateToLookAt(Player.Point, _enemyRotTime, () => {});
             Delay(OnEnemyAnimated, _afterEnemyAnimationDelay);
+            var ui = GCon.UIFactory.GetRouletteUI() as RouletteMenu;
+            ui.Show(() => {});
+            ui.RouletteUI.OnButtonCallback += OnTypeSelected; 
+            ui.RouletteUI.Begin();
         }
 
-        private void OnEnemyRotated()
+        private void OnTypeSelected()
         {
+            _readyStage += 1;
+            var ui = ((RouletteMenu)GCon.UIFactory.GetRouletteUI());
+            ui.Hide(() => {});
+            if(_readyStage == 2)
+                StartFatality();
         }
-
+        
         private void OnEnemyAnimated()
         {
-            OnRotated();
-            // Player.Mover.RotateToLook(Enemy.Point,_helicopterRotTime, OnRotated,true);
+            _readyStage += 1;
+            if(_readyStage == 2)
+                StartFatality();
         }
 
-        private void OnRotated()
+        private void StartFatality()
         {
-            // Delay(SendCamera, _cameraSendDelay);
-            LaunchRockets();
+            var ui = ((RouletteMenu)GCon.UIFactory.GetRouletteUI()).RouletteUI;
+            var data = _fatalityData.Find(t => t.uiId == ui.CurrentSectionGO.name);
+            // ==========
+            data = _fatalityData[e_debugInd];
+            // ==========
+            var prefab = Resources.Load($"Prefabs/Fatalities/{data.prefabId}") as GameObject;
+            var inst = Instantiate(prefab, transform.parent);
+            var fatality = inst.GetComponent<IFatality>();
+            fatality.Init(Player, Enemy);
+            fatality.Play(OnFatalityEnd);
         }
         
-        private void LaunchRockets()
+        private void OnFatalityEnd()
         {
-            var points = Player.RocketPoints;
-            Action callbackSub = OnRocketHit;
-            for (var i = 0; i < points.Count; i++)
-            {
-                var spawnPoint = points[i];
-                var atPoint = Enemy.DamagePoints[i];
-                var rocket = SpawnRocket(spawnPoint);
-                rocket.Fly(atPoint, _rocketMoveTime, callbackSub);
-                if (i == 0)
-                {
-                    callbackSub = null;
-                    var camPoints = Instantiate(_rocketCamPointsPrefab, rocket.transform);
-                    _camPointsParent = camPoints;
-                    StartCoroutine(DelayedCameraSend(camPoints.transform, _cameraSendDelay));
-                }
-            }
-        }
-
-        private IEnumerator DelayedCameraSend(Transform camPointsParent, float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            var p1 = camPointsParent.GetChild(0);
-            var p2 = camPointsParent.GetChild(1);
-            Camera.SetPoint(p1);
-            Camera.Parent(camPointsParent);
-            
-            var seq = DOTween.Sequence();
-            var p3 = camPointsParent.GetChild(2);
-            seq.Append(Camera.transform.DOLocalMove(p2.localPosition, _cameraMoveTime).SetEase(_ease1));
-            seq.Join(Camera.transform.DOLocalRotate(p2.localRotation.eulerAngles, _cameraMoveTime).SetEase(_ease1));
-            seq.Append(Camera.transform.DOLocalMove(p3.localPosition, _cameraMoveTime2).SetEase(_ease2));
-            seq.Join(Camera.transform.DOLocalRotate(p3.localRotation.eulerAngles, _cameraMoveTime2).SetEase(_ease2));
-            // Camera.MoveToPointLocal(endP, _cameraMoveTime, OnCameraMovedToPos2);
-        }
-
-        private void OnCameraMovedToPos2()
-        {
-            var p2 = _camPointsParent.transform.GetChild(2);
-            // var point = new GameObject("temp").transform;
-            // point.position = p2.position;
-            // point.rotation = Quaternion.LookRotation(Enemy.Point.position - p2.position);
-            Camera.MoveToPoint(p2, _cameraMoveTime2, () => {});
+            Invoke(nameof(RaiseCallback), _endcallbackDelay);
         }
         
-
-        private void OnRocketHit()
-        {
-            CLog.LogRed($"Rocket hit");
-            Enemy.Kill();
-            Invoke(nameof(RaiseCallback), _endCallbackDelay);
-        }
-
         private void RaiseCallback()
         {
             _endCallback.Invoke();
         }
 
-        private Rocket SpawnRocket(Transform point)
-        {
-            var rocket = GCon.GOFactory.Spawn<Rocket>("rocket");
-            rocket.transform.SetPositionAndRotation(point.position, point.rotation);
-            return rocket;
-        }
-        
     }
 }

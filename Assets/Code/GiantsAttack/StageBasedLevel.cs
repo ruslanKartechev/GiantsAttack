@@ -180,7 +180,9 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
-            _monster.Init(_gameplayMenu.EnemyBodySectionsUI, _enemyHealth);
+            //_gameplayMenu.EnemyBodySectionsUI
+            // _gameplayMenu.EnemyBodySectionsUI.Hide();
+            _monster.Init(_gameplayMenu.EnemyBodySectionsUI , _enemyHealth);
             _monster.SetMoveAnimationSpeed(_moveAnimationSpeed);
         }
 

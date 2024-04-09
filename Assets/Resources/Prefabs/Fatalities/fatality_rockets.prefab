@@ -1,0 +1,266 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1627858400009096172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3980576308761567621}
+  m_Layer: 0
+  m_Name: Rocket point 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3980576308761567621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627858400009096172}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.3499987, y: 0, z: -0.2550001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3267718184348152017}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2936668125029560350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3267718184348152017}
+  - component: {fileID: 389554362424914066}
+  m_Layer: 0
+  m_Name: fatality_rockets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3267718184348152017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2936668125029560350}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.027020372, y: 0.9681904, z: -0.21784319, w: 0.120090365}
+  m_LocalPosition: {x: -44.0375, y: 74.31315, z: 4.724571}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3980576308761567621}
+  - {fileID: 76949545037391130}
+  - {fileID: 7933448318164390362}
+  - {fileID: 722696325383703326}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &389554362424914066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2936668125029560350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91c837de0d74afa889a19fe1a9216a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mType: 0
+  _rocketCamPoints: {fileID: 4067059625122872623}
+  _rocketPoints:
+  - {fileID: 3980576308761567621}
+  - {fileID: 76949545037391130}
+  _cameraMoveTime: 1.5
+  _cameraMoveTime2: 0.4
+  _cameraSendDelay: 0
+  _ease1: 6
+  _ease2: 6
+  _rocketMoveTime: 1.5
+--- !u!1 &4156356644726232682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 76949545037391130}
+  m_Layer: 0
+  m_Name: Rocket point 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &76949545037391130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156356644726232682}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.3499992, y: 0, z: -0.2750008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3267718184348152017}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5923098726390005826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7933448318164390362}
+  - component: {fileID: 1942508720227661807}
+  - component: {fileID: 454976142186373749}
+  m_Layer: 0
+  m_Name: Rocket cam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7933448318164390362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923098726390005826}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.03477679, y: 0.12803863, z: 0.0075236256, w: 0.9911307}
+  m_LocalPosition: {x: -5.709998, y: 1.6199979, z: -10.979995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3267718184348152017}
+  m_LocalEulerAnglesHint: {x: 3.842, y: 14.768, z: 1.368}
+--- !u!114 &1942508720227661807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923098726390005826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8d604885c2433faf6f48806b86b6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutoSet: 1
+--- !u!114 &454976142186373749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923098726390005826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 0.9113276, g: 1, b: 0, a: 1}
+  radius: 0.25
+  drawDirection: 0
+  directionLength: 1
+--- !u!1001 &5461215430870759924
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3267718184348152017}
+    m_Modifications:
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339324356989994203, guid: 4608902b1500abf48b466ac68e59cc2a,
+        type: 3}
+      propertyPath: m_Name
+      value: rocket cam points
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4608902b1500abf48b466ac68e59cc2a, type: 3}
+--- !u!4 &722696325383703326 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4741632923224453866, guid: 4608902b1500abf48b466ac68e59cc2a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5461215430870759924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4067059625122872623 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8339324356989994203, guid: 4608902b1500abf48b466ac68e59cc2a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5461215430870759924}
+  m_PrefabAsset: {fileID: 0}
