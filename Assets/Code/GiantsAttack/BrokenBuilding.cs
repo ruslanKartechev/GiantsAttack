@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class BrokenBuilding : MonoBehaviour
+    public class BrokenBuilding : MonoBehaviour,IBrokenBuilding
     {
         [SerializeField] private bool _shakeCameraOnHit = true;
         [SerializeField] private float _force;
@@ -18,8 +18,12 @@ namespace GiantsAttack
         {
             foreach (var rend in _rendsToDisable)
                 rend.enabled = false;
+            
+            foreach (var p in _parts)
+                p.Activate();
             foreach (var p in _parts)
                 p.Push(_force);
+            
             _particles.gameObject.SetActive(true);
             _particles.Play();
             if (_shakeCameraOnHit)
@@ -68,7 +72,6 @@ namespace GiantsAttack
 
             public void Push(float force)
             {
-                Activate();
                 rb.AddForce(rb.transform.localPosition.normalized * force);
             }
             

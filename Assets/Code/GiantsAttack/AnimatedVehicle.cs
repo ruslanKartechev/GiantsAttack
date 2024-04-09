@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class AnimatedVehicle : MonoBehaviour
+    public class AnimatedVehicle : AnimatedVehicleBase
     {
-        [SerializeField] private bool _doMove;
         [SerializeField] private ExplosiveVehicle _explodingVehicle;
         [SerializeField] private SimpleForwardMover _mover;
-
-        public bool doMove
-        {
-            get => _doMove;
-            set => _doMove = value;
-        }
+        [SerializeField] private Animator _animator;
 
         public ExplosiveVehicle explodingVehicle
         {
@@ -28,17 +21,51 @@ namespace GiantsAttack
             get => _mover;
             set => _mover = value;
         }
+        
 
-        private void Start()
+        public override void AnimateMove()
         {
-            if(_doMove)
-                _mover.Move(() => {});
+            _animator.enabled = true;
+            _animator.Play("Move");
         }
 
-        public void PushBack(Vector3 fromPoint, float force)
+        public override void StopMovement()
         {
+            _animator.enabled = false;
             _mover.Stop();
-            _explodingVehicle.Explode((_mover.Movable.position - fromPoint).normalized * force);
+        }
+
+        public override Transform Transform => _mover.Movable;
+        
+        public override void Move(Action callback = null)
+        {
+            _mover.Move(callback);
+        }
+
+        public override void MoveToPoint(Transform point, float time, Action callback)
+        {
+            _mover.Move(point, time, callback);
+        }
+
+        public override void Explode()
+        {
+            _explodingVehicle.Explode();
+        }
+
+        public override void ExplodeDefaultDirection()
+        {
+            _explodingVehicle.ExplodeDefaultDirection();
+        }
+
+        public override void ExplodeFromCenter(Vector3 center, float force)
+        {
+            var dir = (Transform.position - center).normalized * force;
+            _explodingVehicle.Explode(dir);
+        }
+
+        public override void ExplodeInDirection(Vector3 force)
+        {
+            _explodingVehicle.Explode(force);
         }
     }
 }

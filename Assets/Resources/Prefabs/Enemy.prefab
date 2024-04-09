@@ -53,9 +53,9 @@ MonoBehaviour:
   _animator: {fileID: 0}
   _eventReceiver: {fileID: 0}
   _sectionsManager: {fileID: 1986947675657546427}
-  _ragdoll: {fileID: 0}
   _lookAtPoint: {fileID: 0}
   _damagePoints: []
+  _animRootBone: {fileID: 0}
 --- !u!114 &6569051396411123429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494f5d509c94d8291f60b9bba708d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: 125
+  _rotationSpeed: 160
+  _accelerationTime: 0.25
+  _animTransitionWaitTime: 0.2
   _movable: {fileID: 3679215892950861318}
   _rotatable: {fileID: 3679215892950861318}
   _animator: {fileID: 0}

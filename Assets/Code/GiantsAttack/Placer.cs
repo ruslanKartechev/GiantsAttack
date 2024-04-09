@@ -9,6 +9,7 @@ namespace GiantsAttack
 #if UNITY_EDITOR
         [SerializeField] private string _nameDefaultParent;
         [SerializeField] private Transform _movable;
+        [SerializeField] private bool _parent;
         [SerializeField] private List<Transform> _points;
         [SerializeField] private int _index;
 
@@ -17,7 +18,11 @@ namespace GiantsAttack
             var go = GameObject.Find(_nameDefaultParent);
             if (go == null)
                 return;
-            SetPoint(go.transform);
+            _movable.parent = go.transform;
+            _movable.SetPositionAndRotation(go.transform.position, go.transform.rotation);
+            if (_points.Contains(go.transform))
+                _index = _points.IndexOf(go.transform);
+            UnityEditor.EditorUtility.SetDirty(gameObject);
         }
 
         public void SetPoint(Transform point)
@@ -27,7 +32,8 @@ namespace GiantsAttack
                 CLog.Log("movable is null");
                 return;
             }
-            _movable.parent = point;
+            if(_parent)
+                _movable.parent = point;
             _movable.SetPositionAndRotation(point.position, point.rotation);
             UnityEditor.EditorUtility.SetDirty(gameObject);
         }

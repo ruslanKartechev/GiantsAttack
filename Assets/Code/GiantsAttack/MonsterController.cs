@@ -49,7 +49,7 @@ namespace GiantsAttack
 
         public void SetMoveAnimationSpeed(float speed)
         {
-            _animator.SetFloat("MoveSpeed", speed);
+            _mover.MoveAnimationSpeed = speed;
         }
 
         public void PunchStatic(string key, Action onHit, Action onCompleted)

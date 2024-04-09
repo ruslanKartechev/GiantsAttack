@@ -5,6 +5,8 @@ namespace GiantsAttack
 {
     public interface IMonsterMover
     {
+        float MoveAnimationSpeed { get; set; }
+        
         // Will rotate to look at the target and maintain Look rotation
         void RotateToLookAt(Transform target, float time, Action callback);
         void StopLookAt();

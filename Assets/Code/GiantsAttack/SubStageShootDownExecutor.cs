@@ -73,7 +73,7 @@ namespace GiantsAttack
             _currentWeapon.Health.OnDead += OnTargetDestroyed;
             _currentWeapon.Throwable.SetColliderActive(true);
             _currentWeapon.Health.SetDamageable(true);
-            _currentWeapon.Throwable.ThrowAt(_player.Point, _stage.projectileMoveTime, OnFlyEnd, OnCollide );
+            _currentWeapon.Throwable.FlyTo(_player.Point, _stage.projectileMoveTime, OnFlyEnd, OnCollide );
         }
             
         private void OnTargetDestroyed(IDamageable obj)

@@ -22,11 +22,6 @@ namespace GiantsAttack
         
         public IHealth Health => _health;
         
-        
-        public void MoveTo(Transform point, float time, Action callback)
-        {
-            _mover.Move(point, time, callback);
-        }
 
         public void AnimateMove(Action onEnd)
         {

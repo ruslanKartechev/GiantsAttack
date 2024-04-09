@@ -11,5 +11,6 @@ namespace GameCore.UI
         IShootAtTargetUI ShootAtTargetUI { get; }
         IBodySectionsUI EnemyBodySectionsUI { get; }
         void AddBodySectionsUI(GameObject prefab);
+        ITargetsCountUI TargetsCountUI { get; }
     }
 }

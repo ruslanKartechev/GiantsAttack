@@ -17,7 +17,8 @@ namespace GiantsAttack
         [SerializeField] protected HitTriggerReceiver _hitTriggerReceiver;
         [SerializeField] protected ParticleSystem _explosionParticles;
         [SerializeField] protected Collider _collider;
-        
+        [SerializeField] protected Rigidbody _rb;
+
         private Coroutine _moving;
         private Action<Collider> _hitCallback;
 
@@ -41,7 +42,7 @@ namespace GiantsAttack
             callback?.Invoke();
         }
 
-        public void ThrowAt(Transform point, float time, Action flyEndCallback, Action<Collider> callbackHit)
+        public void FlyTo(Transform point, float time, Action flyEndCallback, Action<Collider> callbackHit)
         {
             _hitTriggerReceiver.Callback = _hitCallback;
             _hitTriggerReceiver.Collider.enabled = true;
@@ -51,6 +52,17 @@ namespace GiantsAttack
             if(_moving != null)
                 StopCoroutine(_moving);
             _moving = StartCoroutine(Flying(point, time, flyEndCallback));
+        }
+
+        public void TossTo(Vector3 force)
+        {
+            _collider.enabled = true;
+            _collider.isTrigger = false;
+            _rb.isKinematic = false;
+            transform.parent = null;
+            var torque = Vector3.Cross(force, Vector3.up);
+            _rb.AddForce(force, ForceMode.Impulse);
+            _rb.AddTorque(torque, ForceMode.Impulse);
         }
 
         public void Hide()

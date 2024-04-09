@@ -115,7 +115,7 @@ namespace GiantsAttack
             _doProjectileCollision = true;
             _trackedPoint = new GameObject("tracked_point").transform;
             _trackedPoint.SetParentAndCopy(Player.Point);
-            _enemyWeapon.Throwable.ThrowAt(_trackedPoint, _projectileMoveTime, OnThrowableFlyEnd, OnThrowableHit);
+            _enemyWeapon.Throwable.FlyTo(_trackedPoint, _projectileMoveTime, OnThrowableFlyEnd, OnThrowableHit);
             if(_mode == ProjectileStageMode.Evade)
                 StartEvadeMode();
             else

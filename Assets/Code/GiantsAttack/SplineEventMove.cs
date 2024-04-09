@@ -5,7 +5,7 @@ namespace GiantsAttack
 {
     public class SplineEventMove : SplineEvent
     {
-        [SerializeField] private SimpleForwardMover _mover;
+        [SerializeField] private AnimatedVehicleBase _mover;
         
         public override void Activate()
         {

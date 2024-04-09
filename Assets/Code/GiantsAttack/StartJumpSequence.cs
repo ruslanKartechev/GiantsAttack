@@ -14,7 +14,7 @@ namespace GiantsAttack
         [SerializeField] private AnimType _animType;
         [SerializeField] private MonsterController _enemy;
         [SerializeField] private ParticleSystem _jumpParticles;
-        [SerializeField] private List<AnimatedVehicle> _vehicles;
+        [SerializeField] private List<AnimatedVehicleBase> _vehicles;
         [SerializeField] private float _pushBackForce;
         [SerializeField] private float _endCallbackDelay;
         private Action _callback;
@@ -53,9 +53,7 @@ namespace GiantsAttack
             _jumpParticles.transform.position = _enemy.transform.position;
             _jumpParticles.Play();
             foreach (var v in _vehicles)
-            {
-                v.PushBack(_enemy.transform.position, _pushBackForce);
-            }
+                v.ExplodeFromCenter(_enemy.transform.position, _pushBackForce);
             Delay(_callback, _endCallbackDelay);
         }
     }

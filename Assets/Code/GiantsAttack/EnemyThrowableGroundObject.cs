@@ -18,16 +18,10 @@ namespace GiantsAttack
         
         public IThrowable Throwable => _throwable;
         
-        public ITarget Target => _health;
         
         public IHealth Health => _health;
         
-        
-        public void MoveTo(Transform point, float time, Action callback)
-        {
-            _mover.Move(point, time, callback);
-        }
-
+  
         public void AnimateMove(Action onEnd)
         {
             _animator.SetFloat(Speed, _animationSpeed);

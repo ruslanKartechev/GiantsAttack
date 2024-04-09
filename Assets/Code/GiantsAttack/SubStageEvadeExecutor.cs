@@ -74,7 +74,7 @@ namespace GiantsAttack
             _flyAtTarget = new GameObject("throw_at").transform;
             _flyAtTarget.SetParentAndCopy(_player.Point);
             _slowMotionExecutor.BeginSlowMo();
-            _currentWeapon.Throwable.ThrowAt(_flyAtTarget, _stage.projectileMoveTime, OnFlyEnd, OnCollide );
+            _currentWeapon.Throwable.FlyTo(_flyAtTarget, _stage.projectileMoveTime, OnFlyEnd, OnCollide );
             _player.Aimer.StopAim();
             _player.Shooter.StopShooting();
             _swipeChecker.OnCorrect = OnCorrectSwipe;
