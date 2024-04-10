@@ -47,7 +47,7 @@ namespace GameCore.UI
         public void Show(Action onDone)
         {
             On();
-            _popAnimator.HideAndPlay(() =>
+            _popAnimator.ZeroAndPlay(() =>
             {
                 OnShowAnimated();
                 onDone?.Invoke();

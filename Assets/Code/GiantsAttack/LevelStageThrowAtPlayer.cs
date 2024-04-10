@@ -63,9 +63,15 @@ namespace GiantsAttack
 
         private void Begin()
         {
+            if (_isStopped)
+                return;
             if (_doAnimateThrowable)
             {
-                Delay(() => { _enemyWeapon.AnimateMove(OnWeaponAnimateMoved); }, _animateThrowableDelay);
+                Delay(() =>
+                {
+                    if (!_isStopped)
+                        _enemyWeapon.AnimateMove(OnWeaponAnimateMoved);
+                }, _animateThrowableDelay);
             }
             if (_doMoveEnemy)
                 MoveEnemy();
@@ -86,6 +92,8 @@ namespace GiantsAttack
         private void OnEnemyMoved()
         {
             CLog.Log("[StageThrow] OnEnemyMoved");
+            if (_isStopped)
+                return;
             if (_pickDelay == 0)
                 GrabAndThrow();
             else
@@ -105,6 +113,8 @@ namespace GiantsAttack
 
         private void OnPicked()
         {
+            if (_isStopped)
+                return;
             Enemy.Mover.RotateToLookAt(Player.Point, _rotateBeforeThrowTime, () => {});
         }
 

@@ -32,6 +32,11 @@ namespace SleepDev.UIUtils
             transform.localScale = Vector3.zero;
             transform.DOScale(Vector3.one, _duration).SetEase(_ease).SetDelay(_duration);
         }
-        
+        public override void ScaleDown()
+        {
+            transform.localScale = Vector3.one;
+            transform.DOScale(Vector3.zero, _duration).SetEase(_ease).SetDelay(_duration);
+        }
+
     }
 }

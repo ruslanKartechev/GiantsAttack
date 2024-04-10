@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using GameCore.Core;
 using GameCore.UI;
-using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
 {
     public class RockerFinalSequence : LevelFinalSequence
     {
+#if UNITY_EDITOR
+        [Header("Editor cheat")]
         public byte e_debugInd;
+        public bool e_doCheatIndex;
+        [Space(10)]        
+#endif
         [SerializeField] private List<FatalityData> _fatalityData;
         [SerializeField] private float _playerRotateTime = 1f;
         [SerializeField] private float _enemyRotTime = .33f;
@@ -73,9 +77,10 @@ namespace GiantsAttack
         {
             var ui = ((RouletteMenu)GCon.UIFactory.GetRouletteUI()).RouletteUI;
             var data = _fatalityData.Find(t => t.uiId == ui.CurrentSectionGO.name);
-            // ==========
-            data = _fatalityData[e_debugInd];
-            // ==========
+#if UNITY_EDITOR
+            if (e_doCheatIndex)
+                data = _fatalityData[e_debugInd];
+#endif
             var prefab = Resources.Load($"Prefabs/Fatalities/{data.prefabId}") as GameObject;
             var inst = Instantiate(prefab, transform.parent);
             var fatality = inst.GetComponent<IFatality>();

@@ -14,7 +14,7 @@ namespace SleepDev.UIUtils
         private bool _isDone;
         public bool IsDone => _isDone;
 
-        public void HideAll()
+        public void ZeroScale()
         {
             foreach (var el in _elements)
             {
@@ -22,13 +22,36 @@ namespace SleepDev.UIUtils
             }
         }
 
-        public void HideAndPlay(Action onDone = null)
+        public void ZeroAndPlay(Action onDone = null)
         {
-            HideAll();
-            StartCoroutine(Working(onDone));
+            ZeroScale();
+            StartCoroutine(ScalingUp(onDone));
+        }
+
+        public void PlayBackwards(Action onDone = null)
+        {
+            StartCoroutine(ScalingDown(onDone));
         }
         
-        public IEnumerator Working(Action onDone = null)
+        public IEnumerator ScalingDown(Action onDone = null)
+        {
+            _isDone = false;
+            var totalTime = 0f;
+            var timeMult = .5f;
+            foreach (var pop in _elements)
+                totalTime += pop.Delay * timeMult;
+            var lastDur =_elements[^1].Duration * timeMult;
+            foreach (var pop in _elements)
+            {
+                yield return new WaitForSeconds(pop.Delay * timeMult);
+                pop.ScaleDown();
+            }
+            yield return new WaitForSeconds(lastDur);
+            _isDone = true;
+            onDone?.Invoke();
+        }
+        
+        public IEnumerator ScalingUp(Action onDone = null)
         {
             _isDone = false;
             var totalTime = 0f;
@@ -56,7 +79,7 @@ namespace SleepDev.UIUtils
         [ContextMenu("Play")]
         public void E_Play()
         {
-            HideAndPlay();
+            ZeroAndPlay();
         }
 
         public void E_Build()
@@ -81,7 +104,7 @@ namespace SleepDev.UIUtils
         [ContextMenu("Hide")]
         public void E_Hide()
         {
-            HideAndPlay();
+            ZeroAndPlay();
         }
 
         [ContextMenu("Set Delay All")]

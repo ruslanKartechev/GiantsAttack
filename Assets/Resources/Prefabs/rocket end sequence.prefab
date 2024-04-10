@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1cf52e41f84ad8ac352d0a61077881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  e_debugInd: 4
+  e_doCheatIndex: 1
   _fatalityData:
   - uiId: item_1
     prefabId: fatality_rockets
@@ -55,12 +57,13 @@ MonoBehaviour:
     prefabId: fatality_bomb
     type: 1
   - uiId: item_4
-    prefabId: 
+    prefabId: fatality_c4
     type: 3
   - uiId: item_5
-    prefabId: 
+    prefabId: fatality_softball
     type: 4
   _playerRotateTime: 0.8
   _enemyRotTime: 0.2
   _endcallbackDelay: 0.44
   _afterEnemyAnimationDelay: 2.8
+  _lookAtEnemyUpOffset: 40

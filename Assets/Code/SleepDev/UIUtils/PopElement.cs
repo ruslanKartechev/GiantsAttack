@@ -8,5 +8,6 @@ namespace SleepDev.UIUtils
         public abstract float Duration { get; set; }
 
         public abstract void ScaleUp();
+        public abstract void ScaleDown();
     }
 }

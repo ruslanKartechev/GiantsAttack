@@ -184,7 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delay: 0.1
   _duration: 0.3
-  _ease: 30
+  _ease: 29
 --- !u!1 &1695664402452357960
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delay: 0.1
   _duration: 0.3
-  _ease: 30
+  _ease: 29
 --- !u!1 &1854690886751412140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,6 +1190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 506401411339172491}
   - component: {fileID: 2516364844350984835}
+  - component: {fileID: 3950458024933975291}
   m_Layer: 5
   m_Name: Roulette_FRAME
   m_TagString: Untagged
@@ -1268,6 +1269,21 @@ MonoBehaviour:
   e_sectionIndex: 0
   e_setToMiddle: 1
   e_autoLaunchOnStart: 1
+--- !u!114 &3950458024933975291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8188977223944509062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873516f60038453ea2469fa789e8dda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _delay: 0.1
+  _duration: 0.3
+  _ease: 29
 --- !u!1 &9106659165634933250
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,6 +1581,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 285158294607460088}
+    - targetCorrespondingSourceObject: {fileID: 8410265137642862862, guid: d5cd20f44efec2a459741ed77c05077c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1153012123242444950}
   m_SourcePrefab: {fileID: 100100000, guid: d5cd20f44efec2a459741ed77c05077c, type: 3}
 --- !u!224 &5194632027482422157 stripped
 RectTransform:
@@ -1591,3 +1611,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _roulette: {fileID: 2516364844350984835}
+  _popAnimator: {fileID: 1153012123242444950}
+--- !u!114 &1153012123242444950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6754005807129571533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daec9cc6c05c4ac580a219bbe4108e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elements:
+  - {fileID: 3624334332068756831}
+  - {fileID: 7916169006677042724}
+  - {fileID: 3950458024933975291}
+  e_durationAll: 0.3
+  e_delayAll: 0.1
+  e_easeAll: 29
+  e_buildFrom:
+  - {fileID: 1462572996548587852}
+  - {fileID: 1695664402452357960}
+  - {fileID: 8188977223944509062}

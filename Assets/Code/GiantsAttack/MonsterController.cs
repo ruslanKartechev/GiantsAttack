@@ -20,7 +20,7 @@ namespace GiantsAttack
         private IDefeatedBehaviour _defeatedBehaviour;
         private bool _isDead;
         
-        public IDestroyer Destroyer { get; private set; }
+        public IMonsterDestroyed Destroyer { get; private set; }
         public IDamageable Damageable { get; set; }
         public IMonsterMover Mover => _mover;
         public IHealth Health => _health;
@@ -43,7 +43,7 @@ namespace GiantsAttack
             _health.OnDead += OnHealthOut;
             ui.Init();
             _sectionsManager.Init(_health, ui);
-            Destroyer = GetComponent<IDestroyer>();
+            Destroyer = GetComponent<IMonsterDestroyed>();
             _defeatedBehaviour = GetComponent<IDefeatedBehaviour>();
         }
 
@@ -63,16 +63,18 @@ namespace GiantsAttack
                 punchStartedCallback, onPunch, onAnimationEnd);
         }
 
-        public void Kill()
+        public void Kill(bool chopped = false)
         {
             CLog.Log($"{gameObject.name} Kill");
             if (_isDead)
                 return;
             _isDead = true;
-            Destroyer.DestroyMe();
             _health.SetDamageable(false);
             _health.HideDisplay();
-            _health.SetDamageable(false);
+            if(chopped)
+                Destroyer.DestroyMeChopped();
+            else
+                Destroyer.DestroyMe();
         }
 
         public void PreKillState()
