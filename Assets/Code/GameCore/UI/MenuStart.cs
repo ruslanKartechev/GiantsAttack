@@ -36,7 +36,7 @@ namespace GameCore.UI
         public void Show(Action onDone)
         {
             _playButton.interactable = false;
-            _popAnimator.HideAndPlay(() =>
+            _popAnimator.ZeroAndPlay(() =>
             {
                 ActivateButtons();
                 onDone?.Invoke();

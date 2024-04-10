@@ -18,6 +18,9 @@ namespace GiantsAttack
         [SerializeField] private Transform _endPoint;
         [SerializeField] private CameraShakeArgs _shakeArgs;
         [SerializeField] private ParticleSystem _particle;
+        [SerializeField] private Transform _cameraPoint;
+        [SerializeField] private float _cameraMoveTime;
+
         private Action _callback;
 
         public IHelicopter Player { get; set; }
@@ -40,6 +43,7 @@ namespace GiantsAttack
         private IEnumerator Working()
         {
             yield return new WaitForSeconds(_startDelay);
+            CameraContainer.PlayerCamera.MoveToPoint(_cameraPoint, _cameraMoveTime, () => {});
             _bomb.gameObject.SetActive(true);
             _bomb.DOMove(_endPoint.position, _moveTime).SetEase(_moveEase);
             var endRot = _bomb.rotation * Quaternion.Euler(_bombXAngle, 0f, 0f);

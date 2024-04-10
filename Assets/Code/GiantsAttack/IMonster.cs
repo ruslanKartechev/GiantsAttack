@@ -19,6 +19,7 @@ namespace GiantsAttack
         public List<Transform> DamagePoints { get; }
         
         void Init(IBodySectionsUI sectionsUI, float health);
+        void Animate(string key, bool trigger);
         void Idle();
         void Roar();
         void Jump(bool transition);

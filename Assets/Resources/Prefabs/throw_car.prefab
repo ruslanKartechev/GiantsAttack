@@ -212,6 +212,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 483985119696509663}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &6085429330119839761 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5964098914827930318, guid: 61446e7e0adf97d48b52ce30fb8929ba,
+    type: 3}
+  m_PrefabInstance: {fileID: 483985119696509663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2314834034510022479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -220,6 +226,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2603862951664790193, guid: 5454367f06d749c44aeb89b14eddc726,
+        type: 3}
+      propertyPath: _movable
+      value: 
+      objectReference: {fileID: 6895201651667616113}
     - target: {fileID: 3847628854973361761, guid: 5454367f06d749c44aeb89b14eddc726,
         type: 3}
       propertyPath: m_Name
@@ -360,6 +371,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6536271248549859987, guid: 5454367f06d749c44aeb89b14eddc726,
+        type: 3}
+      propertyPath: _onParticles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536271248549859987, guid: 5454367f06d749c44aeb89b14eddc726,
+        type: 3}
+      propertyPath: _offParticles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6536271248549859987, guid: 5454367f06d749c44aeb89b14eddc726,
+        type: 3}
+      propertyPath: _onParticles.Array.data[0]
+      value: 
+      objectReference: {fileID: 6864183566542894128}
+    - target: {fileID: 6536271248549859987, guid: 5454367f06d749c44aeb89b14eddc726,
+        type: 3}
+      propertyPath: _offParticles.Array.data[0]
+      value: 
+      objectReference: {fileID: 6085429330119839761}
     - target: {fileID: 8313268501126584395, guid: 5454367f06d749c44aeb89b14eddc726,
         type: 3}
       propertyPath: m_Size.x

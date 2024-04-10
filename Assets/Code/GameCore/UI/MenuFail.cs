@@ -46,7 +46,7 @@ namespace GameCore.UI
         {
             On();
             _playButton.interactable = false;
-            _popAnimator.HideAndPlay(() =>
+            _popAnimator.ZeroAndPlay(() =>
             {
                 _playButton.interactable = true;
                 onDone?.Invoke();

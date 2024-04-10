@@ -100,6 +100,8 @@ namespace GiantsAttack
             StartTiming();
             _player.Mover.Loiter();
             _playerMover.Player = _player;
+            
+            _startSequence.Enemy = _monster;
             _startSequence.Begin(OnStartSequenceFinished);
             
             if (_useStartUi)
@@ -180,8 +182,6 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
-            //_gameplayMenu.EnemyBodySectionsUI
-            // _gameplayMenu.EnemyBodySectionsUI.Hide();
             _monster.Init(_gameplayMenu.EnemyBodySectionsUI , _enemyHealth);
             _monster.SetMoveAnimationSpeed(_moveAnimationSpeed);
         }

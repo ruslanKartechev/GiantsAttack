@@ -34,6 +34,7 @@ namespace GiantsAttack
                 rb.transform.CopyPosRot(_parts[i].refBone);
                 rb.isKinematic = false;
                 rb.AddForce(rb.transform.localPosition.normalized * force, ForceMode.VelocityChange);
+                rb.AddTorque(new Vector3(0f,force, 0f), ForceMode.VelocityChange);
             }
         }
 
