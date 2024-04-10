@@ -49,7 +49,7 @@ namespace GiantsAttack
             _bomb.gameObject.SetActive(false);
             CameraContainer.Shaker.Play(_shakeArgs);
             _particle.Play();
-            Enemy.Kill();
+            Enemy.Kill(true);
             yield return null;
             _callback.Invoke();
         }

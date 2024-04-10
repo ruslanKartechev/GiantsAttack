@@ -76,7 +76,7 @@ namespace GiantsAttack
                 mb.transform.GetChild(1).gameObject.SetActive(false);
                 mb.transform.GetChild(2).gameObject.SetActive(true);
             }
-            Enemy.Kill();
+            Enemy.Kill(true);
             yield return new WaitForSeconds(_soulsDelay);
             _soulsParticles.gameObject.SetActive(true);
             _soulsParticles.Play();

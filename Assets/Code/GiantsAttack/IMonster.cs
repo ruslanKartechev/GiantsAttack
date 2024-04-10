@@ -23,7 +23,7 @@ namespace GiantsAttack
         void Roar();
         void Jump(bool transition);
         void KickUp();
-        void Kill();
+        void Kill(bool chopped = false);
         void PreKillState();
         void SetMoveAnimationSpeed(float speed);
         void PickAndThrow(IThrowable target, Action onPickCallback, Action onThrowCallback, bool pickFromTop);

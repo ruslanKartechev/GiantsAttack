@@ -47,7 +47,7 @@ namespace GiantsAttack
             foreach (var d in _dynamites)
                 d.Explode();
             CameraContainer.Shaker.Play(_shakeArgs);
-            Enemy.Kill();
+            Enemy.Kill(true);
             yield return null;
             _callback.Invoke();
         }
