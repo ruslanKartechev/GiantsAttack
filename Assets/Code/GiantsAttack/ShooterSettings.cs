@@ -11,5 +11,15 @@ namespace GiantsAttack
         [Header("Crits")]
         public float critChance;
         public float critDamage;
+        
+
+        public ShooterSettings(ShooterSettings other)
+        {
+            fireDelay = other.fireDelay;
+            speed = other.speed;
+            damage = other.damage;
+            critChance = other.critChance;
+            critDamage = other.critDamage;
+        }
     }
 }

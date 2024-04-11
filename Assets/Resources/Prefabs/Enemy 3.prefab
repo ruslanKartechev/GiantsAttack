@@ -152,6 +152,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8787960572092570469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8003871651918626537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7294450275652725591}
+  m_Layer: 0
+  m_Name: Face Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7294450275652725591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8003871651918626537}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.99566406, z: -0.093022004, w: 0}
+  m_LocalPosition: {x: 0, y: 2.597, z: 3.758}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7984896417802935434}
+  m_LocalEulerAnglesHint: {x: 10.675, y: 180, z: 0}
 --- !u!1 &8376371320162471523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,6 +1415,11 @@ PrefabInstance:
       propertyPath: _grabHand
       value: 
       objectReference: {fileID: 8137750862680835241}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
+      propertyPath: _facePoint
+      value: 
+      objectReference: {fileID: 7294450275652725591}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
       propertyPath: _lookAtPoint
@@ -3732,6 +3768,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5137277300393789116}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62c934afd8f056344844719e331dab0d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7294450275652725591}
     - targetCorrespondingSourceObject: {fileID: 5465940246521907071, guid: 62c934afd8f056344844719e331dab0d,
         type: 3}
       insertIndex: -1

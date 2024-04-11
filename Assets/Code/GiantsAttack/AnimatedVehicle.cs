@@ -9,23 +9,16 @@ namespace GiantsAttack
         [SerializeField] private ExplosiveVehicle _explodingVehicle;
         [SerializeField] private SimpleForwardMover _mover;
         [SerializeField] private Animator _animator;
+        [SerializeField] private float _animSpeed = 1f;
+        private static readonly int Speed = Animator.StringToHash("Speed");
 
-        public ExplosiveVehicle explodingVehicle
-        {
-            get => _explodingVehicle;
-            set => _explodingVehicle = value;
-        }
-
-        public SimpleForwardMover mover
-        {
-            get => _mover;
-            set => _mover = value;
-        }
-        
+        public override Transform Transform => _mover.Movable;
 
         public override void AnimateMove()
         {
+            gameObject.SetActive(true);
             _animator.enabled = true;
+            _animator.SetFloat(Speed,_animSpeed);
             _animator.Play("Move");
         }
 
@@ -34,11 +27,10 @@ namespace GiantsAttack
             _animator.enabled = false;
             _mover.Stop();
         }
-
-        public override Transform Transform => _mover.Movable;
         
         public override void Move(Action callback = null)
         {
+            gameObject.SetActive(true); 
             _mover.Move(callback);
         }
 

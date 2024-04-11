@@ -8,6 +8,11 @@ namespace SleepDev
     {
         protected Coroutine _delayedAction;
 
+        protected void DelayNoReturn(Action callback, float time)
+        {
+            StartCoroutine(DelayedAction(time, callback));
+        }
+        
         protected Coroutine Delay(Action callback, float time)
         {
             return StartCoroutine(DelayedAction(time, callback));

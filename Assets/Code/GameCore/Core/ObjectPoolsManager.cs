@@ -1,5 +1,6 @@
 ﻿using GiantsAttack;
 using SleepDev;
+using SleepDev.Pooling;
 using UnityEngine;
 
 namespace GameCore.Core
@@ -26,16 +27,16 @@ namespace GameCore.Core
             _bulletsPool.GOFactory = _casingsPool.GOFactory = GCon.GOFactory;
             _bulletsPool.BuildPool(_startBulletsPoolSize);
             _casingsPool.BuildPool(_startBulletsPoolSize);
-            
             // Setup container
             GCon.PoolsManager = this;
-            GCon.BulletsPool = _bulletsPool;
-            GCon.BulletCasingsPool = _casingsPool;
         }
 
         public void RecollectAll()
         {
             CLog.Log($"[PoolsManager] RecollectAll");
         }
+
+        public IObjectPool<IBullet> BulletsPool => _bulletsPool;
+        public IObjectPool<BulletCasing> BulletCasingsPool => _casingsPool;
     }
 }

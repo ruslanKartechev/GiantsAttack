@@ -7,6 +7,7 @@
         /// </summary>
         void SetCount(int max, int current);
         void UpdateCount(int current);
-        void Show(bool show);
+        void SetActive(bool show);
+        void Show(System.Action onEnd);
     }
 }

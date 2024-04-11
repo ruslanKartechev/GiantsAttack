@@ -447,16 +447,16 @@ MonoBehaviour:
     prefabId: fatality_bomb
     type: 1
   - uiId: item_4
-    prefabId: 
+    prefabId: fatality_c4
     type: 3
   - uiId: item_5
-    prefabId: 
+    prefabId: fatality_softball
     type: 4
   _playerRotateTime: 1
   _enemyRotTime: 0.33
   _endcallbackDelay: 0.44
   _afterEnemyAnimationDelay: 0.5
-  _lookAtEnemyUpOffset: 20
+  _lookAtEnemyUpOffset: 26
 --- !u!1 &4941517716325788895
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,6 +823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6909319543724384394}
   - component: {fileID: 3068090129992530905}
+  - component: {fileID: 1072375370877847808}
   m_Layer: 0
   m_Name: level_base_1
   m_TagString: Untagged
@@ -875,11 +876,25 @@ MonoBehaviour:
       critDamage: 35
     enemyTransform: {fileID: 0}
   _playerSpawnPoint: {fileID: 1881690079017666815}
-  _monster: {fileID: 0}
+  _enemy: {fileID: 0}
   _stages: []
   _startSequence: {fileID: 0}
   _finalSequence: {fileID: 2405355939250511605}
+  _failSequence: {fileID: 1072375370877847808}
   _playerMoverGo: {fileID: 6037839630966917803}
+--- !u!114 &1072375370877847808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7622913673418132720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846872af4ed245a98ca0c84319850db2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camMoveTime: 1
 --- !u!1 &7720435543605492140
 GameObject:
   m_ObjectHideFlags: 0

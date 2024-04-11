@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 802615734089676143}
   - component: {fileID: 1663517171509786428}
-  - component: {fileID: 6133766560330757489}
+  - component: {fileID: 6683534805856776022}
   - component: {fileID: 7250306535927839577}
-  - component: {fileID: 6610386194134105475}
+  - component: {fileID: 7871418704693590385}
   - component: {fileID: 8615878229658297089}
   - component: {fileID: 6024752355645161580}
   - component: {fileID: 8051922820099087929}
+  - component: {fileID: 6610386194134105475}
   - component: {fileID: 1456467284379346035}
   - component: {fileID: 6206372981269369980}
   m_Layer: 0
@@ -55,7 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _copyFrom: {fileID: 802615734089676143}
   _lookAt: {fileID: 0}
---- !u!114 &6133766560330757489
+--- !u!114 &6683534805856776022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,9 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwable: {fileID: 6024752355645161580}
   _health: {fileID: 8051922820099087929}
-  _mover: {fileID: 7250306535927839577}
-  _animator: {fileID: 6610386194134105475}
-  _animationSpeed: 1
+  _animatedVehicle: {fileID: 7871418704693590385}
 --- !u!114 &7250306535927839577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,27 +110,22 @@ MonoBehaviour:
   _movable: {fileID: 0}
   _endPoint: {fileID: 0}
   _moveTime: 1
---- !u!95 &6610386194134105475
-Animator:
-  serializedVersion: 5
+--- !u!114 &7871418704693590385
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1517571565938932584}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 67780591cdddbf34a802c12a94d8638d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0fd10fd6b194eb1939a04ddf8b6ddfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explodingVehicle: {fileID: 0}
+  _mover: {fileID: 7250306535927839577}
+  _animator: {fileID: 6610386194134105475}
+  _animSpeed: 1
 --- !u!114 &8615878229658297089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +161,7 @@ MonoBehaviour:
   _hitTriggerReceiver: {fileID: 8615878229658297089}
   _explosionParticles: {fileID: 7321367821857130273}
   _collider: {fileID: 1456467284379346035}
+  _rb: {fileID: 6206372981269369980}
   _particlesOnGrab:
   - {fileID: 1003029366073168543}
   - {fileID: 4146221415461229038}
@@ -191,6 +186,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512fe3e5e95249e4bca38dc5443a7664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &6610386194134105475
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517571565938932584}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 67780591cdddbf34a802c12a94d8638d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!65 &1456467284379346035
 BoxCollider:
   m_ObjectHideFlags: 0

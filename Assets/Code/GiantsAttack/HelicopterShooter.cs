@@ -60,7 +60,7 @@ namespace GiantsAttack
             {
                 foreach (var barrel in Gun.Barrels)
                 {
-                    var bullet = GCon.BulletsPool.GetObject();
+                    var bullet = GCon.PoolsManager.BulletsPool.GetObject();
                     bullet.SetRotation(barrel.FromPoint.rotation);
                     float damage = 0f;
                     var chance = UnityEngine.Random.Range(0f, 1f);
@@ -76,10 +76,10 @@ namespace GiantsAttack
                     damage *= GlobalConfig.DamageMultiplier;
 #endif
                     args.damage = damage;
-                    
+                    bullet.Scale(1f);
                     bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, 
                         speed:Settings.speed, args, HitCounter, DamageHitsUI);
-                    var casing = GCon.BulletCasingsPool.GetObject();
+                    var casing = GCon.PoolsManager.BulletCasingsPool.GetObject();
                     casing.Drop(barrel.DropPoint);
                     barrel.Recoil();
                     yield return new WaitForSeconds(_delayBetweenBarrels);

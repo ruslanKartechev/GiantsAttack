@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class StartJumpSequence : LevelStartSequence
+    public class StartSequenceJump : LevelStartSequence
     {
         public enum AnimType
         {

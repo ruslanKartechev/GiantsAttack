@@ -15,6 +15,7 @@ namespace GiantsAttack
         IMonsterAnimEventReceiver AnimEventReceiver { get; }
         BodySectionsManager BodySectionsManager { get; }
         public Transform Point { get; }
+        public Transform CameraFacePoint { get; }
         public Transform LookAtPoint { get; }
         public List<Transform> DamagePoints { get; }
         

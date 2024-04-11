@@ -10,10 +10,9 @@ namespace GiantsAttack
 {
     public class Bullet : MonoExtended, IBullet, IPooledObject<IBullet>
     {
-        [SerializeField] private float _maxDistance2;
+        private const float MaxFlyTime = 20f;
         [SerializeField] private Transform _movable;
-        [SerializeField] private GameObject _model;
-        // [SerializeField] private Collider _collider;
+        // [SerializeField] private GameObject _model;
         [SerializeField] private ParticleSystem _explosionParticles;
         [SerializeField] private ParticleSystem _trailParticles;
         
@@ -27,34 +26,65 @@ namespace GiantsAttack
             _movable.rotation = rotation;
         }
 
+        public void Scale(float scale)
+        {
+            transform.localScale = new Vector3(scale,scale,scale);
+        }
+
         public void Launch(Vector3 from, Vector3 direction, float speed, DamageArgs args, 
             IHitCounter counter, IDamageHitsUI hitsUI)
         {
-            _explosionParticles.gameObject.SetActive(false);
-            _model.gameObject.SetActive(true);
-            // _collider.enabled = true;
-            _movable.position = from;
             _damageArgs = args;
             _counter = counter;
             _hitsUI = hitsUI;
-            StopAllCoroutines();
+            _movable.position = from;
+            _explosionParticles.gameObject.SetActive(false);
             gameObject.SetActive(true);
-            if (_trailParticles != null)
-            {
-                _trailParticles.gameObject.SetActive(true);
-                _trailParticles.Play();
-            }
+            _trailParticles.gameObject.SetActive(true);
+            _trailParticles.Play();
             _flying = StartCoroutine(Flying(direction, speed));
         }
 
-        private IEnumerator Flying(Vector3 direction, float speed)
+        public void LaunchBlank(Vector3 from, Vector3 direction, float speed)
         {
-            while (true)
+            _movable.position = from;
+            _explosionParticles.gameObject.SetActive(false);
+            gameObject.SetActive(true);
+            _trailParticles.gameObject.SetActive(true);
+            _trailParticles.Play();
+            _flying = StartCoroutine(FlyingBlank(direction, speed));
+        }
+
+        private IEnumerator FlyingBlank(Vector3 direction, float speed)
+        {
+            var time = MaxFlyTime;
+            while (time > 0)
             {
                 var delta = speed * Time.deltaTime;
                 var pos = _movable.position + direction * (delta);
                 if (Physics.Raycast(_movable.position, _movable.forward, out var hit, 
-                        delta* 2f, GlobalConfig.BulletMask))
+                        delta * 2f, GlobalConfig.BulletMask))
+                {
+                    var d2 = (hit.point - pos).sqrMagnitude;
+                    // if (d2 <= delta * delta)
+                        // OnHit();
+                }
+                _movable.position = pos;
+                time -= Time.unscaledDeltaTime;
+                yield return null;
+            }
+            gameObject.SetActive(false);
+        }
+        
+        private IEnumerator Flying(Vector3 direction, float speed)
+        {
+            var time = MaxFlyTime;
+            while (time > 0)
+            {
+                var delta = speed * Time.deltaTime;
+                var pos = _movable.position + direction * (delta);
+                if (Physics.Raycast(_movable.position, _movable.forward, out var hit, 
+                        delta * 2f, GlobalConfig.BulletMask))
                 {
                     var d2 = (hit.point - pos).sqrMagnitude;
                     if (d2 <= delta * delta)
@@ -63,14 +93,14 @@ namespace GiantsAttack
                     }
                 }
                 _movable.position = pos;
+                time -= Time.unscaledDeltaTime;
                 yield return null;
             }
+            gameObject.SetActive(false);
         }
 
         private void OnHit()
         {
-            // _collider.enabled = false;
-            _model.gameObject.SetActive(false);
             _explosionParticles.gameObject.SetActive(true);
             _explosionParticles.Play();
             StopAllCoroutines();

@@ -9,14 +9,15 @@ namespace GiantsAttack
     public class MonsterController : MonoBehaviour, IMonster
     {
         [SerializeField] private Transform _grabHand;
+        [SerializeField] private Transform _animRootBone;
+        [SerializeField] private Transform _facePoint;
+        [SerializeField] private Transform _lookAtPoint;
         [SerializeField] private MonsterMover _mover;
         [SerializeField] private MonsterHealth _health;
         [SerializeField] private Animator _animator;
         [SerializeField] private MonsterAnimEventReceiver _eventReceiver;
         [SerializeField] private BodySectionsManager _sectionsManager;
-        [SerializeField] private Transform _lookAtPoint;
         [SerializeField] private List<Transform> _damagePoints;
-        [SerializeField] private Transform _animRootBone;
         private IDefeatedBehaviour _defeatedBehaviour;
         private bool _isDead;
         
@@ -27,6 +28,7 @@ namespace GiantsAttack
         public IMonsterAnimEventReceiver AnimEventReceiver => _eventReceiver;
         public BodySectionsManager BodySectionsManager => _sectionsManager;
         public Transform Point => transform;
+        public Transform CameraFacePoint => _facePoint;
         public Transform LookAtPoint => _lookAtPoint;
         public List<Transform> DamagePoints => _damagePoints;
 

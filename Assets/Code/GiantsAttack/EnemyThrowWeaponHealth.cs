@@ -1,23 +1,31 @@
 ﻿using System;
-using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
 {
     public class EnemyThrowWeaponHealth : MonoBehaviour, ITarget, IHealth
     {
+    
+        public event Action<IDamageable> OnDead;
+        public event Action<IDamageable> OnDamaged;
+        
+        [SerializeField] private float _maxHealth;
+        
         public IDamageable Damageable
         {
             get => this;
             set { }
         }
 
-        public event Action<IDamageable> OnDead;
-        public event Action<IDamageable> OnDamaged;
-        
         public bool CanDamage { get; private set; }
         public float Health { get; private set; }
-        public float MaxHealth { get; private set; }
+        
+        public float MaxHealth
+        {
+            get => _maxHealth;
+            private set => _maxHealth = value;
+        }
+        
         public float HealthPercent { get; private set; }
         
         public void TakeDamage(DamageArgs args)

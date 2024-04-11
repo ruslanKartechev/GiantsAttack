@@ -18,6 +18,7 @@ namespace SleepDev
             PlayParticles();
         }
         
+        [ContextMenu("ExplodeDefaultDirection")]
         public void ExplodeDefaultDirection()
         {
             Explode(_defaultDirection.forward * _defaultForce);

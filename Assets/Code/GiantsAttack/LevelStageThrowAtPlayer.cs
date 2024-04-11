@@ -70,7 +70,7 @@ namespace GiantsAttack
                 Delay(() =>
                 {
                     if (!_isStopped)
-                        _enemyWeapon.AnimateMove(OnWeaponAnimateMoved);
+                        _enemyWeapon.AnimatedVehicle.Move();
                 }, _animateThrowableDelay);
             }
             if (_doMoveEnemy)
@@ -79,11 +79,6 @@ namespace GiantsAttack
                 OnEnemyMoved();
         }
 
-        private void OnWeaponAnimateMoved()
-        {
-            _enemyWeapon.StopAnimate();
-        }
-        
         private void MoveEnemy()
         {
             Enemy.Mover.MoveToPoint(_moveToPoint, _enemyMoveTime, OnEnemyMoved);

@@ -1,5 +1,4 @@
 ﻿using System;
-using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -8,37 +7,12 @@ namespace GiantsAttack
     {
         [SerializeField] private SimpleThrowable _throwable;
         [SerializeField] private EnemyThrowWeaponHealth _health;
-        [SerializeField] private SimpleForwardMover _mover;
-        [SerializeField] private Animator _animator;
-        [SerializeField] private float _animationSpeed = 1f;
-        private Action _animateCallback;
-        private static readonly int Speed = Animator.StringToHash("Speed");
+        [SerializeField] private AnimatedVehicleBase _animatedVehicle;
 
         public GameObject GameObject => gameObject;
-        
         public IThrowable Throwable => _throwable;
-        
-        
         public IHealth Health => _health;
-        
-  
-        public void AnimateMove(Action onEnd)
-        {
-            _animator.SetFloat(Speed, _animationSpeed);
-            gameObject.SetActive(true);
-            _animateCallback = onEnd;
-            _animator.enabled = true;
-        }
-
-        public void StopAnimate()
-        {
-            _animator.enabled = false;
-        }
-
-        public void EventOnAnimationMoved()
-        {
-            _animateCallback?.Invoke();
-        }
+        public AnimatedVehicleBase AnimatedVehicle => _animatedVehicle;
     }
 
 }

@@ -16,10 +16,11 @@ namespace GiantsAttack
         [SerializeField] private AimerSettingsSo _aimerSettings;
         [SerializeField] private HelicopterInitArgs _initArgs;
         [SerializeField] private Transform _playerSpawnPoint;
-        [SerializeField] private MonsterController _monster;
+        [SerializeField] private MonsterController _enemy;
         [SerializeField] private List<LevelStage> _stages;
         [SerializeField] private LevelStartSequence _startSequence;
         [SerializeField] private LevelFinalSequence _finalSequence;
+        [SerializeField] private LevelFailSequence _failSequence;
         [SerializeField] private GameObject _playerMoverGo;
         private PlayerCamera _camera;
         private int _stageIndex = 0;
@@ -60,8 +61,11 @@ namespace GiantsAttack
                 _finalSequence?.E_Init();
             }
 
-            if (_monster == null)
-                _monster = FindObjectOfType<MonsterController>();
+            if (_failSequence == null)
+                _failSequence = FindObjectOfType<LevelFailSequence>();
+
+            if (_enemy == null)
+                _enemy = FindObjectOfType<MonsterController>();
 
             if (_playerMoverGo == null)
             {
@@ -101,7 +105,7 @@ namespace GiantsAttack
             _player.Mover.Loiter();
             _playerMover.Player = _player;
             
-            _startSequence.Enemy = _monster;
+            _startSequence.Enemy = _enemy;
             _startSequence.Begin(OnStartSequenceFinished);
             
             if (_useStartUi)
@@ -132,6 +136,9 @@ namespace GiantsAttack
             var level = GCon.PlayerData.LevelTotal+1;
             utils.SendFailEvent(level, _timePassed, _hitCounter);
             utils.CallFailScreen(level);
+            _failSequence.Player = _player;
+            _failSequence.Enemy = _enemy;
+            _failSequence.Play(() => {});
         }
         
         public override void Pause()
@@ -150,7 +157,7 @@ namespace GiantsAttack
                 return;
             _isFinalizing = true;
             CLog.LogGreen($"{gameObject.name} LaunchFinalSequence");
-            _finalSequence.Enemy = _monster;
+            _finalSequence.Enemy = _enemy;
             _finalSequence.Player = _player;
             _finalSequence.PlayerMover = _playerMover;
             _finalSequence.Camera = _camera;
@@ -172,7 +179,7 @@ namespace GiantsAttack
         
         private void SpawnAndInitPlayer()
         {
-            _initArgs.enemyTransform = _monster.Point;
+            _initArgs.enemyTransform = _enemy.Point;
             var spawner = new HelicopterSpawner();
             var player = spawner.SpawnAt(_playerSpawnPoint, _playerSpawnPoint.parent);
             player.Init(_initArgs);
@@ -182,8 +189,8 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
-            _monster.Init(_gameplayMenu.EnemyBodySectionsUI , _enemyHealth);
-            _monster.SetMoveAnimationSpeed(_moveAnimationSpeed);
+            _enemy.Init(_gameplayMenu.EnemyBodySectionsUI , _enemyHealth);
+            _enemy.SetMoveAnimationSpeed(_moveAnimationSpeed);
         }
 
         private void OnStartSequenceFinished()
@@ -206,7 +213,7 @@ namespace GiantsAttack
         {
             stage.Player = _player;
             stage.Camera = _camera;
-            stage.Enemy = _monster;
+            stage.Enemy = _enemy;
             stage.UI = _gameplayMenu;
             stage.ResultListener = this;
             stage.PlayerMover = _playerMover;

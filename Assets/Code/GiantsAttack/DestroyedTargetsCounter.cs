@@ -11,17 +11,13 @@ namespace GiantsAttack
         
         public Action AllDestroyedCallback { get; set; }
         
-        public IGameplayMenu UI { get; set; }
-        private ITargetsCountUI _countUI;
+        private CityDestroyUI _ui;
         
-        public DestroyedTargetsCounter(IGameplayMenu ui, int maxCount, Action callback)
+        public DestroyedTargetsCounter(CityDestroyUI ui, int maxCount, Action callback)
         {
-            UI = ui;
+            _ui = ui;
             AllDestroyedCallback = callback;
             SetCounter(maxCount);
-            _countUI = UI.TargetsCountUI;
-            _countUI.SetCount(_currentCount, maxCount);
-            _countUI.Show(true);
         }
         
         public void SetCounter(int maxCount)
@@ -35,9 +31,23 @@ namespace GiantsAttack
             CLog.Log($"[TargetsCounter] {_currentCount}/{_maxCount}");
             if (updateUI)
             {
-                _countUI.UpdateCount(_currentCount);
+                _ui.UpdateCount(_currentCount);
             }
-            if (_currentCount == 0)
+            if (_currentCount <= 0)
+            {
+                AllDestroyedCallback.Invoke();
+            }
+        }
+
+        public void Minus(int count, bool updateUI)
+        {
+            _currentCount -= count;
+            CLog.Log($"[TargetsCounter] {_currentCount}/{_maxCount}");
+            if (updateUI)
+            {
+                _ui.UpdateCount(_currentCount);
+            }
+            if (_currentCount <= 0)
             {
                 AllDestroyedCallback.Invoke();
             }

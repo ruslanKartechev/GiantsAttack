@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class StartAnimationSequence : LevelStartSequence
+    public class StartSequenceAnimation : LevelStartSequence
     {
         [SerializeField] private string _animationKey;
         [SerializeField] private Vector2 _explosionForce;

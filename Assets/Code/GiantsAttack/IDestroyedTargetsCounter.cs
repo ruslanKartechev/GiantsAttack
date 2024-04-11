@@ -7,11 +7,11 @@ namespace GiantsAttack
     {
         Action AllDestroyedCallback { get; set; }
         
-        IGameplayMenu UI { get; set; }
         
         void SetCounter(int maxCount);
 
         void MinusOne(bool updateUI);
-        
+        void Minus(int count, bool updateUI);
+
     }
 }

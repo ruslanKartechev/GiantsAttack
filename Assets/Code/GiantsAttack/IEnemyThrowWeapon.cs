@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GiantsAttack
 {
@@ -8,7 +7,6 @@ namespace GiantsAttack
         GameObject GameObject { get; }
         IThrowable Throwable { get; }
         IHealth Health { get; }
-        void AnimateMove(Action onEnd);
-        void StopAnimate();
+        AnimatedVehicleBase AnimatedVehicle { get; }
     }
 }
