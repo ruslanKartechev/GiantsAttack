@@ -12,11 +12,15 @@ namespace GiantsAttack
         [SerializeField] private Transform _animRootBone;
         [SerializeField] private Transform _facePoint;
         [SerializeField] private Transform _lookAtPoint;
-        [SerializeField] private MonsterMover _mover;
-        [SerializeField] private MonsterHealth _health;
-        [SerializeField] private Animator _animator;
+        [Space(10)]
+        [SerializeField] private List<ArmorDataSo> _armorData;
+        [SerializeField] private BodyArmorManager _armorManager;
+        [Space(10)]
         [SerializeField] private MonsterAnimEventReceiver _eventReceiver;
         [SerializeField] private BodySectionsManager _sectionsManager;
+        [SerializeField] private MonsterHealth _health;
+        [SerializeField] private MonsterMover _mover;
+        [SerializeField] private Animator _animator;
         [SerializeField] private List<Transform> _damagePoints;
         private IDefeatedBehaviour _defeatedBehaviour;
         private bool _isDead;
@@ -47,7 +51,11 @@ namespace GiantsAttack
             _sectionsManager.Init(_health, ui);
             Destroyer = GetComponent<IMonsterDestroyed>();
             _defeatedBehaviour = GetComponent<IDefeatedBehaviour>();
+            
+            _armorManager.ArmorData = _armorData;
+            _armorManager.SpawnArmor();
         }
+        
 
         public void SetMoveAnimationSpeed(float speed)
         {

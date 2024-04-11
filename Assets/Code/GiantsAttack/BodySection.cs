@@ -68,9 +68,9 @@ namespace GiantsAttack
             Health -= args.damage;
             var level = 0;
             var percent = _health / _maxHealth;
-            if (percent <= .33f)
+            if (percent <= .4f)
                 level = 2;
-            else if (percent <= .66f)
+            else if (percent <= .8f)
                 level = 1;
             
             if (_currentHealthLevel != level)

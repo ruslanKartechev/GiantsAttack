@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6569051396411123429}
   - component: {fileID: 3159605011676522647}
   - component: {fileID: 1986947675657546427}
+  - component: {fileID: 354091559413636211}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -48,14 +49,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grabHand: {fileID: 0}
-  _mover: {fileID: 3159605011676522647}
-  _health: {fileID: 6569051396411123429}
-  _animator: {fileID: 0}
+  _animRootBone: {fileID: 0}
+  _facePoint: {fileID: 0}
+  _lookAtPoint: {fileID: 0}
+  _armorData: []
+  _armorManager: {fileID: 354091559413636211}
   _eventReceiver: {fileID: 0}
   _sectionsManager: {fileID: 1986947675657546427}
-  _lookAtPoint: {fileID: 0}
+  _health: {fileID: 6569051396411123429}
+  _mover: {fileID: 3159605011676522647}
+  _animator: {fileID: 0}
   _damagePoints: []
-  _animRootBone: {fileID: 0}
 --- !u!114 &6569051396411123429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +140,19 @@ MonoBehaviour:
   _uiPrefab: {fileID: 0}
   e_maxHealth: 500
   e_ragdoll: {fileID: 0}
+--- !u!114 &354091559413636211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845451041258651162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9daddd1ee8494799ab202c33ae74a9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pushForce: 100
+  _centerPoint: {fileID: 0}
+  _parents: []
+  _armorData: []

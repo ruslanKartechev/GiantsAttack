@@ -22,6 +22,7 @@ namespace SleepDev
             return me;
         }
 
+        
         public static Transform SetParentAndCopy(this Transform me, Transform parent)
         {
             me.parent = parent;

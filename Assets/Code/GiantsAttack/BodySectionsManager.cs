@@ -10,7 +10,6 @@ namespace GiantsAttack
     {
         [Header("0-head,1-body, 2-left arm, 3-right arm, \n4-left leg, 5-right leg, ")]
         [SerializeField] private List<BodySection> _sections;
-
         [SerializeField] private GameObject _uiPrefab;
 
         public GameObject UIPrefab => _uiPrefab;
