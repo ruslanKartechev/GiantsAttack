@@ -232,7 +232,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animationKey: s
-  _enemy: {fileID: 6981576909622535482}
   _explosionForce: {x: 0, y: 0}
   _explosionVector: {x: 0, y: 0, z: 0}
   _explodingVehicles: []
@@ -1407,6 +1406,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3389149085631731490, guid: 175c30b808260c946b9f09760955acf1,
+        type: 3}
+      propertyPath: e_levelrepo
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b75131f33554ca47b405d2138f206f3,
+        type: 2}
     - target: {fileID: 4640097852193105992, guid: 175c30b808260c946b9f09760955acf1,
         type: 3}
       propertyPath: m_Name
@@ -1642,6 +1647,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     startDelay: 10
+    mainLookAtEnemy: 0
   - point: {fileID: 1841738773}
     moveTime: 3.4
     curve:
@@ -1669,6 +1675,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     startDelay: 2.666
+    mainLookAtEnemy: 0
   - point: {fileID: 1338521431}
     moveTime: 4
     curve:
@@ -1696,6 +1703,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     startDelay: 2
+    mainLookAtEnemy: 0
   - point: {fileID: 843503026}
     moveTime: 4
     curve:
@@ -1723,6 +1731,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     startDelay: 2
+    mainLookAtEnemy: 0
   _startPoint: {fileID: 466053215}
   e_drawGizmos: 1
   e_moveSpeed: 0
@@ -1815,6 +1824,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4522323481501861770, guid: 4ce7e35f4439cf649b7678f2afddc829,
+        type: 3}
+      propertyPath: e_debugInd
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2077,6 +2091,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1151086785}
   - component: {fileID: 1151086784}
+  - component: {fileID: 1151086786}
   m_Layer: 0
   m_Name: Level_1
   m_TagString: Untagged
@@ -2104,12 +2119,12 @@ MonoBehaviour:
     shooterSettings:
       fireDelay: 0.05
       speed: 500
-      damage: {x: 50, y: 100}
+      damage: {x: 80, y: 180}
       critChance: 0.2
       critDamage: 200
     enemyTransform: {fileID: 5658166301434825991}
   _playerSpawnPoint: {fileID: 466053215}
-  _monster: {fileID: 6981576909622535482}
+  _enemy: {fileID: 6981576909622535482}
   _stages:
   - {fileID: 1294705023}
   - {fileID: 1673651118}
@@ -2117,6 +2132,7 @@ MonoBehaviour:
   - {fileID: 1250039102}
   _startSequence: {fileID: 190436081}
   _finalSequence: {fileID: 909770020}
+  _failSequence: {fileID: 1151086786}
   _playerMoverGo: {fileID: 899215507}
 --- !u!4 &1151086785
 Transform:
@@ -2143,6 +2159,20 @@ Transform:
   - {fileID: 1970406404}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1151086786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151086781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846872af4ed245a98ca0c84319850db2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _delay: 1
+  _camMoveTime: 1
 --- !u!1 &1170624177
 GameObject:
   m_ObjectHideFlags: 0

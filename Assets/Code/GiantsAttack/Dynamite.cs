@@ -8,6 +8,13 @@ namespace GiantsAttack
         [SerializeField] private float _finalScale;
         [SerializeField] private ParticleSystem _explsionParticles;
         [SerializeField] private GameObject _model;
+        [SerializeField] private Rigidbody _rb;
+
+        public void Drop()
+        {
+            gameObject.SetActive(true);
+            _rb.isKinematic = false;
+        }
         
         public void ScaleUp(float time, Ease ease)
         {

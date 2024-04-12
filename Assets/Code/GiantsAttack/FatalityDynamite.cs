@@ -40,7 +40,8 @@ namespace GiantsAttack
         {
             foreach (var d in _dynamites)
             {
-                d.ScaleUp(_scaleTime, _scaleEase);
+                // d.ScaleUp(_scaleTime, _scaleEase);
+                d.Drop();
                 yield return new WaitForSeconds(_nextDynamiteDelay);
             }
             yield return new WaitForSeconds(_explosionDelay);

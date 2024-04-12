@@ -75,6 +75,7 @@ namespace GiantsAttack
         
         private void OnWrong()
         {
+            if (_isStopped) return;
             _doProjectileCollision = false;
             StopSlowMo();
             FailAndKillPlayer();
@@ -92,6 +93,7 @@ namespace GiantsAttack
 
         private void OnEvadeEnd()
         {
+            if (_isStopped) return;
             CLog.Log($"[SubStageExecutor] Evaded...");
             _player.Aimer.BeginAim();
             Complete();
@@ -117,6 +119,7 @@ namespace GiantsAttack
         
         private void FailAndKillPlayer()
         {
+            if (_isStopped) return;
             _stage.swipeChecker.Off();
             _enemyWeapon.Throwable.Hide();
             _ui.EvadeUI.Stop();

@@ -23,6 +23,7 @@ namespace GiantsAttack
         
         private void BreakBuilding()
         {
+            if (_isStopped) return;
             CLog.Log($"[SubStage] Action: Break building");
             var target = _stage.enemyTarget.GetComponent<IBrokenBuilding>();
             target.Break();
@@ -31,6 +32,7 @@ namespace GiantsAttack
 
         private void CallCompleted()
         {
+            if (_isStopped) return;
             CallListenersCompleted();
             Complete();
         }

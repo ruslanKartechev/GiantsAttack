@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 736452568930851557}
   - component: {fileID: 878331162598243777}
+  - component: {fileID: 3526689433626292092}
   m_Layer: 0
   m_Name: Dynamite
   m_TagString: Untagged
@@ -49,6 +50,34 @@ MonoBehaviour:
   _finalScale: 1
   _explsionParticles: {fileID: 6038301682327840622}
   _model: {fileID: 8820661725082846247}
+  _rb: {fileID: 3526689433626292092}
+--- !u!54 &3526689433626292092
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019210047694154308}
+  serializedVersion: 4
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &7565646336112539355
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,7 +179,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1339779489941140220, guid: 72dea7832b507404daa55c188b817ef4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3757676079558779593}
   m_SourcePrefab: {fileID: 100100000, guid: 72dea7832b507404daa55c188b817ef4, type: 3}
 --- !u!4 &7674735804139528449 stripped
 Transform:
@@ -164,6 +197,27 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7565646336112539355}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &3757676079558779593
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820661725082846247}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.01420042, y: 0.014344964, z: 0.03786057}
+  m_Center: {x: -0.0005773794, y: 0.00042170714, z: 0.019030277}
 --- !u!1001 &7734254931401608331
 PrefabInstance:
   m_ObjectHideFlags: 0
