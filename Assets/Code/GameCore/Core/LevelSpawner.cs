@@ -8,6 +8,7 @@ namespace GameCore.Core
     [DefaultExecutionOrder(1000)]
     public class LevelSpawner : MonoBehaviour
     {
+        public byte environmentIndex;
         public bool usePreloaded;
         public GameObject preloaded;
         public bool findPreloaded;
@@ -36,6 +37,7 @@ namespace GameCore.Core
             autoSpawn = true;
 #endif
             GCon.UIFactory.Clear();
+            EnvironmentState.CurrentIndex = environmentIndex;
             if (!autoSpawn)
                 return;
             SpawnLevel();

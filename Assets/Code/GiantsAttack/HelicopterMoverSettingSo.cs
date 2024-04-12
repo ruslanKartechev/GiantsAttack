@@ -15,6 +15,7 @@ namespace GiantsAttack
     public class MovementSettings
     {
         public float moveToPointSpeed;
+        public float rotationSpeed = 100;
         public Vector2 leanAngles;
         public AnimationCurve defaultMoveCurve;
         [Range(0f, 1f)] public float leanRotT = .5f;

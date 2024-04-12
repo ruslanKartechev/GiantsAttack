@@ -6,12 +6,14 @@ namespace GiantsAttack
     public class HelicopterMoveToData
     {
         public Transform endPoint;
+        public Transform lookAt;
         public float time;
         public AnimationCurve curve;
         public Action callback;
      
-        public HelicopterMoveToData(Transform endPoint, float time, AnimationCurve curve, Action callback)
+        public HelicopterMoveToData(Transform endPoint, float time, AnimationCurve curve, Transform lookAt, Action callback)
         {
+            this.lookAt = lookAt;
             this.endPoint = endPoint;
             this.time = time;
             this.curve = curve;

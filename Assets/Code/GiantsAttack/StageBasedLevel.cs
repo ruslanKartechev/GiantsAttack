@@ -98,13 +98,15 @@ namespace GiantsAttack
             // init player
             SpawnAndInitPlayer();
             InitEnemy();
+            //
+            _playerMover.Player = _player;
+            _playerMover.Enemy = _enemy;
+            //
             foreach (var st in _stages)
                 InitStage(st);
             _player.CameraPoints.SetCameraToOutside();
             StartTiming();
             _player.Mover.Loiter();
-            _playerMover.Player = _player;
-            
             _startSequence.Enemy = _enemy;
             _startSequence.Begin(OnStartSequenceFinished);
             
@@ -134,11 +136,13 @@ namespace GiantsAttack
             StopTiming();
             var utils = new LevelUtils();
             var level = GCon.PlayerData.LevelTotal+1;
-            utils.SendFailEvent(level, _timePassed, _hitCounter);
-            utils.CallFailScreen(level);
             _failSequence.Player = _player;
             _failSequence.Enemy = _enemy;
-            _failSequence.Play(() => {});
+            _failSequence.Play(() =>
+            {
+                utils.SendFailEvent(level, _timePassed, _hitCounter);
+                utils.CallFailScreen(level);
+            });
         }
         
         public override void Pause()

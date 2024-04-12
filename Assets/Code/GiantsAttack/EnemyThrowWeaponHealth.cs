@@ -27,7 +27,12 @@ namespace GiantsAttack
         }
         
         public float HealthPercent { get; private set; }
-        
+
+        private void Start()
+        {
+            Health = _maxHealth;
+        }
+
         public void TakeDamage(DamageArgs args)
         {
             if (CanDamage == false)

@@ -22,6 +22,12 @@ namespace GiantsAttack
             TryAnimateTarget();
         }
 
+        public override void Stop()
+        {
+            base.Stop();
+            _stage.swipeChecker.Off();
+        }
+        
         protected override void OnEnemyMoved()
         {
             if (_isStopped) return;

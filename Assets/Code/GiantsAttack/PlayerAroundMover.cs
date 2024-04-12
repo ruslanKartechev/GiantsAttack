@@ -16,6 +16,7 @@ namespace GiantsAttack
         private Coroutine _working;
         
         public IHelicopter Player { get; set; }
+        public IMonster Enemy { get; set; }
 
         public void Resume()
         { }

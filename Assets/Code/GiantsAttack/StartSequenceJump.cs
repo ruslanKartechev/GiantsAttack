@@ -12,7 +12,6 @@ namespace GiantsAttack
             JumpDown, KickUp
         }
         [SerializeField] private AnimType _animType;
-        [SerializeField] private MonsterController _enemy;
         [SerializeField] private ParticleSystem _jumpParticles;
         [SerializeField] private List<AnimatedVehicleBase> _vehicles;
         [SerializeField] private float _pushBackForce;
@@ -22,11 +21,6 @@ namespace GiantsAttack
         #if UNITY_EDITOR
         public override void E_Init()
         {
-            if (_enemy == null)
-            {
-                _enemy = FindObjectOfType<MonsterController>();
-                UnityEditor.EditorUtility.SetDirty(this);
-            }
         }
         #endif
 
@@ -36,24 +30,24 @@ namespace GiantsAttack
             switch (_animType)
             {
                 case AnimType.JumpDown:
-                    _enemy.Jump(false);
+                    Enemy.Jump(false);
                     break;
                 case AnimType.KickUp:
-                    _enemy.KickUp();
+                    Enemy.KickUp();
                     break;
             }
-            _enemy.AnimEventReceiver.OnJumpDown += OnJumped;
+            Enemy.AnimEventReceiver.OnJumpDown += OnJumped;
         }
 
         private void OnJumped()
         {
-            _enemy.AnimEventReceiver.OnJumpDown -= OnJumped;
+            Enemy.AnimEventReceiver.OnJumpDown -= OnJumped;
             CameraContainer.Shaker.PlayDefault();
             _jumpParticles.gameObject.SetActive(true);
-            _jumpParticles.transform.position = _enemy.transform.position;
+            _jumpParticles.transform.position = Enemy.Point.position;
             _jumpParticles.Play();
             foreach (var v in _vehicles)
-                v.ExplodeFromCenter(_enemy.transform.position, _pushBackForce);
+                v.ExplodeFromCenter(Enemy.Point.position, _pushBackForce);
             Delay(_callback, _endCallbackDelay);
         }
     }

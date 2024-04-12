@@ -83,17 +83,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca9c4e3ae704f0ba5364eab884bdf57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doRotateWhenGrabbed: 0
-  _doMoveToLocalPos: 0
-  _moveTimeOnGrab: 0.2
   _rotationSpeed: 300
   _torqueVector: {x: 1, y: 1, z: 1}
-  _localGrabbedPos: {x: 0, y: 0, z: 0}
-  _localGrabbedEulers: {x: 0, y: 0, z: 0}
+  _trail: {fileID: 0}
   _hitTriggerReceiver: {fileID: 7178529887066820766}
-  _explosionParticles: {fileID: 0}
+  _explosiveVehicle: {fileID: 0}
   _collider: {fileID: 8313268501126584395}
-  _rb: {fileID: 2604337753197160069}
+  _model: {fileID: 0}
 --- !u!114 &708091557970928705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512fe3e5e95249e4bca38dc5443a7664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 80
 --- !u!114 &7178529887066820766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0821b5093f440e8e83e36380521048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTrail: 0
+  _trail: {fileID: 0}
   _rb: {fileID: 2604337753197160069}
   _collider: {fileID: 8313268501126584395}
   _onParticles: []

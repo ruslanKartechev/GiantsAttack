@@ -3,8 +3,12 @@ using UnityEngine;
 
 namespace SleepDev
 {
+    [DefaultExecutionOrder(1001)]
     public class ExplosiveVehicle : MonoBehaviour
     {
+        [SerializeField] private bool _spawnTrail;
+        [SerializeField] private VehicleTrail _trail;
+        [Space(5)]
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private Collider _collider;
         [SerializeField] private List<ParticleSystem> _onParticles;
@@ -13,8 +17,18 @@ namespace SleepDev
         [SerializeField] private Transform _defaultDirection;
         [SerializeField] private float _defaultForce;
 
+        public Rigidbody Rb => _rb;
+        public Collider Coll => _collider;
+
+        private void Start()
+        {
+            if(_spawnTrail)
+                _trail.Spawn();
+        }
+
         public void Explode()
         {
+            _trail.Off();
             PlayParticles();
         }
         
@@ -38,13 +52,12 @@ namespace SleepDev
         {
             foreach (var pp in _onParticles)
             {
+                pp.transform.parent = null;
                 pp.gameObject.SetActive(true);
                 pp.Play();
             }
             foreach (var pp in _offParticles)
-            {
                 pp.gameObject.SetActive(false);
-            }
         }
         
     }

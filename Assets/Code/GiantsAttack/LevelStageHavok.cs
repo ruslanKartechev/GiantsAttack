@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class LevelStageBreakingCity : LevelStage
+    public class LevelStageHavok : LevelStage
     {
         [SerializeField] private List<SubStage> _substages;
         private IDestroyedTargetsCounter _counter;
@@ -29,7 +28,7 @@ namespace GiantsAttack
         public override void Activate()
         {
             Player.Aimer.BeginAim();
-            _counter = new DestroyedTargetsCounter(CityUI, _totalCount, Fail);
+            _counter = new DestroyedTargetsCounter(CityUI, GetTotalCount(), Fail);
             SubToEnemyKill();
             ExecuteCurrentSubstage();
         }

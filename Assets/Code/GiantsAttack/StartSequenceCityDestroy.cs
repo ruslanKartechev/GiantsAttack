@@ -6,7 +6,7 @@ namespace GiantsAttack
     public class StartSequenceCityDestroy : LevelStartSequence
     {
         [SerializeField] private LevelStartSequence _otherSequence;
-        [SerializeField] private LevelStageBreakingCity _stage;
+        [SerializeField] private LevelStageHavok _stage;
         [SerializeField] private CityDestroyUI _ui;
 
 #if UNITY_EDITOR

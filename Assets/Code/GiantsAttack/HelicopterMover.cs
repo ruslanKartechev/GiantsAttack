@@ -103,15 +103,18 @@ namespace GiantsAttack
         {
             _currentMoveToData = moveToData;
             StopMovement();
-            if (moveToData.curve == null)
-                moveToData.curve = movementSettings.defaultMoveCurve;
-            if (moveToData.HasStarted ==false)
+            if (_currentMoveToData.curve == null)
+                _currentMoveToData.curve = movementSettings.defaultMoveCurve;
+            if (_currentMoveToData.HasStarted ==false)
             {
-                moveToData.HasStarted = true;
-                moveToData.StartPos = _movable.position;
-                moveToData.StartRot = _movable.rotation;
+                _currentMoveToData.HasStarted = true;
+                _currentMoveToData.StartPos = _movable.position;
+                _currentMoveToData.StartRot = _movable.rotation;
             }
-            _moving = StartCoroutine(MovingToPoint(_currentMoveToData));
+            if(_currentMoveToData.lookAt == null)
+                _moving = StartCoroutine(MovingToPoint(_currentMoveToData));
+            else
+                _moving = StartCoroutine(MovingWhileLookingAt(_currentMoveToData));
         }
 
         public void PauseMovement()
@@ -121,6 +124,7 @@ namespace GiantsAttack
 
         public bool ResumeMovement()
         {
+            CLog.LogBlue($"ResumeMovement");
             if (_currentMoveToData == null)
             {
                 CLog.Log($"[{nameof(HelicopterMover)}] _currentMoveToData == null. Cannot resume");
@@ -128,7 +132,6 @@ namespace GiantsAttack
             }
             _currentMoveToData.time *= 1 - _currentMoveToData.LerpT;
             _currentMoveToData.RefreshStartPosAndRot(_movable);
-            // CLog.Log($"[HelicopterMover] Movement resumed with old data");
             MoveTo(_currentMoveToData);
             return true;
         }
@@ -231,19 +234,18 @@ namespace GiantsAttack
         
         private IEnumerator EvadeMoving(Vector3 endPoint, float time)
         {
-            var tr = transform;
-            var p1 = tr.position;
+            var p1 = transform.position;
             var p2 = endPoint;
             var elapsed = Time.unscaledDeltaTime;
             var t = elapsed / time;
             while (t <= 1f)
             {
-                tr.position = Vector3.Lerp(p1, p2, t);
+                transform.position = Vector3.Lerp(p1, p2, t);
                 elapsed += Time.unscaledDeltaTime;
                 t = elapsed / time;
                 yield return null;
             }
-            tr.position = p2;
+            transform.position = p2;
         }
 
         private IEnumerator EvadeRotation(float toTime, float fromTime, Vector3 angles)
@@ -268,12 +270,11 @@ namespace GiantsAttack
                 yield return null;
             }
             tr.rotation = r1;
-            
-            // yield return ChangingRotationUnscaledTime(transform, toTime, r1, r2);
-            // yield return ChangingRotationUnscaledTime(transform, fromTime, r2, r1);
         }
         #endregion
 
+        
+        
         #region Rotation and local movement
         private IEnumerator ZeroInternalPosition()
         {
@@ -414,17 +415,12 @@ namespace GiantsAttack
         }
         #endregion
 
-        /// <summary>
-        /// Angles to "lean" when moving to next point
-        /// </summary>
-        private void CalculateLeanAngles(Transform endPoint, out Quaternion leanRot, out Quaternion endRot)
+        private Quaternion GetLeanRotation(Transform endPoint)
         {
             var tr = transform;
             var distVec = endPoint.position - tr.position;
             var projZ = Vector3.Dot(distVec, tr.forward);
             var projX = Vector3.Dot(distVec, tr.right);
-            leanRot = transform.rotation;
-            endRot = endPoint.rotation;
             var angles = new Vector3();
             if (projZ > 0)
                 angles.x += movementSettings.leanAngles.x;
@@ -436,8 +432,47 @@ namespace GiantsAttack
             else
                 angles.z += movementSettings.leanAngles.y;
             CLog.Log($"[HeliMover] LeanAngles {angles}");
-            leanRot *= Quaternion.Euler(angles);
+            return Quaternion.Euler(angles);
         }
+        
+        /// <summary>
+        /// Angles to "lean" when moving to next point
+        /// </summary>
+        private void GetLeanAndFinalRotation(Transform endPoint, out Quaternion leanRot, out Quaternion endRot)
+        {
+            leanRot = transform.rotation;
+            endRot = endPoint.rotation;
+            leanRot *= GetLeanRotation(endPoint);
+        }
+
+        private IEnumerator MovingWhileLookingAt(HelicopterMoveToData moveToData)
+        {
+            var tr = transform;
+            var p1 = moveToData.StartPos;
+            var t = moveToData.LerpT;
+            var time = moveToData.time;
+            var elapsed = t * time;
+            var leanRot= GetLeanRotation(moveToData.endPoint);
+            var leanRotT = movementSettings.leanRotT;
+            var resRot = tr.rotation;
+            while (t <= 1f)
+            {
+                tr.position = Vector3.Lerp(p1, moveToData.endPoint.position, t);
+                var targetRot = Quaternion.LookRotation(moveToData.lookAt.position - tr.position);
+                targetRot = resRot = Quaternion.RotateTowards(tr.rotation, targetRot, movementSettings.rotationSpeed * Time.deltaTime);
+                // if (t <= leanRotT)
+                //     targetRot *= Quaternion.Lerp(Quaternion.identity, leanRot, t / leanRotT);
+                // else
+                //     targetRot *= Quaternion.Lerp(leanRot, Quaternion.identity, (t - leanRotT) / (1-leanRotT));
+                tr.rotation = targetRot;
+                elapsed += Time.deltaTime * moveToData.curve.Evaluate(t);
+                moveToData.LerpT = t = elapsed / time;
+                yield return null;
+            }
+            tr.position = moveToData.endPoint.position;
+            // tr.SetPositionAndRotation(moveToData.endPoint.position, moveToData.endPoint.rotation);
+            moveToData.callback?.Invoke();
+        }        
         
         private IEnumerator MovingToPoint(HelicopterMoveToData moveToData)
         {
@@ -447,9 +482,8 @@ namespace GiantsAttack
             var t = moveToData.LerpT;
             var time = moveToData.time;
             var elapsed = t * time;
-            CalculateLeanAngles(moveToData.endPoint, out var leanRot, out var endRot);
+            GetLeanAndFinalRotation(moveToData.endPoint, out var leanRot, out var endRot);
             var leanRotT = movementSettings.leanRotT;
-            // CLog.LogRed($"****** Start t {t}, elapsed {elapsed}, time {time}");
             while (t <= 1f)
             {
                 tr.position = Vector3.Lerp(p1, moveToData.endPoint.position, t);
@@ -473,7 +507,7 @@ namespace GiantsAttack
             var r1 = tr.rotation;
             var elapsed = Time.deltaTime;
             var t = elapsed / time;
-            CalculateLeanAngles(point, out var leanRot, out var endRot);
+            GetLeanAndFinalRotation(point, out var leanRot, out var endRot);
             var leanRotT = movementSettings.leanRotT;
             while (t <= 1f)
             {

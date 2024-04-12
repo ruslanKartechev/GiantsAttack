@@ -72,6 +72,7 @@ namespace GiantsAttack
 
         private IEnumerator RotatingToLookAt(float time, Action callback)
         {
+            yield return null;
             var elapsed = Time.deltaTime;
             var t = elapsed / time;
             var rot1 = _rotatable.rotation;
@@ -79,7 +80,7 @@ namespace GiantsAttack
             {
                 var vec = (_lookAtTarget.position - _rotatable.position).XZPlane();
                 var rot2 = Quaternion.LookRotation(vec);
-                _rotatable.rotation =Quaternion.Lerp(rot1, rot2, t);
+                _rotatable.rotation = Quaternion.Lerp(rot1, rot2, t);
                 elapsed += Time.deltaTime;
                 t = elapsed / time;
                 yield return null;

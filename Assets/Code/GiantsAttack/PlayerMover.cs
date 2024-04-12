@@ -16,8 +16,7 @@ namespace GiantsAttack
         private bool _isAwaiting;
         private bool _isWaiting;
         private Coroutine _waiting;
-
-
+        
         [System.Serializable]
         public class PathNode
         {
@@ -25,10 +24,12 @@ namespace GiantsAttack
             public float moveTime;
             public AnimationCurve curve;
             public float startDelay;
+            public bool mainLookAtEnemy;
         }
 
         public IHelicopter Player { get; set; }
-
+        public IMonster Enemy { get; set; }
+        
         public void Pause(bool loiter)
         {
             StopWaiting();
@@ -69,7 +70,8 @@ namespace GiantsAttack
         private void MoveToNode(PathNode node)
         {
             _currentNode = node;
-            var data = new HelicopterMoveToData(node.point, node.moveTime, node.curve, OnMovedToNode);
+            var lookAt = node.mainLookAtEnemy ? Enemy.LookAtPoint : null;
+            var data = new HelicopterMoveToData(node.point, node.moveTime, node.curve, lookAt, OnMovedToNode);
             Player.Mover.MoveTo(data);
         }
 

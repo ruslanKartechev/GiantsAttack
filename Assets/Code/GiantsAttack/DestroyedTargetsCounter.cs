@@ -1,5 +1,4 @@
 ﻿using System;
-using GameCore.UI;
 using SleepDev;
 
 namespace GiantsAttack
@@ -31,7 +30,10 @@ namespace GiantsAttack
             CLog.Log($"[TargetsCounter] {_currentCount}/{_maxCount}");
             if (updateUI)
             {
-                _ui.UpdateCount(_currentCount);
+                if(_ui!=null)
+                    _ui.UpdateCount(_currentCount);
+                else
+                    CLog.Log($"No targets count ui");
             }
             if (_currentCount <= 0)
             {
@@ -45,7 +47,10 @@ namespace GiantsAttack
             CLog.Log($"[TargetsCounter] {_currentCount}/{_maxCount}");
             if (updateUI)
             {
-                _ui.UpdateCount(_currentCount);
+                if(_ui!=null)
+                    _ui.UpdateCount(_currentCount);
+                else
+                    CLog.Log($"No targets count ui");
             }
             if (_currentCount <= 0)
             {
