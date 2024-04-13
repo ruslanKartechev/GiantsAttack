@@ -1,5 +1,103 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &248144538728202500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8963135487986488462}
+  - component: {fileID: 6696492524692591552}
+  m_Layer: 0
+  m_Name: Pickup TOP Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8963135487986488462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248144538728202500}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6647058, y: 3.027, z: 0.9176469}
+  m_LocalScale: {x: 0.05882353, y: 0.05882353, z: 0.05882353}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7984896417802935434}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6696492524692591552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248144538728202500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 0, g: 0, b: 0, a: 1}
+  radius: 1.5
+  drawDirection: 0
+  directionLength: 1
+--- !u!1 &1514396026963114779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5323964952383927751}
+  - component: {fileID: 1400869616939154664}
+  m_Layer: 0
+  m_Name: LegKick Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5323964952383927751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514396026963114779}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.508, y: 0, z: 1.322}
+  m_LocalScale: {x: 0.05882353, y: 0.05882353, z: 0.05882353}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7984896417802935434}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1400869616939154664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514396026963114779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 0, g: 0.8232436, b: 1, a: 1}
+  radius: 1.5
+  drawDirection: 0
+  directionLength: 1
 --- !u!1 &1801692796619459945
 GameObject:
   m_ObjectHideFlags: 0
@@ -52,7 +150,7 @@ GameObject:
   - component: {fileID: 5424758423329910109}
   - component: {fileID: 6537995032643297825}
   m_Layer: 0
-  m_Name: Pickup point
+  m_Name: Pickup Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,11 +165,11 @@ Transform:
   m_GameObject: {fileID: 3113673115863453945}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.3, y: 0, z: 15.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.6647058, y: 0, z: 0.9176469}
+  m_LocalScale: {x: 0.05882353, y: 0.05882353, z: 0.05882353}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2006529882545659028}
+  m_Father: {fileID: 7984896417802935434}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6537995032643297825
 MonoBehaviour:
@@ -87,7 +185,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doDraw: 1
   color: {r: 1, g: 1, b: 1, a: 1}
-  radius: 2
+  radius: 1.5
+  drawDirection: 0
+  directionLength: 1
+--- !u!1 &5466162815484196271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3575041643649847113}
+  - component: {fileID: 7820357053439713916}
+  m_Layer: 0
+  m_Name: DropKick Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3575041643649847113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5466162815484196271}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.75, y: 0, z: 2.286}
+  m_LocalScale: {x: 0.05882353, y: 0.05882353, z: 0.05882353}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7984896417802935434}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7820357053439713916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5466162815484196271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52be4dc02aec4b50987d566ba2500181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doDraw: 1
+  color: {r: 0.03189516, g: 0, b: 1, a: 1}
+  radius: 1.5
   drawDirection: 0
   directionLength: 1
 --- !u!1 &5563574357295271582
@@ -221,12 +368,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8376371320162471523}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000011481493, y: 0.0000075553976, z: -0.000043735618, w: 1}
-  m_LocalPosition: {x: 0, y: 0.53, z: 0.02}
+  m_LocalRotation: {x: -0, y: 0.000000014901159, z: -1.3987586e-12, w: 1}
+  m_LocalPosition: {x: -0.000090713766, y: 2.066943, z: 0.0036093905}
   m_LocalScale: {x: 0.05882352, y: 0.05882353, z: 0.05882352}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2486090557993040926}
+  m_Father: {fileID: 7984896417802935434}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &13016641767118150
 PrefabInstance:
@@ -1881,10 +2028,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6870870131278851378}
-    - targetCorrespondingSourceObject: {fileID: 3679215892950861318, guid: 761de7a689409614fbe21894075cdda3,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5424758423329910109}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 845451041258651162, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
@@ -4051,11 +4194,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62c934afd8f056344844719e331dab0d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7294450275652725591}
-    - targetCorrespondingSourceObject: {fileID: 5465940246521907071, guid: 62c934afd8f056344844719e331dab0d,
+      addedObject: {fileID: 768663556606700256}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62c934afd8f056344844719e331dab0d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 768663556606700256}
+      addedObject: {fileID: 7294450275652725591}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62c934afd8f056344844719e331dab0d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5424758423329910109}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62c934afd8f056344844719e331dab0d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5323964952383927751}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62c934afd8f056344844719e331dab0d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3575041643649847113}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 62c934afd8f056344844719e331dab0d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8963135487986488462}
     - targetCorrespondingSourceObject: {fileID: 5465940246521907071, guid: 62c934afd8f056344844719e331dab0d,
         type: 3}
       insertIndex: -1

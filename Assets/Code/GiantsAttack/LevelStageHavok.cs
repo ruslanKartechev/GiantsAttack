@@ -27,6 +27,8 @@ namespace GiantsAttack
         
         public override void Activate()
         {
+            foreach (var listener in _stageListeners)
+                listener.OnActivated();
             Player.Aimer.BeginAim();
             _counter = new DestroyedTargetsCounter(CityUI, GetTotalCount(), Fail);
             SubToEnemyKill();

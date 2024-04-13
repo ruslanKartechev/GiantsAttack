@@ -1,5 +1,6 @@
 ﻿using System;
 using GameCore.Cam;
+using GameCore.Core;
 using GameCore.UI;
 using SleepDev;
 using UnityEngine;
@@ -59,9 +60,10 @@ namespace GiantsAttack
             _player.Aimer.BeginAim();
             _shooterSettingsBeforeChange = _player.Shooter.Settings;
             var slowMoShooterSettings = new ShooterSettings(_shooterSettingsBeforeChange);
-            slowMoShooterSettings.fireDelay /= 2f;
-            slowMoShooterSettings.speed *= 2f;
+            slowMoShooterSettings.fireDelay /= GlobalConfig.SlowMoFireDelayDiv;
+            slowMoShooterSettings.speed *= GlobalConfig.SlowMoBulletSpeedMult;
             _player.Shooter.Settings = slowMoShooterSettings;
+            _enemy.Health.SetDamageable(false);
         }
 
         private void OnThrowableDestroyed(IDamageable obj)
@@ -73,6 +75,7 @@ namespace GiantsAttack
             _enemyWeapon.Throwable.Explode();
             _player.Shooter.Settings = _shooterSettingsBeforeChange;
             CameraContainer.Shaker.PlayDefault();
+            _enemy.Health.SetDamageable(true);
             Complete();
         }
 

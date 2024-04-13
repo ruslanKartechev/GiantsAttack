@@ -9,12 +9,28 @@ namespace GiantsAttack
         [SerializeField] private float _duration;
         [SerializeField] private Vector2 _alphaLimits;
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private TextMeshProUGUI[] _bulletsCountTexts;
+        [SerializeField] private Color _colorLow;
+        [SerializeField] private Color _colorNormal;
+        
+        
         private Coroutine _working;
 
         private void Start()
         {
             Begin();
         }
+
+        public void ShowLowCount(byte index)
+        {
+            _bulletsCountTexts[index].color = _colorLow;
+        }
+        
+        public void ShowNormalCount(byte index)
+        {
+            _bulletsCountTexts[index].color = _colorNormal;
+        }
+
 
         public void Begin()
         {
@@ -26,6 +42,27 @@ namespace GiantsAttack
         {
             if(_working != null)
                 StopCoroutine(_working);
+        }
+
+        public void SetBulletsCount(byte index, byte count)
+        {
+            _bulletsCountTexts[index].text = $"{count}";
+        }
+        
+        public void SetCountLeftRight(byte leftCount, byte rightCount)
+        {
+            _bulletsCountTexts[0].text = $"{leftCount}";
+            _bulletsCountTexts[1].text = $"{rightCount}";
+        }
+        
+        public void SetCountLeft(byte count)
+        {
+            _bulletsCountTexts[0].text = $"{count}";
+        }
+
+        public void SetCountRight(byte count)
+        {
+            _bulletsCountTexts[1].text = $"{count}";
         }
 
         private IEnumerator Working()

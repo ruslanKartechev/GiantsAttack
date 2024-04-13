@@ -9,8 +9,8 @@ namespace GiantsAttack
     public class HelicopterInitArgs
     {
         public ShooterSettings shooterSettings;
-        public Transform enemyTransform;
         
+        [NonSerialized] public Transform enemyTransform;
         [NonSerialized] public AimerSettings aimerSettings;
         public IHitCounter hitCounter;
         public IPlayerCamera camera;

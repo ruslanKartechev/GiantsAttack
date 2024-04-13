@@ -81,6 +81,7 @@ namespace GiantsAttack
         
         public void RotateToLook(Vector3 lookAtPosition, float time, Action onEnd, bool centerInternal = true)
         {
+            CLog.LogRed($"********************* ROTATING TO LOOK AT {lookAtPosition}");
             StopRotating();
             _rotating = StartCoroutine(RotatingToLookAt(lookAtPosition, time, onEnd, centerInternal));
         }
@@ -130,7 +131,10 @@ namespace GiantsAttack
                 CLog.Log($"[{nameof(HelicopterMover)}] _currentMoveToData == null. Cannot resume");
                 return false;
             }
-            _currentMoveToData.time *= 1 - _currentMoveToData.LerpT;
+
+            var d = (_currentMoveToData.endPoint.position - _currentMoveToData.StartPos).sqrMagnitude;
+            var md = (_currentMoveToData.endPoint.position - _movable.position).sqrMagnitude;
+            _currentMoveToData.time *= Mathf.Sqrt(md / d);
             _currentMoveToData.RefreshStartPosAndRot(_movable);
             MoveTo(_currentMoveToData);
             return true;
@@ -452,8 +456,8 @@ namespace GiantsAttack
             var t = moveToData.LerpT;
             var time = moveToData.time;
             var elapsed = t * time;
-            var leanRot= GetLeanRotation(moveToData.endPoint);
-            var leanRotT = movementSettings.leanRotT;
+            // var leanRot= GetLeanRotation(moveToData.endPoint);
+            // var leanRotT = movementSettings.leanRotT;
             var resRot = tr.rotation;
             while (t <= 1f)
             {

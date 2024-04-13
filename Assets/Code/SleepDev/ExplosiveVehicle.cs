@@ -42,10 +42,9 @@ namespace SleepDev
         {
             PlayParticles();
             _collider.enabled = true;
-            _collider.isTrigger = false;
             _rb.isKinematic = false;
-            _rb.AddForce(forceVector, ForceMode.Impulse);
             _rb.AddTorque(Vector3.Cross(-forceVector, Vector3.up), ForceMode.Impulse);
+            _rb.AddForce(forceVector, ForceMode.Impulse);
         }
 
         private void PlayParticles()

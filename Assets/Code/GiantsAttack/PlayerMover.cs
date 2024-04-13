@@ -77,7 +77,7 @@ namespace GiantsAttack
 
         private void OnMovedToNode()
         {
-            CLog.Log($"[{nameof(PlayerMover)}] On moved to node index {_nodeIndex}");
+            CLog.Log($"[{nameof(PlayerMover)}] None: {_nodes[_nodeIndex].point.name}, Ind: {_nodeIndex}");
             _nodeIndex++;
             if (_nodeIndex >= _nodes.Count)
             {

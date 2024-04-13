@@ -14,9 +14,9 @@ namespace GiantsAttack
             _rb.isKinematic = false;
             _collider.enabled = true;
             var vec = (_rb.position - center).normalized;
-            _rb.AddForce( vec* force, ForceMode.Impulse);
+            _rb.AddForce( vec* force, ForceMode.VelocityChange);
             var torque = Vector3.Cross(vec, Vector3.up);
-            _rb.AddTorque( torque * (force * .5f), ForceMode.Impulse);
+            _rb.AddTorque( torque * (force * .5f), ForceMode.VelocityChange);
         }
         
         #if UNITY_EDITOR

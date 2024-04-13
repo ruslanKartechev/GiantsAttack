@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameCore.Cam;
 using SleepDev;
-using SleepDev.Ragdoll;
 using UnityEngine;
 
 namespace GiantsAttack

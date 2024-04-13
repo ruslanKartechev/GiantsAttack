@@ -24,8 +24,7 @@ namespace GiantsAttack
         private PlayerCamera _camera;
         private int _stageIndex = 0;
         private bool _isFinalizing;
-        private bool _startSequenceComplete;
-        private bool _gameplayStartCalled;
+        private byte _startReadyStage;
 
         private IMonster _enemy;
         private IPlayerMover _playerMover;
@@ -115,7 +114,8 @@ namespace GiantsAttack
             if (_useStartUi)
                 ShowStartUI();
             else
-                BeginGameplay();
+                _player.CameraPoints.MoveCameraToInside(OnCameraSet);
+
         }
 
         public override void Win()
@@ -180,7 +180,7 @@ namespace GiantsAttack
         private void OnStartLevel()
         {
             GCon.UIFactory.GetStartMenu().Hide(() => {});
-            _player.CameraPoints.MoveCameraToInside(BeginGameplay);
+            _player.CameraPoints.MoveCameraToInside(OnCameraSet);
         }
         
         private void SpawnPlayer()
@@ -208,18 +208,23 @@ namespace GiantsAttack
             _enemy.SetMoveAnimationSpeed(_moveAnimationSpeed);
         }
 
+        private void OnCameraSet()
+        {
+            _player.Shooter.Gun.PlayGunsInstallAnimation();
+            _startReadyStage++;
+            if(_startReadyStage == 2)
+                BeginGameplay();
+        }
+
         private void OnStartSequenceFinished()
         {
-            _startSequenceComplete = true;
-            if(_gameplayStartCalled)
+            _startReadyStage++;
+            if(_startReadyStage == 2)
                 BeginGameplay();
         }
         
         private void BeginGameplay()
         {
-            _gameplayStartCalled = true;
-            if (!_startSequenceComplete)
-                return;
             _playerMover.Begin();
             _stages[_stageIndex].Activate();
         }

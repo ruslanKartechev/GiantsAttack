@@ -8,12 +8,16 @@ namespace GiantsAttack
 {
     public class HelicopterShooter : MonoBehaviour, IHelicopterShooter
     {
-        [SerializeField] private float _delayBetweenBarrels;
+        [SerializeField] private byte _countPerBarrel = 100;
         [SerializeField] private Transform _shootDirection;
+        [SerializeField] private HelicopterAnimatedDisplay _display;
+        private byte[] _barrelCounts;
         private Coroutine _shooting;
         private Camera _camera;
         private Coroutine _working;
-        
+        private bool _isShooting;
+        private bool _isReloading;
+
         public ShooterSettings Settings { get; set; }
         public Transform FromPoint { get; set; }
         public Transform AtPoint { get; set; }
@@ -28,24 +32,25 @@ namespace GiantsAttack
             Settings = settings;
             HitCounter = hitCounter;
             _camera = Camera.main;
+            _barrelCounts = new byte[Gun.Barrels.Count];
+            UpdatePerBarrelCounts();
         }
 
         public void StopShooting()
         {
-            if(_working != null)
-                StopCoroutine(_working);
-            foreach (var barrel in Gun.Barrels)
-                barrel.Rotate(false);
+            _isShooting = false;
+            StopShootingLoop();
         }
 
         public void BeginShooting()
         {
-            StopShooting();
+            StopShootingLoop();
+            _isShooting = true;
             _working = StartCoroutine(Shooting());
             foreach (var barrel in Gun.Barrels)
                 barrel.Rotate(true);
         }
-
+        
         public void RotateToScreenPos(Vector3 aimPos)
         {
             const float camDepth = 150;
@@ -54,12 +59,65 @@ namespace GiantsAttack
                 _camera.ScreenToWorldPoint(aimPos) - _shootDirection.position);
         }
 
+        private void StopShootingLoop()
+        {
+            if(_working != null)
+                StopCoroutine(_working);
+            foreach (var barrel in Gun.Barrels)
+                barrel.Rotate(false);
+        }
+        
+        private void UpdatePerBarrelCounts()
+        {
+            for (byte index = 0; index < _barrelCounts.Length; index++)
+            {
+                _barrelCounts[index] = _countPerBarrel;
+                _display.ShowNormalCount(index);
+                _display.SetBulletsCount(index, _countPerBarrel);
+            }
+        }
+
+        private void MinusCount(byte index)
+        {
+            if(_barrelCounts[index] != 0)
+                _barrelCounts[index]--;
+            if(_barrelCounts[index] < 10)
+                _display.ShowLowCount(index);
+            _display.SetBulletsCount(index, _barrelCounts[index]);
+        }
+
+        private bool CheckReload()
+        {
+            foreach (var count in _barrelCounts)
+            {
+                if (count > 0)
+                    return false;
+            }
+            return true;
+        }
+
+        private void Reload()
+        {
+            StopShootingLoop();
+            Gun.PlayReload(OnReloaded);
+        }
+
+        private void OnReloaded()
+        {
+            UpdatePerBarrelCounts();
+            if(_isShooting)
+                BeginShooting();
+        }
+
         private IEnumerator Shooting()
         {
             while (true)
             {
-                foreach (var barrel in Gun.Barrels)
+                for (byte i = 0; i < Gun.Barrels.Count; i++)
                 {
+                    if(_barrelCounts[i] == 0)
+                        continue;
+                    var barrel = Gun.Barrels[i];
                     var bullet = GCon.PoolsManager.BulletsPool.GetObject();
                     bullet.SetRotation(barrel.FromPoint.rotation);
                     float damage = 0f;
@@ -77,14 +135,17 @@ namespace GiantsAttack
 #endif
                     args.damage = damage;
                     bullet.Scale(1f);
-                    bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, 
-                        speed:Settings.speed, args, HitCounter, DamageHitsUI);
+                    bullet.Launch(barrel.FromPoint.position, _shootDirection.forward,
+                        speed: Settings.speed, args, HitCounter, DamageHitsUI);
                     var casing = GCon.PoolsManager.BulletCasingsPool.GetObject();
                     casing.Drop(barrel.DropPoint);
                     barrel.Recoil();
-                    yield return new WaitForSeconds(_delayBetweenBarrels);
+                    MinusCount(i);
+                    if(CheckReload())
+                        Reload();
+                    yield return new WaitForSeconds(Settings.fireDelay);
                 }
-                yield return new WaitForSeconds( Settings.fireDelay);
+                yield return null;
             }
         }
         

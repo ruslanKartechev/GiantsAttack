@@ -14,6 +14,7 @@ namespace GiantsAttack
         [SerializeField] private AnimType _animType;
         [SerializeField] private ParticleSystem _jumpParticles;
         [SerializeField] private List<AnimatedVehicleBase> _vehicles;
+        [SerializeField] private List<StageListener> _listeners;
         [SerializeField] private float _pushBackForce;
         [SerializeField] private float _endCallbackDelay;
         private Action _callback;
@@ -27,6 +28,8 @@ namespace GiantsAttack
         public override void Begin(Action onEnd)
         {
             _callback = onEnd;
+            foreach (var ll in _listeners)
+                ll.OnActivated();
             switch (_animType)
             {
                 case AnimType.JumpDown:

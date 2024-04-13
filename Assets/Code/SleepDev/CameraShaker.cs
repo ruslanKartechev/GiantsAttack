@@ -31,12 +31,15 @@ namespace SleepDev
             var timeStep = 1f / args.freqDefault;
             while (elapsed <= args.durationDefault)
             {
-                var pos = UnityEngine.Random.onUnitSphere * args.forceDefault;
-                _movable.localPosition = pos;
+                var eulers = (Vector3)UnityEngine.Random.insideUnitCircle * args.forceDefault;
+                // var pos = UnityEngine.Random.onUnitSphere * args.forceDefault;
+                // _movable.localPosition = pos;
+                _movable.localRotation = Quaternion.Euler(eulers);
                 yield return new WaitForSeconds(timeStep);
                 elapsed += timeStep;
             }
-            _movable.localPosition = Vector3.zero;
+            // _movable.localPosition = Vector3.zero;
+            _movable.localRotation = Quaternion.identity;
         }
     }
 }

@@ -52,7 +52,6 @@ MonoBehaviour:
   _animRootBone: {fileID: 0}
   _facePoint: {fileID: 0}
   _lookAtPoint: {fileID: 0}
-  _armorData: []
   _armorManager: {fileID: 354091559413636211}
   _eventReceiver: {fileID: 0}
   _sectionsManager: {fileID: 1986947675657546427}
@@ -137,7 +136,6 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     _flicker: {fileID: 0}
-  _uiPrefab: {fileID: 0}
   e_maxHealth: 500
   e_ragdoll: {fileID: 0}
 --- !u!114 &354091559413636211
@@ -152,7 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9daddd1ee8494799ab202c33ae74a9c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pushForce: 100
+  _pushForce: 20
   _centerPoint: {fileID: 0}
   _parents: []
   _armorData: []
+  e_peices: []
+  e_names: []

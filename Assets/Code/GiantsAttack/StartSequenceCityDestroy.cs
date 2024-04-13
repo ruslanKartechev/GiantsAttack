@@ -21,6 +21,8 @@ namespace GiantsAttack
             ui.SetCount(count, count);
             ui.Show(() => { });
             _stage.CityUI = ui;
+            if (_otherSequence == this)
+                return;
             _otherSequence.Enemy = Enemy;
             _otherSequence.Begin(onEnd);
         }

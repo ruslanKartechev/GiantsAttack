@@ -35,9 +35,9 @@ namespace GiantsAttack
 
             Damageable = GetComponent<HelicopterHealth>();
             Aimer.Init(args.aimerSettings, Shooter, args.controlsUI, args.aimUI);
-            Shooter.Init(args.shooterSettings, args.hitCounter);
             var gun = _gun.GetComponent<IHelicopterGun>();
             Shooter.Gun = gun;
+            Shooter.Init(args.shooterSettings, args.hitCounter);
             CameraPoints.SetCamera(args.camera);
             _altitudeMeter.Begin();
             _compas.BeginTracking(args.enemyTransform);
@@ -63,6 +63,7 @@ namespace GiantsAttack
             Mover.StopAll();
             Aimer.StopAim();
             Shooter.StopShooting();
+            Shooter.Gun.StopAnimations();
             Destroyer.DestroyMe();
         }
 

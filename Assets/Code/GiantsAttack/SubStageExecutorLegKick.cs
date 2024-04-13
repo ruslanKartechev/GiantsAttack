@@ -23,6 +23,7 @@ namespace GiantsAttack
         {
             if (_isStopped) return;
             var target = _stage.enemyTarget.GetComponent<AnimatedVehicleBase>();
+            target.StopMovement();
             target.ExplodeDefaultDirection();
             MinusTarget();
         }

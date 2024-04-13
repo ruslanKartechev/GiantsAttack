@@ -94,7 +94,7 @@ namespace GiantsAttack
         private void OnEvadeEnd()
         {
             if (_isStopped) return;
-            CLog.Log($"[SubStageExecutor] Evaded...");
+            _enemyWeapon.Throwable.Hide();
             _player.Aimer.BeginAim();
             Complete();
             _playerMover.Resume();

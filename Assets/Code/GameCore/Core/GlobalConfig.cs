@@ -8,20 +8,24 @@ namespace GameCore.Core
         /// Constants
         public const string PlayerTag = "Player";
 
-        /// 
-        public static float DamageMultiplier;
-
         /// Global Static Config
         public static LayerMask BulletMask;
+        public static float SlowMoBulletSpeedMult = 1f;
+        public static float SlowMoFireDelayDiv = 1f;
+        public static float DamageMultiplier =1f;
         /// 
 
         public LayerMask bulletMask;
         public float damageMultiplier;
-
+        public float slowMoBulletSpeedMult = 1f;
+        public float slowMoFireDelayDiv = 1f;
+        
         public void SetupStaticFields()
         {
             BulletMask = bulletMask;
             DamageMultiplier = damageMultiplier;
+            SlowMoBulletSpeedMult = slowMoBulletSpeedMult;
+            SlowMoFireDelayDiv = slowMoFireDelayDiv;
         }
     }
     
