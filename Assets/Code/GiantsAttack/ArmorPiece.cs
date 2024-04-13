@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GiantsAttack
 {
@@ -17,5 +18,21 @@ namespace GiantsAttack
             var torque = Vector3.Cross(vec, Vector3.up);
             _rb.AddTorque( torque * (force * .5f), ForceMode.Impulse);
         }
+        
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_rb == null)
+            {
+                _rb = GetComponent<Rigidbody>();
+                UnityEditor.EditorUtility.SetDirty(this);
+            }
+            if (_collider == null)
+            {
+                _collider = GetComponent<Collider>();
+                UnityEditor.EditorUtility.SetDirty(this);
+            }
+        }
+#endif
     }
 }

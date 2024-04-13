@@ -638,6 +638,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     startDelay: 0
+    mainLookAtEnemy: 0
   - point: {fileID: 2410665407309768301}
     moveTime: 4
     curve:
@@ -674,6 +675,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     startDelay: 0
+    mainLookAtEnemy: 0
   - point: {fileID: 9013444263062435627}
     moveTime: 4
     curve:
@@ -710,6 +712,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     startDelay: 0
+    mainLookAtEnemy: 0
   - point: {fileID: 7723770062687825967}
     moveTime: 4
     curve:
@@ -746,6 +749,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     startDelay: 0
+    mainLookAtEnemy: 0
   - point: {fileID: 4597683887061890516}
     moveTime: 4
     curve:
@@ -782,6 +786,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     startDelay: 0
+    mainLookAtEnemy: 0
   _startPoint: {fileID: 1881690079017666815}
   e_drawGizmos: 1
   e_moveSpeed: 0
@@ -823,6 +828,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6909319543724384394}
   - component: {fileID: 3068090129992530905}
+  - component: {fileID: 6706670903613548915}
   - component: {fileID: 1072375370877847808}
   m_Layer: 0
   m_Name: level_base_1
@@ -866,6 +872,7 @@ MonoBehaviour:
   _useStartUi: 1
   _enemyHealth: 2000
   _moveAnimationSpeed: 0.7
+  _enemyID: {fileID: 11400000, guid: e67510fb7c0219946961d627cfde298d, type: 2}
   _aimerSettings: {fileID: 11400000, guid: 03d5fe40acb33f64b82bcad154ccaac5, type: 2}
   _initArgs:
     shooterSettings:
@@ -876,12 +883,24 @@ MonoBehaviour:
       critDamage: 35
     enemyTransform: {fileID: 0}
   _playerSpawnPoint: {fileID: 1881690079017666815}
-  _enemy: {fileID: 0}
   _stages: []
   _startSequence: {fileID: 0}
   _finalSequence: {fileID: 2405355939250511605}
   _failSequence: {fileID: 1072375370877847808}
   _playerMoverGo: {fileID: 6037839630966917803}
+--- !u!114 &6706670903613548915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7622913673418132720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86cba75375c447d8bb1482726ce3d6e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnPoint: {fileID: 8522963563568094426}
 --- !u!114 &1072375370877847808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,6 +913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846872af4ed245a98ca0c84319850db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _delay: 1
   _camMoveTime: 1
 --- !u!1 &7720435543605492140
 GameObject:

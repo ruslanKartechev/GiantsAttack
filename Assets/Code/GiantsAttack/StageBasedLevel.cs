@@ -7,16 +7,15 @@ using SleepDev;
 
 namespace GiantsAttack
 {
- 
     public class StageBasedLevel : GameCore.Levels.Level, IStageResultListener
     {
         [SerializeField] private bool _useStartUi = true;
         [SerializeField] private float _enemyHealth = 1000;
         [SerializeField] private float _moveAnimationSpeed = .8f;
+        [SerializeField] private EnemyID _enemyID;
         [SerializeField] private AimerSettingsSo _aimerSettings;
         [SerializeField] private HelicopterInitArgs _initArgs;
         [SerializeField] private Transform _playerSpawnPoint;
-        [SerializeField] private MonsterController _enemy;
         [SerializeField] private List<LevelStage> _stages;
         [SerializeField] private LevelStartSequence _startSequence;
         [SerializeField] private LevelFinalSequence _finalSequence;
@@ -28,6 +27,7 @@ namespace GiantsAttack
         private bool _startSequenceComplete;
         private bool _gameplayStartCalled;
 
+        private IMonster _enemy;
         private IPlayerMover _playerMover;
         private IHelicopter _player;
         private IHitCounter _hitCounter;
@@ -95,21 +95,23 @@ namespace GiantsAttack
             _initArgs.aimerSettings = _aimerSettings.aimerSettings;
             _gameplayMenu = GCon.UIFactory.GetGameplayMenu() as IGameplayMenu;
             _initArgs.aimUI = _gameplayMenu.AimUI;
-            // init player
-            SpawnAndInitPlayer();
+            // spawning
+            SpawnEnemy();
+            SpawnPlayer();
+            // init
+            InitPlayer();
             InitEnemy();
-            //
+            _player.CameraPoints.SetCameraToOutside();
+            // player mover
             _playerMover.Player = _player;
             _playerMover.Enemy = _enemy;
-            //
+            _player.Mover.Loiter();
+            // stages
             foreach (var st in _stages)
                 InitStage(st);
-            _player.CameraPoints.SetCameraToOutside();
             StartTiming();
-            _player.Mover.Loiter();
             _startSequence.Enemy = _enemy;
             _startSequence.Begin(OnStartSequenceFinished);
-            
             if (_useStartUi)
                 ShowStartUI();
             else
@@ -181,14 +183,23 @@ namespace GiantsAttack
             _player.CameraPoints.MoveCameraToInside(BeginGameplay);
         }
         
-        private void SpawnAndInitPlayer()
+        private void SpawnPlayer()
+        {
+            var spawner = new HelicopterSpawner();
+            _player = spawner.SpawnAt(_playerSpawnPoint, _playerSpawnPoint.parent);
+        }
+        
+        private void SpawnEnemy()
+        {
+            var spawner = GetComponent<IEnemySpawner>();
+            _enemy = spawner.SpawnEnemy(_enemyID);
+        }
+        
+        private void InitPlayer()
         {
             _initArgs.enemyTransform = _enemy.Point;
-            var spawner = new HelicopterSpawner();
-            var player = spawner.SpawnAt(_playerSpawnPoint, _playerSpawnPoint.parent);
-            player.Init(_initArgs);
-            player.Shooter.DamageHitsUI = _gameplayMenu.DamageHits;
-            _player = player;
+            _player.Init(_initArgs);
+            _player.Shooter.DamageHitsUI = _gameplayMenu.DamageHits;
         }
 
         private void InitEnemy()
