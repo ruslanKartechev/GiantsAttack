@@ -13,7 +13,7 @@ namespace GiantsAttack
         EvadeThrown, ShootDownThrown, AOE
     }
         
-    public enum AnimationType { Move, Animate }
+    public enum AnimationType { Move, Animate, None }
     
     [System.Serializable]
     public class SubStage : MonoBehaviour

@@ -18,6 +18,9 @@ GameObject:
   - component: {fileID: 166785513705648017}
   - component: {fileID: 4633094776462259332}
   - component: {fileID: 2517778739460425820}
+  - component: {fileID: 6011460063412688525}
+  - component: {fileID: 127800130689542352}
+  - component: {fileID: 4638661288571416197}
   m_Layer: 0
   m_Name: GameBooter
   m_TagString: Untagged
@@ -40,6 +43,7 @@ Transform:
   m_Children:
   - {fileID: 7837066802919764035}
   - {fileID: 1507358580375245993}
+  - {fileID: 5202628019037636715}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5572787258656604687
@@ -57,6 +61,7 @@ MonoBehaviour:
   _bootSettings: {fileID: 11400000, guid: 9c32dbcf87ba3334aa42a141cc9bac18, type: 2}
   _fpsCanvasPrefab: {fileID: 0}
   _poolsManagerGo: {fileID: 8053271679712766498}
+  _soundManager: {fileID: 691272928561019360}
   _analytics: {fileID: 0}
   _ads: {fileID: 0}
 --- !u!114 &934235089907457102
@@ -77,6 +82,9 @@ MonoBehaviour:
   _playerDataCheat:
     _money: 0
     _levelsTotal: 0
+    _soundStatus: 1
+    _soundVolume: 1
+    _vibrationStatus: 1
 --- !u!114 &2507308224028258017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +187,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954c8bf810874cdaaf680ceab2bee80b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6011460063412688525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691272928561019360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3951a6ce8b284fadb5005631490e8d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parent: {fileID: 5202628019037636715}
+  _startSourcesCount: 50
+--- !u!114 &127800130689542352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691272928561019360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e553743643564953ae725a460be8b272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundIds:
+  - {fileID: 11400000, guid: 154231a2b448eeb40b57cfa10b34a698, type: 2}
+  - {fileID: 11400000, guid: 463353832c90a1c4382a4407a3c02cae, type: 2}
+--- !u!114 &4638661288571416197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691272928561019360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ecfea96ac294b5892a6809ef680cd86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bootSettings: {fileID: 11400000, guid: 9c32dbcf87ba3334aa42a141cc9bac18, type: 2}
+  _musicPlayer: {fileID: 127800130689542352}
 --- !u!1 &1327081466539508972
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +298,37 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+--- !u!1 &1860923225934106216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5202628019037636715}
+  m_Layer: 0
+  m_Name: sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5202628019037636715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860923225934106216}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1489272904718696802}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5513783600112845336
 GameObject:
   m_ObjectHideFlags: 0

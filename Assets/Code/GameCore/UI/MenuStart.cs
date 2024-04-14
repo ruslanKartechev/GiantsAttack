@@ -1,4 +1,5 @@
 ﻿using System;
+using SleepDev.Sound;
 using SleepDev.UIUtils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ namespace GameCore.UI
     {
         [SerializeField] private PopAnimator _popAnimator;
         [SerializeField] private Button _playButton;
+        [SerializeField] private SoundSo _clickSound;
         private Action _callback;
         
         public GameObject Go => gameObject;
@@ -62,6 +64,7 @@ namespace GameCore.UI
         
         private void OnPlay()
         {
+            _clickSound.Play();
             _callback?.Invoke();
         }
         

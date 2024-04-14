@@ -51,6 +51,7 @@ namespace GiantsAttack
 
         private void OnEnemyMovedToStart()
         {
+            Enemy.Animate("Walk", false);
             _enemyMover.Speed = _enemyStartSpeed;
             _enemyMover.InterpolationT = _enemyStartSplineT;
             _enemyMover.MoveNow();

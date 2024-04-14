@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -9,6 +10,7 @@ namespace GiantsAttack
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform _rotatable;
         [SerializeField] private List<HelicopterGunBarrel> _barrels;
+        [SerializeField] private SoundSo _reloadSound;
         private Action _onReloaded;
         
         public List<HelicopterGunBarrel> Barrels => _barrels;
@@ -35,6 +37,11 @@ namespace GiantsAttack
         {
             _onReloaded?.Invoke();
             _onReloaded = null;
+        }
+
+        public void AnimEvent_OnReloadSound()
+        {
+            _reloadSound.Play();
         }
         
     }

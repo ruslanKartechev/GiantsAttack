@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameCore.Cam;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -17,6 +18,7 @@ namespace GiantsAttack
         [SerializeField] private List<StageListener> _listeners;
         [SerializeField] private float _pushBackForce;
         [SerializeField] private float _endCallbackDelay;
+        [SerializeField] private SoundSo _groundHitSound;
         private Action _callback;
 
         #if UNITY_EDITOR
@@ -51,6 +53,7 @@ namespace GiantsAttack
             _jumpParticles.Play();
             foreach (var v in _vehicles)
                 v.ExplodeFromCenter(Enemy.Point.position, _pushBackForce);
+            _groundHitSound?.Play();
             Delay(_callback, _endCallbackDelay);
         }
     }

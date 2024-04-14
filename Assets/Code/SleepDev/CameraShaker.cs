@@ -29,16 +29,17 @@ namespace SleepDev
         {
             var elapsed = 0f;
             var timeStep = 1f / args.freqDefault;
+            var force = args.forceDefault;
+            var forceMax = force;
+            var forceMin = force * .25f;
             while (elapsed <= args.durationDefault)
             {
-                var eulers = (Vector3)UnityEngine.Random.insideUnitCircle * args.forceDefault;
-                // var pos = UnityEngine.Random.onUnitSphere * args.forceDefault;
-                // _movable.localPosition = pos;
+                var eulers = (Vector3)UnityEngine.Random.insideUnitCircle * force;
                 _movable.localRotation = Quaternion.Euler(eulers);
                 yield return new WaitForSeconds(timeStep);
                 elapsed += timeStep;
+                force = Mathf.Lerp(forceMin, forceMax, elapsed / args.durationDefault);
             }
-            // _movable.localPosition = Vector3.zero;
             _movable.localRotation = Quaternion.identity;
         }
     }

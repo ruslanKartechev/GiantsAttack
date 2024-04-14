@@ -200,6 +200,7 @@ MonoBehaviour:
   _barrels:
   - {fileID: 3888111322801801738}
   - {fileID: 3660810499493285264}
+  _reloadSound: {fileID: 11400000, guid: 8a30593dfb8c768409b5d86a3da3ffe4, type: 2}
 --- !u!95 &306607388002798848
 Animator:
   serializedVersion: 5
@@ -2212,6 +2213,7 @@ MonoBehaviour:
   _bladeParticles:
   - {fileID: 5089954310092058473}
   _internalTransform: {fileID: 4448599431444013075}
+  _helicopterSound: {fileID: 11400000, guid: 257a0ffec30ba38489a15dc64c5935fc, type: 2}
 --- !u!114 &6019612384052220993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2286,6 +2288,7 @@ MonoBehaviour:
   _countPerBarrel: 33
   _shootDirection: {fileID: 6146981450273323367}
   _display: {fileID: 6152813002330898636}
+  _fireSound: {fileID: 11400000, guid: 40076240ffcd48f47bbab072f52fe8e5, type: 2}
 --- !u!114 &4213751461523378110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2733,6 +2736,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: minigun l
       objectReference: {fileID: 0}
+    - target: {fileID: 8096374049208971760, guid: 24cc469bfa751a1418904b5014c0b103,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2870,6 +2878,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: minigun r
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096374049208971760, guid: 24cc469bfa751a1418904b5014c0b103,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

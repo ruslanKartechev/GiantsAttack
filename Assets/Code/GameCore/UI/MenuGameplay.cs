@@ -1,4 +1,5 @@
 ﻿using System;
+using SleepDev.Sound;
 using UnityEngine;
 using UnityEngine.UI;
 using GCon = GameCore.Core.GCon;
@@ -14,6 +15,7 @@ namespace GameCore.UI
         [SerializeField] private EvadeUI _evadeUI;
         [SerializeField] private ShootAtTargetUI _shootAtTargetUI;
         [SerializeField] private BodySectionsUI _bodySectionsUI;
+        [SerializeField] private SoundSo _clickSound;
 
         public IAimUI AimUI => _aimUI;
         public IUIDamagedEffect DamagedEffect => _damagedEffect;
@@ -57,6 +59,7 @@ namespace GameCore.UI
         
         private void ShowPause()
         {
+            _clickSound.Play();
             var pause = GCon.UIFactory.GetPauseUI();
             pause.Show(() => {});
         }

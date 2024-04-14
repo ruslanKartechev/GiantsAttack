@@ -37,14 +37,13 @@ namespace GiantsAttack
         private void CallNextLevel()
         {
             CLog.Log($"[LevelUtils] On Next level button");
-            GCon.LevelManager.NextLevel();
-            GCon.LevelManager.LoadCurrent();
+            GameCore.Levels.LevelUtils.CallNextLevel();
         }
 
         private void CalLReplayLevel()
         {
             CLog.Log($"[LevelUtils] On Replay level button");
-            GCon.LevelManager.LoadCurrent();
+            GameCore.Levels.LevelUtils.CallReplay();
         }
     }
 }

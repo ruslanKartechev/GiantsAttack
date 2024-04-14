@@ -14,6 +14,7 @@ namespace GiantsAttack
         [SerializeField] private GameObject _throwable;
         [SerializeField] private bool _doAnimateThrowable;
         [SerializeField] private float _animateThrowableDelay;
+        [SerializeField] private AnimationType _animType;
         [Header("Throwing")] 
         [SerializeField] private bool _pickFromTop;
         [SerializeField] private float _pickDelay = 0;
@@ -70,7 +71,17 @@ namespace GiantsAttack
                 Delay(() =>
                 {
                     if (!_isStopped)
-                        _enemyWeapon.AnimatedVehicle.Move();
+                    {
+                        switch (_animType)
+                        {
+                            case AnimationType.Move:
+                                _enemyWeapon.AnimatedVehicle.Move();
+                                break;
+                            case AnimationType.Animate:
+                                _enemyWeapon.AnimatedVehicle.AnimateMove();
+                                break;
+                        }
+                    }
                 }, _animateThrowableDelay);
             }
             if (_doMoveEnemy)

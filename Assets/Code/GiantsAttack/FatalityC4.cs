@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using SleepDev;
+using SleepDev.Sound;
 using SleepDev.Utils;
 using UnityEngine;
 
@@ -33,13 +34,13 @@ namespace GiantsAttack
 
         [SerializeField] private float _moveDuration;
         [SerializeField] private float _nextFuseDelay;
-        [SerializeField] private float _explosionDelay;
         [SerializeField] private float _soulsDelay;
         
         [SerializeField] private List<GameObject> _movables;
         [SerializeField] private MoveArgs _moveArgs;
         [SerializeField] private ParticleSystem _soulsParticles;
-        
+        [SerializeField] private SoundSo _explosionSound;
+
         private Action _onEnd;
 
         public IHelicopter Player { get; set; }
@@ -70,6 +71,7 @@ namespace GiantsAttack
                 yield return new WaitForSeconds(_nextFuseDelay);
             }
             yield return null;
+            _explosionSound.Play();
             foreach (var mb in _movables)
             {
                 mb.transform.GetChild(0).gameObject.SetActive(false);

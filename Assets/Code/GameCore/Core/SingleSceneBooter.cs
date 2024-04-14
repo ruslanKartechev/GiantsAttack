@@ -1,4 +1,5 @@
 ﻿using SleepDev;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GameCore.Core
@@ -9,7 +10,8 @@ namespace GameCore.Core
         private static SingleSceneBooter _inst;
         [SerializeField] private bool _work;
         [SerializeField] private BootSettings _bootSettings;
-        [SerializeField] private ObjectPoolsManager _poolsManager;   
+        [SerializeField] private ObjectPoolsManager _poolsManager;
+        [SerializeField] private GameObject _soundManager;
         
         private void Awake()
         {
@@ -23,22 +25,25 @@ namespace GameCore.Core
 
         private void Start()
         {
-            if (!_work 
-                || !GlobalState.DevSceneMode 
-                || GlobalState.SingleModeInitiated)
+            if (!_work || !GlobalState.DevSceneMode || GlobalState.SingleModeInitiated)
             {
                 DestroyImmediate(gameObject);
                 return;
             }
             DontDestroyOnLoad(gameObject);
             GlobalState.SingleModeInitiated = true;
-            GameManager.SetUSCulture();
             if (_bootSettings.CapFPS)
                 Application.targetFrameRate = _bootSettings.FpsCap;
             var locator = gameObject.GetComponent<IGConLocator>();
             locator.InitContainer();
             var dataInit = gameObject.GetComponent<ISaveInitializer>();
             dataInit.InitSavedData();
+            
+            GameManager.SetUSCulture();
+            GameManager.InitVibration();
+            var soundManager = _soundManager.GetComponent<ISoundManager>();
+            GameManager.InitSound(soundManager);
+            
             _poolsManager.BuildPools();
         }
 

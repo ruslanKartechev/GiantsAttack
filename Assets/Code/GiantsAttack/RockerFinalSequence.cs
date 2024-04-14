@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GameCore.Core;
 using GameCore.UI;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -20,7 +21,9 @@ namespace GiantsAttack
         [SerializeField] private float _endcallbackDelay = .44f;
         [SerializeField] private float _afterEnemyAnimationDelay;
         [SerializeField] private float _lookAtEnemyUpOffset = 20;
-        
+        [SerializeField] private SoundSo _winSound;
+        [SerializeField] private SoundSo _finishHimSound;
+
         private Action _endCallback;
         private GameObject _camPointsParent;
         private bool _enemyAnimated;
@@ -55,6 +58,7 @@ namespace GiantsAttack
             ui.Show(() => {});
             ui.RouletteUI.OnButtonCallback += OnTypeSelected; 
             ui.RouletteUI.Begin();
+            _finishHimSound.Play();
         }
 
         private void OnTypeSelected()
@@ -91,6 +95,7 @@ namespace GiantsAttack
         private void OnFatalityEnd()
         {
             Invoke(nameof(RaiseCallback), _endcallbackDelay);
+            _winSound.Play();
         }
         
         private void RaiseCallback()

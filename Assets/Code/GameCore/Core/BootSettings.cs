@@ -16,5 +16,7 @@ namespace GameCore.Core
         [Space(10)] 
         public bool doPeriodicSave = true;
         public float dataSavePeriod = 10;
+        [Space(10)] 
+        public bool playMusicOnStart;
     }
 }

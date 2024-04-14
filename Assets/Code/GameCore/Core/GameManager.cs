@@ -1,4 +1,5 @@
 #define SDK
+using System;
 using System.Collections;
 using System.Globalization;
 using System.Threading;
@@ -6,6 +7,8 @@ using MadPixelAnalytics;
 using MAXHelper;
 using SleepDev;
 using SleepDev.Saving;
+using SleepDev.Sound;
+using SleepDev.Vibration;
 using UnityEngine;
 
 namespace GameCore.Core
@@ -16,6 +19,7 @@ namespace GameCore.Core
         [SerializeField] private BootSettings _bootSettings;
         [SerializeField] private GameObject _fpsCanvasPrefab;
         [SerializeField] private GameObject _poolsManagerGo;
+        [SerializeField] private GameObject _soundManager;
 #if SDK
         [SerializeField] private AnalyticsManager _analytics;
         [SerializeField] private AdsManager _ads;
@@ -25,8 +29,17 @@ namespace GameCore.Core
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
         }
-        
-        
+
+        public static void InitSound(ISoundManager soundManager)
+        {
+            soundManager.Init(GCon.PlayerData.SoundStatus, GCon.PlayerData.SoundVolume);
+        }
+
+        public static void InitVibration()
+        {
+            var vibr = new VibrationManager(GCon.PlayerData.VibrationStatus);
+        }
+
         private void Start()
         {
             StartCoroutine(Working());
@@ -36,15 +49,14 @@ namespace GameCore.Core
         {
             GlobalState.NoBootSceneMode = false;
             GlobalState.DevSceneMode = false;
-            // CLog.LogWhite("[GM] Settings Culture");
-            SetUSCulture();
             DontDestroyOnLoad(gameObject);
-            // CLog.LogWhite("[GM] Framerate");
             InitFramerate();
-            // CLog.LogWhite("[GM] Container");
             InitContainer();
-            // CLog.LogWhite("[GM] Saves");
             InitSaves();
+            SetUSCulture();
+            InitVibration();
+            var soundManager = _soundManager.GetComponent<ISoundManager>();
+            InitSound(soundManager);
             if (_bootSettings.ShowFPSCanvas)
             {
                 // CLog.LogWhite("[GM] fps canvas");
@@ -53,7 +65,7 @@ namespace GameCore.Core
             if (_poolsManagerGo.TryGetComponent<IObjectPoolsManager>(out var poolsManager))
                 poolsManager.BuildPools();
             yield return null;
-            CLog.LogWhite("[GM] SDK staff");
+            CLog.LogWhite("[GM] SDK Initiate");
 #if SDK
             _ads.InitApplovin();
             yield return new WaitUntil(AdsManager.Ready);
@@ -131,7 +143,5 @@ namespace GameCore.Core
                 Debug.Log($"Exception {ex.Message}\n{ex.StackTrace}");
             }   
         }
-    
-     
     }
 }

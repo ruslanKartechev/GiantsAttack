@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using GameCore.Cam;
 using SleepDev;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -20,6 +21,7 @@ namespace GiantsAttack
         [SerializeField] private ParticleSystem _particle;
         [SerializeField] private Transform _cameraPoint;
         [SerializeField] private float _cameraMoveTime;
+        [SerializeField] private SoundSo _explosionSound;
 
         private Action _callback;
 
@@ -54,6 +56,7 @@ namespace GiantsAttack
             CameraContainer.Shaker.Play(_shakeArgs);
             _particle.Play();
             Enemy.Kill(true);
+            _explosionSound.Play();
             yield return null;
             _callback.Invoke();
         }

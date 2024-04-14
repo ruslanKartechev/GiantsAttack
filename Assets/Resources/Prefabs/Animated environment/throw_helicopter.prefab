@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 6610386194134105475}
   - component: {fileID: 1456467284379346035}
   - component: {fileID: 6206372981269369980}
+  - component: {fileID: 3367760278121948864}
   m_Layer: 0
   m_Name: throw_helicopter
   m_TagString: Untagged
@@ -107,7 +108,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _movable: {fileID: 0}
+  _movable: {fileID: 864555413186569958}
   _endPoint: {fileID: 0}
   _moveTime: 1
 --- !u!114 &7871418704693590385
@@ -151,17 +152,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb6a8cc0c2341e1ad67fae3e26c6179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doRotateWhenGrabbed: 0
-  _doMoveToLocalPos: 0
-  _moveTimeOnGrab: 0.2
   _rotationSpeed: 250
   _torqueVector: {x: -0.5, y: 1, z: 0.5}
-  _localGrabbedPos: {x: 0, y: 0, z: 0}
-  _localGrabbedEulers: {x: 0, y: 0, z: 0}
+  _trail: {fileID: 0}
   _hitTriggerReceiver: {fileID: 8615878229658297089}
-  _explosionParticles: {fileID: 7321367821857130273}
+  _explosiveVehicle: {fileID: 3367760278121948864}
   _collider: {fileID: 1456467284379346035}
-  _rb: {fileID: 6206372981269369980}
+  _model: {fileID: 0}
   _particlesOnGrab:
   - {fileID: 1003029366073168543}
   - {fileID: 4146221415461229038}
@@ -186,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512fe3e5e95249e4bca38dc5443a7664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!95 &6610386194134105475
 Animator:
   serializedVersion: 5
@@ -222,7 +220,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
@@ -255,6 +253,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3367760278121948864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517571565938932584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0821b5093f440e8e83e36380521048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnTrail: 0
+  _trail: {fileID: 0}
+  _rb: {fileID: 6206372981269369980}
+  _collider: {fileID: 1456467284379346035}
+  _onParticles: []
+  _offParticles: []
+  _sound: {fileID: 11400000, guid: 39386fa428fb5ab4ea8f87a0bf0c3655, type: 2}
+  _defaultDirection: {fileID: 864555413186569958}
+  _defaultForce: 50
 --- !u!1 &1915705348276236607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,12 +1243,6 @@ PrefabInstance:
 --- !u!4 &7321367821842908421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4078515798835194305, guid: 64f97a8b187fbee44be4d37371e76812,
-    type: 3}
-  m_PrefabInstance: {fileID: 6702330124975467716}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7321367821857130273 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4078515798850333669, guid: 64f97a8b187fbee44be4d37371e76812,
     type: 3}
   m_PrefabInstance: {fileID: 6702330124975467716}
   m_PrefabAsset: {fileID: 0}

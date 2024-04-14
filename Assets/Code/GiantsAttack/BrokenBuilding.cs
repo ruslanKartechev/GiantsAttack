@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameCore.Cam;
+using SleepDev.Sound;
 using SleepDev.Utils;
 using UnityEditor;
 using UnityEngine;
@@ -13,7 +14,8 @@ namespace GiantsAttack
         [SerializeField] private List<Part> _parts;
         [SerializeField] private List<MeshRenderer> _rendsToDisable;
         [SerializeField] private ParticleSystem _particles;
-
+        [SerializeField] private SoundSo _breakSound;
+        
         public void Break()
         {
             foreach (var rend in _rendsToDisable)
@@ -28,6 +30,7 @@ namespace GiantsAttack
             _particles.Play();
             if (_shakeCameraOnHit)
                 CameraContainer.Shaker.PlayDefault();
+            _breakSound.Play();
         }
         
 #if UNITY_EDITOR

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace SleepDev
@@ -13,6 +14,7 @@ namespace SleepDev
         [SerializeField] private Collider _collider;
         [SerializeField] private List<ParticleSystem> _onParticles;
         [SerializeField] private List<ParticleSystem> _offParticles;
+        [SerializeField] private SoundSo _sound;
         [Space(10)]
         [SerializeField] private Transform _defaultDirection;
         [SerializeField] private float _defaultForce;
@@ -30,6 +32,7 @@ namespace SleepDev
         {
             _trail.Off();
             PlayParticles();
+            _sound?.Play();
         }
         
         [ContextMenu("ExplodeDefaultDirection")]
@@ -45,6 +48,7 @@ namespace SleepDev
             _rb.isKinematic = false;
             _rb.AddTorque(Vector3.Cross(-forceVector, Vector3.up), ForceMode.Impulse);
             _rb.AddForce(forceVector, ForceMode.Impulse);
+            _sound?.Play();
         }
 
         private void PlayParticles()

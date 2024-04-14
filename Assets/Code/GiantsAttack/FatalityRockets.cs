@@ -5,6 +5,7 @@ using DG.Tweening;
 using GameCore.Cam;
 using GameCore.Core;
 using SleepDev;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -21,6 +22,7 @@ namespace GiantsAttack
         [SerializeField] private Ease _ease2;
         [Space(10)]
         [SerializeField] private float _rocketMoveTime;
+        [SerializeField] private SoundSo _explosionSound;
         private Action _callback;
 
         public IHelicopter Player { get; set; }
@@ -69,6 +71,7 @@ namespace GiantsAttack
         {
             CLog.LogRed($"Rocket hit");
             Enemy.Kill();
+            _explosionSound.Play();
             _callback.Invoke();
         }
 

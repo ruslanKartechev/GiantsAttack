@@ -2,6 +2,7 @@
 using GameCore.Core;
 using GameCore.UI;
 using SleepDev;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -11,6 +12,7 @@ namespace GiantsAttack
         [SerializeField] private byte _countPerBarrel = 100;
         [SerializeField] private Transform _shootDirection;
         [SerializeField] private HelicopterAnimatedDisplay _display;
+        [SerializeField] private SoundSo _fireSound;
         private byte[] _barrelCounts;
         private Coroutine _shooting;
         private Camera _camera;
@@ -140,6 +142,7 @@ namespace GiantsAttack
                     var casing = GCon.PoolsManager.BulletCasingsPool.GetObject();
                     casing.Drop(barrel.DropPoint);
                     barrel.Recoil();
+                    _fireSound.Play();
                     MinusCount(i);
                     if(CheckReload())
                         Reload();

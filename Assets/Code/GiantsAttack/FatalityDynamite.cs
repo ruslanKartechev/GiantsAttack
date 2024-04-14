@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using GameCore.Cam;
 using SleepDev;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -11,12 +12,12 @@ namespace GiantsAttack
     public class FatalityDynamite : MonoBehaviour, IFatality
     {
         [SerializeField] private FatalityType _mType;
-        [SerializeField] private float _scaleTime;
-        [SerializeField] private Ease _scaleEase;
         [SerializeField] private float _explosionDelay;
         [SerializeField] private float _nextDynamiteDelay;
         [SerializeField] private List<Dynamite> _dynamites;
         [SerializeField] private CameraShakeArgs _shakeArgs;
+        [SerializeField] private SoundSo _explosionSound;
+
         private Action _callback;
 
         public IHelicopter Player { get; set; }
@@ -47,6 +48,7 @@ namespace GiantsAttack
             yield return new WaitForSeconds(_explosionDelay);
             foreach (var d in _dynamites)
                 d.Explode();
+            _explosionSound.Play();
             CameraContainer.Shaker.Play(_shakeArgs);
             Enemy.Kill(true);
             yield return null;

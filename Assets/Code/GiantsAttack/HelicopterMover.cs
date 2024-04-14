@@ -43,7 +43,7 @@ namespace GiantsAttack
 
         public void BeginMovingOnCircle(CircularPath path, Transform lookAt, MoveOnCircleArgs args)
         {
-            CLog.Log($"[HeliMover] Begin moving on circle");
+            // CLog.Log($"[HeliMover] Begin moving on circle");
             StopMovement();
             _moving = StartCoroutine(MovingOnCircle(path, lookAt, args));
         }
@@ -81,7 +81,6 @@ namespace GiantsAttack
         
         public void RotateToLook(Vector3 lookAtPosition, float time, Action onEnd, bool centerInternal = true)
         {
-            CLog.LogRed($"********************* ROTATING TO LOOK AT {lookAtPosition}");
             StopRotating();
             _rotating = StartCoroutine(RotatingToLookAt(lookAtPosition, time, onEnd, centerInternal));
         }
@@ -125,7 +124,7 @@ namespace GiantsAttack
 
         public bool ResumeMovement()
         {
-            CLog.LogBlue($"ResumeMovement");
+            CLog.Log($"ResumeMovement");
             if (_currentMoveToData == null)
             {
                 CLog.Log($"[{nameof(HelicopterMover)}] _currentMoveToData == null. Cannot resume");

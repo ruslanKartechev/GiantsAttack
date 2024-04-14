@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GameCore.UI;
 using SleepDev;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -14,6 +15,8 @@ namespace GiantsAttack
         [SerializeField] private BodySectionsUI _bodySectionsUI;
         [SerializeField] private List<ParticleSystem> _bladeParticles;
         [SerializeField] private Transform _internalTransform;
+        [SerializeField] private SoundSo _helicopterSound;
+        private PlayingSound _playingSound;
         private bool _isDead;
 
         public IHelicopterMover Mover { get; private set;}
@@ -41,6 +44,7 @@ namespace GiantsAttack
             CameraPoints.SetCamera(args.camera);
             _altitudeMeter.Begin();
             _compas.BeginTracking(args.enemyTransform);
+            _playingSound = _helicopterSound.Play();
         }
 
         public void StopAll()
@@ -65,6 +69,7 @@ namespace GiantsAttack
             Shooter.StopShooting();
             Shooter.Gun.StopAnimations();
             Destroyer.DestroyMe();
+            StopAll();
         }
 
     }
