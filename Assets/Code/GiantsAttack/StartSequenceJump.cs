@@ -19,6 +19,9 @@ namespace GiantsAttack
         [SerializeField] private float _pushBackForce;
         [SerializeField] private float _endCallbackDelay;
         [SerializeField] private SoundSo _groundHitSound;
+        // [SerializeField] private Transform _torqueDir;
+        [SerializeField] private float _torqueForce;
+        
         private Action _callback;
 
         #if UNITY_EDITOR
@@ -52,7 +55,11 @@ namespace GiantsAttack
             _jumpParticles.transform.position = Enemy.Point.position;
             _jumpParticles.Play();
             foreach (var v in _vehicles)
-                v.ExplodeFromCenter(Enemy.Point.position, _pushBackForce);
+            {
+                var vec = (v.transform.position - Enemy.Point.position).normalized;
+                var torque = Vector3.Cross(-vec, Vector3.up) * _torqueForce;
+                v.ExplodeWithTorque(vec * _pushBackForce, torque);
+            }
             _groundHitSound?.Play();
             Delay(_callback, _endCallbackDelay);
         }

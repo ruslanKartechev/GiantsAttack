@@ -13,6 +13,7 @@ namespace SleepDev
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private Collider _collider;
         [SerializeField] private List<ParticleSystem> _onParticles;
+        [SerializeField] private List<ParticleSystem> _onParentedParticles;
         [SerializeField] private List<ParticleSystem> _offParticles;
         [SerializeField] private SoundSo _sound;
         [Space(10)]
@@ -30,8 +31,8 @@ namespace SleepDev
 
         public void Explode()
         {
-            _trail.Off();
             PlayParticles();
+            _trail?.Off();
             _sound?.Play();
         }
         
@@ -46,8 +47,18 @@ namespace SleepDev
             PlayParticles();
             _collider.enabled = true;
             _rb.isKinematic = false;
-            _rb.AddTorque(Vector3.Cross(-forceVector, Vector3.up), ForceMode.Impulse);
             _rb.AddForce(forceVector, ForceMode.Impulse);
+            _rb.AddTorque(Vector3.Cross(-forceVector, Vector3.up), ForceMode.Impulse);
+            _sound?.Play();
+        }
+        
+        public void Explode(Vector3 forceVector, Vector3 torque)
+        {
+            PlayParticles();
+            _collider.enabled = true;
+            _rb.isKinematic = false;
+            _rb.AddForce(forceVector, ForceMode.Impulse);
+            _rb.AddTorque(torque, ForceMode.Impulse);
             _sound?.Play();
         }
 
@@ -58,6 +69,11 @@ namespace SleepDev
                 pp.transform.parent = null;
                 pp.gameObject.SetActive(true);
                 pp.Play();
+            }
+            foreach (var pp in _onParentedParticles)
+            {
+                pp.gameObject.SetActive(true);
+                pp.Play();   
             }
             foreach (var pp in _offParticles)
                 pp.gameObject.SetActive(false);

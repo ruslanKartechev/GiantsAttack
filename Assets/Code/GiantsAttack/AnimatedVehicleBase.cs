@@ -19,5 +19,6 @@ namespace GiantsAttack
         public abstract void ExplodeDefaultDirection();
         public abstract void ExplodeFromCenter(Vector3 center, float force);
         public abstract void ExplodeInDirection(Vector3 force);
+        public abstract void ExplodeWithTorque(Vector3 force, Vector3 torque);
     }
 }

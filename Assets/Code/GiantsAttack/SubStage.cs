@@ -10,7 +10,7 @@ namespace GiantsAttack
     public enum ActionType
     {
         LegKick, BreakBuilding, Toss,
-        EvadeThrown, ShootDownThrown, AOE
+        EvadeThrown, ShootDownThrown, AOE, JumpAttack
     }
         
     public enum AnimationType { Move, Animate, None }
@@ -69,6 +69,9 @@ namespace GiantsAttack
                     return new SubStageExecutorShootDown(this, enemy, player, playerMover, menu, counter, delayDelegate, callback, failCallback);
                 case ActionType.AOE:
                     return new SubStageExecutorAOE(this, enemy, player, playerMover, menu, counter, delayDelegate, callback, failCallback);
+                case ActionType.JumpAttack:
+                    return new SubStageExecutorJumpAttack(this, enemy, player, playerMover, menu, counter, delayDelegate, callback, failCallback);
+
             }
             return null;
         }

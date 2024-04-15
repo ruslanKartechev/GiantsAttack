@@ -32,7 +32,10 @@ namespace GiantsAttack
             Player.Aimer.BeginAim();
             _counter = new DestroyedTargetsCounter(CityUI, GetTotalCount(), Fail);
             SubToEnemyKill();
-            ExecuteCurrentSubstage();
+            Delay(() =>
+            {
+                ExecuteCurrentSubstage();
+            }, _substages[_index].delayBeforeStart);
         }
 
         public override void Stop()
@@ -81,12 +84,10 @@ namespace GiantsAttack
         
         private void Fail()
         {
+            CLog.LogWhite($"[{nameof(LevelStageHavok)}] FAILED");
             Stop();
             ResultListener.OnStageFail(this);
         }
-
-
-
         
         
 #if UNITY_EDITOR

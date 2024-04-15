@@ -83,7 +83,7 @@ namespace GiantsAttack
             _callback.Invoke();
         }
         
-        protected virtual void DestroyPlayerAndFail()
+        protected virtual void KillPlayerAndFail()
         {
             _player.Kill();
             _failCallback.Invoke();

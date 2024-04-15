@@ -135,6 +135,7 @@ namespace GiantsAttack
         {
             if (_isCompleted)
                 return;
+            _isCompleted = true;
             StopTiming();
             var utils = new LevelUtils();
             var level = GCon.PlayerData.LevelTotal+1;
@@ -262,6 +263,8 @@ namespace GiantsAttack
 
         public void OnStageFail(LevelStage stage)
         {
+            if (_isCompleted)
+                return;
             Fail();
         }
 

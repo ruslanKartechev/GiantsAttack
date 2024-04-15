@@ -8,6 +8,7 @@ namespace SleepDev
             "vehicle_trail_winter", "vehicle_trail_desert"};
         
         public static byte CurrentIndex { get; set; }
+        public static bool IsNight { get; set; }
 
         public static ParticleSystem GetCurrentVehicleTrailPrefab()
         {

@@ -7,7 +7,7 @@ namespace GiantsAttack
     {
         [SerializeField] private LevelStartSequence _otherSequence;
         [SerializeField] private LevelStageHavok _stage;
-        [SerializeField] private CityDestroyUI _ui;
+        private CityDestroyUI _ui;
 
 #if UNITY_EDITOR
         public override void E_Init()
@@ -16,6 +16,7 @@ namespace GiantsAttack
         
         public override void Begin(Action onEnd)
         {
+            _ui = Resources.Load<CityDestroyUI>("Prefabs/UI/city_destroy_ui");
             var ui = Instantiate(_ui);
             var count = _stage.GetTotalCount();
             ui.SetCount(count, count);

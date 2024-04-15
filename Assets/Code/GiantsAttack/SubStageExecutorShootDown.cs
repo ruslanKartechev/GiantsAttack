@@ -21,12 +21,12 @@ namespace GiantsAttack
             : base(stage, enemy, player, playerMover, ui, counter, delayDelegate, callback, failCallback)
         {
             TryAnimateTarget();
+            CallListenersStart();
         }
 
         public override void Stop()
         {
             base.Stop();
-            _stage.swipeChecker.Off();
         }
         
         protected override void OnEnemyMoved()
@@ -114,7 +114,7 @@ namespace GiantsAttack
             _enemyWeapon.Throwable.Hide();
             _ui.EvadeUI.Stop();
             _ui.ShootAtTargetUI.Hide();
-            DestroyPlayerAndFail();
+            KillPlayerAndFail();
         }
     }
 }

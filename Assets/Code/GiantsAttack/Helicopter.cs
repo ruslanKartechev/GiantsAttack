@@ -16,6 +16,7 @@ namespace GiantsAttack
         [SerializeField] private List<ParticleSystem> _bladeParticles;
         [SerializeField] private Transform _internalTransform;
         [SerializeField] private SoundSo _helicopterSound;
+        [SerializeField] private Light _light;   
         private PlayingSound _playingSound;
         private bool _isDead;
 
@@ -45,6 +46,10 @@ namespace GiantsAttack
             _altitudeMeter.Begin();
             _compas.BeginTracking(args.enemyTransform);
             _playingSound = _helicopterSound.Play();
+            if (EnvironmentState.IsNight)
+                _light.enabled = true;
+            else
+                _light.enabled = false;
         }
 
         public void StopAll()

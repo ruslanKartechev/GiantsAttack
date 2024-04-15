@@ -124,7 +124,7 @@ namespace GiantsAttack
             _enemyWeapon.Throwable.Hide();
             _ui.EvadeUI.Stop();
             _ui.ShootAtTargetUI.Hide();
-            DestroyPlayerAndFail();
+            KillPlayerAndFail();
         }
     }
 }

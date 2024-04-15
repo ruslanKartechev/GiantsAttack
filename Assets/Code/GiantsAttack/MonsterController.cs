@@ -136,12 +136,14 @@ namespace GiantsAttack
 
         public void AlignPositionToAnimRootBone(bool playIdle)
         {
+            _animator.gameObject.SetActive(false);
             var pos = _animRootBone.position;
             pos.y = transform.position.y;
             var parent = _animRootBone.parent;
             _animRootBone.parent = null;
             transform.position = pos;
             _animRootBone.parent = parent;
+            _animator.gameObject.SetActive(true);
             if(playIdle)
                 _animator.Play("Idle");
             Debug.DrawLine(pos, pos + Vector3.up * 100, Color.red, 10f);

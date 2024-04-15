@@ -59,5 +59,10 @@ namespace GiantsAttack
         {
             _explodingVehicle.Explode(force);
         }
+
+        public override void ExplodeWithTorque(Vector3 force, Vector3 torque)
+        {
+            _explodingVehicle.Explode(force, torque);
+        }
     }
 }

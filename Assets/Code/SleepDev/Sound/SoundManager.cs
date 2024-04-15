@@ -28,6 +28,8 @@ namespace SleepDev.Sound
             if (_didInit)
                 return;
             _didInit = true;
+            _isOn = isOn;
+            _volume = volume;
             SoundContainer.SoundManager = this;
             _sources = new Queue<AudioSource>(_startSourcesCount);
             for (byte i = 0; i < _startSourcesCount; i++)

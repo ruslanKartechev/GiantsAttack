@@ -56,5 +56,11 @@ namespace GiantsAttack
             foreach (var av in _vehicles)
                 av.ExplodeInDirection(force);
         }
+
+        public override void ExplodeWithTorque(Vector3 force, Vector3 torque)
+        {
+            foreach (var av in _vehicles)
+                av.ExplodeWithTorque(force, torque);
+        }
     }
 }
