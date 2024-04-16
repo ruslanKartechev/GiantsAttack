@@ -274,21 +274,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useStartUi: 1
+  _enemyHealth: 1000
+  _moveAnimationSpeed: 0.8
+  _enemyID: {fileID: 0}
+  _aimerSettings: {fileID: 0}
   _initArgs:
-    aimerSettings:
-      sensitivity: 1.5
-      aimRotSpeed: 0
     shooterSettings:
       fireDelay: 0.1
-      damage: 10
       speed: 150
-    moverSettings:
-      angularSpeed: 4
-    enemyTransform: {fileID: 0}
+      damage: {x: 0, y: 0}
+      critChance: 0
+      critDamage: 0
   _playerSpawnPoint: {fileID: 1482352967}
-  _monster: {fileID: 0}
   _stages: []
+  _startSequence: {fileID: 0}
   _finalSequence: {fileID: 0}
+  _failSequence: {fileID: 0}
+  _playerMoverGo: {fileID: 0}
 --- !u!1001 &289513234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4759,6 +4761,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4209109927527303351, guid: 0c776a39e8ca1e44ba7f4c05f6bdded6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d911272f01f11a498a412e26225f445, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

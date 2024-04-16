@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aff9be0567becc541ac1527e0fcff80c, type: 2}
+  - {fileID: 2100000, guid: 2d15588c6e4c99f44a1ae513608891d9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,11 +127,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0821b5093f440e8e83e36380521048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnTrail: 0
+  _trail: {fileID: 0}
   _rb: {fileID: 3160794336176753544}
   _collider: {fileID: 5168392898208835458}
   _onParticles:
   - {fileID: 7172201636873814258}
+  _onParentedParticles: []
   _offParticles: []
+  _sound: {fileID: 0}
+  _defaultDirection: {fileID: 0}
+  _defaultForce: 0
 --- !u!136 &5168392898208835458
 CapsuleCollider:
   m_ObjectHideFlags: 0
