@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameCore.Cam;
 using SleepDev;
+using SleepDev.Sound;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -14,6 +15,7 @@ namespace GiantsAttack
         [SerializeField] private List<ParticleSystem> _particleOnHit;
         [SerializeField] private List<GameObject> _hideOnHit;
         [SerializeField] private List<MonoBehaviour> _disableOnHit;
+        [SerializeField] private SoundSo _sound;
         [SerializeField] private SimpleForwardMover _mover;
         
         public override void Activate()
@@ -40,6 +42,7 @@ namespace GiantsAttack
                 go.SetActive(false);
             if (_shakeCameraOnHit)
                 CameraContainer.Shaker.PlayDefault();
+            _sound.Play();
         }
     }
 }

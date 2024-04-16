@@ -29216,9 +29216,11 @@ MonoBehaviour:
   _rb: {fileID: 7528726354350425109}
   _collider: {fileID: 4098825791284378683}
   _onParticles: []
+  _onParentedParticles: []
   _offParticles:
   - {fileID: 7035706233215888117}
   - {fileID: 3718905264972521842}
+  _sound: {fileID: 11400000, guid: 44505c3330f560644b271c2c26be4c8a, type: 2}
   _defaultDirection: {fileID: 7535682906629755878}
   _defaultForce: 60
 --- !u!1 &8694867629158574079
@@ -39162,6 +39164,21 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6422456422697056113, guid: 0ec2465b7987e9d48a03231790faa051,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422456422697056113, guid: 0ec2465b7987e9d48a03231790faa051,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422456422697056113, guid: 0ec2465b7987e9d48a03231790faa051,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ea1739f2ca1d1f047b1075d873d86c1b, type: 2}
     - target: {fileID: 7135112448851964736, guid: 0ec2465b7987e9d48a03231790faa051,
         type: 3}
       propertyPath: m_Name

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace GiantsAttack
 {
@@ -18,9 +19,12 @@ namespace GiantsAttack
         [Space(10)]
         [SerializeField] private float _enemyStartSpeed;
         [SerializeField] private float _enemyStartSplineT;
+        [Space(10)] 
+        [SerializeField] private float _failSplinePercent;
         [Space(10)]
         [SerializeField] private Transform _enemyStartPoint;
         [SerializeField] private SplineMover _enemyMover;
+        [SerializeField] private SplineMover _runawayMover;        
         [SerializeField] private GameObject _runawayGo;
         private IRunaway _runaway;
         
@@ -32,6 +36,7 @@ namespace GiantsAttack
             Delay(StartMovingRunaway, _runawayMoveDelay);
             Delay(MoveEnemyToStart, _enemyToStartMoveDelay);
             SubToEnemyKill();
+            StartCoroutine(FailPercentPolling());
         }
 
         public override void Stop()
@@ -75,6 +80,22 @@ namespace GiantsAttack
             PlayerMover.Pause(false);
             _enemyMover.Stop();
             base.OnEnemyKilled(enemy);
+        }
+
+        private IEnumerator FailPercentPolling()
+        {
+            while (true)
+            {
+                if (_runawayMover.InterpolationT >= _failSplinePercent)
+                {
+                    _runaway.Stop();
+                    _enemyMover.Stop();
+                    UnsubFromEnemy();
+                    ResultListener.OnStageFail(this);
+                    StopAllCoroutines();
+                }
+                yield return null;
+            }
         }
         
         #if UNITY_EDITOR

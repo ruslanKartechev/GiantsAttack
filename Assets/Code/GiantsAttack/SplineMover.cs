@@ -11,7 +11,9 @@ namespace GiantsAttack
         [SerializeField] private float _speed;
         [SerializeField] private float _acceleration;
         [SerializeField] private SplineContainer _spline;
+        #if UNITY_EDITOR
         public bool doDebug;
+        #endif
         
         private float _pathLength;
         private Coroutine _speedChanging;
@@ -123,11 +125,6 @@ namespace GiantsAttack
 
         private IEnumerator Moving()
         {
-            if (doDebug)
-            {
-                CLog.LogGreen($"STARTED MOVING ________");
-                // Debug.Break();
-            }
             var spline = _spline.Spline;
             var totalLength = _pathLength;
             var passedLength = totalLength * _interpolateT;
@@ -140,11 +137,13 @@ namespace GiantsAttack
                 var rot = Quaternion.LookRotation(tangent, up);
                 // tr.rotation = Quaternion.Lerp(tr.rotation, rot, .25f);
                 tr.rotation = rot;
+#if UNITY_EDITOR
                 if (doDebug)
                 {
                     var fromPos = transform.position + Vector3.up * 20;
                     Debug.DrawLine(fromPos, fromPos + ((Vector3)tangent).normalized * 10, Color.red, 5f);
                 }
+#endif
                 passedLength += Time.deltaTime * _speed;
                 _interpolateT = passedLength / totalLength;
                 yield return null;

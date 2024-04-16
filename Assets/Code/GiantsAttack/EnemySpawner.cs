@@ -6,6 +6,7 @@ namespace GiantsAttack
 {
     public class EnemySpawner : MonoBehaviour, IEnemySpawner
     {
+        [SerializeField] private float _scale = 1f;
         [SerializeField] private Transform _spawnPoint;
         [SerializeField] private List<ArmorDataSo> _armorData;
         [Header("Prespawned")] 
@@ -24,6 +25,7 @@ namespace GiantsAttack
                 var prefab = Resources.Load<GameObject>($"Prefabs/Enemies/{id.id}");
                 var inst = Instantiate(prefab, _spawnPoint);
                 inst.transform.CopyPosRot(_spawnPoint);
+                inst.transform.localScale = Vector3.one * _scale;
                 result = inst.GetComponent<IMonster>();
             }
             result.SetArmorData(_armorData);

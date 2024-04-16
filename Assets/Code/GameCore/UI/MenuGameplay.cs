@@ -9,7 +9,6 @@ namespace GameCore.UI
     public class MenuGameplay : MonoBehaviour, IGameplayMenu
     {
         [SerializeField] private Button _pauseButton;
-        [SerializeField] private UIDamagedEffect _damagedEffect;
         [SerializeField] private AimUI _aimUI;
         [SerializeField] private DamageHitsUI _damageHits;
         [SerializeField] private EvadeUI _evadeUI;
@@ -18,7 +17,6 @@ namespace GameCore.UI
         [SerializeField] private SoundSo _clickSound;
 
         public IAimUI AimUI => _aimUI;
-        public IUIDamagedEffect DamagedEffect => _damagedEffect;
         public IDamageHitsUI DamageHits => _damageHits;
         public EvadeUI EvadeUI => _evadeUI;
         public IShootAtTargetUI ShootAtTargetUI => _shootAtTargetUI;
