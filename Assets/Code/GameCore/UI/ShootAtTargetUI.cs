@@ -12,7 +12,10 @@ namespace GameCore.UI
         [SerializeField] private GameObject _block;
         private Coroutine _working;
         private Sequence _scalingSequence;
-        
+        private Transform _currentTarget;
+
+        public Transform CurrentTarget => _currentTarget;
+
         public void ShowAndFollow(Transform target)
         {
             _block.SetActive(true);
@@ -21,6 +24,7 @@ namespace GameCore.UI
             _scalingSequence.Append(_movable.DOScale(Vector3.one * _scale, _scalingTime));
             _scalingSequence.Append(_movable.DOScale(Vector3.one, _scalingTime));
             _scalingSequence.SetLoops(-1);
+            _currentTarget = target;
             _working = StartCoroutine(Tracking(target));
         }
 

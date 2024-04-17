@@ -20,7 +20,6 @@ GameObject:
   - component: {fileID: 2517778739460425820}
   - component: {fileID: 6011460063412688525}
   - component: {fileID: 127800130689542352}
-  - component: {fileID: 4638661288571416197}
   m_Layer: 0
   m_Name: GameBooter
   m_TagString: Untagged
@@ -62,6 +61,7 @@ MonoBehaviour:
   _fpsCanvasPrefab: {fileID: 0}
   _poolsManagerGo: {fileID: 8053271679712766498}
   _soundManager: {fileID: 691272928561019360}
+  _musicPlayer: {fileID: 127800130689542352}
   _analytics: {fileID: 0}
   _ads: {fileID: 0}
 --- !u!114 &934235089907457102
@@ -216,20 +216,6 @@ MonoBehaviour:
   _soundIds:
   - {fileID: 11400000, guid: 154231a2b448eeb40b57cfa10b34a698, type: 2}
   - {fileID: 11400000, guid: 463353832c90a1c4382a4407a3c02cae, type: 2}
---- !u!114 &4638661288571416197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 691272928561019360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ecfea96ac294b5892a6809ef680cd86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bootSettings: {fileID: 11400000, guid: 9c32dbcf87ba3334aa42a141cc9bac18, type: 2}
-  _musicPlayer: {fileID: 127800130689542352}
 --- !u!1 &1327081466539508972
 GameObject:
   m_ObjectHideFlags: 0

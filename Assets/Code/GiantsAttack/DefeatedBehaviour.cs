@@ -18,6 +18,11 @@ namespace GiantsAttack
             _onPlayed = onPlayed;
             _eventReceiver.OnStoodUp += OnStoodUp;
             _eventReceiver.OnJumpDown += OnJumpDown;
+            for (var i = 0; i < _animator.parameterCount; i++)
+            {
+                var p = _animator.GetParameter(i);
+                _animator.ResetTrigger(p.name);
+            }
             _animator.Play(_animKey);
             foreach (var particle in _playParticles)
             {

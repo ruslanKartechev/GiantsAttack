@@ -224,7 +224,7 @@ MonoBehaviour:
   enemyMoveToPoint: {fileID: 3444718920285678091}
   enemyAnimation: '-'
   enemyTarget: {fileID: 1620415810527407036}
-  forceVal: 1.25
+  forceVal: 1
   doRotateBeforeAction: 0
   rotationTime: 0.33
   rotationSource: {fileID: 0}
@@ -710,7 +710,7 @@ MonoBehaviour:
   enemyMoveToPoint: {fileID: 8292965609306184339}
   enemyAnimation: LegKick
   enemyTarget: {fileID: 7657932520994143140}
-  forceVal: 1.25
+  forceVal: 80
   doRotateBeforeAction: 0
   rotationTime: 0.33
   rotationSource: {fileID: 0}
@@ -924,13 +924,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9134228030227465302}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.027687162, y: -0.6955392, z: -0.026841503, w: 0.7174526}
-  m_LocalPosition: {x: 0, y: 1.01, z: 0}
+  m_LocalRotation: {x: -0.17679547, y: -0.6746249, z: -0.17139554, w: 0.6958794}
+  m_LocalPosition: {x: 0.07, y: 1.94, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 586061397279675080}
-  m_LocalEulerAnglesHint: {x: -4.42, y: -88.223, z: 0}
+  m_LocalEulerAnglesHint: {x: -28.51, y: -88.223, z: 0}
 --- !u!1001 &855704293869962219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2380,7 +2380,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _otherSequence: {fileID: 2742795872913733322}
   _stage: {fileID: 1594666616026883632}
-  _ui: {fileID: 4762448836056899797, guid: 8218f717002de174688cd8a4c1e31162, type: 3}
 --- !u!114 &2742795872913733322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2611,6 +2610,16 @@ PrefabInstance:
       propertyPath: _defaultDirection
       value: 
       objectReference: {fileID: 5545236325923429799}
+    - target: {fileID: 2919829667893888305, guid: 3c07244257e124149bdcdeaf79ba48e1,
+        type: 3}
+      propertyPath: _onParticles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919829667893888305, guid: 3c07244257e124149bdcdeaf79ba48e1,
+        type: 3}
+      propertyPath: _onParticles.Array.data[0]
+      value: 
+      objectReference: {fileID: 6961419059549525075}
     - target: {fileID: 4644224491325465006, guid: 3c07244257e124149bdcdeaf79ba48e1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2652,6 +2661,12 @@ PrefabInstance:
 --- !u!4 &586061397279675080 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2679990539839705263, guid: 3c07244257e124149bdcdeaf79ba48e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3247982148562518631}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6961419059549525075 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5586938875113395764, guid: 3c07244257e124149bdcdeaf79ba48e1,
     type: 3}
   m_PrefabInstance: {fileID: 3247982148562518631}
   m_PrefabAsset: {fileID: 0}

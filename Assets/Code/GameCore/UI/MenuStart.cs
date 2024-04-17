@@ -1,15 +1,15 @@
 ﻿using System;
+using SleepDev;
 using SleepDev.Sound;
 using SleepDev.UIUtils;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GameCore.UI
 {
     public class MenuStart : MonoBehaviour, IMenuStart
     {
         [SerializeField] private PopAnimator _popAnimator;
-        [SerializeField] private Button _playButton;
+        [SerializeField] private ProperButton _playButton;
         [SerializeField] private SoundSo _clickSound;
         private Action _callback;
         
@@ -17,12 +17,12 @@ namespace GameCore.UI
         
         private void OnEnable()
         {
-            _playButton.onClick.AddListener(OnPlay);
+            _playButton.OnDown += OnPlay;
         }
 
         private void OnDisable()
         {
-            _playButton.onClick.RemoveListener(OnPlay);
+            _playButton.OnDown -= OnPlay;
         }
 
         public void On()

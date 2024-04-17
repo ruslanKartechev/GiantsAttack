@@ -84,6 +84,7 @@ namespace GiantsAttack
         
         public override void Init()
         {
+            GCon.DataSaver.Save();
             _playerMover = _playerMoverGo.GetComponent<IPlayerMover>();
             _camera = CameraContainer.PlayerCamera as PlayerCamera;
             _controlsUI = GCon.UIFactory.GetControlsUI();
@@ -256,14 +257,14 @@ namespace GiantsAttack
         
         public void OnStageComplete(LevelStage stage)
         {
-            if (_isCompleted)
+            if (_isCompleted || _isFinalizing)
                 return;
             NextStage();
         }
 
         public void OnStageFail(LevelStage stage)
         {
-            if (_isCompleted)
+            if (_isCompleted || _isFinalizing)
                 return;
             Fail();
         }

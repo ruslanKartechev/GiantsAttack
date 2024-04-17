@@ -59,6 +59,7 @@ namespace GiantsAttack
 
         private void ExecuteCurrentSubstage()
         {
+            if (_isStopped) return;
             _executor = _substages[_index].GetExecutor(Enemy, player:Player, playerMover:PlayerMover,
                 menu:UI,_counter,DelayNoReturn,OnSubStageCompleted, OnSubStageFailed);
         }
@@ -66,6 +67,7 @@ namespace GiantsAttack
         private void OnSubStageCompleted()
         {
             CLog.Log($"On Stage completed");
+            if (_isStopped) return;
             if (NextStage())
                 return;
             Fail();

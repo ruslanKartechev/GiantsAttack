@@ -28,6 +28,7 @@ namespace GiantsAttack
         {
             if(_working != null)
                 StopCoroutine(_working);
+            Player.Mover.StopAll();
         }
 
         public void Begin()

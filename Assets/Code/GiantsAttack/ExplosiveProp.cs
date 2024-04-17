@@ -17,7 +17,6 @@ namespace GiantsAttack
         [SerializeField] private ExplosiveVehicle _explosive;
         [SerializeField] private PropHealth _health;
         [SerializeField] private ParticleSystem _pool;
-        
         public override void OnActivated()
         {
             _health.SetMaxHealth(_maxHealth);
@@ -26,8 +25,8 @@ namespace GiantsAttack
             _health.OnFirstDamaged += OnFirstDamaged;
             if (_useAimAtUI)
             {
-                var ss = GCon.UIFactory.GetGameplayMenu() as IGameplayMenu;
-                ss.ShootAtTargetUI.ShowAndFollow(_pushDir);
+                var ui = GCon.UIFactory.GetGameplayMenu() as IGameplayMenu;
+                ui.ShootAtTargetUI.ShowAndFollow(_pushDir);
             }
         }
 
@@ -50,11 +49,11 @@ namespace GiantsAttack
 
         private void HideUI()
         {
-            if (_useAimAtUI)
-            {
-                var ss = GCon.UIFactory.GetGameplayMenu() as IGameplayMenu;
-                ss.ShootAtTargetUI.Hide();
-            }
+            if (!_useAimAtUI)
+                return;
+            var ui = GCon.UIFactory.GetGameplayMenu() as IGameplayMenu;
+            if(ui.ShootAtTargetUI.CurrentTarget == _pushDir)
+                ui.ShootAtTargetUI.Hide();
         }
         
         private void OnDead(IDamageable obj)
