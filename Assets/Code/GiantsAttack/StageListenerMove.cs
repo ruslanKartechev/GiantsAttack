@@ -11,7 +11,6 @@ namespace GiantsAttack
 
         public override void OnActivated()
         {
-            CLog.LogRed("==================");
             if (_delay > 0)
                 Delay(Move, _delay);
             else

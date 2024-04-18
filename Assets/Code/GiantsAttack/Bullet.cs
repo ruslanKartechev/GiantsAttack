@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using GameCore.Core;
 using GameCore.UI;
 using SleepDev;
@@ -11,8 +10,8 @@ namespace GiantsAttack
     public class Bullet : MonoExtended, IBullet, IPooledObject<IBullet>
     {
         private const float MaxFlyTime = 20f;
+        
         [SerializeField] private Transform _movable;
-        // [SerializeField] private GameObject _model;
         [SerializeField] private ParticleSystem _explosionParticles;
         [SerializeField] private ParticleSystem _trailParticles;
         
@@ -31,12 +30,10 @@ namespace GiantsAttack
             transform.localScale = new Vector3(scale,scale,scale);
         }
 
-        public void Launch(Vector3 from, Vector3 direction, float speed, DamageArgs args, 
-            IHitCounter counter, IDamageHitsUI hitsUI)
+        public void Launch(Vector3 from, Vector3 direction, float speed, DamageArgs args, IHitCounter counter)
         {
             _damageArgs = args;
             _counter = counter;
-            _hitsUI = hitsUI;
             _movable.position = from;
             _explosionParticles.gameObject.SetActive(false);
             gameObject.SetActive(true);
@@ -119,8 +116,7 @@ namespace GiantsAttack
                 target.Damageable.TakeDamage(_damageArgs);
                 OnHit();
                 _counter.HitsCount++;
-                if(target.Damageable.CanDamage)
-                    _hitsUI.ShowHit(transform.position, _damageArgs.damage, _damageArgs.isCrit);
+                DamageCalculator.AddDamage(target, _damageArgs);
             }
             else
             {

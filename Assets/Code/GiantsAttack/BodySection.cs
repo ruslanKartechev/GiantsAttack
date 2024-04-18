@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameCore.UI;
 using UnityEngine;
 
 namespace GiantsAttack
 {
     [System.Serializable]
-    public class BodySection
+    public class BodySection : IDamageable
     {
         [SerializeField] private int _sectionID;
         [SerializeField] private float _maxHealth;
@@ -21,6 +22,7 @@ namespace GiantsAttack
         private int _currentHealthLevel = 0;
         
         public int SectionID => _sectionID;
+        public bool IsHead => _sectionID == 0;
 
         public List<BodyPartTarget> targets => _targets;
 
@@ -43,49 +45,54 @@ namespace GiantsAttack
 
         public void SetDamageable(bool canDamage)
         {
-            foreach (var tr in _targets)
-                tr.CanDamage = canDamage;
+            CanDamage = canDamage;
         }
 
         public void Init(IHealth fullBodyHealth)
         {
             _fullBodyHealth = fullBodyHealth;
             SetHealth(_maxHealth);
-            foreach (var tr in _targets)
-                tr.DamageHandler = DamageCallback;
+            foreach (var partTarget in _targets)
+                partTarget.Damageable = this;
         }
         
         public void SetUI(IBodySectionsUI ui)
         {
             _partUI = ui.GetBodyPartByID(_sectionID);
+            _partUI.SetDamageLevel(_currentHealthLevel);
         }
         
+        public event Action<IDamageable> OnDead;
+        public event Action<IDamageable> OnDamaged;
+
+        public bool CanDamage { get; private set; } = true;
         
-        private void DamageCallback(BodyPartTarget target, DamageArgs args)
+        public void TakeDamage(DamageArgs args)
         {
             if (Health <= 0)
                 return;
             Health -= args.damage;
-            var level = 0;
-            var percent = _health / _maxHealth;
-            if (percent <= .4f)
-                level = 2;
-            else if (percent <= .8f)
-                level = 1;
-            
-            if (_currentHealthLevel != level)
+            _partUI.Animate();
+            if (_health <= 0)
             {
-                _currentHealthLevel = level;
-                _partUI.SetDamageLevel(level);
+                SetDamageable(false);
+                _partUI.SetNonDamageable();
+            }
+            else
+            {
+                var level = 0;
+                var percent = _health / _maxHealth;
+                if (percent <= .4f)
+                    level = 2;
+                else if (percent <= .8f)
+                    level = 1;
+                if (_currentHealthLevel != level)
+                {
+                    _currentHealthLevel = level;
+                    _partUI.SetDamageLevel(level);
+                }
             }
             _fullBodyHealth.TakeDamage(args);
-            _partUI.Animate();
-            _flicker?.Flick();
-            if (Health <= 0)
-            {
-                _partUI.SetNonDamageable();
-                SetDamageable(false);
-            }
         }
     }
 }

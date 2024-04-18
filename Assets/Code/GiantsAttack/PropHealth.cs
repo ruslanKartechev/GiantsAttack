@@ -49,7 +49,7 @@ namespace GiantsAttack
                 OnDead?.Invoke(this);
                 return;
             }
-            _displayBar.UpdateHealth(HealthPercent);
+            _displayBar.SetHealth(HealthPercent);
             _displayBar.Flick();
             if (!_wasDamaged)
             {

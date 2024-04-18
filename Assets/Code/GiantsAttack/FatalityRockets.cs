@@ -10,9 +10,10 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class FatalityRockets : MonoBehaviour, IFatality
+    public class FatalityRockets : MonoExtended, IFatality
     {
         [SerializeField] private FatalityType _mType;
+        [SerializeField] private float _delay;
         [SerializeField] private GameObject _rocketCamPoints;
         [SerializeField] private List<Transform> _rocketPoints;
         [SerializeField] private float _cameraMoveTime;
@@ -39,7 +40,7 @@ namespace GiantsAttack
         {
             _callback = onEnd;
             transform.SetParentAndCopy(Player.Point);
-            LaunchRockets();
+            Delay(LaunchRockets, _delay);
         }
         
         private void LaunchRockets()

@@ -201,7 +201,6 @@ namespace GiantsAttack
         {
             _initArgs.enemyTransform = _enemy.Point;
             _player.Init(_initArgs);
-            _player.Shooter.DamageHitsUI = _gameplayMenu.DamageHits;
         }
 
         private void InitEnemy()
@@ -262,22 +261,26 @@ namespace GiantsAttack
             NextStage();
         }
 
-        public void OnStageFail(LevelStage stage)
-        {
-            if (_isCompleted || _isFinalizing)
-                return;
-            Fail();
-        }
-
+        
+        // LEVEL RESULTS
         public void OnMainEnemyDead()
         {
+            if (_isCompleted || _isFinalizing) return;
             _playerMover.Pause(false);
             LaunchFinalSequence();
         }
-
+        
+        public void OnStageFail(LevelStage stage)
+        {
+            if (_isCompleted || _isFinalizing) return;
+            Fail();
+        }
+        
         private void OnAllStagesPassed()
         {
+            if (_isCompleted || _isFinalizing) return;
             CLog.LogGreen($"{gameObject.name} All stages passed");
+            _playerMover.Pause(false);
             LaunchFinalSequence();
         }
     }

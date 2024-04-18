@@ -10,6 +10,7 @@ namespace GameCore.UI
     {
         [SerializeField] private Image _image;
         private bool _isAnimating;
+        private Color _currentColor;
         
         public List<Color> ColorsByLevel { get; set; }
         
@@ -24,12 +25,14 @@ namespace GameCore.UI
         
         public void SetDamageLevel(int level)
         {
-            _image.color = ColorsByLevel[level];
+            _image.color = _currentColor = ColorsByLevel[level];
         }
 
         public void SetNonDamageable()
         {
-            _image.color = Color.gray;
+            _image.DOKill();
+            _isAnimating = false;
+            _image.color = _currentColor = Color.gray;
         }
         
         public void Animate()
@@ -37,11 +40,16 @@ namespace GameCore.UI
             if (_isAnimating)
                 return;
             _isAnimating = true;
-            _image.transform.localScale = Vector3.one;
-            _image.transform.DOPunchScale(Vector3.one * .1f, .1f).OnComplete(() =>
+            _image.color = Color.white;
+            _image.DOColor(_currentColor, .12f).OnComplete(() =>
             {
                 _isAnimating = false;
             });
+            // _image.transform.localScale = Vector3.one;
+            // _image.transform.DOPunchScale(Vector3.one * .1f, .1f).OnComplete(() =>
+            // {
+            //     _isAnimating = false;
+            // });
         }
     }
 }

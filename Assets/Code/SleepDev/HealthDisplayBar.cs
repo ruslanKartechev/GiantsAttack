@@ -13,7 +13,6 @@ namespace SleepDev
         [SerializeField] private Color _mainColor;
         [SerializeField] private Color _flickColor;
         private bool _isFlicking;
-
         
         private Coroutine _filling;
         
