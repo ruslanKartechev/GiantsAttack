@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
 using GameCore.Cam;
 using GameCore.UI;
 using UnityEngine;
@@ -7,7 +7,7 @@ using SleepDev;
 
 namespace GiantsAttack
 {
-    public class StageBasedLevel : GameCore.Levels.Level, IStageResultListener
+    public class TutorialLevel : GameCore.Levels.Level, IStageResultListener
     {
         [SerializeField] private float _enemyHealth = 1000;
         [SerializeField] private float _moveAnimationSpeed = .8f;
@@ -15,13 +15,20 @@ namespace GiantsAttack
         [SerializeField] private AimerSettingsSo _aimerSettings;
         [SerializeField] private HelicopterInitArgs _initArgs;
         [SerializeField] private Transform _playerSpawnPoint;
-        [SerializeField] private List<LevelStage> _stages;
+        [SerializeField] private LevelStageHavok _havokStage;
         [SerializeField] private LevelStartSequence _startSequence;
         [SerializeField] private LevelFinalSequence _finalSequence;
         [SerializeField] private LevelFailSequence _failSequence;
         [SerializeField] private GameObject _playerMoverGo;
+        [Space(10)]
+        [SerializeField] private TutorialUI _tutorUI;
+        [SerializeField] private Transform _startCamera;
+        [SerializeField] private float _cameraMoveDelay = 1f;
+        [SerializeField] private float _titleDelay;
+        [SerializeField] private float _aimTutorDelay;
+        [SerializeField] private float _hideTutorDelay;
+
         private PlayerCamera _camera;
-        private int _stageIndex = 0;
         private bool _isFinalizing;
         private byte _startReadyStage;
 
@@ -32,9 +39,9 @@ namespace GiantsAttack
         private IControlsUI _controlsUI;
         private IGameplayMenu _gameplayMenu;
         
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         private LevelDebugger _debugger;
-        #endif
+#endif
 
         private void Start()
         {
@@ -43,43 +50,7 @@ namespace GiantsAttack
             _debugger.level = this;
 #endif
         }
-
-#if UNITY_EDITOR
-        public void E_Init()
-        {
-            if (_startSequence == null)
-            {
-                _startSequence = FindObjectOfType<LevelStartSequence>();
-                _startSequence?.E_Init();
-            }
-
-            if (_finalSequence == null)
-            {
-                _finalSequence = FindObjectOfType<LevelFinalSequence>();
-                _finalSequence?.E_Init();
-            }
-
-            if (_failSequence == null)
-                _failSequence = FindObjectOfType<LevelFailSequence>();
-
-            if (_enemy == null)
-                _enemy = FindObjectOfType<MonsterController>();
-
-            if (_playerMoverGo == null)
-            {
-                var chance = FindObjectOfType<PlayerMover>();
-                if (chance != null)
-                    _playerMoverGo = chance.gameObject;
-                else
-                {
-                    var chance2 = FindObjectOfType<PlayerAroundMover>();
-                    if(chance2 != null)
-                        _playerMoverGo = chance2.gameObject;
-                }
-            }
-            UnityEditor.EditorUtility.SetDirty(this);
-        }
-#endif
+        
         
         public override void Init()
         {
@@ -93,6 +64,7 @@ namespace GiantsAttack
             _initArgs.controlsUI = _controlsUI;
             _initArgs.aimerSettings = _aimerSettings.aimerSettings;
             _gameplayMenu = GCon.UIFactory.GetGameplayMenu() as IGameplayMenu;
+            _gameplayMenu.Off();
             _initArgs.aimUI = _gameplayMenu.AimUI;
             // spawning
             SpawnEnemy();
@@ -100,18 +72,16 @@ namespace GiantsAttack
             // init
             InitPlayer();
             InitEnemy();
-            _player.CameraPoints.SetCameraToOutside();
             // player mover
             _playerMover.Player = _player;
             _playerMover.Enemy = _enemy;
             _player.Mover.Loiter();
             // stages
-            foreach (var st in _stages)
-                InitStage(st);
+            InitStage(_havokStage);
             StartTiming();
             _startSequence.Enemy = _enemy;
-            _startSequence.Begin(OnStartSequenceFinished);
-            ShowStartUI();
+            //
+            StartCoroutine(Starting());
         }
 
         public override void Win()
@@ -203,27 +173,7 @@ namespace GiantsAttack
             _enemy.Init(_gameplayMenu.EnemyBodySectionsUI , _enemyHealth);
             _enemy.SetMoveAnimationSpeed(_moveAnimationSpeed);
         }
-
-        private void OnCameraSet()
-        {
-            _player.Shooter.Gun.PlayGunsInstallAnimation();
-            _startReadyStage++;
-            if(_startReadyStage == 2)
-                BeginGameplay();
-        }
-
-        private void OnStartSequenceFinished()
-        {
-            _startReadyStage++;
-            if(_startReadyStage == 2)
-                BeginGameplay();
-        }
         
-        private void BeginGameplay()
-        {
-            _playerMover.Begin();
-            _stages[_stageIndex].Activate();
-        }
 
         private void InitStage(LevelStage stage)
         {
@@ -235,25 +185,11 @@ namespace GiantsAttack
             stage.PlayerMover = _playerMover;
         }
 
-        private void NextStage()
-        {
-            if (_isCompleted)
-                return;
-            CLog.LogGreen($"[Level] Stage competed callback");
-            _stageIndex++;
-            if (_stageIndex >= _stages.Count)
-            {
-                OnAllStagesPassed();
-                return;
-            }
-            _stages[_stageIndex].Activate();
-        }
-        
         public void OnStageComplete(LevelStage stage)
         {
             if (_isCompleted || _isFinalizing)
                 return;
-            NextStage();
+            OnAllStagesPassed();
         }
 
         
@@ -277,6 +213,57 @@ namespace GiantsAttack
             CLog.LogGreen($"{gameObject.name} All stages passed");
             _playerMover.Pause(false);
             LaunchFinalSequence();
+        }
+        // // //
+
+        private void OnStartSequence()
+        { }
+
+        private bool _camSet;
+        private bool _aimStarted;
+        
+        private void OnCameraSet() => _camSet = true;
+        private void OnInputBtnDown() => _aimStarted = true;
+        
+        private IEnumerator Starting()
+        {
+            _camera.SetPoint(_startCamera);
+            _startSequence.Begin(OnStartSequence);
+            CLog.LogBlue($"[Tutor] Started");
+            yield return null;
+            _tutorUI.ShowSquareAim();
+            yield return new WaitForSeconds(_titleDelay);
+            CLog.LogBlue($"[Tutor] Title");
+            _tutorUI.TextPrinter.PrintText();
+            yield return new WaitForSeconds(_cameraMoveDelay);
+            _tutorUI.HideAim();
+            CLog.LogBlue($"[Tutor] Camera movement");
+            _player.CameraPoints.MoveCameraToInside(OnCameraSet);
+            _gameplayMenu.On();
+            _controlsUI.Off();
+            while (_camSet == false)
+                yield return null;
+            CLog.LogBlue($"[Tutor] Camera set, gun install, stage activated");
+            _tutorUI.TextPrinter.HideAnimated();
+            _player.Shooter.Gun.PlayGunsInstallAnimation();
+            _havokStage.Activate();
+            _player.Aimer.StopAim();
+            _player.Shooter.StopShooting();
+            _controlsUI.Off();
+            yield return new WaitForSeconds(_aimTutorDelay);
+            CLog.LogBlue($"[Tutor] Aiming tutor");
+            Time.timeScale = 0f;
+            _tutorUI.ShowHandAreaAnimated();
+            _tutorUI.InputBtn.OnDown += OnInputBtnDown;
+            while (_aimStarted == false)
+                yield return null;
+            Time.timeScale = 1f;
+            _controlsUI.On();
+            _tutorUI.InputBtn.OnDown -= OnInputBtnDown;
+            _player.Aimer.BeginAim();
+            _playerMover.Begin();
+            yield return new WaitForSeconds(_hideTutorDelay);
+            _tutorUI.HideHandAreaAnimated();
         }
     }
 }
