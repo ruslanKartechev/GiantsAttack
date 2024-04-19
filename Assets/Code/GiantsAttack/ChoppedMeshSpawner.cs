@@ -10,6 +10,7 @@ namespace GiantsAttack
         [SerializeField] private List<Data> _parts;
         [SerializeField] private ChoppedMesh _prefab;
         [SerializeField] private List<GameObject> _disableTargets;
+        [SerializeField] private Transform _scaleSource;
 
         [System.Serializable]
         private class Data
@@ -28,6 +29,7 @@ namespace GiantsAttack
             foreach (var go in _disableTargets)
                 go.SetActive(false);
             var instance = Instantiate(_prefab, transform.position, transform.rotation, transform);
+            instance.transform.localScale = _scaleSource.localScale;
             for (var i = 0; i < _parts.Count; i++)
             {
                 var rb = instance.Rbs[i];

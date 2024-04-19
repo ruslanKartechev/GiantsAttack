@@ -1,4 +1,5 @@
-﻿using SleepDev.Sound;
+﻿using GameCore.Core;
+using SleepDev.Sound;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,7 @@ namespace GameCore.UI
         {
             SoundContainer.SoundManager.SetStatus(!SoundContainer.SoundManager.IsOn);
             _offIcon.gameObject.SetActive(!SoundContainer.SoundManager.IsOn);
+            GCon.PlayerData.SoundStatus = SoundContainer.SoundManager.IsOn;
         }
     }
 }

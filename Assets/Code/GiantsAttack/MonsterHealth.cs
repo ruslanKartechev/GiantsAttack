@@ -35,7 +35,7 @@ namespace GiantsAttack
                 return;
             }
             _healthBar.Flick();
-            _healthBar.UpdateHealth(HealthPercent);
+            _healthBar.SetHealth(HealthPercent);
             //
             var bp = _bloodParticles[_bloodPartsInd];
             bp.transform.position = args.point;

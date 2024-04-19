@@ -58,7 +58,6 @@ namespace GiantsAttack
             var vec = (me.position - center.position).XZPlane();
             angle = Vector3.SignedAngle(orientation.forward,vec, Vector3.up);
             radius = vec.magnitude;
-            CLog.LogRed($"Angle {angle}, radius {radius}, height {height}");
         }
 
         public void CalculatePositionAndRotation(out Vector3 position, out Quaternion rotation)

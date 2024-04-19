@@ -25,9 +25,9 @@ namespace GiantsAttack
                 var prefab = Resources.Load<GameObject>($"Prefabs/Enemies/{id.id}");
                 var inst = Instantiate(prefab, _spawnPoint);
                 inst.transform.CopyPosRot(_spawnPoint);
-                inst.transform.localScale = Vector3.one * _scale;
                 result = inst.GetComponent<IMonster>();
             }
+            result.Scale(_scale);
             result.SetArmorData(_armorData);
             return result;
         }

@@ -1,42 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
+using SleepDev;
 using TMPro;
 using UnityEngine;
 
 namespace GameCore.UI
 {
-    [System.Serializable]
-    public class CriticalDamageIndicator
-    {
-        [SerializeField] private TextMeshProUGUI _text;
-        [SerializeField] private float _duration;
-        [SerializeField] private Vector2 _anchor1;
-        [SerializeField] private Vector2 _anchor2;
-
-        public void Animate()
-        {
-            _text.gameObject.SetActive(true);
-            _text.DOKill();
-            _text.rectTransform.DOKill();
-            _text.rectTransform.localScale = Vector3.one;
-            _text.alpha = 1f;
-            _text.rectTransform.anchoredPosition = _anchor1;
-            _text.rectTransform.DOAnchorPos(_anchor2, _duration);
-            _text.rectTransform.DOScale(Vector3.one * 1.15f, _duration);
-            _text.DOFade(0f, _duration).OnComplete(() =>
-            {
-                _text.gameObject.SetActive(false);
-            });
-        }
-    }
     public class DamageHitsUI : MonoBehaviour, IDamageHitsUI
     {
         [SerializeField] private float _duration;
         [SerializeField] private List<TextMeshProUGUI> _texts;
         [SerializeField] private TextAppearance _mainAppearance;
         [SerializeField] private TextAppearance _critAppearance;
+        [SerializeField] private TextAppearance _headShotAppearance;
         [SerializeField] private CriticalDamageIndicator _criticalDamageIndicator;
-        
+        [SerializeField] private CriticalDamageIndicator _headShotDamageIndicator;
+        [SerializeField] private List<RectTransform> _crisUiPoints;
+
         [System.Serializable]
         private class TextAppearance
         {
@@ -50,13 +31,30 @@ namespace GameCore.UI
         
         private void OnEnable()
         {
-            _camera =Camera.main;
+            _camera = Camera.main;
         }
 
-
-        public void ShowHit(Vector3 worldPos, float damage, bool isCrit)
+        private void Awake()
         {
-            var appearance = isCrit ? _critAppearance : _mainAppearance;
+            _criticalDamageIndicator.Hide();
+            _headShotDamageIndicator.Hide();
+        }
+
+        public void ShowHit(Vector3 worldPos, float damage, DamageIndicationType type)
+        {
+            var appearance = _mainAppearance;
+            switch (type)
+            {
+                case DamageIndicationType.Critical:
+                    appearance = _critAppearance;
+                    _criticalDamageIndicator.SetPoint(_crisUiPoints.Random());
+                    _criticalDamageIndicator.Animate();
+                    break;
+                case DamageIndicationType.Headshot:
+                    appearance = _headShotAppearance;
+                    _headShotDamageIndicator.Animate();
+                    break;
+            }
             var screenPos = _camera.WorldToScreenPoint(worldPos);
             if (_index >= _texts.Count)
                 _index = 0;
@@ -74,8 +72,6 @@ namespace GameCore.UI
             });
             t.transform.DOScale(Vector3.one * (appearance.scale * .5f), _duration);
             _index++;
-            if(isCrit)
-                _criticalDamageIndicator.Animate();
         }
     }
 }

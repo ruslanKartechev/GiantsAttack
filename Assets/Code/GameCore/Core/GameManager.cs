@@ -20,6 +20,7 @@ namespace GameCore.Core
         [SerializeField] private GameObject _fpsCanvasPrefab;
         [SerializeField] private GameObject _poolsManagerGo;
         [SerializeField] private GameObject _soundManager;
+        [SerializeField] private SimpleMusicPlayer _musicPlayer;
 #if SDK
         [SerializeField] private AnalyticsManager _analytics;
         [SerializeField] private AdsManager _ads;
@@ -57,6 +58,8 @@ namespace GameCore.Core
             InitVibration();
             var soundManager = _soundManager.GetComponent<ISoundManager>();
             InitSound(soundManager);
+            if(_bootSettings.playMusicOnStart)
+                _musicPlayer.BeginPlaying();
             if (_bootSettings.ShowFPSCanvas)
             {
                 // CLog.LogWhite("[GM] fps canvas");
@@ -131,12 +134,7 @@ namespace GameCore.Core
             Debug.Log($"[GM] Play Game");
             try
             {
-                if (_bootSettings.ShowPregameCheat)
-                {
-                    Debug.Log("Show cheat option");
-                }
                 GCon.LevelManager.LoadCurrent();
-
             }
             catch (System.Exception ex)
             {

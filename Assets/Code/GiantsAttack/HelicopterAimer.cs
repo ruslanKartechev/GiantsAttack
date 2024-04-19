@@ -4,6 +4,7 @@ using GameCore.Core;
 using SleepDev;
 using SleepDev.Utils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace GiantsAttack
 {
@@ -58,6 +59,31 @@ namespace GiantsAttack
             if(_rotating != null)
                 StopCoroutine(_rotating);
             _rotating = StartCoroutine(Rotating());
+            if (Input.GetMouseButton(0))
+            {
+                OnDown();
+                _upInputWaiting = StartCoroutine(WaitingForUpInput());
+            }
+        }
+
+        private Coroutine _upInputWaiting;
+        private void StopWaitingForUpInput()
+        {
+            if(_upInputWaiting != null)
+                StopCoroutine(_upInputWaiting);
+        }
+
+        private IEnumerator WaitingForUpInput()
+        {
+            while (true)
+            {
+                if (Input.GetMouseButtonUp(0))
+                {
+                    OnUp();
+                    yield break;
+                }
+                yield return null;
+            }
         }
         
         public void StopAim()

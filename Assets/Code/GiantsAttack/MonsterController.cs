@@ -51,7 +51,11 @@ namespace GiantsAttack
             _defeatedBehaviour = GetComponent<IDefeatedBehaviour>();
             _armorManager.SpawnArmor();
         }
-        
+
+        public void Scale(float scale)
+        {
+            _animator.transform.localScale *= scale;
+        }
 
         public void SetMoveAnimationSpeed(float speed)
         {

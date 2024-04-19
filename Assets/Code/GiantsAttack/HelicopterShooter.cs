@@ -25,9 +25,7 @@ namespace GiantsAttack
         public Transform AtPoint { get; set; }
         
         public IHitCounter HitCounter { get; set; }
-        public IDamageHitsUI DamageHitsUI { get; set; }
         public IHelicopterGun Gun { get; set; }
-        
 
         public void Init(ShooterSettings settings, IHitCounter hitCounter)
         {
@@ -137,8 +135,7 @@ namespace GiantsAttack
 #endif
                     args.damage = damage;
                     bullet.Scale(1f);
-                    bullet.Launch(barrel.FromPoint.position, _shootDirection.forward,
-                        speed: Settings.speed, args, HitCounter, DamageHitsUI);
+                    bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, speed: Settings.speed, args, HitCounter);
                     var casing = GCon.PoolsManager.BulletCasingsPool.GetObject();
                     casing.Drop(barrel.DropPoint);
                     barrel.Recoil();

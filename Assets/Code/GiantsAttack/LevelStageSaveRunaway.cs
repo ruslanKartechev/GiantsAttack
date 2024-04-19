@@ -77,14 +77,16 @@ namespace GiantsAttack
 
         protected override void OnEnemyKilled(IMonster enemy)
         {
+            _isStopped = true;
             PlayerMover.Pause(false);
             _enemyMover.Stop();
+            StopAllCoroutines();
             base.OnEnemyKilled(enemy);
         }
 
         private IEnumerator FailPercentPolling()
         {
-            while (true)
+            while (!_isStopped)
             {
                 if (_runawayMover.InterpolationT >= _failSplinePercent)
                 {
