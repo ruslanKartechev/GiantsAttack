@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using GameCore.UI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Playables;
+using UnityEngine.UI;
 
 namespace GiantsAttack
 {
@@ -13,10 +14,14 @@ namespace GiantsAttack
         [SerializeField] private Animator _countAnimator;
         [SerializeField] private float _countAnimatorDelay;
         [SerializeField] private float _endDelay;
+        [Space(10)] 
+        [SerializeField] private float _fillTime;
         [SerializeField] private TextMeshProUGUI _countText;
-        [SerializeField] private Animator _highlightAnimator;
+        [SerializeField] private List<Image> _fillImages;
         private int _maxCount;
-        
+        private float _currentPercent;
+        private Coroutine _filling;
+
         public void Show(Action onEnd)
         {
             gameObject.SetActive(true);
@@ -26,25 +31,50 @@ namespace GiantsAttack
         public void SetCount(int max, int current)
         {
             _maxCount = max;
-            _countText.text = $"{current}/{max}";
+            SetPercentToCount(current);
         }
 
         public void UpdateCount(int count)
         {
-            _countText.text = $"{count}/{_maxCount}";
+            if(_filling != null)
+                StopCoroutine(_filling);
+            _filling = StartCoroutine(Filling((float)count/_maxCount));
         }
 
         public void SetActive(bool show)
         {
             gameObject.SetActive(show);
         }
-
-        public void Highlight()
+        
+        private void SetPercentToCount(int count)
         {
-            _highlightAnimator.gameObject.SetActive(true);
-            _highlightAnimator.enabled = true;
+            _currentPercent = (float)count / _maxCount;
+            SetPercent(_currentPercent);
         }
 
+        private void SetPercent(float percent)
+        {
+            var multPercent = Mathf.RoundToInt(percent * 100);
+            _countText.text = $"{multPercent}%";
+            foreach (var im in _fillImages)
+                im.fillAmount = percent;
+        }
+
+        private IEnumerator Filling(float targetPercent)
+        {
+            var elapsed = 0f;
+            var start = _currentPercent;
+            while (elapsed < _fillTime)
+            {
+                _currentPercent = Mathf.Lerp(start, targetPercent, elapsed / _fillTime);
+                SetPercent(_currentPercent);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            _currentPercent = targetPercent;
+            SetPercent(_currentPercent);
+        }
+        
         private IEnumerator Working(Action onEnd)
         {
             _titleAnimator.gameObject.SetActive(true);
