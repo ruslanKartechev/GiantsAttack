@@ -105,6 +105,12 @@ namespace GiantsAttack
                 listener.Enemy = _enemy;
                 listener.OnCompleted();
             }
-        }        
+        }
+
+        protected void PrintEvent()
+        {
+            if (_stage.eventText.Length > 0)
+                _ui.EventPrinter.PrintForTime(_stage.eventText, SubStage.EventPrintTime);
+        }
     }
 }

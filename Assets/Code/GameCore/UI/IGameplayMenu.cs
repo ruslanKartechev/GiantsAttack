@@ -11,5 +11,6 @@ namespace GameCore.UI
         IBodySectionsUI EnemyBodySectionsUI { get; }
         FlashUI Flash { get; }
         CityDestroyUI CityDestroyUI { get; }
+        TextByCharPrinter EventPrinter { get; }
     }
 }

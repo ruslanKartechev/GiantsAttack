@@ -18,8 +18,12 @@ namespace GiantsAttack
     [System.Serializable]
     public class SubStage : MonoBehaviour
     {
+        public const float EventPrintTime = 3f;
+        
         [Header("Start Delay")]
         public float delayBeforeStart;
+        [Header("Start Delay")] 
+        public string eventText;
         [Header("Action Type")]
         public ActionType actionType;
         public int targetsCount = 1;
@@ -33,14 +37,14 @@ namespace GiantsAttack
         public GameObject enemyTarget;
         [Header("Force, Toss distance, FlyTime")]
         public float forceVal = 100f;
-        [Header("Rotation before action")] 
-        public bool doRotateBeforeAction;
-        public float rotationTime;
-        public Transform rotationSource;
         [Header("Target Animation")]
         public bool doAnimateTarget;
         public float delayBeforeAnimateTarget;
         public AnimationType targetAnimationType;
+        [Header("Rotation before action")] 
+        public bool doRotateBeforeAction;
+        public float rotationTime;
+        public Transform rotationSource;
         [Header("Evasion")] 
         public CorrectSwipeChecker swipeChecker;
         public float evadeDistance;

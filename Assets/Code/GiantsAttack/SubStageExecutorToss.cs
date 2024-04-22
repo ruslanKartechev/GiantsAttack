@@ -27,6 +27,7 @@ namespace GiantsAttack
         {
             if (_isStopped) return;
             _ui.Flash.Play();
+            PrintEvent();
         }
 
         private void OnThrown()

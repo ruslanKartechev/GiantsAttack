@@ -28,6 +28,7 @@ namespace GiantsAttack
             var target = _stage.enemyTarget.GetComponent<IBrokenBuilding>();
             target.Break();
             _ui.Flash.Play();
+            PrintEvent();
             MinusTarget();
         }
 

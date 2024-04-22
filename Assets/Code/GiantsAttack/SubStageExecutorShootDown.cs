@@ -55,7 +55,7 @@ namespace GiantsAttack
                 _stage.slowMotionEffect.Begin();
             }
             _enemyWeapon.Health.SetDamageable(true);
-            _enemyWeapon.Health.OnDead += OnThrowableDestroyed;
+            _enemyWeapon.Health.OnDead += OnShotDown;
             _ui.ShootAtTargetUI.ShowAndFollow(_enemyWeapon.GameObject.transform);
             _player.Aimer.BeginAim();
             _shooterSettingsBeforeChange = _player.Shooter.Settings;
@@ -66,10 +66,10 @@ namespace GiantsAttack
             _enemy.Health.SetDamageable(false);
         }
 
-        private void OnThrowableDestroyed(IDamageable obj)
+        private void OnShotDown(IDamageable obj)
         {
             _trackedPoint.parent = null;
-            _enemyWeapon.Health.OnDead -= OnThrowableDestroyed;
+            _enemyWeapon.Health.OnDead -= OnShotDown;
             StopSlowMo();
             _ui.ShootAtTargetUI.Hide();
             _enemyWeapon.Throwable.Explode();
@@ -77,6 +77,7 @@ namespace GiantsAttack
             CameraContainer.Shaker.PlayDefault();
             _enemy.Health.SetDamageable(true);
             _ui.Flash.Play();
+            PrintEvent();
             Complete();
         }
 

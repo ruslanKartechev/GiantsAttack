@@ -35,5 +35,37 @@ namespace GameCore.UI
         {
             _block.gameObject.SetActive(false);
         }
+        
+        #if UNITY_EDITOR
+        [ContextMenu("E_Level1")]
+        public void E_Level1()
+        {
+            foreach (var p in _parts)
+            {
+                p.ColorsByLevel = _colorsByLevel;
+                p.SetDamageLevel(0);
+            }
+        }
+
+        [ContextMenu("E_Level2")]
+        public void E_Level2()
+        {
+            foreach (var p in _parts)
+            {
+                p.ColorsByLevel = _colorsByLevel;
+                p.SetDamageLevel(1);
+            }
+        }
+        
+        [ContextMenu("E_Level3")]
+        public void E_Level3()
+        {
+            foreach (var p in _parts)
+            {
+                p.ColorsByLevel = _colorsByLevel;
+                p.SetDamageLevel(2);
+            }
+        }
+        #endif
     }
 }

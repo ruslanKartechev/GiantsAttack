@@ -26,6 +26,7 @@ namespace GiantsAttack
             target.StopMovement();
             target.ExplodeDefaultDirection();
             _ui.Flash.Play();
+            PrintEvent();
             MinusTarget();
         }
 

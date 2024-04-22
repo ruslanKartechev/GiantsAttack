@@ -11,7 +11,6 @@ namespace GiantsAttack
         [SerializeField] private int _sectionID;
         [SerializeField] private float _maxHealth;
         [SerializeField] private List<BodyPartTarget> _targets;
-        [SerializeField] private FlickerAnimator _flicker;
         
         private float _health;
         private IHealth _fullBodyHealth;
@@ -20,8 +19,10 @@ namespace GiantsAttack
         /// 0 - green, 1 - yellow, 2 - red
         /// </summary>
         private int _currentHealthLevel = 0;
-        
+        private float _damageMult = 1f;
+
         public int SectionID => _sectionID;
+        public float DamageMult => _damageMult;
         public bool IsHead => _sectionID == 0;
 
         public List<BodyPartTarget> targets => _targets;
@@ -73,19 +74,20 @@ namespace GiantsAttack
                 return;
             Health -= args.damage;
             _partUI.Animate();
-            if (_health <= 0)
-            {
-                SetDamageable(false);
-                _partUI.SetNonDamageable();
-            }
-            else
+            if (_health > 0)
             {
                 var level = 0;
                 var percent = _health / _maxHealth;
                 if (percent <= .4f)
+                {
                     level = 2;
+                    _damageMult = 1.5f;
+                }
                 else if (percent <= .8f)
+                {
                     level = 1;
+                    _damageMult = 1.25f;
+                }
                 if (_currentHealthLevel != level)
                 {
                     _currentHealthLevel = level;

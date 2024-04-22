@@ -20,6 +20,7 @@ namespace GameCore.UI
         [SerializeField] private SoundSo _clickSound;
         [SerializeField] private PopAnimator _animator;
         [SerializeField] private CityDestroyUI _cityDestroyUI;
+        [SerializeField] private TextByCharPrinter _eventPrinter;
 
         public IAimUI AimUI => _aimUI;
         public IDamageHitsUI DamageHits => _damageHits;
@@ -29,6 +30,7 @@ namespace GameCore.UI
         public FlashUI Flash => _flashUI;
         public CityDestroyUI CityDestroyUI => _cityDestroyUI;
 
+        public TextByCharPrinter EventPrinter => _eventPrinter;
 
         public void AddBodySectionsUI(GameObject prefab)
         {

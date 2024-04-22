@@ -32,6 +32,7 @@ namespace GiantsAttack
             _counter.Minus( _stage.targetsCount, true);
             CallListenersCompleted();
             _ui.Flash.Play();
+            PrintEvent();
             Complete();
         }
     }

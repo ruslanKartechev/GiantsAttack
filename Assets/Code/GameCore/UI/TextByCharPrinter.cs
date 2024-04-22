@@ -13,18 +13,44 @@ namespace GameCore.UI
         [SerializeField] private float _charDelay;
         [SerializeField] private float _hideDuration;
         private Coroutine _printing;
+        
+        public string Text
+        {
+            get => _text;
+            set => _text = value;
+        }
+
+        public void PrintForTime(string text, float hideDelay)
+        {
+            Text = text;
+            Show();
+            StopPrinting();
+            _printing = StartCoroutine(PrintingForTime(hideDelay));
+        }
 
         public void PrintText()
         {
             _go.SetActive(true);
-            _printing = StartCoroutine(PrintingTitle());
+            _printing = StartCoroutine(Printing());
+        }
+
+        public void Show()
+        {
+            _go.transform.DOKill();
+            _go.transform.localScale = Vector3.one;
+            _go.SetActive(true);
+        }
+
+        private void StopPrinting()
+        {
+            if(_printing != null)
+                StopCoroutine(_printing);
         }
         
         public void Hide()
         {
             _go.SetActive(false);
-            if(_printing != null)
-                StopCoroutine(_printing);
+            StopPrinting();
         }
 
         public void HideAnimated()
@@ -36,8 +62,15 @@ namespace GameCore.UI
                 _go.SetActive(false);
             });
         }
-     
-        private IEnumerator PrintingTitle()
+
+        private IEnumerator PrintingForTime(float hideDelay)
+        {
+            yield return Printing();
+            yield return new WaitForSeconds(hideDelay);
+            gameObject.SetActive(false);
+        }
+        
+        private IEnumerator Printing()
         {
             var length = _text.Length;
             var en = _text.GetEnumerator();
