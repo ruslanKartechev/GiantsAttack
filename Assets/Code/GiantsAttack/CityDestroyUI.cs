@@ -10,10 +10,7 @@ namespace GiantsAttack
 {
     public class CityDestroyUI : MonoBehaviour, ITargetsCountUI
     {
-        [SerializeField] private Animator _titleAnimator;
-        [SerializeField] private Animator _countAnimator;
-        [SerializeField] private float _countAnimatorDelay;
-        [SerializeField] private float _endDelay;
+        [SerializeField] private SizeDeltaAnimator _sizeDeltaAnimator;
         [Space(10)] 
         [SerializeField] private float _fillTime;
         [SerializeField] private TextMeshProUGUI _countText;
@@ -25,7 +22,7 @@ namespace GiantsAttack
         public void Show(Action onEnd)
         {
             gameObject.SetActive(true);
-            StartCoroutine(Working(onEnd));
+            _sizeDeltaAnimator.Play();
         }
 
         public void SetCount(int max, int current)
@@ -75,16 +72,5 @@ namespace GiantsAttack
             SetPercent(_currentPercent);
         }
         
-        private IEnumerator Working(Action onEnd)
-        {
-            _titleAnimator.gameObject.SetActive(true);
-            _titleAnimator.enabled = true;
-            yield return new WaitForSeconds(_countAnimatorDelay);
-            _countAnimator.gameObject.SetActive(true);
-            _countAnimator.enabled = true;
-            yield return new WaitForSeconds(_endDelay);
-            _titleAnimator.gameObject.SetActive(false);
-            onEnd?.Invoke();
-        }
     }
 }

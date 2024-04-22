@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameCore.Core;
+using GameCore.UI;
 using SleepDev;
 using UnityEngine;
 
@@ -27,6 +29,10 @@ namespace GiantsAttack
         
         public override void Activate()
         {
+            CityUI = ((IGameplayMenu)GCon.UIFactory.GetGameplayMenu()).CityDestroyUI;
+            GetTotalCount();
+            CityUI.SetCount(_totalCount, _totalCount);
+            CityUI.Show(() => {});
             foreach (var listener in _stageListeners)
                 listener.OnActivated();
             Player.Aimer.BeginAim();

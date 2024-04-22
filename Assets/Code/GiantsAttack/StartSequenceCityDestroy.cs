@@ -1,4 +1,6 @@
 ﻿using System;
+using GameCore.Core;
+using GameCore.UI;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -16,12 +18,8 @@ namespace GiantsAttack
         
         public override void Begin(Action onEnd)
         {
-            _ui = Resources.Load<CityDestroyUI>("Prefabs/UI/city_destroy_ui");
-            var ui = Instantiate(_ui);
-            var count = _stage.GetTotalCount();
-            ui.SetCount(count, count);
-            ui.Show(() => { });
-            _stage.CityUI = ui;
+            _ui = ((IGameplayMenu)GCon.UIFactory.GetGameplayMenu()).CityDestroyUI;
+            _stage.CityUI = _ui;
             if (_otherSequence == this)
                 return;
             _otherSequence.Enemy = Enemy;

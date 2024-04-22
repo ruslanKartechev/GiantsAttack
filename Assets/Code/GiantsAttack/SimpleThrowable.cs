@@ -9,11 +9,9 @@ namespace GiantsAttack
     {
         [SerializeField] protected float _rotationSpeed;
         [SerializeField] protected Vector3 _torqueVector;
-        [SerializeField] protected VehicleTrail _trail;
         [SerializeField] protected HitTriggerReceiver _hitTriggerReceiver;
         [SerializeField] protected ExplosiveVehicle _explosiveVehicle;
         [SerializeField] protected Collider _collider;
-        [SerializeField] protected GameObject _model;
         private Coroutine _moving;
         private Action<Collider> _hitCallback;
 
@@ -22,7 +20,6 @@ namespace GiantsAttack
 
         public virtual void GrabBy(Transform hand, Action callback)
         {
-            _trail?.Off();
             _hitTriggerReceiver.Collider.enabled = false;
             transform.parent = hand;
             _hitTriggerReceiver.enabled = false;

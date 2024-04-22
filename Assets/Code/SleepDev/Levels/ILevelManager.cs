@@ -13,5 +13,7 @@
         
         void LoadPrev();
         public ILevelData CurrentLevel { get; }
+        int CurrentIndex { get; }
+        int NextIndex {get;}
     }
 }

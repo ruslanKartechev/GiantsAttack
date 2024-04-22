@@ -11,6 +11,8 @@ namespace GameCore.UI
         [SerializeField] private PopAnimator _popAnimator;
         [SerializeField] private ProperButton _playButton;
         [SerializeField] private SoundSo _clickSound;
+        [SerializeField] private LocationProgressBar _progressBar;
+        [SerializeField] private ObjectiveUI _objectiveUI;
         private Action _callback;
         
         public GameObject Go => gameObject;
@@ -54,7 +56,13 @@ namespace GameCore.UI
         public void Show(Action playCallback, Action onShown)
         {
             _callback = playCallback;
+            _progressBar.Init();
             Show(onShown);
+        }
+
+        public void ShowObjective(Action callback)
+        {
+            _objectiveUI.Play(callback);
         }
         
         private void ActivateButtons()
@@ -67,6 +75,9 @@ namespace GameCore.UI
             _clickSound.Play();
             _callback?.Invoke();
         }
+
+ 
         
     }
+    
 }

@@ -20,7 +20,8 @@ namespace GameCore.Core
         
         public static UISpawner UIFactory { get; set; }
         public static GameObjectFactory GOFactory { get; set; }
-        
+        public static PEPlayer ExplosionPlayer { get; set; }
+
         public static IObjectPoolsManager PoolsManager { get; set; }
   
 

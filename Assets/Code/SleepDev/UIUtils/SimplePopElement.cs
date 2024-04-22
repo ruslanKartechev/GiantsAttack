@@ -8,6 +8,7 @@ namespace SleepDev.UIUtils
         [SerializeField] private float _delay;
         [SerializeField] private float _duration;
         [SerializeField] private Ease _ease;
+        [SerializeField] private float _scale = 1f;
 
         public override float Delay
         {
@@ -27,14 +28,22 @@ namespace SleepDev.UIUtils
             set => _ease = value;
         }
 
+        public float Scale
+        {
+            get => _scale;
+            set => _scale = value;
+        }
+        
         public override void ScaleUp()
         {
+            gameObject.SetActive(true);
             transform.localScale = Vector3.zero;
-            transform.DOScale(Vector3.one, _duration).SetEase(_ease).SetDelay(_duration);
+            transform.DOScale(Vector3.one * _scale, _duration).SetEase(_ease).SetDelay(_duration);
         }
+        
         public override void ScaleDown()
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = Vector3.one * _scale;
             transform.DOScale(Vector3.zero, _duration).SetEase(_ease).SetDelay(_duration);
         }
 

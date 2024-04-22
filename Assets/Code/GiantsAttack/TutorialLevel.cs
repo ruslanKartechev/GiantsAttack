@@ -260,6 +260,7 @@ namespace GiantsAttack
             Time.timeScale = 1f;
             _controlsUI.On();
             _tutorUI.InputBtn.OnDown -= OnInputBtnDown;
+            _tutorUI.InputBtn.gameObject.SetActive(false);
             _player.Aimer.BeginAim();
             _playerMover.Begin();
             yield return new WaitForSeconds(_hideTutorDelay);

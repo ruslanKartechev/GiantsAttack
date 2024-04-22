@@ -26,6 +26,7 @@ namespace GiantsAttack
         private void OnPickUp()
         {
             if (_isStopped) return;
+            _ui.Flash.Play();
         }
 
         private void OnThrown()

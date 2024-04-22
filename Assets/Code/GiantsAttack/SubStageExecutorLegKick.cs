@@ -25,6 +25,7 @@ namespace GiantsAttack
             var target = _stage.enemyTarget.GetComponent<AnimatedVehicleBase>();
             target.StopMovement();
             target.ExplodeDefaultDirection();
+            _ui.Flash.Play();
             MinusTarget();
         }
 

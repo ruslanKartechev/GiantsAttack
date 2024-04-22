@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using GiantsAttack;
 
 namespace GameCore.UI
 {
@@ -9,6 +9,7 @@ namespace GameCore.UI
         EvadeUI EvadeUI { get; }
         IShootAtTargetUI ShootAtTargetUI { get; }
         IBodySectionsUI EnemyBodySectionsUI { get; }
-        void AddBodySectionsUI(GameObject prefab);
+        FlashUI Flash { get; }
+        CityDestroyUI CityDestroyUI { get; }
     }
 }

@@ -76,6 +76,7 @@ namespace GiantsAttack
             _player.Shooter.Settings = _shooterSettingsBeforeChange;
             CameraContainer.Shaker.PlayDefault();
             _enemy.Health.SetDamageable(true);
+            _ui.Flash.Play();
             Complete();
         }
 

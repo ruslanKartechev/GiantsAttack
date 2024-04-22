@@ -27,6 +27,7 @@ namespace GiantsAttack
             CLog.Log($"[SubStage] Action: Break building");
             var target = _stage.enemyTarget.GetComponent<IBrokenBuilding>();
             target.Break();
+            _ui.Flash.Play();
             MinusTarget();
         }
 

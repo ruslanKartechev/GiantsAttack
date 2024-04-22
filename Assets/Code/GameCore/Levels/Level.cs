@@ -9,7 +9,7 @@ namespace GameCore.Levels
         protected bool _isCompleted;
         protected float _timePassed;
         protected Coroutine _timing;
-
+        
         public abstract void Init();
         public abstract void Win();
         public abstract void Fail();

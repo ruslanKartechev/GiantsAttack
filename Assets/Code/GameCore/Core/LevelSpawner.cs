@@ -47,6 +47,11 @@ namespace GameCore.Core
 
         public void SpawnLevel()
         {
+            if (GlobalState.DevSceneMode)
+            {
+                var levelManager = (LevelManager)GCon.LevelManager;
+                levelManager.SetupLevels();
+            }
             if (usePreloaded)
             {
                 Level pl = null;
@@ -64,13 +69,9 @@ namespace GameCore.Core
             }
 
             if (GlobalState.DevSceneMode)
-            {
                 SpawnLevel(GCon.PlayerData.LevelTotal);
-            }
             else
-            {
                 SpawnLevelFromPrefab(GCon.LevelManager.CurrentLevel.Prefab());
-            }
         }
 
         private GameObject GetPrefab(ILevelData levelData)

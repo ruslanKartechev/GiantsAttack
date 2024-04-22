@@ -16,6 +16,7 @@ namespace GameCore.Core
         [SerializeField] private GConLocatorSo _soLocator;
         [SerializeField] private UISpawner _uiSpawner;
         [SerializeField] private GameObjectFactory _factory;
+        [SerializeField] private PEPlayer _explosionPlayer;
 
         public void InitContainer()
         {
@@ -25,6 +26,7 @@ namespace GameCore.Core
             GCon.Input = _input;
             GCon.UIFactory = _uiSpawner;
             GCon.GOFactory = _factory;
+            GCon.ExplosionPlayer = _explosionPlayer;
             _factory.Rebuild();
             _soLocator.InitContainer();
         }

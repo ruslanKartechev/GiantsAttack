@@ -35,7 +35,8 @@ namespace GiantsAttack
         #if UNITY_EDITOR
         private LevelDebugger _debugger;
         #endif
-
+        
+        
         private void Start()
         {
 #if UNITY_EDITOR
@@ -80,7 +81,8 @@ namespace GiantsAttack
             UnityEditor.EditorUtility.SetDirty(this);
         }
 #endif
-        
+
+
         public override void Init()
         {
             GCon.DataSaver.Save();
@@ -93,6 +95,7 @@ namespace GiantsAttack
             _initArgs.controlsUI = _controlsUI;
             _initArgs.aimerSettings = _aimerSettings.aimerSettings;
             _gameplayMenu = GCon.UIFactory.GetGameplayMenu() as IGameplayMenu;
+            _gameplayMenu.Off();
             _initArgs.aimUI = _gameplayMenu.AimUI;
             // spawning
             SpawnEnemy();
@@ -171,12 +174,16 @@ namespace GiantsAttack
         private void ShowStartUI()
         {
             var ui = GCon.UIFactory.GetStartMenu() as IMenuStart;
-            ui.Show(OnStartLevel, () => {});
+            ui.Show(OnStartLevel, () =>
+            {
+                ui.ShowObjective(() => {});
+            });
         }
 
         private void OnStartLevel()
         {
             GCon.UIFactory.GetStartMenu().Hide(() => {});
+            _gameplayMenu.Show(() => {});
             _player.CameraPoints.MoveCameraToInside(OnCameraSet);
         }
         

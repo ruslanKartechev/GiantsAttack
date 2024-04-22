@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameCore.Core;
 using UnityEngine;
 
 namespace SleepDev.Levels
@@ -8,16 +9,31 @@ namespace SleepDev.Levels
         // [SerializeField] private LevelsRepository _levelsRepository;
         [SerializeField] private Vector2Int _randomizeLevelLimits;
         [SerializeField] private List<int> _loopExcludedLevels;
-        
+        private int _currentIndex = -1;
+        private int _nextIndex = -1;
         private ILevelData _currentLevel;
+
+        public int CurrentIndex => _currentIndex;
+        public int NextIndex => _nextIndex;
         public ILevelData CurrentLevel => _currentLevel;
+
+        public void SetupLevels()
+        {
+            if (_currentIndex == -1)
+                _currentIndex = GCon.PlayerData.LevelTotal;
+            _currentIndex = CorrectIndex(_currentIndex);
+            _nextIndex = GetNextLevel(_currentIndex);
+            GCon.PlayerData.LevelTotal = _currentIndex;
+        }
         
-        
+        /// <summary>
+        /// Loads Current Level, also Cashes next level index to be used for next level. Cashes randomzied levels too
+        /// </summary>
         public void LoadCurrent()
         {
-            var level = GetLevel(GameCore.Core.GCon.PlayerData.LevelTotal);
-            _currentLevel = level;
-            Load(level.SceneName);
+            SetupLevels();
+            _currentLevel = GetLevel(_currentIndex);
+            Load(_currentLevel.SceneName);
         }
 
         /// <summary>
@@ -25,29 +41,38 @@ namespace SleepDev.Levels
         /// </summary>
         public void NextLevel()
         {
-            GameCore.Core.GCon.PlayerData.LevelTotal++;
-            // CLog.Log($"Set level total next: {GC.PlayerData.LevelTotal}");
+            if (_nextIndex == -1)
+                _nextIndex = CorrectIndex(++GCon.PlayerData.LevelTotal);
+            _currentIndex = _nextIndex;
         }
                 
         public void LoadPrev()
         {
-            var data = GameCore.Core.GCon.PlayerData;
+            var data = GCon.PlayerData;
             data.LevelTotal--;
             if (data.LevelTotal < 0)
                 data.LevelTotal = 0;
-            var level = GetLevel(GameCore.Core.GCon.PlayerData.LevelTotal);
+            var level = GetLevel(GCon.PlayerData.LevelTotal);
             _currentLevel = level;
             Load(level.SceneName);   
+        }
+
+        private int CorrectIndex(int index)
+        {
+            var count = GameCore.Core.GCon.LevelRepository.Count;
+            if (index >= count )
+                index = GetRandomIndex(index);
+            return index;
+        }
+        
+        private int GetNextLevel(int index)
+        {
+            index++;
+            return CorrectIndex(index);
         }
         
         private ILevelData GetLevel(int index)
         {
-            var count = GameCore.Core.GCon.LevelRepository.Count;
-            if (index >= count )
-            {
-                Debug.Log($"[LM] Total levels {index} > levelsCount {count}. Randomizing");
-                index = GetRandomIndex(index);
-            }
             var level = GameCore.Core.GCon.LevelRepository.GetLevel(index);
             CLog.Log($"[LevelManager] Index {index}, Scene {level.SceneName}, Level {level.LevelName}");
             return level;
@@ -71,7 +96,7 @@ namespace SleepDev.Levels
 
         private void Load(string sceneName)
         {
-            GameCore.Core.GCon.SceneSwitcher.OpenScene(sceneName, OnLoaded);   
+            GCon.SceneSwitcher.OpenScene(sceneName, OnLoaded);   
         }
         
         private void OnLoaded(bool success)

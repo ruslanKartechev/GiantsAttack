@@ -1,5 +1,7 @@
 ﻿using System;
+using GiantsAttack;
 using SleepDev.Sound;
+using SleepDev.UIUtils;
 using UnityEngine;
 using UnityEngine.UI;
 using GCon = GameCore.Core.GCon;
@@ -14,15 +16,20 @@ namespace GameCore.UI
         [SerializeField] private EvadeUI _evadeUI;
         [SerializeField] private ShootAtTargetUI _shootAtTargetUI;
         [SerializeField] private BodySectionsUI _bodySectionsUI;
+        [SerializeField] private FlashUI _flashUI;
         [SerializeField] private SoundSo _clickSound;
+        [SerializeField] private PopAnimator _animator;
+        [SerializeField] private CityDestroyUI _cityDestroyUI;
 
         public IAimUI AimUI => _aimUI;
         public IDamageHitsUI DamageHits => _damageHits;
-        public EvadeUI EvadeUI => _evadeUI;
         public IShootAtTargetUI ShootAtTargetUI => _shootAtTargetUI;
         public IBodySectionsUI EnemyBodySectionsUI => _bodySectionsUI;
-        
-        
+        public EvadeUI EvadeUI => _evadeUI;
+        public FlashUI Flash => _flashUI;
+        public CityDestroyUI CityDestroyUI => _cityDestroyUI;
+
+
         public void AddBodySectionsUI(GameObject prefab)
         {
             throw new NotImplementedException();
@@ -46,6 +53,7 @@ namespace GameCore.UI
         public void Show(Action onDone)
         {
             On();
+            _animator.ZeroAndPlay();
             onDone?.Invoke();
         }
 
