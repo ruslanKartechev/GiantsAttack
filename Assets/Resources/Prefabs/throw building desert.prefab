@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &435274271914366737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9144882205151366633}
+  m_Layer: 0
+  m_Name: explosion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9144882205151366633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435274271914366737}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
+  m_LocalPosition: {x: -2.7, y: 8.7, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 2190295154842864523}
+  m_LocalEulerAnglesHint: {x: 270, y: 90, z: 0}
 --- !u!1 &4970449646785058087
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,14 +40,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2190295154842864523}
+  - component: {fileID: 1758623412431995420}
   - component: {fileID: 253636779107865669}
   - component: {fileID: 2262131113931967686}
   - component: {fileID: 4632537991795507139}
-  - component: {fileID: 8785588323541955198}
   - component: {fileID: 981057125881025892}
   - component: {fileID: 3092092890382143689}
   - component: {fileID: 2593103671960443538}
-  - component: {fileID: 4793886109368003188}
+  - component: {fileID: 478280674667765448}
   m_Layer: 0
   m_Name: throw building desert
   m_TagString: Untagged
@@ -38,8 +69,23 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6849679447539477373}
+  - {fileID: 5621730846356152625}
+  - {fileID: 9144882205151366633}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1758623412431995420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4970449646785058087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a8dd2caab64ffca1d13e8c32f208b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explodingVehicle: {fileID: 981057125881025892}
 --- !u!114 &253636779107865669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _throwable: {fileID: 4632537991795507139}
   _health: {fileID: 2262131113931967686}
-  _animatedVehicle: {fileID: 8785588323541955198}
+  _animatedVehicle: {fileID: 1758623412431995420}
 --- !u!114 &2262131113931967686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,27 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationSpeed: 200
   _torqueVector: {x: 1, y: 1, z: 0}
-  _trail: {fileID: 0}
-  _hitTriggerReceiver: {fileID: 2593103671960443538}
   _explosiveVehicle: {fileID: 981057125881025892}
-  _collider: {fileID: 4793886109368003188}
-  _model: {fileID: 3800903911079981538}
---- !u!114 &8785588323541955198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4970449646785058087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0fd10fd6b194eb1939a04ddf8b6ddfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _explodingVehicle: {fileID: 981057125881025892}
-  _mover: {fileID: 3092092890382143689}
-  _animator: {fileID: 0}
-  _animSpeed: 1
 --- !u!114 &981057125881025892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,11 +145,10 @@ MonoBehaviour:
   _trail: {fileID: 0}
   _rb: {fileID: 7560892646565353559}
   _collider: {fileID: 6994588271771004950}
-  _onParticles: []
+  _explosionAndFire: {fileID: 478280674667765448}
   _onParentedParticles: []
   _offParticles: []
-  _sound: {fileID: 11400000, guid: 16a74c30c6148884ca7d3f7bbf5c5aa5, type: 2}
-  _defaultDirection: {fileID: 2190295154842864523}
+  _defaultDirection: {fileID: 5621730846356152625}
   _defaultForce: 50
 --- !u!114 &3092092890382143689
 MonoBehaviour:
@@ -176,28 +201,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6819c6798b794103b25eb734853419be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 4793886109368003188}
---- !u!65 &4793886109368003188
-BoxCollider:
+  _collider: {fileID: 0}
+--- !u!114 &478280674667765448
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4970449646785058087}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 16.72, y: 15.87, z: 37.122337}
-  m_Center: {x: 0.0000000058648415, y: 7.02, z: -3.4111617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb89ab67737b42f39c4fc413a568db74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionId: exp_3_debris_1
+  _explosionPoint: {fileID: 9144882205151366633}
+  _fireId: 
+  _firePoint: {fileID: 0}
+  _sound: {fileID: 0}
+--- !u!1 &7959381128430225752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5621730846356152625}
+  m_Layer: 0
+  m_Name: push dir
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5621730846356152625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7959381128430225752}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.06162845, y: 0.70441604, z: 0.06162845, w: 0.70441604}
+  m_LocalPosition: {x: -1.9, y: 10.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2190295154842864523}
+  m_LocalEulerAnglesHint: {x: -10, y: 90, z: 0}
 --- !u!1001 &5180141627014586701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -317,7 +369,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 3.1586406, y: 3.630618, z: 6.277065}
   m_Center: {x: 0.079319686, y: 1.7856872, z: -1.0709106}

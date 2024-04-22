@@ -17,6 +17,7 @@ namespace GiantsAttack
             Action<Action, float> delayDelegate, Action callback, Action failCallback) 
             : base(stage, enemy, player, playerMover, ui, counter, delayDelegate, callback, failCallback)
         {
+            CallListenersStart();
             TryAnimateTarget();
         }
         

@@ -10,15 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6269552463147304717}
   - component: {fileID: 6368423563682627194}
-  - component: {fileID: 708091557970928705}
-  - component: {fileID: 7178529887066820766}
   - component: {fileID: 8994454399739105610}
   - component: {fileID: 2603862951664790193}
   - component: {fileID: 6536271248549859987}
-  - component: {fileID: 3831785929469321895}
-  - component: {fileID: 8313268501126584395}
   - component: {fileID: 6738836186295885935}
   - component: {fileID: 6323045337815713707}
+  - component: {fileID: 3831785929469321895}
   m_Layer: 0
   m_Name: throw_vehicle_base
   m_TagString: Untagged
@@ -54,34 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _throwable: {fileID: 6323045337815713707}
-  _health: {fileID: 708091557970928705}
+  _health: {fileID: 0}
   _animatedVehicle: {fileID: 8994454399739105610}
---- !u!114 &708091557970928705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847628854973361761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 512fe3e5e95249e4bca38dc5443a7664, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 80
---- !u!114 &7178529887066820766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847628854973361761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6819c6798b794103b25eb734853419be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _collider: {fileID: 8313268501126584395}
 --- !u!114 &8994454399739105610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,54 +123,12 @@ MonoBehaviour:
   _spawnTrail: 0
   _trail: {fileID: 0}
   _rb: {fileID: 0}
-  _collider: {fileID: 8313268501126584395}
+  _collider: {fileID: 0}
   _explosionAndFire: {fileID: 6738836186295885935}
   _onParentedParticles: []
   _offParticles: []
   _defaultDirection: {fileID: 6269552463147304717}
   _defaultForce: 100
---- !u!95 &3831785929469321895
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847628854973361761}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!65 &8313268501126584395
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847628854973361761}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6738836186295885935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,8 +160,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rotationSpeed: 250
   _torqueVector: {x: 1, y: 1, z: 0}
-  _hitTriggerReceiver: {fileID: 7178529887066820766}
   _explosiveVehicle: {fileID: 6536271248549859987}
-  _collider: {fileID: 8313268501126584395}
   _trail: {fileID: 0}
   _particles: []
+--- !u!95 &3831785929469321895
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3847628854973361761}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

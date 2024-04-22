@@ -18,6 +18,7 @@ namespace GiantsAttack
             
             void Move()
             {
+                _animatedVehicle.gameObject.SetActive(true);
                 if (_hideOnMoveEnd)
                     _animatedVehicle.Move(() => {_animatedVehicle.gameObject.SetActive(false);});   
                 else

@@ -11,6 +11,5 @@ namespace GiantsAttack
         void TossTo(Vector3 force);
         void Hide();
         void Explode();
-        void SetColliderActive(bool on);
     }
 }

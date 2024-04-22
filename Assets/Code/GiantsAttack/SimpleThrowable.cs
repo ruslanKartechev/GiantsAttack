@@ -9,9 +9,7 @@ namespace GiantsAttack
     {
         [SerializeField] protected float _rotationSpeed;
         [SerializeField] protected Vector3 _torqueVector;
-        [SerializeField] protected HitTriggerReceiver _hitTriggerReceiver;
         [SerializeField] protected ExplosiveVehicle _explosiveVehicle;
-        [SerializeField] protected Collider _collider;
         private Coroutine _moving;
         private Action<Collider> _hitCallback;
 
@@ -20,9 +18,7 @@ namespace GiantsAttack
 
         public virtual void GrabBy(Transform hand, Action callback)
         {
-            _hitTriggerReceiver.Collider.enabled = false;
             transform.parent = hand;
-            _hitTriggerReceiver.enabled = false;
             if(_moving != null)
                 StopCoroutine(_moving);
             callback?.Invoke();
@@ -30,10 +26,6 @@ namespace GiantsAttack
 
         public void FlyTo(Transform point, float time, Action flyEndCallback, Action<Collider> callbackHit)
         {
-            _hitTriggerReceiver.Collider.isTrigger = true;
-            _hitTriggerReceiver.Callback = _hitCallback;
-            _hitTriggerReceiver.Collider.enabled = true;
-            _hitTriggerReceiver.enabled = true;
             transform.parent = null;
             _hitCallback = callbackHit;
             if(_moving != null)
@@ -53,7 +45,6 @@ namespace GiantsAttack
 
         public void Hide()
         {
-            _hitTriggerReceiver.Collider.enabled = false;
             gameObject.SetActive(false);
         }
 
@@ -62,12 +53,7 @@ namespace GiantsAttack
             _explosiveVehicle.Explode();
             Hide();
         }
-
-        public void SetColliderActive(bool on)
-        {
-            _collider.enabled = on;
-        }
-
+        
         private void OnTriggerEnter(Collider other)
         {
             _hitCallback.Invoke(other);            

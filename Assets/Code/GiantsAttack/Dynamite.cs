@@ -27,6 +27,7 @@ namespace GiantsAttack
         {
             _explsionParticles.Play();
             _model.SetActive(false);
+            _rb.isKinematic = true;
         }
     }
 }

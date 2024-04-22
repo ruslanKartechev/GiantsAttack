@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayBeforeStart: 0
+  eventText: 
   actionType: 3
   targetsCount: 1
   fromTop: 0
@@ -57,12 +58,12 @@ MonoBehaviour:
   enemyAnimation: '-'
   enemyTarget: {fileID: 8669977723597517763}
   forceVal: 1
-  doRotateBeforeAction: 0
-  rotationTime: 0.33
-  rotationSource: {fileID: 0}
   doAnimateTarget: 1
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
+  doRotateBeforeAction: 0
+  rotationTime: 0.33
+  rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 1
     _swipeInputTaker: {fileID: 7807037775730824864}
@@ -130,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayBeforeStart: 0
+  eventText: 
   actionType: 2
   targetsCount: 1
   fromTop: 0
@@ -139,12 +141,12 @@ MonoBehaviour:
   enemyAnimation: LegKick
   enemyTarget: {fileID: 4936302772377119700}
   forceVal: 100
-  doRotateBeforeAction: 0
-  rotationTime: 0
-  rotationSource: {fileID: 0}
   doAnimateTarget: 0
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
+  doRotateBeforeAction: 0
+  rotationTime: 0
+  rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
     _swipeInputTaker: {fileID: 0}
@@ -353,6 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayBeforeStart: 0
+  eventText: 
   actionType: 3
   targetsCount: 1
   fromTop: 0
@@ -362,12 +365,12 @@ MonoBehaviour:
   enemyAnimation: '-'
   enemyTarget: {fileID: 7687743809562606039}
   forceVal: 1.25
-  doRotateBeforeAction: 0
-  rotationTime: 0.33
-  rotationSource: {fileID: 0}
   doAnimateTarget: 1
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
+  doRotateBeforeAction: 0
+  rotationTime: 0.33
+  rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 2
     _swipeInputTaker: {fileID: 1546124506259798466}
@@ -676,6 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayBeforeStart: 0
+  eventText: 
   actionType: 0
   targetsCount: 1
   fromTop: 0
@@ -685,12 +689,12 @@ MonoBehaviour:
   enemyAnimation: LegKick
   enemyTarget: {fileID: 5594196513074906140}
   forceVal: 80
-  doRotateBeforeAction: 0
-  rotationTime: 0.33
-  rotationSource: {fileID: 0}
   doAnimateTarget: 1
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
+  doRotateBeforeAction: 0
+  rotationTime: 0.33
+  rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
     _swipeInputTaker: {fileID: 7778936568984037818}
@@ -807,6 +811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayBeforeStart: 0.25
+  eventText: 
   actionType: 1
   targetsCount: 1
   fromTop: 0
@@ -816,12 +821,12 @@ MonoBehaviour:
   enemyAnimation: DropKick
   enemyTarget: {fileID: 2889926248822716856}
   forceVal: 100
-  doRotateBeforeAction: 0
-  rotationTime: 0
-  rotationSource: {fileID: 0}
   doAnimateTarget: 0
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
+  doRotateBeforeAction: 0
+  rotationTime: 0
+  rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
     _swipeInputTaker: {fileID: 0}
@@ -953,6 +958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayBeforeStart: 0
+  eventText: 
   actionType: 0
   targetsCount: 1
   fromTop: 0
@@ -962,12 +968,12 @@ MonoBehaviour:
   enemyAnimation: LegKick
   enemyTarget: {fileID: 5601406759523975885}
   forceVal: 100
-  doRotateBeforeAction: 0
-  rotationTime: 0
-  rotationSource: {fileID: 0}
   doAnimateTarget: 0
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
+  doRotateBeforeAction: 0
+  rotationTime: 0
+  rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
     _swipeInputTaker: {fileID: 0}
@@ -1463,7 +1469,7 @@ PrefabInstance:
     - target: {fileID: 8400607556976732559, guid: e5ed296b6e7fc9a4f924e74ed04d35fa,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2056,6 +2062,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_3_iron
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552474661924201608, guid: d57208a0d8c5ec64ca5b90579d06d61f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3916926065326647831, guid: d57208a0d8c5ec64ca5b90579d06d61f,
         type: 3}
@@ -3337,7 +3348,7 @@ PrefabInstance:
     - target: {fileID: 7622913673418132720, guid: 05ef65362ce0c3e4fa3a423b7876adae,
         type: 3}
       propertyPath: m_Name
-      value: level_city_0_tutor
+      value: 1_level_city_0_tutor
       objectReference: {fileID: 0}
     - target: {fileID: 7723770062687825967, guid: 05ef65362ce0c3e4fa3a423b7876adae,
         type: 3}

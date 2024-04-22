@@ -49,6 +49,8 @@ namespace GiantsAttack
 
         private void OnJumped()
         {
+            foreach (var ll in _listeners)
+                ll.OnCompleted();
             Enemy.AnimEventReceiver.OnJumpDown -= OnJumped;
             CameraContainer.Shaker.PlayDefault();
             _jumpParticles.gameObject.SetActive(true);
@@ -58,6 +60,7 @@ namespace GiantsAttack
             {
                 var vec = (v.transform.position - Enemy.Point.position).normalized;
                 var torque = Vector3.Cross(-vec, Vector3.up) * _torqueForce;
+                v.StopMovement();
                 v.ExplodeWithTorque(vec * _pushBackForce, torque);
             }
             _groundHitSound?.Play();
