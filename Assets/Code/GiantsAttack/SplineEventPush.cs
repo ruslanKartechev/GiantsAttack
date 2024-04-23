@@ -5,7 +5,7 @@ namespace GiantsAttack
     public class SplineEventPush : SplineEvent
     {
         [SerializeField] private bool _moveBeforePush;
-        [SerializeField] private AnimatedVehicleBase _animatedVehicle;
+        [SerializeField] private AnimatedTarget _animatedVehicle;
         [SerializeField] private Transform _pushDir;
         [SerializeField] private float _pushForce;
         

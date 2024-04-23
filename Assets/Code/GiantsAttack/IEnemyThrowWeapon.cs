@@ -7,6 +7,6 @@ namespace GiantsAttack
         GameObject GameObject { get; }
         IThrowable Throwable { get; }
         IHealth Health { get; }
-        AnimatedVehicleBase AnimatedVehicle { get; }
+        AnimatedTarget AnimatedVehicle { get; }
     }
 }

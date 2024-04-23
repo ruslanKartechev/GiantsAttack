@@ -22,7 +22,7 @@ namespace GiantsAttack
         private void LegKick()
         {
             if (_isStopped) return;
-            var target = _stage.enemyTarget.GetComponent<AnimatedVehicleBase>();
+            var target = _stage.enemyTarget.GetComponent<AnimatedTarget>();
             target.StopMovement();
             target.ExplodeDefaultDirection();
             _ui.Flash.Play();

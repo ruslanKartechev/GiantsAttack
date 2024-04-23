@@ -152,10 +152,25 @@ namespace GiantsAttack
             _armorManager.ArmorData = armors;
         }
 
+        public void SpecialAttack(string id, Action attackStartCallback, Action attackCallback, Action endCallback)
+        {
+            if (!gameObject.TryGetComponent<IMonsterSpecialAttack>(out var specialAttack))
+            {
+                Debug.LogError($"{gameObject.name} IMonsterSpecialAttack not found");
+                return;
+            }
+            specialAttack.Attack(id, attackStartCallback, attackCallback, endCallback);
+        }
+
         private void OnHealthOut(IDamageable obj)
         {
             _health.OnDead -= OnHealthOut;
             OnDefeated?.Invoke(this);
         }
+    }
+
+    public interface IMonsterSpecialAttack
+    {
+        void Attack(string id, Action punchStartedCallback, Action attackCallback, Action endCallback);
     }
 }

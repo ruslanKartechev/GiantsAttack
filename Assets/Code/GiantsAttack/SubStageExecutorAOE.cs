@@ -27,7 +27,7 @@ namespace GiantsAttack
             _enemy.AnimEventReceiver.OnJumpDown -= OnJumped;
             if (_isStopped) return;
             CameraContainer.Shaker.PlayDefault();
-            var target = _stage.enemyTarget.GetComponent<AnimatedVehicleBase>();
+            var target = _stage.enemyTarget.GetComponent<AnimatedTarget>();
             target.ExplodeDefaultDirection();
             _counter.Minus( _stage.targetsCount, true);
             CallListenersCompleted();

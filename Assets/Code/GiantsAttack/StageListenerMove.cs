@@ -5,7 +5,7 @@ namespace GiantsAttack
 {
     public class StageListenerMove : StageListener
     {
-        [SerializeField] private AnimatedVehicleBase _animatedVehicle;
+        [SerializeField] private AnimatedTarget _animatedVehicle;
         [SerializeField] private bool _hideOnMoveEnd;
         [SerializeField] private float _delay;
 

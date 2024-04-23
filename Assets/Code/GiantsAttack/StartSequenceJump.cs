@@ -14,7 +14,7 @@ namespace GiantsAttack
         }
         [SerializeField] private AnimType _animType;
         [SerializeField] private ParticleSystem _jumpParticles;
-        [SerializeField] private List<AnimatedVehicleBase> _vehicles;
+        [SerializeField] private List<AnimatedTarget> _vehicles;
         [SerializeField] private List<StageListener> _listeners;
         [SerializeField] private float _pushBackForce;
         [SerializeField] private float _endCallbackDelay;

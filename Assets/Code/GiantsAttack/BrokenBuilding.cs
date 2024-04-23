@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DG.Tweening;
 using GameCore.Cam;
 using SleepDev.Sound;
 using SleepDev.Utils;
@@ -10,11 +11,15 @@ namespace GiantsAttack
     public class BrokenBuilding : MonoBehaviour,IBrokenBuilding
     {
         [SerializeField] private bool _shakeCameraOnHit = true;
+        [SerializeField] private bool _scaleBroken;
         [SerializeField] private float _force;
         [SerializeField] private List<Part> _parts;
         [SerializeField] private List<MeshRenderer> _rendsToDisable;
         [SerializeField] private ParticleSystem _particles;
         [SerializeField] private SoundSo _breakSound;
+        private const float ScaleDownTime = .4f; 
+        private const float ScaleDownDelay = 5f;
+        
         
         public void Break()
         {
@@ -25,6 +30,11 @@ namespace GiantsAttack
                 p.Activate();
             foreach (var p in _parts)
                 p.Push(_force);
+            if (_scaleBroken)
+            {
+                foreach (var p in _parts)
+                    p.ScaleDown(ScaleDownDelay, ScaleDownTime);
+            }
             
             _particles.gameObject.SetActive(true);
             _particles.Play();
@@ -84,11 +94,19 @@ namespace GiantsAttack
                 rb.isKinematic = false;
                 collider.enabled = true;
             }
+
+            public void ScaleDown(float delay, float scaleTime)
+            {
+                rb.transform.DOScale(Vector3.zero, scaleTime).SetDelay(delay).OnComplete(() =>
+                {
+                    rb.gameObject.SetActive(false);
+                });
+            }
         }
     }
 
     #if UNITY_EDITOR
-    [CustomEditor(typeof(BrokenBuilding))]
+    [CustomEditor(typeof(BrokenBuilding)), CanEditMultipleObjects]
     public class BrokenBuildingEditor : Editor
     {
         public override void OnInspectorGUI()

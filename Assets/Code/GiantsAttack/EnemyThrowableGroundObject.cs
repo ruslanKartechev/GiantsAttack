@@ -6,12 +6,12 @@ namespace GiantsAttack
     {
         [SerializeField] private SimpleThrowable _throwable;
         [SerializeField] private EnemyThrowWeaponHealth _health;
-        [SerializeField] private AnimatedVehicleBase _animatedVehicle;
+        [SerializeField] private AnimatedTarget _animatedVehicle;
 
         public GameObject GameObject => gameObject;
         public IThrowable Throwable => _throwable;
         public IHealth Health => _health;
-        public AnimatedVehicleBase AnimatedVehicle => _animatedVehicle;
+        public AnimatedTarget AnimatedVehicle => _animatedVehicle;
     }
 
 }

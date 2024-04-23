@@ -35,18 +35,20 @@ namespace GiantsAttack
             if(_parent)
                 _movable.parent = point;
             _movable.SetPositionAndRotation(point.position, point.rotation);
-            UnityEditor.EditorUtility.SetDirty(gameObject);
+            UnityEditor.EditorUtility.SetDirty(this);
         }
 
         public void Next()
         {
             _index++;
+            UnityEditor.EditorUtility.SetDirty(this);
             Place();
         }
 
         public void Prev()
         {
             _index--;
+            UnityEditor.EditorUtility.SetDirty(this);
             Place();
         }
 

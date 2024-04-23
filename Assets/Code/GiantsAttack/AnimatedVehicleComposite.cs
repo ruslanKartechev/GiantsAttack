@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class AnimatedVehicleComposite : AnimatedVehicleBase
+    public class AnimatedVehicleComposite : AnimatedTarget
     {
-        [SerializeField] private List<AnimatedVehicleBase> _vehicles;
+        [SerializeField] private List<AnimatedTarget> _vehicles;
 
         public override void AnimateMove()
         {

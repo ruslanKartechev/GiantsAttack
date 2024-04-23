@@ -15,7 +15,7 @@ namespace GiantsAttack
         protected Action _callback;
         protected Action _failCallback;
         protected bool _isStopped;
-        protected AnimatedVehicleBase _animatedVehicle;
+        protected AnimatedTarget _animatedVehicle;
         
         public SubStageExecutorBasic(SubStage stage, 
             IMonster enemy, IHelicopter player, IPlayerMover playerMover,
@@ -43,7 +43,7 @@ namespace GiantsAttack
         {
             if (_stage.doAnimateTarget)
             {
-                _animatedVehicle = _stage.enemyTarget.GetComponent<AnimatedVehicleBase>();
+                _animatedVehicle = _stage.enemyTarget.GetComponent<AnimatedTarget>();
                 if(_stage.delayBeforeAnimateTarget > 0)
                     _delayDelegate.Invoke(AnimateTarget, _stage.delayBeforeAnimateTarget);
                 else
@@ -80,6 +80,7 @@ namespace GiantsAttack
 
         protected virtual void Complete()
         {
+            _isStopped = true;
             _callback.Invoke();
         }
         

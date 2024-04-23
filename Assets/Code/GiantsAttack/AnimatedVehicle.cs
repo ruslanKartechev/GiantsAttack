@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class AnimatedVehicle : AnimatedVehicleBase
+    public class AnimatedVehicle : AnimatedTarget
     {
         [SerializeField] private ExplosiveVehicle _explodingVehicle;
         [SerializeField] private SimpleForwardMover _mover;

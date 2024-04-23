@@ -34,5 +34,6 @@ namespace GiantsAttack
         void Punch(string key, Action punchStartedCallback, Action onPunch, Action onAnimationEnd);
         void AlignPositionToAnimRootBone(bool playIdle);
         void SetArmorData(List<ArmorDataSo> armors);
+        void SpecialAttack(string id, Action attackStartCallback, Action attackCallback, Action endCallback);
     }
 }
