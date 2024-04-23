@@ -16,7 +16,7 @@ namespace GiantsAttack
             if (env >= _particlesPrefabs.Count)
             {
                 CLog.LogRed($"env >= _particlesPrefabs.Count");
-                return;
+                env = (byte)(_particlesPrefabs.Count - 1);
             }
             _currentParticles = Instantiate(_particlesPrefabs[env], transform);
         }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3375830067354991916}
   - component: {fileID: 3163144910067045934}
   - component: {fileID: 6136486132119907432}
-  - component: {fileID: 9132060714827545260}
   m_Layer: 0
   m_Name: Zoombi_Leg
   m_TagString: Untagged
@@ -28,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3880317268762647801}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.035104778, y: 0.15756801, z: -0.98563635, w: -0.049608357}
   m_LocalPosition: {x: -0.012566432, y: 0.008213989, z: -0.011947512}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -3.593, y: 107.113, z: -96.074}
 --- !u!33 &665878288888367590
 MeshFilter:
@@ -94,9 +93,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3880317268762647801}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 0.14630435, y: 0.53709066, z: 0.11053622}
   m_Center: {x: 0.03866922, y: -0.20681669, z: 0.009219865}
 --- !u!54 &6136486132119907432
@@ -106,26 +113,23 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3880317268762647801}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &9132060714827545260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3880317268762647801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3875b3aa28a154eae325aedb321d6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hideDelay: 4
-  destroyDelay: 2

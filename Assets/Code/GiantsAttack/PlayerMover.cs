@@ -77,13 +77,13 @@ namespace GiantsAttack
 
         private void OnMovedToNode()
         {
-            CLog.Log($"[{nameof(PlayerMover)}] None: {_nodes[_nodeIndex].point.name}, Ind: {_nodeIndex}");
             _nodeIndex++;
             if (_nodeIndex >= _nodes.Count)
             {
                 CLog.LogRed($"[{nameof(PlayerMover)}] All nodes passed");
                 return;
             }
+            CLog.Log($"[{nameof(PlayerMover)}] None: {_nodes[_nodeIndex].point.name}, Ind: {_nodeIndex}");
             _elapsedAwaiting = 0f;
             WaitForNode();
         }

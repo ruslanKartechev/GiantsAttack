@@ -75,7 +75,6 @@ namespace GiantsAttack
 
         public void Kill(bool chopped = false)
         {
-            CLog.Log($"{gameObject.name} Kill");
             if (_isDead)
                 return;
             _isDead = true;
@@ -89,7 +88,6 @@ namespace GiantsAttack
 
         public void PreKillState()
         {
-            CLog.Log($"{gameObject.name} Prekill");
             _mover.StopMovement();
             _health.HideDisplay();
             _health.SetDamageable(false);
@@ -106,20 +104,17 @@ namespace GiantsAttack
 
         public void Idle()
         {
-            CLog.LogRed("[Enemy] Idle");
             _animator.SetTrigger("Idle");
         }
 
 
         public void Roar()
         {
-            CLog.LogRed("[Enemy] Roar");
             _animator.SetTrigger("Roar");
         }
 
         public void Jump(bool transition)
         {
-            CLog.LogRed("[Enemy] Jump");
             if(transition)
                 _animator.SetTrigger("Jump");
             else
@@ -128,7 +123,6 @@ namespace GiantsAttack
 
         public void KickUp()
         {
-            CLog.LogRed("[Enemy] KickUp");
             _animator.Play("KickUp");
         }
         

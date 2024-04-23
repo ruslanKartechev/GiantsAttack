@@ -138,12 +138,6 @@ namespace GiantsAttack
             _gameplayMenu.Hide(() => {});
         }
 
-        private void ShowStartUI()
-        {
-            var ui = GCon.UIFactory.GetStartMenu() as IMenuStart;
-            ui.Show(OnStartLevel, () => {});
-        }
-
         private void OnStartLevel()
         {
             GCon.UIFactory.GetStartMenu().Hide(() => {});

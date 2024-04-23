@@ -36,6 +36,7 @@ namespace GameCore.Core
         {
 #if !UNITY_EDITOR
             autoSpawn = true;
+            usePreloaded = findPreloaded = false;
 #endif
             GCon.UIFactory.Clear();
             EnvironmentState.CurrentIndex = environmentIndex;

@@ -18,6 +18,11 @@ namespace GameCore.UI
         [SerializeField] private float _hideDuration;
         [SerializeField] private Transform _hideScalable;
         private Coroutine _animating;
+
+        public void SetObjectiveText(string txt)
+        {
+            _printer2.Text = txt;
+        }
         
         public void Play(Action callback)
         {

@@ -19,7 +19,6 @@ namespace GameCore.UI
         [SerializeField] private TextByCharPrinter _byCharPrinter;
         [SerializeField] private GameObject _prompt;
         [SerializeField] private GameObject _handArea;
-        [SerializeField] private float _hideTime;
         [SerializeField] private float _handAreaShowTime;
         private Coroutine _animating;
         private Coroutine _animating2;
@@ -78,17 +77,6 @@ namespace GameCore.UI
                 StopCoroutine(_animating);
         }
 
-        public void ShowPrompt(bool show)
-        {
-            if (show)
-            {
-                _prompt.SetActive(true);
-            }
-            else
-            {
-                _prompt.transform.DOScale(new Vector3(1f, 0f, 1f), _hideTime);
-            }
-        }
         
         private IEnumerator AimAnimating()
         {

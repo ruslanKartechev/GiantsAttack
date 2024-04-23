@@ -54,7 +54,6 @@ namespace GiantsAttack
             {
                 if (_eventData[_index].percent <= _targetMover.InterpolationT)
                 {
-                    CLog.LogBlue($"[EventPoller] percent {_eventData[_index].percent}");
                     foreach (var @event in _eventData[_index].events)
                     {
                         @event.Activate();
@@ -62,7 +61,7 @@ namespace GiantsAttack
                     _index++;
                     if (_index >= _eventData.Count)
                     {
-                        CLog.Log($"[SplineEventPoller] All events passed");
+                        // CLog.Log($"[SplineEventPoller] All events passed");
                         loop = false;
                         yield break;
                     }

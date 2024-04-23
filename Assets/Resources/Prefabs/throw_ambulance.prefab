@@ -313,6 +313,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3275877596914244136}
+    - targetCorrespondingSourceObject: {fileID: 7135112448851964736, guid: 0ec2465b7987e9d48a03231790faa051,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2424832835553831273}
   m_SourcePrefab: {fileID: 100100000, guid: 0ec2465b7987e9d48a03231790faa051, type: 3}
 --- !u!4 &2006694320660877053 stripped
 Transform:
@@ -374,6 +378,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2424832835553831273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4772284000887644998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512fe3e5e95249e4bca38dc5443a7664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!1001 &7772349445702504770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -502,6 +519,11 @@ PrefabInstance:
       propertyPath: _particles.Array.data[0]
       value: 
       objectReference: {fileID: 5592614722769811480}
+    - target: {fileID: 6368423563682627194, guid: 5454367f06d749c44aeb89b14eddc726,
+        type: 3}
+      propertyPath: _health
+      value: 
+      objectReference: {fileID: 2424832835553831273}
     - target: {fileID: 6368423563682627194, guid: 5454367f06d749c44aeb89b14eddc726,
         type: 3}
       propertyPath: _animatedVehicle
@@ -644,17 +666,17 @@ PrefabInstance:
     - target: {fileID: 504202287800475420, guid: 3f7c8661cbb90a84eac50ccb06e96806,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 504202287800475420, guid: 3f7c8661cbb90a84eac50ccb06e96806,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 504202287800475420, guid: 3f7c8661cbb90a84eac50ccb06e96806,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 504202287800475420, guid: 3f7c8661cbb90a84eac50ccb06e96806,
         type: 3}

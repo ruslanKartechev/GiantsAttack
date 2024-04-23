@@ -70,8 +70,7 @@ namespace GiantsAttack
         
         public void TakeDamage(DamageArgs args)
         {
-            if (Health <= 0)
-                return;
+            args.damage *= _damageMult;
             Health -= args.damage;
             _partUI.Animate();
             if (_health > 0)

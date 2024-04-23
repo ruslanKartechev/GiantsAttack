@@ -89,6 +89,7 @@ namespace GiantsAttack
             _stage.swipeChecker.Off();
             StopSlowMo();
             _ui.EvadeUI.Stop();
+            PrintEvent();
             _playerMover.Evade(_stage.swipeChecker.LastSwipeDir, OnEvadeEnd, _stage.evadeDistance);
         }
 

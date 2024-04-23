@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 2783965739497792267}
   - component: {fileID: 6164971689100104943}
   - component: {fileID: 5199251315197482610}
+  - component: {fileID: 7312462788997541003}
   m_Layer: 0
   m_Name: prop_barrel_1
   m_TagString: Untagged
@@ -215,6 +216,7 @@ Transform:
   - {fileID: 6985708896387515589}
   - {fileID: 2314004853312559454}
   - {fileID: 5762854408583673358}
+  - {fileID: 2243868417146671517}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6164971689100104943
@@ -230,10 +232,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useAimAtUI: 0
-  _maxDistanceToEnemy: 50
-  _damageToEnemy: 300
+  _maxDistanceToEnemy: 60
+  _damageToEnemy: 200
   _maxHealth: 50
-  _force: 140
+  _force: 110
   _pushDir: {fileID: 5762854408583673358}
   _explosive: {fileID: 5199251315197482610}
   _health: {fileID: 69264811226796606}
@@ -254,11 +256,59 @@ MonoBehaviour:
   _trail: {fileID: 0}
   _rb: {fileID: 4293698342160638038}
   _collider: {fileID: 5093706250757312020}
-  _explosionAndFire: {fileID: 0}
+  _explosionAndFire: {fileID: 7312462788997541003}
   _onParentedParticles: []
   _offParticles: []
-  _defaultDirection: {fileID: 0}
-  _defaultForce: 0
+  _defaultDirection: {fileID: 5762854408583673358}
+  _defaultForce: 50
+--- !u!114 &7312462788997541003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4376388472308081121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb89ab67737b42f39c4fc413a568db74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionId: exp_7_vertical
+  _explosionPoint: {fileID: 2243868417146671517}
+  _fireId: 
+  _firePoint: {fileID: 0}
+  _sound: {fileID: 11400000, guid: 16a74c30c6148884ca7d3f7bbf5c5aa5, type: 2}
+--- !u!1 &4469555455129256250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2243868417146671517}
+  m_Layer: 0
+  m_Name: explosion point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2243868417146671517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469555455129256250}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 2783965739497792267}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1001 &2306173335014564453
 PrefabInstance:
   m_ObjectHideFlags: 0

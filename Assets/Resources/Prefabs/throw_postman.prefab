@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 5961959781888217005}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 1.06, z: -0.19}
+  m_LocalPosition: {x: -0, y: 1.261, z: -0.19}
   m_LocalScale: {x: 1.333333, y: 1.3333336, z: 1.3333336}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -62,7 +62,6 @@ Transform:
   m_Children:
   - {fileID: 5739413524906717121}
   - {fileID: 4833826789966616273}
-  - {fileID: 6849202155614979065}
   - {fileID: 176808307313630253}
   - {fileID: 2696569886417943150}
   m_Father: {fileID: 4292768500203648460}
@@ -217,6 +216,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: car standing smoke
       objectReference: {fileID: 0}
+    - target: {fileID: 5964098914812573934, guid: 61446e7e0adf97d48b52ce30fb8929ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5964098914812787650, guid: 61446e7e0adf97d48b52ce30fb8929ba,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -298,101 +302,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5964098914812787650, guid: 61446e7e0adf97d48b52ce30fb8929ba,
     type: 3}
   m_PrefabInstance: {fileID: 1283965182905642259}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &3376753195120603387
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3459760921648974081}
-    m_Modifications:
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.000000029802319
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8201585098799688312, guid: 2fa5f0f711e17054a80bf82150f65e36,
-        type: 3}
-      propertyPath: m_Name
-      value: car explosion
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2fa5f0f711e17054a80bf82150f65e36, type: 3}
---- !u!4 &6849202155614979065 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8201585098799280898, guid: 2fa5f0f711e17054a80bf82150f65e36,
-    type: 3}
-  m_PrefabInstance: {fileID: 3376753195120603387}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6849202155634311645 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8201585098785059110, guid: 2fa5f0f711e17054a80bf82150f65e36,
-    type: 3}
-  m_PrefabInstance: {fileID: 3376753195120603387}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5466836418546868132
 PrefabInstance:
@@ -493,6 +402,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1623338124863980354}
+    - targetCorrespondingSourceObject: {fileID: 4577234780551965171, guid: bdad89e8eab932047a45ad0e596e65c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2305761193497451404}
   m_SourcePrefab: {fileID: 100100000, guid: bdad89e8eab932047a45ad0e596e65c8, type: 3}
 --- !u!4 &5739413524906717121 stripped
 Transform:
@@ -523,7 +436,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2285.482, y: 5584.9727, z: 2067.6382}
   m_Center: {x: -4.36048, y: -206.65459, z: 1030.5952}
@@ -554,6 +467,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2305761193497451404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8384435911869036119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512fe3e5e95249e4bca38dc5443a7664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!1001 &7823621766597440193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -589,19 +515,9 @@ PrefabInstance:
       objectReference: {fileID: 6665917201802977758}
     - target: {fileID: 5291533986802326809, guid: 5454367f06d749c44aeb89b14eddc726,
         type: 3}
-      propertyPath: _collider
-      value: 
-      objectReference: {fileID: 2291697982763297418}
-    - target: {fileID: 5291533986802326809, guid: 5454367f06d749c44aeb89b14eddc726,
-        type: 3}
       propertyPath: _explosiveVehicle
       value: 
       objectReference: {fileID: 3901971717385625682}
-    - target: {fileID: 5291533986802326809, guid: 5454367f06d749c44aeb89b14eddc726,
-        type: 3}
-      propertyPath: _explosionParticles
-      value: 
-      objectReference: {fileID: 6849202155634311645}
     - target: {fileID: 6269552463147304717, guid: 5454367f06d749c44aeb89b14eddc726,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -682,6 +598,11 @@ PrefabInstance:
       propertyPath: _particles.Array.data[0]
       value: 
       objectReference: {fileID: 4833826789947336669}
+    - target: {fileID: 6368423563682627194, guid: 5454367f06d749c44aeb89b14eddc726,
+        type: 3}
+      propertyPath: _health
+      value: 
+      objectReference: {fileID: 2305761193497451404}
     - target: {fileID: 6368423563682627194, guid: 5454367f06d749c44aeb89b14eddc726,
         type: 3}
       propertyPath: _animatedVehicle
@@ -785,12 +706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0fd10fd6b194eb1939a04ddf8b6ddfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &2291697982763297418 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 8313268501126584395, guid: 5454367f06d749c44aeb89b14eddc726,
-    type: 3}
-  m_PrefabInstance: {fileID: 7823621766597440193}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3901971717385625682 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6536271248549859987, guid: 5454367f06d749c44aeb89b14eddc726,

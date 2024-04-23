@@ -70,7 +70,6 @@ namespace GiantsAttack
         
         private void OnRocketHit()
         {
-            CLog.LogRed($"Rocket hit");
             Enemy.Kill();
             _explosionSound.Play();
             _callback.Invoke();

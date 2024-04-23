@@ -53,9 +53,10 @@ namespace GameCore.UI
             onDone?.Invoke();
         }
 
-        public void Show(Action playCallback, Action onShown)
+        public void Show(Action playCallback, Action onShown, string objective)
         {
             _callback = playCallback;
+            _objectiveUI.SetObjectiveText(objective);
             _progressBar.Init();
             Show(onShown);
         }

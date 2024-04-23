@@ -9,6 +9,7 @@ namespace GiantsAttack
 {
     public class StageBasedLevel : GameCore.Levels.Level, IStageResultListener
     {
+        [SerializeField] private string _objective = "SAVE THE CITY";
         [SerializeField] private float _enemyHealth = 1000;
         [SerializeField] private float _moveAnimationSpeed = .8f;
         [SerializeField] private EnemyID _enemyID;
@@ -177,7 +178,7 @@ namespace GiantsAttack
             ui.Show(OnStartLevel, () =>
             {
                 ui.ShowObjective(() => {});
-            });
+            }, _objective);
         }
 
         private void OnStartLevel()
