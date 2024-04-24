@@ -21,8 +21,12 @@ namespace SleepDev.Levels
             get => _scene;
             set => _scene = value;
         }
-        
-        public string LevelName => _level;
+
+        public string LevelName
+        {
+            get => _level;
+            set => _level = value;
+        }
         
         public GameObject Prefab()
         {

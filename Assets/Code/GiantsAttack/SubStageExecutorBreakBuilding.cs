@@ -1,6 +1,7 @@
 ﻿using System;
 using GameCore.UI;
 using SleepDev;
+using SleepDev.Vibration;
 
 namespace GiantsAttack
 {
@@ -28,6 +29,7 @@ namespace GiantsAttack
             var target = _stage.enemyTarget.GetComponent<IBrokenBuilding>();
             target.Break();
             _ui.Flash.Play();
+            VibrationManager.VibrManager.PlaySimple();
             PrintEvent();
             MinusTarget();
         }

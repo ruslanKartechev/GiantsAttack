@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using MadPixel;
 using MAXHelper;
+using System.Globalization;
 
 namespace MadPixelAnalytics {
     public class AppsFlyerComp : MonoBehaviour {
@@ -26,6 +27,8 @@ namespace MadPixelAnalytics {
 #else
             AppsFlyer.initSDK(AppsFlyerDevKey, AppID_IOs, this);
 #endif
+            AppsFlyer.enableTCFDataCollection(true);
+
             AppsFlyer.startSDK();
 
             AppsFlyerAdRevenue.start();
@@ -97,14 +100,15 @@ namespace MadPixelAnalytics {
 
             string currency = receipt.Product.metadata.isoCurrencyCode;
             float revenue = (float)receipt.Product.metadata.localizedPrice;
+            string revenueString = revenue.ToString(CultureInfo.InvariantCulture);
 
 #if UNITY_ANDROID
             AppsFlyer.validateAndSendInAppPurchase(monetizaionPubKey,
-                receipt.Signature, receipt.Data, revenue.ToString(), currency, null, this);
+                receipt.Signature, receipt.Data, revenueString, currency, null, this);
 #endif
 
 #if UNITY_IOS
-            AppsFlyer.validateAndSendInAppPurchase(receipt.SKU,  revenue.ToString(),  currency,  receipt.Product.transactionID,  null,  this);
+            AppsFlyer.validateAndSendInAppPurchase(receipt.SKU, revenueString,  currency,  receipt.Product.transactionID,  null,  this);
 #endif
         }
 

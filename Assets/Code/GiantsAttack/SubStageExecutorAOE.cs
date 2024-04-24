@@ -1,6 +1,7 @@
 ﻿using System;
 using GameCore.Cam;
 using GameCore.UI;
+using SleepDev.Vibration;
 
 namespace GiantsAttack
 {
@@ -32,6 +33,7 @@ namespace GiantsAttack
             _counter.Minus( _stage.targetsCount, true);
             CallListenersCompleted();
             _ui.Flash.Play();
+            VibrationManager.VibrManager.PlaySimple();
             PrintEvent();
             Complete();
         }

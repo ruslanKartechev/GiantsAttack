@@ -1,5 +1,6 @@
 ﻿using System;
 using GameCore.UI;
+using SleepDev.Vibration;
 
 namespace GiantsAttack
 {
@@ -26,6 +27,7 @@ namespace GiantsAttack
             target.StopMovement();
             target.ExplodeDefaultDirection();
             _ui.Flash.Play();
+            VibrationManager.VibrManager.PlaySimple();
             PrintEvent();
             MinusTarget();
         }

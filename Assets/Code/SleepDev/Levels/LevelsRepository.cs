@@ -49,6 +49,19 @@ namespace SleepDev.Levels
             }
             UnityEditor.EditorUtility.SetDirty(this);
         }
+
+        [ContextMenu("ReverseLevelAndLoc")]
+        public void ReverseLevelAndLoc()
+        {
+            foreach (var data in _levels)
+            {
+                var scene = data.SceneName;
+                var level = data.LevelName;
+                data.SceneName = level;
+                data.LevelName = scene;
+            }
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
         #endif
     }
 }

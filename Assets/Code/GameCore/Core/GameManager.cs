@@ -1,5 +1,4 @@
-#define SDK
-using System;
+#define HAS_SDK
 using System.Collections;
 using System.Globalization;
 using System.Threading;
@@ -21,7 +20,7 @@ namespace GameCore.Core
         [SerializeField] private GameObject _poolsManagerGo;
         [SerializeField] private GameObject _soundManager;
         [SerializeField] private SimpleMusicPlayer _musicPlayer;
-#if SDK
+#if HAS_SDK
         [SerializeField] private AnalyticsManager _analytics;
         [SerializeField] private AdsManager _ads;
 #endif
@@ -43,6 +42,7 @@ namespace GameCore.Core
 
         private void Start()
         {
+            DontDestroyOnLoad(gameObject);
             StartCoroutine(Working());
         }
 
@@ -50,11 +50,10 @@ namespace GameCore.Core
         {
             GlobalState.NoBootSceneMode = false;
             GlobalState.DevSceneMode = false;
-            DontDestroyOnLoad(gameObject);
             InitFramerate();
+            SetUSCulture();
             InitContainer();
             InitSaves();
-            SetUSCulture();
             InitVibration();
             var soundManager = _soundManager.GetComponent<ISoundManager>();
             InitSound(soundManager);
@@ -65,16 +64,16 @@ namespace GameCore.Core
                 // CLog.LogWhite("[GM] fps canvas");
                 var fps = Instantiate(_fpsCanvasPrefab, transform);
             }
+            yield return null;
             if (_poolsManagerGo.TryGetComponent<IObjectPoolsManager>(out var poolsManager))
                 poolsManager.BuildPools();
             yield return null;
             CLog.LogWhite("[GM] SDK Initiate");
-#if SDK
+#if HAS_SDK
             _ads.InitApplovin();
             yield return new WaitUntil(AdsManager.Ready);
             InitAnalytics();
             yield return null;
-            // HapticController.Init();
             PlayGame();
 #else
             PlayGame();
@@ -83,11 +82,12 @@ namespace GameCore.Core
 
         private void InitFramerate()
         {
-            Debug.Log($"[GM] Init frame rate");
+            CLog.LogWhite($"[GM] Init frame rate");
+            const int maxFrameRate = 120;
             if(_bootSettings.CapFPS)
                 Application.targetFrameRate = _bootSettings.FpsCap;
             else 
-                Application.targetFrameRate = 120;
+                Application.targetFrameRate = maxFrameRate;
         }
 
         private void InitContainer()
@@ -98,7 +98,7 @@ namespace GameCore.Core
 
         private void InitSaves()
         {
-            Debug.Log($"[GM] Init saves");
+            CLog.LogWhite($"[GM] Init saves");
             if (_bootSettings.ClearAllSaves)
                 GCon.DataSaver.Clear();
             var dataInit = gameObject.GetComponent<ISaveInitializer>();
@@ -114,8 +114,8 @@ namespace GameCore.Core
         
         private void InitAnalytics()
         {
-#if SDK
-            CLog.LogWHeader("GM", $"Init analytics {_bootSettings.InitAnalytics}", "w");
+#if HAS_SDK
+            CLog.LogWhite( $"[GM] Init analytics {_bootSettings.InitAnalytics}");
             if(!_bootSettings.InitAnalytics)
                 return;
             _analytics.Init();
@@ -131,7 +131,7 @@ namespace GameCore.Core
 
         private void PlayGame()
         {       
-            Debug.Log($"[GM] Play Game");
+            CLog.LogWhite($"[GM] Play Game");
             try
             {
                 GCon.LevelManager.LoadCurrent();

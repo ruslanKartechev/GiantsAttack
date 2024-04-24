@@ -1,4 +1,26 @@
-﻿# Version 121 - December 12, 2023
+﻿# Version 125.1 - March 15, 2024
+* Fix mobile in apps typo
+
+# Version 125 - March 08, 2024
+* Analytics version 1.0.9
+* AppsFlyer SDK updated to 6.13.10
+
+# Version 124 - February 20, 2024
+* Analytics version 1.0.8
+* AppsFlyer SDK updated to 6.13.0
+* AppsFlyer AdRevenue updated to 6.9.42
+* AppsFlyer: enable TCF data collection
+
+# Version 123 - February 05, 2024
+* Removed Amazon
+
+# Version 122 - January 29, 2024
+* Added non-consumables list to Mobile InApps 
+* af_purchase sends revenue via InvariantCulture now
+* Applovin (Unity 3D) updated
+* Maximum pack link and git link added
+
+# Version 121 - December 12, 2023
 * UMP implemented (See docs to use it)
 * Analytics is initialized on AdsManger initialized (no need to init Analytics on your own!)
 * Applovin updated to 12.1.0

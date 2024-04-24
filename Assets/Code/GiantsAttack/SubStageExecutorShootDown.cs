@@ -3,6 +3,7 @@ using GameCore.Cam;
 using GameCore.Core;
 using GameCore.UI;
 using SleepDev;
+using SleepDev.Vibration;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -77,6 +78,7 @@ namespace GiantsAttack
             CameraContainer.Shaker.PlayDefault();
             _enemy.Health.SetDamageable(true);
             _ui.Flash.Play();
+            VibrationManager.VibrManager.PlaySimple();
             PrintEvent();
             Complete();
         }
