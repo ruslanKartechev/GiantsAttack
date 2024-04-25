@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DG.Tweening;
-using SleepDev;
 using TMPro;
 using UnityEngine;
 
@@ -17,7 +15,11 @@ namespace GameCore.UI
         [SerializeField] private CriticalDamageIndicator _criticalDamageIndicator;
         [SerializeField] private CriticalDamageIndicator _headShotDamageIndicator;
         [SerializeField] private List<RectTransform> _crisUiPoints;
-
+        [SerializeField] private HitStreakUI _hitStreak;
+        private int _textIndex;
+        private Camera _camera;
+        
+        
         [System.Serializable]
         private class TextAppearance
         {
@@ -25,9 +27,7 @@ namespace GameCore.UI
             public Color color;            
             public float radius;
         }
-        
-        private int _index;
-        private Camera _camera;
+
         
         private void OnEnable()
         {
@@ -40,14 +40,14 @@ namespace GameCore.UI
             _headShotDamageIndicator.Hide();
         }
 
-        public void ShowHit(Vector3 worldPos, float damage, DamageIndicationType type)
+        public void ShowHit(Vector3 worldPos, float damage, DamageIndicationType type, byte bodyPart = 0)
         {
             var appearance = _mainAppearance;
             switch (type)
             {
                 case DamageIndicationType.Critical:
                     appearance = _critAppearance;
-                    _criticalDamageIndicator.SetPoint(_crisUiPoints.Random());
+                    _criticalDamageIndicator.SetPoint(_crisUiPoints[bodyPart]);
                     _criticalDamageIndicator.Animate();
                     break;
                 case DamageIndicationType.Headshot:
@@ -56,9 +56,9 @@ namespace GameCore.UI
                     break;
             }
             var screenPos = _camera.WorldToScreenPoint(worldPos);
-            if (_index >= _texts.Count)
-                _index = 0;
-            var t = _texts[_index];
+            if (_textIndex >= _texts.Count)
+                _textIndex = 0;
+            var t = _texts[_textIndex];
             t.color = appearance.color;
             t.text = $"-{Mathf.RoundToInt(damage)}";
             t.DOKill();
@@ -71,7 +71,17 @@ namespace GameCore.UI
                 t.gameObject.SetActive(false);
             });
             t.transform.DOScale(Vector3.one * (appearance.scale * .5f), _duration);
-            _index++;
+            _textIndex++;
+        }
+
+        public void ShowSteak(int count)
+        {
+            _hitStreak.Show(count);
+        }
+
+        public void HideStreak()
+        {
+            _hitStreak.Hide();
         }
     }
 }

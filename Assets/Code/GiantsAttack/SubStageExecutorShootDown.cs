@@ -78,8 +78,9 @@ namespace GiantsAttack
             CameraContainer.Shaker.PlayDefault();
             _enemy.Health.SetDamageable(true);
             _ui.Flash.Play();
-            VibrationManager.VibrManager.PlaySimple();
+            _ui.BrokenWindowsUI.BreakRandomNumber();
             PrintEvent();
+            VibrationManager.VibrManager.PlaySimple();
             Complete();
         }
 

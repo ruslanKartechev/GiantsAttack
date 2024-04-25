@@ -21,11 +21,13 @@ namespace GameCore.UI
         [SerializeField] private PopAnimator _animator;
         [SerializeField] private CityDestroyUI _cityDestroyUI;
         [SerializeField] private TextByCharPrinter _eventPrinter;
+        [SerializeField] private BrokenWindowsUI _brokenWindowsUI;
 
         public IAimUI AimUI => _aimUI;
         public IDamageHitsUI DamageHits => _damageHits;
         public IShootAtTargetUI ShootAtTargetUI => _shootAtTargetUI;
         public IBodySectionsUI EnemyBodySectionsUI => _bodySectionsUI;
+        public IBrokenWindowsUI BrokenWindowsUI => _brokenWindowsUI;
         public EvadeUI EvadeUI => _evadeUI;
         public FlashUI Flash => _flashUI;
         public CityDestroyUI CityDestroyUI => _cityDestroyUI;

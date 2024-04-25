@@ -16,7 +16,7 @@ namespace GameCore.UI
 
         public void SetPoint(RectTransform point)
         {
-            _rect.anchoredPosition = point.anchoredPosition;
+            _rect.position = point.position;
         }
 
         public void Hide()

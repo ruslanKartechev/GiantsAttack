@@ -1,7 +1,4 @@
-﻿
-using System.Collections.Generic;
-using GameCore.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GiantsAttack
 {
@@ -10,10 +7,7 @@ namespace GiantsAttack
         IHelicopterMover Mover { get; }
         IHelicopterShooter Shooter { get; }
         IHelicopterAimer Aimer { get; }
-        IDamageable Damageable { get; }
         IHelicopterCameraPoints CameraPoints { get; }
-        IBodySectionsUI BodySectionsUI { get; }
-        IDestroyer Destroyer { get; }
         void Init(HelicopterInitArgs args);
         void StopAll();
         void Kill();

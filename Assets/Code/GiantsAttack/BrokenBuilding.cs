@@ -17,9 +17,9 @@ namespace GiantsAttack
         [SerializeField] private List<MeshRenderer> _rendsToDisable;
         [SerializeField] private ParticleSystem _particles;
         [SerializeField] private SoundSo _breakSound;
+        [SerializeField] private Transform _pushDirection;
         private const float ScaleDownTime = .4f; 
         private const float ScaleDownDelay = 5f;
-        
         
         public void Break()
         {
@@ -28,8 +28,17 @@ namespace GiantsAttack
             
             foreach (var p in _parts)
                 p.Activate();
-            foreach (var p in _parts)
-                p.Push(_force);
+            if (_pushDirection == null)
+            {
+                foreach (var p in _parts)
+                    p.Push(_force);
+            }
+            else
+            {
+                foreach (var p in _parts)
+                    p.Push(_force * _pushDirection.forward);
+            }
+          
             if (_scaleBroken)
             {
                 foreach (var p in _parts)
@@ -85,7 +94,12 @@ namespace GiantsAttack
 
             public void Push(float force)
             {
-                rb.AddForce(rb.transform.localPosition.normalized * force);
+                rb.AddForce(rb.transform.localPosition.normalized * force, ForceMode.Impulse);
+            }
+
+            public void Push(Vector3 force)
+            {
+                rb.AddForce(force, ForceMode.Impulse);
             }
             
             public void Activate()

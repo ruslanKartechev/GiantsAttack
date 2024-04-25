@@ -1,5 +1,4 @@
-﻿using GameCore.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GiantsAttack
 {

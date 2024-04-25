@@ -8,7 +8,7 @@ namespace GiantsAttack
     [System.Serializable]
     public class BodySection : IDamageable
     {
-        [SerializeField] private int _sectionID;
+        [SerializeField] private byte _sectionID;
         [SerializeField] private float _maxHealth;
         [SerializeField] private List<BodyPartTarget> _targets;
         
@@ -18,11 +18,9 @@ namespace GiantsAttack
         /// <summary>
         /// 0 - green, 1 - yellow, 2 - red
         /// </summary>
-        private int _currentHealthLevel = 0;
-        private float _damageMult = 1f;
-
-        public int SectionID => _sectionID;
-        public float DamageMult => _damageMult;
+        private byte _currentHealthLevel = 0;
+        public byte SectionID => _sectionID;
+        public byte HealthLevel => _currentHealthLevel;
         public bool IsHead => _sectionID == 0;
 
         public List<BodyPartTarget> targets => _targets;
@@ -70,23 +68,16 @@ namespace GiantsAttack
         
         public void TakeDamage(DamageArgs args)
         {
-            args.damage *= _damageMult;
             Health -= args.damage;
             _partUI.Animate();
             if (_health > 0)
             {
-                var level = 0;
+                byte level = 0;
                 var percent = _health / _maxHealth;
                 if (percent <= .4f)
-                {
                     level = 2;
-                    _damageMult = 1.5f;
-                }
                 else if (percent <= .8f)
-                {
                     level = 1;
-                    _damageMult = 1.25f;
-                }
                 if (_currentHealthLevel != level)
                 {
                     _currentHealthLevel = level;

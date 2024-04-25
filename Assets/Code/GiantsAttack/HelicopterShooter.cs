@@ -120,20 +120,11 @@ namespace GiantsAttack
                     var barrel = Gun.Barrels[i];
                     var bullet = GCon.PoolsManager.BulletsPool.GetObject();
                     bullet.SetRotation(barrel.FromPoint.rotation);
-                    float damage = 0f;
-                    var chance = UnityEngine.Random.Range(0f, 1f);
-                    var args = new DamageArgs();
-                    if (chance < Settings.critChance)
-                    {
-                        damage = Settings.critDamage;
-                        args.isCrit = true;
-                    }
-                    else
-                        damage = Settings.damage.Random();
+                    var damage = Settings.damage.Random();
 #if UNITY_EDITOR
                     damage *= GlobalConfig.DamageMultiplier;
 #endif
-                    args.damage = damage;
+                    var args = new DamageArgs() {damage = damage};
                     bullet.Scale(1f);
                     bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, speed: Settings.speed, args, HitCounter);
                     var casing = GCon.PoolsManager.BulletCasingsPool.GetObject();

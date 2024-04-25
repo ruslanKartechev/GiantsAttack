@@ -66,7 +66,7 @@ namespace GiantsAttack
             if (distanceToEnemy < _maxDistanceToEnemy * _maxDistanceToEnemy)
             {
                 var section = Enemy.BodySectionsManager.GetRandomSection();
-                section.targets.Random().Damageable.TakeDamage(new DamageArgs(_damageToEnemy, transform.position, transform.forward, true));
+                section.targets.Random().Damageable.TakeDamage(new DamageArgs(_damageToEnemy, transform.position, transform.forward));
             }
         }
     }

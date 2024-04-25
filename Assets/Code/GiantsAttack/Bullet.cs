@@ -113,7 +113,6 @@ namespace GiantsAttack
             {
                 _damageArgs.point = transform.position;
                 _damageArgs.direction = transform.forward;
-                target.Damageable.TakeDamage(_damageArgs);
                 OnHit();
                 _counter.HitsCount++;
                 DamageCalculator.AddDamage(target, _damageArgs);

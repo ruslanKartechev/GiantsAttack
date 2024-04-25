@@ -12,5 +12,6 @@ namespace GameCore.UI
         FlashUI Flash { get; }
         CityDestroyUI CityDestroyUI { get; }
         TextByCharPrinter EventPrinter { get; }
+        IBrokenWindowsUI BrokenWindowsUI { get; }
     }
 }
