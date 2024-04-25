@@ -46,10 +46,10 @@ namespace GiantsAttack
             _altitudeMeter.Begin();
             _compas.BeginTracking(args.enemyTransform);
             _playingSound = _helicopterSound.Play();
-            if (EnvironmentState.IsNight)
-                _light.enabled = true;
-            else
-                _light.enabled = false;
+            // if (EnvironmentState.IsNight)
+            //     _light.enabled = true;
+            // else
+            //     _light.enabled = false;
         }
 
         public void StopAll()

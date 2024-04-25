@@ -9,7 +9,6 @@ namespace GameCore.Core
     public class LevelSpawner : MonoBehaviour
     {
         public byte environmentIndex;
-        public bool isNight;
         public bool usePreloaded;
         public GameObject preloaded;
         public bool findPreloaded;
@@ -40,7 +39,6 @@ namespace GameCore.Core
 #endif
             GCon.UIFactory.Clear();
             EnvironmentState.CurrentIndex = environmentIndex;
-            EnvironmentState.IsNight = isNight;
             if (!autoSpawn)
                 return;
             SpawnLevel();

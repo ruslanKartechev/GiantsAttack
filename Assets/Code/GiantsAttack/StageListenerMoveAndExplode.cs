@@ -12,6 +12,7 @@ namespace GiantsAttack
         public override void OnActivated()
         {
             Delay(() => {
+                _mover.gameObject.SetActive(true);
                 _mover.Move(() =>
                 {
                     _explosive.Explode();

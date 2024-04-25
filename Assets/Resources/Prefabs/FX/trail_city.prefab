@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2867685219094059544
+--- !u!1 &4903441225078007077
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8427783550488693769}
-  - component: {fileID: 7299517899185710065}
-  - component: {fileID: 918575443423906021}
+  - component: {fileID: 5001321640268489011}
+  - component: {fileID: 4588980085640618254}
+  - component: {fileID: 720601484668984241}
   m_Layer: 0
-  m_Name: vehicle_trail_winter
+  m_Name: trail_city
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8427783550488693769
+--- !u!4 &5001321640268489011
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2867685219094059544}
+  m_GameObject: {fileID: 4903441225078007077}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -33,13 +33,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!198 &7299517899185710065
+--- !u!198 &4588980085640618254
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2867685219094059544}
+  m_GameObject: {fileID: 4903441225078007077}
   serializedVersion: 8
   lengthInSec: 1
   simulationSpeed: 1
@@ -186,8 +186,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.5474901, g: 0.6377357, b: 0.63608545, a: 1}
-      maxColor: {r: 0.87045217, g: 0.9245283, b: 0.92105585, a: 1}
+      minColor: {r: 0.18490559, g: 0.18490559, b: 0.18490559, a: 1}
+      maxColor: {r: 0.5698112, g: 0.5698112, b: 0.5698112, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1987,7 +1987,7 @@ ParticleSystem:
         m_RotationOrder: 4
     inWorldSpace: 0
   InheritVelocityModule:
-    enabled: 1
+    enabled: 0
     m_Mode: 0
     m_Curve:
       serializedVersion: 2
@@ -4678,14 +4678,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &918575443423906021
+--- !u!199 &720601484668984241
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2867685219094059544}
+  m_GameObject: {fileID: 4903441225078007077}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

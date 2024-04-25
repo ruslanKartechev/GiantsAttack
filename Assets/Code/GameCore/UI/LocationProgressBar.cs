@@ -10,7 +10,6 @@ namespace GameCore.UI
     {
         [SerializeField] private Image _leftLocIcon;
         [SerializeField] private Image _rightLocIcon;
-        [SerializeField] private List<Sprite> _envSprites;
         [SerializeField] private List<LocationProgressBarLevel> _levels;
 
         public void Init()
@@ -32,11 +31,13 @@ namespace GameCore.UI
         private void SetupLocationImages()
         {
             var repo = GCon.LevelRepository;
-            // CLog.LogRed($"Current index {GCon.LevelManager.CurrentIndex}, next index {GCon.LevelManager.NextIndex}");
-            var envInd1 = repo.GetEnvironmentIndex(repo.GetLevel(GCon.LevelManager.CurrentIndex).SceneName);
-            _leftLocIcon.sprite = _envSprites[envInd1];
-            var envInd2 = repo.GetEnvironmentIndex(repo.GetLevel(GCon.LevelManager.NextIndex).SceneName);
-            _rightLocIcon.sprite = _envSprites[envInd2];
+            _leftLocIcon.sprite = EnvironmentState.GetIconForScene(repo.GetLevel(GCon.LevelManager.CurrentIndex).SceneName);
+            _rightLocIcon.sprite = EnvironmentState.GetIconForScene(repo.GetLevel(GCon.LevelManager.NextIndex).SceneName);
+            if (_leftLocIcon.sprite == null)
+                CLog.LogRed($"NULLLLLLLL LEFT");
+            if (_rightLocIcon.sprite == null)
+                CLog.LogRed($"NULLLLLLLL Right");
+
         }
     }
 }

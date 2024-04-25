@@ -11,7 +11,7 @@ namespace SleepDev
         public void Spawn()
         {
             _particles = new ParticleSystem[_points.Length];
-            var prefab = EnvironmentState.GetCurrentVehicleTrailPrefab();
+            var prefab = EnvironmentState.VehicleTrailPrefab();
             for (var i = 0; i < _points.Length; i++)
             {
                 var inst = Instantiate(prefab, _points[i].position, _points[i].rotation, _points[i]);
