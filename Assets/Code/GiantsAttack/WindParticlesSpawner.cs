@@ -7,11 +7,9 @@ namespace GiantsAttack
     [DefaultExecutionOrder(1002)]
     public class WindParticlesSpawner : MonoBehaviour 
     {
-        private ParticleSystem _currentParticles;
-        
         private void Start()
         {
-            _currentParticles = Instantiate(EnvironmentState.WindParticlesPrefab, transform);
+            var win = Instantiate(EnvironmentState.WindParticlesPrefab, transform);
         }
     }
 }

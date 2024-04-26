@@ -116,10 +116,10 @@ namespace DigitalRuby.RainMaker
                 {
                     WindZone.gameObject.SetActive(false);
                 }
-                audioSourceWind.Stop();
+                // audioSourceWind.Stop();
             }
 
-            audioSourceWind.Update();
+            // audioSourceWind.Update();
         }
 
         private void CheckForRainChange()
@@ -290,9 +290,9 @@ namespace DigitalRuby.RainMaker
 
             CheckForRainChange();
             UpdateWind();
-            audioSourceRainLight.Update();
-            audioSourceRainMedium.Update();
-            audioSourceRainHeavy.Update();
+            // audioSourceRainLight.Update();
+            // audioSourceRainMedium.Update();
+            // audioSourceRainHeavy.Update();
         }
 
         protected virtual float RainFallEmissionRate()

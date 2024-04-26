@@ -42,8 +42,8 @@ namespace SleepDev
         public static string TrailId => CurrentData.trailId;
         public static string WinId => CurrentData.windParticles;
 
-        public static ParticleSystem WindParticlesPrefab => 
-            Resources.Load<ParticleSystem>($"Prefabs/FX/{WinId}");
+        public static GameObject WindParticlesPrefab => 
+            Resources.Load<GameObject>($"Prefabs/FX/{WinId}");
 
         public static ParticleSystem VehicleTrailPrefab() =>
             Resources.Load<ParticleSystem>($"Prefabs/FX/{TrailId}");
