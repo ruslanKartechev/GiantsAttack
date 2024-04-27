@@ -18,8 +18,8 @@ namespace GiantsAttack
         protected override void OnEnemyMoved()
         {
             base.OnEnemyMoved();
-            var target = _stage.enemyTarget.GetComponent<IEnemyThrowWeapon>();
-            _enemy.PickAndThrow(target.Throwable, OnPickUp, OnThrown, 
+            var target = _stage.enemyTarget.GetComponent<IThrowable>();
+            _enemy.PickAndThrow(target, OnPickUp, OnThrown, 
                 _stage.fromTop);
         }
         
@@ -33,9 +33,9 @@ namespace GiantsAttack
         private void OnThrown()
         {
             if (_isStopped) return;
-            var target = _stage.enemyTarget.GetComponent<IEnemyThrowWeapon>();
+            var target = _stage.enemyTarget.GetComponent<IThrowable>();
             var throwDir = (_stage.forceVal) * (_enemy.Point.forward);
-            target.Throwable.TossTo(throwDir);
+            target.TossTo(throwDir);
             MinusTarget();
             CallListenersCompleted();
             _callback.Invoke();

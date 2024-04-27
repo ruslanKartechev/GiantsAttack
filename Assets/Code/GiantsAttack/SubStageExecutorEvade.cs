@@ -7,7 +7,7 @@ namespace GiantsAttack
 {
     public class SubStageExecutorEvade : SubStageExecutorBasic
     {
-        private IEnemyThrowWeapon _enemyWeapon;
+        private IThrowable _throwable;
         private Transform _trackedPoint;
         private bool _doProjectileCollision;
         private bool _startedSlowMo;
@@ -30,8 +30,8 @@ namespace GiantsAttack
         protected override void OnEnemyMoved()
         {
             if (_isStopped) return;
-            _enemyWeapon = _stage.enemyTarget.GetComponent<IEnemyThrowWeapon>();
-            _enemy.PickAndThrow(_enemyWeapon.Throwable, OnPicked, Throw, _stage.fromTop);
+            _throwable = _stage.enemyTarget.GetComponent<IThrowable>();
+            _enemy.PickAndThrow(_throwable, OnPicked, Throw, _stage.fromTop);
         }
 
         private void OnPicked()
@@ -50,7 +50,7 @@ namespace GiantsAttack
             _player.Shooter.StopShooting();
             _player.Aimer.AimUI.Hide(false);
             
-            _enemyWeapon.Throwable.FlyTo(_trackedPoint, _stage.forceVal, OnThrowableFlyEnd, OnThrowableHit);
+            _throwable.FlyTo(_trackedPoint, _stage.forceVal, OnThrowableFlyEnd, OnThrowableHit);
             if (_stage.doSlowMo)
             {
                 _startedSlowMo = true;
@@ -66,11 +66,11 @@ namespace GiantsAttack
         {
             if (!_doProjectileCollision || _isStopped)
             {
-                _enemyWeapon.Throwable.Hide();
+                _throwable.Hide();
                 return;
             }
             StopSlowMo();
-            _enemyWeapon.Throwable.Explode();
+            _throwable.Explode();
             FailAndKillPlayer();
         }
         
@@ -96,7 +96,7 @@ namespace GiantsAttack
         private void OnEvadeEnd()
         {
             if (_isStopped) return;
-            _enemyWeapon.Throwable.Hide();
+            _throwable.Hide();
             _player.Aimer.BeginAim();
             Complete();
             _playerMover.Resume();
@@ -123,7 +123,7 @@ namespace GiantsAttack
         {
             if (_isStopped) return;
             _stage.swipeChecker.Off();
-            _enemyWeapon.Throwable.Hide();
+            _throwable.Hide();
             _ui.EvadeUI.Stop();
             _ui.ShootAtTargetUI.Hide();
             KillPlayerAndFail();

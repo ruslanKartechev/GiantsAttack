@@ -11,7 +11,7 @@ namespace GiantsAttack
     public class SubStageExecutorShootDown : SubStageExecutorBasic
     {
         private ShooterSettings _shooterSettingsBeforeChange;
-        private IEnemyThrowWeapon _enemyWeapon;
+        private IThrowable _throwable;
         private Transform _trackedPoint;
         private bool _doProjectileCollision;
         private bool _startedSlowMo;
@@ -33,8 +33,8 @@ namespace GiantsAttack
         protected override void OnEnemyMoved()
         {
             if (_isStopped) return;
-            _enemyWeapon = _stage.enemyTarget.GetComponent<IEnemyThrowWeapon>();
-            _enemy.PickAndThrow(_enemyWeapon.Throwable, OnPicked ,Throw, _stage.fromTop);
+            _throwable = _stage.enemyTarget.GetComponent<IThrowable>();
+            _enemy.PickAndThrow(_throwable, OnPicked ,Throw, _stage.fromTop);
         }
 
         private void OnPicked()
@@ -49,15 +49,16 @@ namespace GiantsAttack
             _doProjectileCollision = true;
             _trackedPoint = new GameObject("tracked_point").transform;
             _trackedPoint.SetParentAndCopy(_player.Point);
-            _enemyWeapon.Throwable.FlyTo(_trackedPoint, _stage.forceVal, OnThrowableFlyEnd, OnThrowableHit);
+            _throwable.FlyTo(_trackedPoint, _stage.forceVal, OnThrowableFlyEnd, OnThrowableHit);
             if (_stage.doSlowMo)
             {
                 _startedSlowMo = true;
                 _stage.slowMotionEffect.Begin();
             }
-            _enemyWeapon.Health.SetDamageable(true);
-            _enemyWeapon.Health.OnDead += OnShotDown;
-            _ui.ShootAtTargetUI.ShowAndFollow(_enemyWeapon.GameObject.transform);
+            var health = _stage.enemyTarget.GetComponentInChildren<IHealth>();
+            health.SetDamageable(true);
+            health.OnDead += OnShotDown;
+            _ui.ShootAtTargetUI.ShowAndFollow(_stage.enemyTarget.transform);
             _player.Aimer.BeginAim();
             _shooterSettingsBeforeChange = _player.Shooter.Settings;
             var slowMoShooterSettings = new ShooterSettings(_shooterSettingsBeforeChange);
@@ -67,13 +68,13 @@ namespace GiantsAttack
             _enemy.Health.SetDamageable(false);
         }
 
-        private void OnShotDown(IDamageable obj)
+        private void OnShotDown(IDamageable target)
         {
             _trackedPoint.parent = null;
-            _enemyWeapon.Health.OnDead -= OnShotDown;
+            target.OnDead -= OnShotDown;
             StopSlowMo();
             _ui.ShootAtTargetUI.Hide();
-            _enemyWeapon.Throwable.Explode();
+            _throwable.Explode();
             _player.Shooter.Settings = _shooterSettingsBeforeChange;
             CameraContainer.Shaker.PlayDefault();
             _enemy.Health.SetDamageable(true);
@@ -88,11 +89,11 @@ namespace GiantsAttack
         {
             if (!_doProjectileCollision || _isStopped)
             {
-                _enemyWeapon.Throwable.Hide();
+                _throwable.Hide();
                 return;
             }
             StopSlowMo();
-            _enemyWeapon.Throwable.Explode();
+            _throwable.Explode();
             FailAndKillPlayer();
         }
         
@@ -116,7 +117,7 @@ namespace GiantsAttack
         
         private void FailAndKillPlayer()
         {
-            _enemyWeapon.Throwable.Hide();
+            _throwable.Hide();
             _ui.EvadeUI.Stop();
             _ui.ShootAtTargetUI.Hide();
             KillPlayerAndFail();

@@ -18,6 +18,7 @@ namespace SleepDev
         public void Move(Action callback)
         {
             _callback = callback;
+            _movable.gameObject.SetActive(true);
             Stop();
             _working = StartCoroutine(Moving(_endPoint, _moveTime));
         }
@@ -25,6 +26,7 @@ namespace SleepDev
         public void Move(Transform point, float time, Action callback)
         {
             _callback = callback;
+            _movable.gameObject.SetActive(true);
             Stop();
             _working = StartCoroutine(Moving(point, time));
         }

@@ -11,7 +11,9 @@ namespace GiantsAttack
         [SerializeField] private float _scale = 1f;
         [SerializeField] private List<SpawnData> _spawnData;
         [SerializeField] private List<RunawayHuman> _humanPrefabs;
-
+        
+        public static byte PrefabInd = 0;
+        
         [System.Serializable]
         private class SpawnData
         {
@@ -46,7 +48,11 @@ namespace GiantsAttack
 
         private void Spawn(SpawnData data)
         {
-            var prefab = _humanPrefabs.Random();
+            if (PrefabInd >= _humanPrefabs.Count - 1)
+                PrefabInd = 0;
+            var ind = PrefabInd;
+            PrefabInd++;
+            var prefab = _humanPrefabs[ind];
             var instance = Instantiate(prefab, transform);
             instance.transform.localScale = new Vector3(_scale,_scale,_scale);
             instance.transform.CopyPosRot(data.spawnPoint);
