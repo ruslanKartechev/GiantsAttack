@@ -1585,7 +1585,7 @@ PrefabInstance:
     - target: {fileID: 1259725960992363253, guid: 4597b749cd707544cafd08cc2ed0e716,
         type: 3}
       propertyPath: m_Name
-      value: eva mesh rend
+      value: eva_renderer
       objectReference: {fileID: 0}
     - target: {fileID: 1330755669629619180, guid: 4597b749cd707544cafd08cc2ed0e716,
         type: 3}
@@ -2507,6 +2507,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c771dddd7bdf4b7583ea796db0c42d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!137 &2694886508608257069 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5087961905182520312, guid: 4597b749cd707544cafd08cc2ed0e716,
+    type: 3}
+  m_PrefabInstance: {fileID: 2019236177499271205}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3082900067944785262 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3948933247560734027, guid: 4597b749cd707544cafd08cc2ed0e716,
@@ -5617,9 +5623,19 @@ PrefabInstance:
       objectReference: {fileID: 6331831463373518682}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
+      propertyPath: _mainRenderer
+      value: 
+      objectReference: {fileID: 2694886508608257069}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
       propertyPath: _eventReceiver
       value: 
       objectReference: {fileID: 1956091892670067749}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
+      propertyPath: _choppedMeshSpawner
+      value: 
+      objectReference: {fileID: 8831459648560244477}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
       propertyPath: _armorData.Array.size

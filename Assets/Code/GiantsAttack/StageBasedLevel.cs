@@ -13,6 +13,7 @@ namespace GiantsAttack
         [SerializeField] private float _enemyHealth = 1000;
         [SerializeField] private float _moveAnimationSpeed = .8f;
         [SerializeField] private EnemyID _enemyID;
+        [SerializeField] private EnemyView _enemyView;
         [SerializeField] private AimerSettingsSo _aimerSettings;
         [SerializeField] private HelicopterInitArgs _initArgs;
         [SerializeField] private Transform _playerSpawnPoint;
@@ -160,8 +161,7 @@ namespace GiantsAttack
 
         private void LaunchFinalSequence()
         {
-            if (_isFinalizing)
-                return;
+            if (_isFinalizing) return;
             _isFinalizing = true;
             CLog.LogGreen($"{gameObject.name} LaunchFinalSequence");
             _finalSequence.Enemy = _enemy;
@@ -208,7 +208,7 @@ namespace GiantsAttack
 
         private void InitEnemy()
         {
-            _enemy.Init(_gameplayMenu.EnemyBodySectionsUI , _enemyHealth);
+            _enemy.Init(_gameplayMenu.EnemyBodySectionsUI , _enemyHealth, _enemyView);
             _enemy.SetMoveAnimationSpeed(_moveAnimationSpeed);
         }
 
@@ -245,8 +245,7 @@ namespace GiantsAttack
 
         private void NextStage()
         {
-            if (_isCompleted)
-                return;
+            if (_isCompleted) return;
             CLog.LogGreen($"[Level] Stage competed callback");
             _stageIndex++;
             if (_stageIndex >= _stages.Count)
@@ -259,8 +258,7 @@ namespace GiantsAttack
         
         public void OnStageComplete(LevelStage stage)
         {
-            if (_isCompleted || _isFinalizing)
-                return;
+            if (_isCompleted || _isFinalizing) return;
             NextStage();
         }
 

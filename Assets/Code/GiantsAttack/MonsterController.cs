@@ -13,12 +13,14 @@ namespace GiantsAttack
         [SerializeField] private Transform _facePoint;
         [SerializeField] private Transform _lookAtPoint;
         [SerializeField] private BodyArmorManager _armorManager;
+        [SerializeField] private SkinnedMeshRenderer _mainRenderer;
         [Space(10)]
         [SerializeField] private MonsterAnimEventReceiver _eventReceiver;
         [SerializeField] private BodySectionsManager _sectionsManager;
         [SerializeField] private MonsterHealth _health;
         [SerializeField] private MonsterMover _mover;
         [SerializeField] private Animator _animator;
+        [SerializeField] private ChoppedMeshSpawner _choppedMeshSpawner;
         [SerializeField] private List<Transform> _damagePoints;
         private IDefeatedBehaviour _defeatedBehaviour;
         private bool _isDead;
@@ -37,9 +39,12 @@ namespace GiantsAttack
         public event Action<IMonster> OnDefeated;
         
         
-        public void Init(IBodySectionsUI ui, float maxHealth)
+        public void Init(IBodySectionsUI ui, float maxHealth, EnemyView view)
         {
             CLog.Log($"[Monster] Init");
+            view.SetView(_mainRenderer);
+            _choppedMeshSpawner.View = view;
+            
             _animator.enabled = true;
             _health.SetMaxHealth(maxHealth);
             _health.ShowDisplay();

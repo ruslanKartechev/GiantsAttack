@@ -7,7 +7,7 @@ namespace GiantsAttack
     {
         public IHelicopter SpawnAt(Transform point, Transform parent)
         {
-            var prefab = Resources.Load<GameObject>("Prefabs/PlayerHelicopter");
+            var prefab = Resources.Load<GameObject>("Prefabs/0_player_helicopter");
             var go = UnityEngine.Object.Instantiate(prefab);
             go.transform.SetParent(parent);
             go.transform.CopyPosRot(point);

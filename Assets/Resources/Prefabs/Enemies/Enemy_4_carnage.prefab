@@ -1013,6 +1013,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -7.8340073
       objectReference: {fileID: 0}
+    - target: {fileID: -5896329627893363344, guid: 992d72409ae498141a0734ff50c69626,
+        type: 3}
+      propertyPath: m_Name
+      value: carnage_renderer
+      objectReference: {fileID: 0}
     - target: {fileID: -5665043316445423941, guid: 992d72409ae498141a0734ff50c69626,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2556,6 +2561,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c771dddd7bdf4b7583ea796db0c42d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!137 &3592555176998759990 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2271483925564891134, guid: 992d72409ae498141a0734ff50c69626,
+    type: 3}
+  m_PrefabInstance: {fileID: 3341318522672148936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4029335955430542848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 992d72409ae498141a0734ff50c69626,
@@ -3810,9 +3821,19 @@ PrefabInstance:
       objectReference: {fileID: 7315064945144329911}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
+      propertyPath: _mainRenderer
+      value: 
+      objectReference: {fileID: 3592555176998759990}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
       propertyPath: _eventReceiver
       value: 
       objectReference: {fileID: 9088858628257976692}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
+      propertyPath: _choppedMeshSpawner
+      value: 
+      objectReference: {fileID: 2403751983503602976}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
       propertyPath: _armorData.Array.size
@@ -4085,7 +4106,7 @@ MonoBehaviour:
     partChildIndex: 7
   - refBone: {fileID: 7315064945144329911}
     partChildIndex: 8
-  _prefab: {fileID: 4423173600456832731, guid: 4784930f0d65caf44a322efa32a5eb2e, type: 3}
+  _prefab: {fileID: 4423173600456832731, guid: 591a47d550e42ce45b09458373b5c4fe, type: 3}
   _disableTargets:
   - {fileID: 2494948768601033881}
   _scaleSource: {fileID: 3014040661511050787}

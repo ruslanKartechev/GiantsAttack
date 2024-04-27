@@ -1636,9 +1636,19 @@ PrefabInstance:
       objectReference: {fileID: 2486090557993040926}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
+      propertyPath: _mainRenderer
+      value: 
+      objectReference: {fileID: 2659209808283231515}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
       propertyPath: _eventReceiver
       value: 
       objectReference: {fileID: 9185029692173431612}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
+      propertyPath: _choppedMeshSpawner
+      value: 
+      objectReference: {fileID: 277768185279771722}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
       propertyPath: _armorData.Array.size
@@ -3707,6 +3717,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3357013395726897385, guid: 62c934afd8f056344844719e331dab0d,
         type: 3}
+      propertyPath: m_Name
+      value: iron_man_renderer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357013395726897385, guid: 62c934afd8f056344844719e331dab0d,
+        type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -4617,6 +4632,12 @@ Transform:
 --- !u!4 &2486090557993040926 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5465940246521907071, guid: 62c934afd8f056344844719e331dab0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7591579687706671969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &2659209808283231515 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3621495832636334470, guid: 62c934afd8f056344844719e331dab0d,
     type: 3}
   m_PrefabInstance: {fileID: 7591579687706671969}
   m_PrefabAsset: {fileID: 0}

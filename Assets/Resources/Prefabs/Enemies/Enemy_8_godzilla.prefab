@@ -2163,6 +2163,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1264048506577387269}
   m_SourcePrefab: {fileID: 100100000, guid: 16bc28f3af7d2b046a3fa4357153e371, type: 3}
+--- !u!137 &396858857164016171 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4327033908744211969, guid: 16bc28f3af7d2b046a3fa4357153e371,
+    type: 3}
+  m_PrefabInstance: {fileID: 5076300680411593684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &409131107149272732 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4332706925441422008, guid: 16bc28f3af7d2b046a3fa4357153e371,
@@ -4019,9 +4025,19 @@ PrefabInstance:
       objectReference: {fileID: 984123530464640171}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
+      propertyPath: _mainRenderer
+      value: 
+      objectReference: {fileID: 396858857164016171}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
       propertyPath: _eventReceiver
       value: 
       objectReference: {fileID: 5638251854228120670}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
+      propertyPath: _choppedMeshSpawner
+      value: 
+      objectReference: {fileID: 9074953769499459466}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
       propertyPath: _armorData.Array.size

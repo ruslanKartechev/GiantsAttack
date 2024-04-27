@@ -19,7 +19,7 @@ namespace GiantsAttack
         public Transform LookAtPoint { get; }
         public List<Transform> DamagePoints { get; }
         
-        void Init(IBodySectionsUI sectionsUI, float health);
+        void Init(IBodySectionsUI sectionsUI, float health, EnemyView view);
         void Scale(float scale);
         void Animate(string key, bool trigger);
         void Idle();
