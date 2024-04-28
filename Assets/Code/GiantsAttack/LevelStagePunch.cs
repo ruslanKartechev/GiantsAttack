@@ -7,7 +7,6 @@ namespace GiantsAttack
     public class LevelStagePunch : LevelStage
     {
         [SerializeField] private string _animKey;
-        [SerializeField] private bool _resetAnimRootBone;
         [SerializeField] private bool _idleAfterReset = true;
         [SerializeField] private bool _waitForBoth;
         [SerializeField] private bool _resumePlayerMoveRightAfterEvasion;
@@ -65,8 +64,6 @@ namespace GiantsAttack
         private void OnEnemyAnimationEnd()
         {
             CLog.Log($"[{nameof(LevelStagePunch)}] OnAnimationEnd");
-            if(_resetAnimRootBone)
-                Enemy.AlignPositionToAnimRootBone(_idleAfterReset);
             if (_enemyMoveAfterEvaded)
                 Enemy.Mover.MoveToPoint(_enemyAfterEvasionMovePoint, _enemyAfterEvasionMoveTime, () => {});
             else

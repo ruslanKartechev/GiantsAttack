@@ -28,16 +28,16 @@ namespace GiantsAttack
             _pickCallback = onPickCallback;
             
             _grabHand = grabHand;
-            _monster.AnimEventReceiver.OnPickup += OnPickup;
-            _monster.AnimEventReceiver.OnThrow += OnThrow;
+            _monster.AnimEventReceiver.EOnPickup += OnPickup;
+            _monster.AnimEventReceiver.EOnThrow += OnThrow;
             animator.SetTrigger(pickFromTop ? PickUpFromTop : PickUp);
         }
 
         private void OnThrow()
         {
             CLog.Log($"[Grab&Throw] On Throw event");
-            _monster.AnimEventReceiver.OnPickup -= OnPickup;
-            _monster.AnimEventReceiver.OnThrow -= OnThrow;
+            _monster.AnimEventReceiver.EOnPickup -= OnPickup;
+            _monster.AnimEventReceiver.EOnThrow -= OnThrow;
             _throwCallback.Invoke();
         }
 

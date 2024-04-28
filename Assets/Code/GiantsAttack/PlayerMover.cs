@@ -126,7 +126,7 @@ namespace GiantsAttack
         {
             if (!e_drawGizmos)
                 return;
-            if (_nodes.Count < 2 || _startPoint == null)
+            if (_nodes.Count < 1 || _startPoint == null)
                 return;
             var oldColor = Gizmos.color;
             Gizmos.color = e_color;

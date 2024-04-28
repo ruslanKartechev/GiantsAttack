@@ -16,8 +16,8 @@ namespace GiantsAttack
         public void Play(Action onPlayed)
         {
             _onPlayed = onPlayed;
-            _eventReceiver.OnStoodUp += OnStoodUp;
-            _eventReceiver.OnJumpDown += OnJumpDown;
+            _eventReceiver.EOnStoodUp += EOnStoodUp;
+            _eventReceiver.EOnJumpDown += OnJumpDown;
             for (var i = 0; i < _animator.parameterCount; i++)
             {
                 var p = _animator.GetParameter(i);
@@ -33,14 +33,14 @@ namespace GiantsAttack
 
         private void OnJumpDown()
         {
-            _eventReceiver.OnJumpDown -= OnJumpDown;
+            _eventReceiver.EOnJumpDown -= OnJumpDown;
             _fallDownParticles.gameObject.SetActive(true);
             _fallDownParticles.Play();
         }
 
-        private void OnStoodUp()
+        private void EOnStoodUp()
         {
-            _eventReceiver.OnStoodUp -= OnStoodUp;
+            _eventReceiver.EOnStoodUp -= EOnStoodUp;
             _onPlayed?.Invoke();
         }
     }

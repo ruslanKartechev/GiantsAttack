@@ -62,6 +62,19 @@ namespace SleepDev
         {
             transform.localScale = Vector3.one;
         }
+        
+        public void LookOpposite()
+        {
+            if (_lookAt == null)
+            {
+                Debug.LogError($"_lookAt == null");
+                return;
+            }
+            transform.rotation = Quaternion.LookRotation(-(_lookAt.position - transform.position));
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+        
+        
 #endif
     }
     
@@ -74,6 +87,7 @@ namespace SleepDev
             base.OnInspectorGUI();
             var me = target as TransformHelper;
             GUILayout.Space(20);
+            GUILayout.BeginHorizontal();
             if (GUILayout.Button("Zero Pos Rot", GUILayout.Width(120)))
             {
                 me.ZeroLocalPosRot();
@@ -84,14 +98,25 @@ namespace SleepDev
                 me.OneScale();
                 UnityEditor.EditorUtility.SetDirty(me);
             }
-            if (GUILayout.Button("Copy", GUILayout.Width(120)))
-            {
-                me.CopyPosRot();
-                UnityEditor.EditorUtility.SetDirty(me);
-            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
             if (GUILayout.Button("Look at", GUILayout.Width(120)))
             {
                 me.LookAt();
+                UnityEditor.EditorUtility.SetDirty(me);
+            }
+            if (GUILayout.Button("Look opposite", GUILayout.Width(120)))
+            {
+                me.LookOpposite();
+                UnityEditor.EditorUtility.SetDirty(me);
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Copy", GUILayout.Width(120)))
+            {
+                me.CopyPosRot();
                 UnityEditor.EditorUtility.SetDirty(me);
             }
             if (GUILayout.Button("Switch Points", GUILayout.Width(120)))
@@ -99,6 +124,7 @@ namespace SleepDev
                 me.SwitchPlaces();
                 UnityEditor.EditorUtility.SetDirty(me);
             }
+            GUILayout.EndHorizontal();
         }
     }
     #endif

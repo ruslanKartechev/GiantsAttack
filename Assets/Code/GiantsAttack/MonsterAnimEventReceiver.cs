@@ -5,47 +5,47 @@ namespace GiantsAttack
 {
     public class MonsterAnimEventReceiver : MonoBehaviour, IMonsterAnimEventReceiver
     {
-        public event Action OnPickup;
-        public event Action OnThrow;
-        public event Action OnPunch;
-        public event Action OnPunchBegan;
-        public event Action OnAnimationOver;
-        public event Action OnJumpDown;
-        public event Action OnStoodUp;
+        public event Action EOnPickup; // OnPickup
+        public event Action EOnThrow; // OnThrow
+        public event Action EOnPunch; // OnPunch
+        public event Action EOnPunchBegan; // OnPunchBegan
+        public event Action EOnAnimationOver; // OnAnimationOver
+        public event Action EOnJumpDown; // OnJumpDown
+        public event Action EOnStoodUp; // OnStoodUp
 
-        public void EventOnStoodUp()
+        public void OnStoodUp()
         {
-            OnStoodUp?.Invoke();
+            EOnStoodUp?.Invoke();
         }        
 
-        public void EventOnPunch()
+        public void OnPunch()
         {
-            OnPunch?.Invoke();
+            EOnPunch?.Invoke();
         }    
         
-        public void EventOnPunchBegan()
+        public void OnPunchBegan()
         {
-            OnPunchBegan?.Invoke();
+            EOnPunchBegan?.Invoke();
         }        
         
-        public void EventOnPickup()
+        public void OnPickup()
         {
-            OnPickup?.Invoke();
+            EOnPickup?.Invoke();
         }
 
-        public void EventOnThrow()
+        public void OnThrow()
         {
-            OnThrow?.Invoke();
+            EOnThrow?.Invoke();
         }
 
-        public void EventOnJumpDown()
+        public void OnJumpDown()
         {
-            OnJumpDown?.Invoke();   
+            EOnJumpDown?.Invoke();   
         }
     
-        public void EventOnAnimationOver()
+        public void OnAnimationOver()
         {
-            OnAnimationOver?.Invoke();   
+            EOnAnimationOver?.Invoke();   
         }
     }
     

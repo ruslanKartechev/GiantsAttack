@@ -28,12 +28,12 @@ namespace GiantsAttack
         {
             _callback = onEnd;
             _enemy.Animate(_animationKey, false);
-            _enemy.AnimEventReceiver.OnPunch += OnPunch;
+            _enemy.AnimEventReceiver.EOnPunch += OnPunch;
         }
 
         private void OnPunch()
         {
-            _enemy.AnimEventReceiver.OnPunch -= OnPunch;
+            _enemy.AnimEventReceiver.EOnPunch -= OnPunch;
             _target.Explode(_pushDirection.forward * _force);
             _callback.Invoke();
         }

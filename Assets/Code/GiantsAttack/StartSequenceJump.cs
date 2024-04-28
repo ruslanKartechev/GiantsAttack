@@ -44,14 +44,14 @@ namespace GiantsAttack
                     Enemy.KickUp();
                     break;
             }
-            Enemy.AnimEventReceiver.OnJumpDown += OnJumped;
+            Enemy.AnimEventReceiver.EOnJumpDown += OnJumped;
         }
 
         private void OnJumped()
         {
             foreach (var ll in _listeners)
                 ll.OnCompleted();
-            Enemy.AnimEventReceiver.OnJumpDown -= OnJumped;
+            Enemy.AnimEventReceiver.EOnJumpDown -= OnJumped;
             CameraContainer.Shaker.PlayDefault();
             _jumpParticles.gameObject.SetActive(true);
             _jumpParticles.transform.position = Enemy.Point.position;

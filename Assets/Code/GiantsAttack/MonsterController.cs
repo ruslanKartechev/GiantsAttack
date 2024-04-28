@@ -9,7 +9,6 @@ namespace GiantsAttack
     public class MonsterController : MonoBehaviour, IMonster
     {
         [SerializeField] private Transform _grabHand;
-        [SerializeField] private Transform _animRootBone;
         [SerializeField] private Transform _facePoint;
         [SerializeField] private Transform _lookAtPoint;
         [SerializeField] private BodyArmorManager _armorManager;
@@ -31,7 +30,7 @@ namespace GiantsAttack
         public IHealth Health => _health;
         public IMonsterAnimEventReceiver AnimEventReceiver => _eventReceiver;
         public BodySectionsManager BodySectionsManager => _sectionsManager;
-        public Transform Point => transform;
+        public Transform Point => _animator.transform;
         public Transform CameraFacePoint => _facePoint;
         public Transform LookAtPoint => _lookAtPoint;
         public List<Transform> DamagePoints => _damagePoints;
@@ -135,21 +134,6 @@ namespace GiantsAttack
         {
             var bahaviour = new PickAndThrowBehaviour(target, this, _animator, _grabHand, 
                 onPickCallback, onThrowCallback, pickFromTop);
-        }
-
-        public void AlignPositionToAnimRootBone(bool playIdle)
-        {
-            _animator.gameObject.SetActive(false);
-            var pos = _animRootBone.position;
-            pos.y = transform.position.y;
-            var parent = _animRootBone.parent;
-            _animRootBone.parent = null;
-            transform.position = pos;
-            _animRootBone.parent = parent;
-            _animator.gameObject.SetActive(true);
-            if(playIdle)
-                _animator.Play("Idle");
-            Debug.DrawLine(pos, pos + Vector3.up * 100, Color.red, 10f);
         }
 
         public void SetArmorData(List<ArmorDataSo> armors)

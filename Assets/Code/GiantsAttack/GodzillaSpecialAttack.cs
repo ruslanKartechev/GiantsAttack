@@ -29,12 +29,12 @@ namespace GiantsAttack
             _punchStartedCallback = punchStartedCallback;
             _attackCallback = attackCallback;
             _endCallback = endCallback;
-            _eventReceiver.OnPunchBegan -= StartAttack;
-            _eventReceiver.OnPunch -= MakeAttack;
-            _eventReceiver.OnAnimationOver -= EndAttack;
-            _eventReceiver.OnPunchBegan += StartAttack;
-            _eventReceiver.OnPunch += MakeAttack;
-            _eventReceiver.OnAnimationOver += EndAttack;
+            _eventReceiver.EOnPunchBegan -= StartAttack;
+            _eventReceiver.EOnPunch -= MakeAttack;
+            _eventReceiver.EOnAnimationOver -= EndAttack;
+            _eventReceiver.EOnPunchBegan += StartAttack;
+            _eventReceiver.EOnPunch += MakeAttack;
+            _eventReceiver.EOnAnimationOver += EndAttack;
             _animator.SetTrigger(id);
         }
 

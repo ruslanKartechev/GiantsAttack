@@ -10,7 +10,7 @@ namespace GiantsAttack
     public enum ActionType
     {
         LegKick, BreakBuilding, Toss,
-        EvadeThrown, ShootDownThrown, AOE, JumpAttack, SpecialAttack
+        EvadeThrown, ShootDownThrown, AOE, PlayerAttack, SpecialAttack
     }
         
     public enum AnimationType { Move, Animate, None }
@@ -73,12 +73,25 @@ namespace GiantsAttack
                     return new SubStageExecutorShootDown(this, enemy, player, playerMover, menu, counter, delayDelegate, callback, failCallback);
                 case ActionType.AOE:
                     return new SubStageExecutorAOE(this, enemy, player, playerMover, menu, counter, delayDelegate, callback, failCallback);
-                case ActionType.JumpAttack:
-                    return new SubStageExecutorJumpAttack(this, enemy, player, playerMover, menu, counter, delayDelegate, callback, failCallback);
+                case ActionType.PlayerAttack:
+                    return new SubStageExecutorPlayerAttack(this, enemy, player, playerMover, menu, counter, delayDelegate, callback, failCallback);
                 case ActionType.SpecialAttack:
                     return new SubStageExecutorSpecialAttack(this, enemy, player, playerMover, menu, counter, delayDelegate, callback, failCallback);
             }
             return null;
         }
+        
+        #if UNITY_EDITOR
+        public void E_GetListeners()
+        {
+            var list = SleepDev.Utils.GameUtils.GetFromAllChildren<StageListener>(transform);
+            foreach (var listener in list)
+            {
+                if (stageListeners.Contains(listener) == false)
+                    stageListeners.Add(listener);
+            }
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+        #endif
     }
 }

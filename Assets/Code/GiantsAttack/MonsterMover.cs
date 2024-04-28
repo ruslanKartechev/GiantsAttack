@@ -149,13 +149,15 @@ namespace GiantsAttack
             {
                 var pos = Vector3.Lerp(p1, _targetPoint.position, t);
                 var rot = Quaternion.Lerp(r1, r2, t);
-                _movable.SetPositionAndRotation(pos, rot);
+                _movable.SetXZPos(pos);
+                _movable.rotation = rot;
                 timeFactor = Mathf.Lerp(0f, 1f, elapsed / accelerationTime);
                 AssignAnimSpeed(timeFactor * MoveAnimationSpeed);
                 elapsed += Time.deltaTime * timeFactor;
                 yield return null;
             }
-            _movable.SetPositionAndRotation(_targetPoint.position, _targetPoint.rotation);
+            _movable.SetXZPos(_targetPoint.position);
+            _movable.rotation = _targetPoint.rotation;
             callback?.Invoke();
         }
         
@@ -163,7 +165,7 @@ namespace GiantsAttack
         {
             var startTimeFactor = .4f;
             var timeFactor = startTimeFactor;
-            var lookAtRotation = Quaternion.LookRotation(_targetPoint.position - _movable.position);
+            var lookAtRotation = Quaternion.LookRotation((_targetPoint.position - _movable.position).XZPlane());
             yield return RotatingTo(lookAtRotation, _rotationSpeed);
             _animator.SetTrigger(_walkTriggerKey);
             yield return new WaitForSeconds(_animTransitionWaitTime * (1f / MoveAnimationSpeed));
@@ -174,14 +176,14 @@ namespace GiantsAttack
             var accelerationTime = _accelerationTime;
             while (t < 1f)
             {
-                _movable.position = Vector3.Lerp(p1, _targetPoint.position, t);
+                _movable.position = (Vector3.Lerp(p1, _targetPoint.position, t));
                 t = elapsed / time;
                 timeFactor = Mathf.Lerp(startTimeFactor, 1f, elapsed / accelerationTime);
-                // AssignAnimSpeed(timeFactor * MoveAnimationSpeed);
                 elapsed += Time.deltaTime * timeFactor;
                 yield return null;
             }
             _movable.position = _targetPoint.position;
+            // _movable.SetXZPos(_targetPoint.position);
             _animator.SetTrigger("WalkToIdle");
             yield return RotatingTo(_targetPoint.rotation, _rotationSpeed);
             callback?.Invoke();

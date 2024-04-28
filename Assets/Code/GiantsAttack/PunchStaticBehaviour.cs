@@ -18,19 +18,19 @@ namespace GiantsAttack
             _eventReceiver = eventReceiver;
             _animator = animator;
             _animator.SetTrigger(key);
-            _eventReceiver.OnPunch += OnPunch;
-            _eventReceiver.OnAnimationOver += OnCompleted;
+            _eventReceiver.EOnPunch += OnPunch;
+            _eventReceiver.EOnAnimationOver += OnCompleted;
         }
 
         private void OnPunch()
         {
-            _eventReceiver.OnPunch -= OnPunch;
+            _eventReceiver.EOnPunch -= OnPunch;
             _hitCallback.Invoke();
         }
 
         private void OnCompleted()
         {
-            _eventReceiver.OnAnimationOver -= OnCompleted;
+            _eventReceiver.EOnAnimationOver -= OnCompleted;
             _endCallback.Invoke();
         }
     }

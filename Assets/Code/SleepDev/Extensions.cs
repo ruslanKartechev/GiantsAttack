@@ -15,6 +15,12 @@ namespace SleepDev
                 angles.z -= 360;
             return angles;
         }
+
+        public static void SetXZPos(this Transform tr, Vector3 position)
+        {
+            position.y  = tr.position.y;
+            tr.position = position;
+        }
         
         public static Transform CopyPosRot(this Transform me, Transform other)
         {

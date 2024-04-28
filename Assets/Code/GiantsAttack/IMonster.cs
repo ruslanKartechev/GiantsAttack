@@ -32,7 +32,6 @@ namespace GiantsAttack
         void PickAndThrow(IThrowable target, Action onPickCallback, Action onThrowCallback, bool pickFromTop);
         void PunchStatic(string key, Action onHit, Action onCompleted);
         void Punch(string key, Action punchStartedCallback, Action onPunch, Action onAnimationEnd);
-        void AlignPositionToAnimRootBone(bool playIdle);
         void SetArmorData(List<ArmorDataSo> armors);
         void SpecialAttack(string id, Action attackStartCallback, Action attackCallback, Action endCallback);
     }

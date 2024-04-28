@@ -20,12 +20,12 @@ namespace GiantsAttack
         {
             if (_isStopped) return;
             _enemy.Jump(true);
-            _enemy.AnimEventReceiver.OnJumpDown += OnJumped;
+            _enemy.AnimEventReceiver.EOnJumpDown += OnJumped;
         }
         
         private void OnJumped()
         {
-            _enemy.AnimEventReceiver.OnJumpDown -= OnJumped;
+            _enemy.AnimEventReceiver.EOnJumpDown -= OnJumped;
             if (_isStopped) return;
             CameraContainer.Shaker.PlayDefault();
             var target = _stage.enemyTarget.GetComponent<AnimatedTarget>();

@@ -33,10 +33,11 @@ namespace GiantsAttack
             var instance = Instantiate(_prefab, transform.position, transform.rotation, transform);
             instance.transform.localScale = _scaleSource.localScale;
             instance.SetView(View);
-            for (var i = 0; i < _parts.Count; i++)
+            var count = instance.Rbs.Count;
+            for (var i = 0; i < count; i++)
             {
                 var rb = instance.Rbs[i];
-                rb.transform.CopyPosRot(_parts[i].refBone);
+                // rb.transform.CopyPosRot(_parts[i].refBone);
                 rb.isKinematic = false;
                 rb.AddForce(rb.transform.localPosition.normalized * force, ForceMode.VelocityChange);
                 rb.AddTorque(new Vector3(0f,force, 0f), ForceMode.VelocityChange);

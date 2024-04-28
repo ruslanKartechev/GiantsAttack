@@ -13,6 +13,19 @@ namespace GiantsAttack
         [SerializeField] private List<Transform> _points;
         [SerializeField] private int _index;
 
+        public void FindMovable()
+        {
+            if (_movable == null)
+            {
+                var go = GameObject.Find("0_DEV_helicopter");
+                if (go != null)
+                {
+                    _movable = go.transform;
+                    UnityEditor.EditorUtility.SetDirty(this);
+                }
+            }
+        }
+
         public void SetDefault()
         {
             var go = GameObject.Find(_nameDefaultParent);

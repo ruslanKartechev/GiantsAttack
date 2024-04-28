@@ -35,6 +35,10 @@ namespace GiantsAttack
             {
                 me.OnOff();
             }
+            if (GUILayout.Button($"Find",GUILayout.Width(50)))
+            {
+                me.FindMovable();
+            }
         }
     }
 }
