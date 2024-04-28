@@ -30,7 +30,7 @@ namespace GiantsAttack
         {
             foreach (var go in _disableTargets)
                 go.SetActive(false);
-            var instance = Instantiate(_prefab, transform.position, transform.rotation, transform);
+            var instance = Instantiate(_prefab, _scaleSource.position, _scaleSource.rotation, transform);
             instance.transform.localScale = _scaleSource.localScale;
             instance.SetView(View);
             var count = instance.Rbs.Count;
