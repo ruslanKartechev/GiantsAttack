@@ -36,7 +36,7 @@ namespace GiantsAttack
             else
             {
                 foreach (var p in _parts)
-                    p.Push(_force * _pushDirection.forward);
+                    p.Push(_force * (p.rb.transform.localPosition.normalized + _pushDirection.forward));
             }
           
             if (_scaleBroken)

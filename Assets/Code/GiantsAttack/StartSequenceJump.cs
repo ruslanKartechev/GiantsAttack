@@ -10,7 +10,7 @@ namespace GiantsAttack
     {
         public enum AnimType
         {
-            JumpDown, KickUp
+            JumpDown, KipUp
         }
         [SerializeField] private AnimType _animType;
         [SerializeField] private ParticleSystem _jumpParticles;
@@ -40,7 +40,7 @@ namespace GiantsAttack
                 case AnimType.JumpDown:
                     Enemy.Jump(false);
                     break;
-                case AnimType.KickUp:
+                case AnimType.KipUp:
                     Enemy.KickUp();
                     break;
             }

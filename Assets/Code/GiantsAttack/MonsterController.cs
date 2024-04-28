@@ -127,7 +127,7 @@ namespace GiantsAttack
 
         public void KickUp()
         {
-            _animator.Play("KickUp");
+            _animator.Play("KipUp");
         }
         
         public void PickAndThrow(IThrowable target,Action onPickCallback, Action onThrowCallback, bool pickFromTop)
