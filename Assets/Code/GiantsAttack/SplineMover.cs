@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using SleepDev;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -11,14 +9,11 @@ namespace GiantsAttack
         [SerializeField] private float _speed;
         [SerializeField] private float _acceleration;
         [SerializeField] private SplineContainer _spline;
-        #if UNITY_EDITOR
-        public bool doDebug;
-        #endif
+        [SerializeField] private float _interpolateT = 0f;
         
         private float _pathLength;
         private Coroutine _speedChanging;
         private Coroutine _moving;
-        private float _interpolateT = 0f;
         private float _currentSpeed = 0f;
         
         public SplineContainer spline
@@ -52,8 +47,12 @@ namespace GiantsAttack
         
         public void E_AlignToInterpolateT()
         {
-            if(e_doControlPosition)
+            if (e_doControlPosition)
+            {
+                _interpolateT = e_interpolationT;
+                UnityEditor.EditorUtility.SetDirty(this);
                 SetToT(e_interpolationT);
+            }
         }
 
         public void E_AddTransformToCurrentPosition()
@@ -135,15 +134,7 @@ namespace GiantsAttack
                 spline.Evaluate(_interpolateT, out var pos, out var tangent, out var up);
                 tr.localPosition = pos;
                 var rot = Quaternion.LookRotation(tangent, up);
-                // tr.rotation = Quaternion.Lerp(tr.rotation, rot, .25f);
                 tr.rotation = rot;
-#if UNITY_EDITOR
-                if (doDebug)
-                {
-                    var fromPos = transform.position + Vector3.up * 20;
-                    Debug.DrawLine(fromPos, fromPos + ((Vector3)tangent).normalized * 10, Color.red, 5f);
-                }
-#endif
                 passedLength += Time.deltaTime * _speed;
                 _interpolateT = passedLength / totalLength;
                 yield return null;

@@ -6,7 +6,6 @@ namespace GiantsAttack
     {
         [SerializeField] private SplineMover _mover;
         [SerializeField] private GameObject _go;
-        [SerializeField] private Animator _animator;
         
         public SplineMover Mover => _mover;
 

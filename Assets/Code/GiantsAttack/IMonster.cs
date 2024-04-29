@@ -17,6 +17,8 @@ namespace GiantsAttack
         public Transform Point { get; }
         public Transform CameraFacePoint { get; }
         public Transform LookAtPoint { get; }
+        public Transform KillPoint { get; }
+
         public List<Transform> DamagePoints { get; }
         
         void Init(IBodySectionsUI sectionsUI, float health, EnemyView view);

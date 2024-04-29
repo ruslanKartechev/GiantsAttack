@@ -10,8 +10,16 @@ namespace GiantsAttack
         public static float[] DamageMults = new[] { 1f, 1.1f, 1.2f };
         private static BodySection _prevSection;
         private static int _streakCount = 0;
-        
-        public static void AddDamage(ITarget target, DamageArgs args)
+        private static int _bestStreak = 0;
+
+        public static void Clear()
+        {
+            _bestStreak = 0;
+            _streakCount = 0;
+            _prevSection = null;
+        }
+
+        public static void AddDamage(ITarget target, DamageArgs args, IHitCounter counter)
         {
             if (target.Damageable.CanDamage == false)
                 return;
@@ -24,6 +32,7 @@ namespace GiantsAttack
                 {
                     dtype = DamageIndicationType.Headshot;
                     args.damage *= GlobalConfig.HeadshotDamageMultiplier;
+                    counter.HeadShotsCount++;
                 }
                 else
                 {
@@ -42,6 +51,11 @@ namespace GiantsAttack
                     _streakCount++;
                     if (_streakCount >= 2)
                         ui.ShowSteak(_streakCount);
+                    if (_streakCount > _bestStreak)
+                    {
+                        _bestStreak = _streakCount;
+                        counter.BestStreak = _bestStreak;
+                    }
                 }
                 else
                 {

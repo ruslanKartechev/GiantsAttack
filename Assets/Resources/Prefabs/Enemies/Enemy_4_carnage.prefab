@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8456307887822432872}
   - component: {fileID: 3316984470753768118}
   m_Layer: 0
-  m_Name: DropKick Point
+  m_Name: point_DropKick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,6 +49,37 @@ MonoBehaviour:
   radius: 1.5
   drawDirection: 0
   directionLength: 1
+--- !u!1 &1526987920326898896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7579887451835268120}
+  m_Layer: 0
+  m_Name: point_kill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7579887451835268120
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526987920326898896}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.99566406, z: -0.093022004, w: 0}
+  m_LocalPosition: {x: 0, y: 139.8, z: 171.9}
+  m_LocalScale: {x: 34, y: 34, z: 34}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3014040661511050787}
+  m_LocalEulerAnglesHint: {x: 10.675, y: 180, z: 0}
 --- !u!1 &2007284400036480857
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +132,7 @@ GameObject:
   - component: {fileID: 8748976810664740403}
   - component: {fileID: 8276826879530024659}
   m_Layer: 0
-  m_Name: Pickup Point
+  m_Name: point_PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,7 +181,7 @@ GameObject:
   - component: {fileID: 1726151943197067175}
   - component: {fileID: 2218853188775770280}
   m_Layer: 0
-  m_Name: Face Point
+  m_Name: point_face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,7 +319,7 @@ GameObject:
   - component: {fileID: 4183595395263430764}
   - component: {fileID: 3192062782749631982}
   m_Layer: 0
-  m_Name: LegKick Point
+  m_Name: point_LegKick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,7 +368,7 @@ GameObject:
   - component: {fileID: 38543153813387822}
   - component: {fileID: 2638282932697042295}
   m_Layer: 0
-  m_Name: Pickup TOP Point
+  m_Name: point_Top_Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1686,7 +1717,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 992d72409ae498141a0734ff50c69626,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7579887451835268120}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 992d72409ae498141a0734ff50c69626,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8748976810664740403}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 992d72409ae498141a0734ff50c69626,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 38543153813387822}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 992d72409ae498141a0734ff50c69626,
         type: 3}
       insertIndex: -1
@@ -1695,10 +1734,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8456307887822432872}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 992d72409ae498141a0734ff50c69626,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 38543153813387822}
     - targetCorrespondingSourceObject: {fileID: 5465940246521907071, guid: 992d72409ae498141a0734ff50c69626,
         type: 3}
       insertIndex: -1
@@ -2348,7 +2383,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 72888066cdcc94c47bea782125fc1187, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -3804,6 +3839,11 @@ PrefabInstance:
       propertyPath: _facePoint
       value: 
       objectReference: {fileID: 1726151943197067175}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
+      propertyPath: _killPoint
+      value: 
+      objectReference: {fileID: 7579887451835268120}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
       propertyPath: _lookAtPoint

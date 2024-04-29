@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GiantsAttack
 {
-    public class RockerFinalSequence : LevelFinalSequence
+    public class FatalitiesFinalSequence : LevelFinalSequence
     {
 #if UNITY_EDITOR
         [Header("Editor cheat")]
@@ -17,10 +17,9 @@ namespace GiantsAttack
 #endif
         [SerializeField] private List<FatalityData> _fatalityData;
         [SerializeField] private float _playerRotateTime = 1f;
-        [SerializeField] private float _enemyRotTime = .33f;
+        [SerializeField] private float _playerMoveDelay = .5f;
         [SerializeField] private float _endcallbackDelay = .44f;
         [SerializeField] private float _afterEnemyAnimationDelay;
-        [SerializeField] private float _lookAtEnemyUpOffset = 20;
         [SerializeField] private SoundSo _winSound;
         [SerializeField] private SoundSo _finishHimSound;
 
@@ -47,12 +46,18 @@ namespace GiantsAttack
 
         public override void Begin(Action callback)
         {
+            _endCallback = callback;
             Player.StopAll();
             PlayerMover.Pause(true);
-            Player.Mover.RotateToLook(Enemy.Point.position + Vector3.up * _lookAtEnemyUpOffset, _playerRotateTime, () => {});
-            _endCallback = callback;
+            // var lookAtPoint = new GameObject("temp").transform;
+            // lookAtPoint.position = Enemy.Point.position + new Vector3(0f, _lookAtEnemyUpOffset, 0f);
+            Delay(() =>
+            {
+                Player.Mover.MoveTo(new HelicopterMoveToData(Enemy.KillPoint, _playerRotateTime, 
+                    AnimationCurve.EaseInOut(0f, .5f, 1f, 1f), 
+                    null, () =>{ }));
+            }, _playerMoveDelay);
             Enemy.PreKillState();
-            Enemy.Mover.RotateToLookAt(Player.Point, _enemyRotTime, () => {});
             Delay(OnEnemyAnimated, _afterEnemyAnimationDelay);
             var ui = GCon.UIFactory.GetRouletteUI() as RouletteMenu;
             ui.Show(() => {});

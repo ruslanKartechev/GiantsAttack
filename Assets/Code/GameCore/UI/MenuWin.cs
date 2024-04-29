@@ -12,9 +12,11 @@ namespace GameCore.UI
         [SerializeField] private PopAnimator _popAnimator;
         [SerializeField] private Button _playButton;
         [SerializeField] private TextMeshProUGUI _levelUI;
+        [SerializeField] private TextByCharPrinter _resultPrinter;
         private Action _onPlayCallback;
         
         public GameObject Go => gameObject;
+        public TextByCharPrinter ResultPrinter => _resultPrinter;
 
         private void OnEnable()
         {

@@ -16,7 +16,8 @@ namespace GiantsAttack
 
         public override void Begin(Action onEnd)
         {
-            Enemy.Animate(_animationKey, false);
+            if(_animationKey.Length > 0)
+                Enemy.Animate(_animationKey, false);
             foreach (var listener in _listeners)
                 listener.OnActivated();
             onEnd.Invoke();

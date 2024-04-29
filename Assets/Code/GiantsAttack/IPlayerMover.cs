@@ -12,5 +12,7 @@ namespace GiantsAttack
         void Resume();
         void Evade(EDirection2D direction2D, Action callback, float distance);
         void Begin();
+        void SkipToNextPoint();
+        void ZeroWaitTime();
     }
 }

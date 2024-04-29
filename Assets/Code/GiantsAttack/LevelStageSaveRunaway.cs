@@ -5,6 +5,7 @@ namespace GiantsAttack
 {
     public class LevelStageSaveRunaway : LevelStage
     {
+        [SerializeField] private bool _simpleStartAll;
         [SerializeField] private float _runawayInitDelay;
         [SerializeField] private float _runawayMoveDelay;
         [Space(10)]
@@ -16,6 +17,7 @@ namespace GiantsAttack
         [Space(10)]
         [SerializeField] private float _enemyToStartMoveTime;
         [SerializeField] private float _enemyToStartMoveDelay;
+        [SerializeField] private string _enemyWalkAnim = "Walk";
         [Space(10)]
         [SerializeField] private float _enemyStartSpeed;
         [SerializeField] private float _enemyStartSplineT;
@@ -32,9 +34,19 @@ namespace GiantsAttack
         {
             _runaway = _runawayGo.GetComponent<IRunaway>();
             Player.Aimer.BeginAim();
-            Delay(InitRunaway, _runawayInitDelay);
-            Delay(StartMovingRunaway, _runawayMoveDelay);
-            Delay(MoveEnemyToStart, _enemyToStartMoveDelay);
+            if (_simpleStartAll)
+            {
+                _runaway.Init();
+                _runaway.Mover.MoveAccelerated();
+                _enemyMover.MoveAccelerated();
+                Enemy.Animate(_enemyWalkAnim, true);
+            }
+            else
+            {
+                Delay(InitRunaway, _runawayInitDelay);
+                Delay(StartMovingRunaway, _runawayMoveDelay);
+                Delay(MoveEnemyToStart, _enemyToStartMoveDelay);
+            }
             SubToEnemyKill();
             StartCoroutine(FailPercentPolling());
         }
@@ -51,7 +63,10 @@ namespace GiantsAttack
 
         private void MoveEnemyToStart()
         {
-            Enemy.Mover.MoveToPoint(_enemyStartPoint, _enemyToStartMoveTime, OnEnemyMovedToStart);
+            if(_enemyStartPoint != null)
+                Enemy.Mover.MoveToPoint(_enemyStartPoint, _enemyToStartMoveTime, OnEnemyMovedToStart);
+            else
+                OnEnemyMovedToStart();
         }
 
         private void OnEnemyMovedToStart()

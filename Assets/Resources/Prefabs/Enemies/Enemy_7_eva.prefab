@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &328213597861443952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 861830480300796594}
+  - component: {fileID: 499963727179768715}
+  m_Layer: 0
+  m_Name: point_kill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &861830480300796594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328213597861443952}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.99566406, z: -0.093022004, w: 0}
+  m_LocalPosition: {x: 0, y: 47.72, z: 82.84}
+  m_LocalScale: {x: 17, y: 17, z: 17}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1985944394398390222}
+  m_LocalEulerAnglesHint: {x: 10.675, y: 180, z: 0}
+--- !u!114 &499963727179768715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328213597861443952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8d604885c2433faf6f48806b86b6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutoSet: 1
 --- !u!1 &3091563892065801628
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +56,7 @@ GameObject:
   - component: {fileID: 449972542499300392}
   - component: {fileID: 2569429179991502501}
   m_Layer: 0
-  m_Name: Pickup Point
+  m_Name: point_PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +146,7 @@ GameObject:
   - component: {fileID: 2379549373416855183}
   - component: {fileID: 6368371895605081655}
   m_Layer: 0
-  m_Name: LegKick Point
+  m_Name: point_LegKicK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6350530234042383919}
   m_Layer: 0
-  m_Name: Look At
+  m_Name: Enemy 7 Look At
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,7 +257,7 @@ GameObject:
   - component: {fileID: 5672530690924902245}
   - component: {fileID: 3619464823929233459}
   m_Layer: 0
-  m_Name: Face Point
+  m_Name: point_face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,7 +333,7 @@ GameObject:
   - component: {fileID: 210222323981544691}
   - component: {fileID: 4533503919921565913}
   m_Layer: 0
-  m_Name: DropKick Point
+  m_Name: point_DropKick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,7 +382,7 @@ GameObject:
   - component: {fileID: 2479189440512874468}
   - component: {fileID: 379402948388255975}
   m_Layer: 0
-  m_Name: Pickup TOP Point
+  m_Name: point_Top_PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1950,7 +1995,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4597b749cd707544cafd08cc2ed0e716,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 861830480300796594}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4597b749cd707544cafd08cc2ed0e716,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 449972542499300392}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4597b749cd707544cafd08cc2ed0e716,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2479189440512874468}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4597b749cd707544cafd08cc2ed0e716,
         type: 3}
       insertIndex: -1
@@ -1959,10 +2012,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 210222323981544691}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4597b749cd707544cafd08cc2ed0e716,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2479189440512874468}
     - targetCorrespondingSourceObject: {fileID: 5465940246521907071, guid: 4597b749cd707544cafd08cc2ed0e716,
         type: 3}
       insertIndex: -1
@@ -2289,7 +2338,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: aef415aa7ec6bc740958d5b21f4156a0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -5606,6 +5655,11 @@ PrefabInstance:
       propertyPath: _facePoint
       value: 
       objectReference: {fileID: 5672530690924902245}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
+      propertyPath: _killPoint
+      value: 
+      objectReference: {fileID: 861830480300796594}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
       propertyPath: _lookAtPoint

@@ -38,6 +38,16 @@ namespace GiantsAttack
             _working = StartCoroutine(Working());
         }
 
+        public void SkipToNextPoint()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ZeroWaitTime()
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerator Working()
         {
             yield return new WaitForSeconds(_startDelay);

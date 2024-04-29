@@ -13,7 +13,6 @@ namespace GiantsAttack
         private PathNode _currentNode;
         private int _nodeIndex;
         private float _elapsedAwaiting;
-        private bool _isAwaiting;
         private bool _isWaiting;
         private Coroutine _waiting;
         
@@ -32,7 +31,7 @@ namespace GiantsAttack
         
         public void Pause(bool loiter)
         {
-            StopWaiting();
+            StopWaitingRoutine();
             Player.Mover.StopAll();
             if(loiter)
                 Player.Mover.Loiter();
@@ -55,7 +54,7 @@ namespace GiantsAttack
         public void Evade(EDirection2D direction2D, Action callback, float distance)
         {
             CLog.Log($"[PlayerMover] Evade direction {direction2D.ToString()}");
-            StopWaiting();
+            StopWaitingRoutine();
             Player.Mover.Evade(direction2D, callback, distance);
         }
 
@@ -65,6 +64,29 @@ namespace GiantsAttack
             _elapsedAwaiting = 0f;
             _currentNode = _nodes[_nodeIndex];
             WaitForNode();
+        }
+
+        public void SkipToNextPoint()
+        {
+            _nodeIndex++;
+            if (_nodeIndex >= _nodes.Count)
+            {
+                CLog.LogRed($"[{nameof(PlayerMover)}] All nodes passed");
+                return;
+            }
+            Player.Mover.StopMovement();
+            MoveToNode(_nodes[_nodeIndex]);
+        }
+
+        public void ZeroWaitTime()
+        {
+            CLog.LogRed($"SKIP WAIT TIME!!! _isAwaiting {_isWaiting}, time {_elapsedAwaiting}");
+            if (_isWaiting)
+            {
+                _isWaiting = false;
+                _elapsedAwaiting = 0f;
+                StopWaitingRoutine();
+            }
         }
 
         private void MoveToNode(PathNode node)
@@ -85,10 +107,16 @@ namespace GiantsAttack
             }
             CLog.Log($"[{nameof(PlayerMover)}] None: {_nodes[_nodeIndex].point.name}, Ind: {_nodeIndex}");
             _elapsedAwaiting = 0f;
-            WaitForNode();
+            if(_nodes[_nodeIndex].startDelay > 0)
+                WaitForNode();
+            else
+            {
+                _isWaiting = false;
+                MoveToNode(_nodes[_nodeIndex]);
+            }
         }
 
-        private void StopWaiting()
+        private void StopWaitingRoutine()
         {
             if(_waiting != null)
                 StopCoroutine(_waiting);
@@ -96,7 +124,7 @@ namespace GiantsAttack
 
         private void WaitForNode()
         {
-            StopWaiting();
+            StopWaitingRoutine();
             _waiting = StartCoroutine(WaitingToStartNode());
         }
         

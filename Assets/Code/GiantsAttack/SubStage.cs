@@ -42,8 +42,8 @@ namespace GiantsAttack
         public float delayBeforeAnimateTarget;
         public AnimationType targetAnimationType;
         [Header("Rotation before action")] 
-        public bool doRotateBeforeAction;
         public float rotationTime;
+        public bool doRotateBeforeAction;
         public Transform rotationSource;
         [Header("Evasion")] 
         public CorrectSwipeChecker swipeChecker;
@@ -53,6 +53,9 @@ namespace GiantsAttack
         public SlowMotionEffectSO slowMotionEffect;
         [Header("StageListener")] 
         public List<StageListener> stageListeners;
+        [Header("Additional")] 
+        [Tooltip("i.e. Skip wait time on playerMover")] public bool skip1;
+        [Tooltip("i.e. Skip right to next node on playerMover")] public bool skip2;
 
         public SubStageExecutor GetExecutor(IMonster enemy, IHelicopter player, IPlayerMover playerMover,
             IGameplayMenu menu, IDestroyedTargetsCounter counter, 

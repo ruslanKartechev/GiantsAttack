@@ -13,7 +13,7 @@ namespace GiantsAttack
         void BeginAnimatingVertically();
         void StopAnimating();
         void StopAll();
-        public void RotateToLook(Transform lookAtlookAtPoint, float time, Action onEnd, bool centerInternal = true);
+        public void RotateToLook(Transform lookAtlookAtPoint, float time, Action onEnd, bool keepLooking, bool centerInternal = true);
         public void RotateToLook(Vector3 lookAtPosition, float time, Action onEnd, bool centerInternal = true);
         
         public void StopRotating();

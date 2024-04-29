@@ -88,6 +88,7 @@ namespace GiantsAttack
         public override void Init()
         {
             GCon.DataSaver.Save();
+            DamageCalculator.Clear();
             _playerMover = _playerMoverGo.GetComponent<IPlayerMover>();
             _camera = CameraContainer.PlayerCamera as PlayerCamera;
             _controlsUI = GCon.UIFactory.GetControlsUI();
@@ -126,8 +127,8 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var utils = new LevelUtils();
-            var level = GCon.PlayerData.LevelTotal+1;
+            var utils = new LevelUtils(_player, _hitCounter);
+            var level = GCon.PlayerData.LevelTotal + 1;
             utils.SendWinEvent(level, _timePassed, _hitCounter);
             utils.CallWinScreen(level);
         }
@@ -138,7 +139,7 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var utils = new LevelUtils();
+            var utils = new LevelUtils(_player, _hitCounter);
             var level = GCon.PlayerData.LevelTotal+1;
             _failSequence.Player = _player;
             _failSequence.Enemy = _enemy;

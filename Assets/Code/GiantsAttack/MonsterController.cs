@@ -11,6 +11,7 @@ namespace GiantsAttack
         [SerializeField] private Transform _grabHand;
         [SerializeField] private Transform _facePoint;
         [SerializeField] private Transform _lookAtPoint;
+        [SerializeField] private Transform _killPoint;
         [SerializeField] private BodyArmorManager _armorManager;
         [SerializeField] private SkinnedMeshRenderer _mainRenderer;
         [Space(10)]
@@ -33,6 +34,7 @@ namespace GiantsAttack
         public Transform Point => _animator.transform;
         public Transform CameraFacePoint => _facePoint;
         public Transform LookAtPoint => _lookAtPoint;
+        public Transform KillPoint => _killPoint;
         public List<Transform> DamagePoints => _damagePoints;
 
         public event Action<IMonster> OnDefeated;

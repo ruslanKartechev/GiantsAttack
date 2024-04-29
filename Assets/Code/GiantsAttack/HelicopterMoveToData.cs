@@ -21,6 +21,8 @@ namespace GiantsAttack
         }
         
         public bool HasStarted { get; set; }
+        public bool HasFinished { get; set; }
+        
         public float LerpT { get; set; }
         public Vector3 StartPos { get; set; }
         public Quaternion StartRot { get; set; }

@@ -92,7 +92,7 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var utils = new LevelUtils();
+            var utils = new LevelUtils(_player, _hitCounter);
             var level = GCon.PlayerData.LevelTotal+1;
             utils.SendWinEvent(level, _timePassed, _hitCounter);
             utils.CallWinScreen(level);
@@ -104,7 +104,7 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var utils = new LevelUtils();
+            var utils = new LevelUtils(_player, _hitCounter);
             var level = GCon.PlayerData.LevelTotal+1;
             _failSequence.Player = _player;
             _failSequence.Enemy = _enemy;

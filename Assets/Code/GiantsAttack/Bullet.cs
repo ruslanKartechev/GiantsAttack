@@ -34,6 +34,7 @@ namespace GiantsAttack
         {
             _damageArgs = args;
             _counter = counter;
+            _counter.ShotsCount++;
             _movable.position = from;
             _explosionParticles.gameObject.SetActive(false);
             gameObject.SetActive(true);
@@ -93,6 +94,7 @@ namespace GiantsAttack
                 time -= Time.unscaledDeltaTime;
                 yield return null;
             }
+            _counter.MissCount++;
             gameObject.SetActive(false);
         }
 
@@ -107,20 +109,23 @@ namespace GiantsAttack
         private void ProcessHit(Collider other)
         {
             if (other.gameObject.CompareTag(GlobalConfig.PlayerTag))
+            {
+                _counter.MissCount++;
                 return;
+            }
             // CLog.Log($"bullet trigger w {other.gameObject.name}");
             if (other.gameObject.TryGetComponent<ITarget>(out var target))
             {
                 _damageArgs.point = transform.position;
                 _damageArgs.direction = transform.forward;
-                OnHit();
                 _counter.HitsCount++;
-                DamageCalculator.AddDamage(target, _damageArgs);
+                OnHit();
+                DamageCalculator.AddDamage(target, _damageArgs, _counter);
             }
             else
             {
-                OnHit();
                 _counter.MissCount++;
+                OnHit();
             }
         }
 

@@ -111,9 +111,6 @@ namespace GiantsAttack
             RotateShooter();
         }
         
-        public void Reset()
-        { }
-
         private void SetPointerToCenter()
         {
             _pointerPos = new Vector3(Screen.width * .5f, Screen.height * .5f, 0f);

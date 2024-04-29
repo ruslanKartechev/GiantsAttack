@@ -48,16 +48,21 @@ namespace GiantsAttack
 
         private void Spawn(SpawnData data)
         {
-            if (PrefabInd >= _humanPrefabs.Count - 1)
-                PrefabInd = 0;
-            var ind = PrefabInd;
-            PrefabInd++;
-            var prefab = _humanPrefabs[ind];
-            var instance = Instantiate(prefab, transform);
-            instance.transform.localScale = new Vector3(_scale,_scale,_scale);
+            var instance = SpawnOne();
             instance.transform.CopyPosRot(data.spawnPoint);
             instance.MoveToPoint(data.endPoint, data.moveTime, instance.Hide);
         }
 
+        public RunawayHuman SpawnOne()
+        {
+            var ind = PrefabInd;
+            PrefabInd++;
+            if (PrefabInd >= _humanPrefabs.Count)
+                PrefabInd = 0;
+            var prefab = _humanPrefabs[ind];
+            var instance = Instantiate(prefab, transform);
+            instance.transform.localScale = new Vector3(_scale,_scale,_scale);
+            return instance;
+        }
     }
 }

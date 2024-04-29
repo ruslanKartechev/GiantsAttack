@@ -73,10 +73,10 @@ namespace GiantsAttack
             StopAnimating();
         }
 
-        public void RotateToLook(Transform lookAtlookAtPoint, float time, Action onEnd, bool centerInternal = true)
+        public void RotateToLook(Transform lookAtlookAtPoint, float time, Action onEnd, bool keepLooking, bool centerInternal = true)
         {
             StopRotating();
-            _rotating = StartCoroutine(RotatingToLookAt(lookAtlookAtPoint, time, onEnd, centerInternal));
+            _rotating = StartCoroutine(RotatingToLookAt(lookAtlookAtPoint, time, onEnd, keepLooking, centerInternal));
         }
         
         public void RotateToLook(Vector3 lookAtPosition, float time, Action onEnd, bool centerInternal = true)
@@ -125,9 +125,9 @@ namespace GiantsAttack
         public bool ResumeMovement()
         {
             CLog.Log($"ResumeMovement");
-            if (_currentMoveToData == null)
+            if (_currentMoveToData == null || _currentMoveToData.HasFinished)
             {
-                CLog.Log($"[{nameof(HelicopterMover)}] _currentMoveToData == null. Cannot resume");
+                CLog.Log($"[{nameof(HelicopterMover)}] Will not resume");
                 return false;
             }
 
@@ -227,11 +227,19 @@ namespace GiantsAttack
 
         private IEnumerator Evading(Vector3 endPoint, float time, Action callback, Vector3 angles)
         {
-            _rotating = StartCoroutine(EvadeRotation( evasionSettings.rotToEvadeTimeFraction * time, 
-                (1 - evasionSettings.rotToEvadeTimeFraction) * time, angles));
-            _animating = StartCoroutine(EvadeMoving(endPoint, time));
-            yield return _rotating;
-            yield return _animating;
+            if (_currentMoveToData != null && _currentMoveToData.lookAt != null)
+            {
+                _animating = StartCoroutine(EvadeMovingWhileLooking(endPoint, _currentMoveToData.lookAt, time));
+                yield return _animating;
+            }
+            else
+            {
+                _rotating = StartCoroutine(EvadeRotation( evasionSettings.rotToEvadeTimeFraction * time, 
+                    (1 - evasionSettings.rotToEvadeTimeFraction) * time, angles));
+                _animating = StartCoroutine(EvadeMoving(endPoint, time));
+                yield return _rotating;
+                yield return _animating;
+            }
             callback.Invoke();
         }
         
@@ -249,6 +257,30 @@ namespace GiantsAttack
                 yield return null;
             }
             transform.position = p2;
+        }
+        
+        private IEnumerator EvadeMovingWhileLooking(Vector3 endPoint, Transform lookAt, float time)
+        {
+            var tr = _movable;
+            var p1 = transform.position;
+            var p2 = endPoint;
+            var elapsed = Time.unscaledDeltaTime;
+            var t = elapsed / time;
+            var intR1 = _internal.localRotation;
+            var intR2 = Quaternion.identity;
+            while (t <= 1f)
+            {
+                tr.position = Vector3.Lerp(p1, p2, t);
+                var targetRot = Quaternion.LookRotation(lookAt.position - tr.position);
+                targetRot = Quaternion.RotateTowards(tr.rotation, targetRot, movementSettings.rotationSpeed * Time.unscaledDeltaTime);
+                tr.rotation = targetRot;
+                _internal.localRotation = Quaternion.Lerp(intR1, intR2, t*2f);
+                elapsed += Time.unscaledDeltaTime;
+                t = elapsed / time;
+                yield return null;
+            }
+            _internal.localRotation = intR2;
+            tr.position = p2;
         }
 
         private IEnumerator EvadeRotation(float toTime, float fromTime, Vector3 angles)
@@ -338,7 +370,7 @@ namespace GiantsAttack
             onEnd?.Invoke();
         }
 
-        private IEnumerator RotatingToLookAt(Transform lookPoint, float time, Action onEnd, bool centerInternal)
+        private IEnumerator RotatingToLookAt(Transform lookPoint, float time, Action onEnd, bool keepLooking, bool centerInternal)
         {
             if (centerInternal)
             {
@@ -357,6 +389,11 @@ namespace GiantsAttack
             }
             tr.rotation = Quaternion.LookRotation(lookPoint.position - tr.position);
             onEnd?.Invoke();
+            while (keepLooking)
+            {
+                tr.rotation = Quaternion.LookRotation(lookPoint.position - tr.position);
+                yield return null;
+            }
         }
         
         private IEnumerator RotatingTo(Quaternion endRotation, float time, Action onEnd, bool centerInternal)
@@ -455,25 +492,18 @@ namespace GiantsAttack
             var t = moveToData.LerpT;
             var time = moveToData.time;
             var elapsed = t * time;
-            // var leanRot= GetLeanRotation(moveToData.endPoint);
-            // var leanRotT = movementSettings.leanRotT;
-            var resRot = tr.rotation;
             while (t <= 1f)
             {
                 tr.position = Vector3.Lerp(p1, moveToData.endPoint.position, t);
                 var targetRot = Quaternion.LookRotation(moveToData.lookAt.position - tr.position);
-                targetRot = resRot = Quaternion.RotateTowards(tr.rotation, targetRot, movementSettings.rotationSpeed * Time.deltaTime);
-                // if (t <= leanRotT)
-                //     targetRot *= Quaternion.Lerp(Quaternion.identity, leanRot, t / leanRotT);
-                // else
-                //     targetRot *= Quaternion.Lerp(leanRot, Quaternion.identity, (t - leanRotT) / (1-leanRotT));
+                targetRot = Quaternion.RotateTowards(tr.rotation, targetRot, movementSettings.rotationSpeed * Time.deltaTime);
                 tr.rotation = targetRot;
                 elapsed += Time.deltaTime * moveToData.curve.Evaluate(t);
                 moveToData.LerpT = t = elapsed / time;
                 yield return null;
             }
             tr.position = moveToData.endPoint.position;
-            // tr.SetPositionAndRotation(moveToData.endPoint.position, moveToData.endPoint.rotation);
+            moveToData.HasFinished = true;
             moveToData.callback?.Invoke();
         }        
         
@@ -500,6 +530,7 @@ namespace GiantsAttack
                 yield return null;
             }
             tr.SetPositionAndRotation(moveToData.endPoint.position, moveToData.endPoint.rotation);
+            moveToData.HasFinished = true;
             moveToData.callback?.Invoke();
         }
         

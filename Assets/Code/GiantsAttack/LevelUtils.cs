@@ -8,12 +8,26 @@ namespace GiantsAttack
 {
     public class LevelUtils
     {
+        private IHelicopter _helicopter;
+        private IHitCounter _hitCounter;
+        
+        public LevelUtils(IHelicopter helicopter, IHitCounter hitCounter)
+        {
+            _helicopter = helicopter;
+            _hitCounter = hitCounter;
+        }
+        
         public void CallWinScreen(int level, Action nextButtonCallback = null)
         {
             var screen = GCon.UIFactory.GetCompletedMenu() as IMenuWin;
             if (nextButtonCallback == null)
                 nextButtonCallback = CallNextLevel;
             screen.Show(level, nextButtonCallback, () =>{});
+            screen.ResultPrinter.Text = $"SHOTS:      {_hitCounter.ShotsCount}\n" +
+                                        $"HEADSHOTS:  {_hitCounter.HeadShotsCount}\n" +
+                                        $"BEST STREAK {_hitCounter.BestStreak}\n" +
+                                        $"MISSES:     {_hitCounter.MissCount}";
+            screen.ResultPrinter.PrintText();
         }
 
         public void CallFailScreen(int level, Action nextButtonCallback = null)
