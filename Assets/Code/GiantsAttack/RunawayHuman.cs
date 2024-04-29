@@ -8,7 +8,9 @@ namespace GiantsAttack
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private SimpleForwardMover _mover;
-        
+        private static readonly int Offset = Animator.StringToHash("Offset");
+        private static readonly int Walk = Animator.StringToHash("Walk");
+
         public override void AnimateMove()
         {
             gameObject.SetActive(true);
@@ -60,6 +62,21 @@ namespace GiantsAttack
         public void Hide()
         {
             gameObject.SetActive(false);
+        }
+
+        public void PlayScared()
+        {
+            _animator.Play("Scared");
+        }
+
+        public void PlayRun()
+        {
+            _animator.SetTrigger(Walk);
+        }
+
+        public void RandomizeAnimationOffset()
+        {
+            _animator.SetFloat(Offset, UnityEngine.Random.Range(0f,1f));
         }
     }
 }

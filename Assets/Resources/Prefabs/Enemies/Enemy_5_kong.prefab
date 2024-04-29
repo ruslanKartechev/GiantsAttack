@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1584878198876425874}
   - component: {fileID: 2351821244164289898}
   m_Layer: 0
-  m_Name: DropKickPoint
+  m_Name: point_DropKick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6306293777085485627}
   m_Layer: 0
-  m_Name: Enemy5 Look at
+  m_Name: Enemy 5 Look at
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 3744590226896637538}
   - component: {fileID: 6722144637298952953}
   m_Layer: 0
-  m_Name: Pickup point
+  m_Name: point_PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,6 +202,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6796138003480114227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4727155517148704008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5560743610092712327}
+  - component: {fileID: 9134482719971836958}
+  m_Layer: 0
+  m_Name: point_kill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5560743610092712327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4727155517148704008}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0000000037252903, y: 0.9956641, z: -0.09302202, w: 0.000000029802322}
+  m_LocalPosition: {x: -0, y: 7.56, z: 15.65}
+  m_LocalScale: {x: 0.16666661, y: 0.16666667, z: 0.16666661}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1297293209843045543}
+  m_LocalEulerAnglesHint: {x: 10.675, y: 180, z: 0}
+--- !u!114 &9134482719971836958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4727155517148704008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8d604885c2433faf6f48806b86b6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutoSet: 1
 --- !u!1 &5440034462836821115
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +258,7 @@ GameObject:
   - component: {fileID: 1122501972476495963}
   - component: {fileID: 9040325550073503153}
   m_Layer: 0
-  m_Name: Face Point
+  m_Name: point_face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,7 +334,7 @@ GameObject:
   - component: {fileID: 2942641734814545668}
   - component: {fileID: 2443739851115158962}
   m_Layer: 0
-  m_Name: PickFromTopPoint
+  m_Name: point_Top_PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,7 +383,7 @@ GameObject:
   - component: {fileID: 177643203464287654}
   - component: {fileID: 1040133179816571685}
   m_Layer: 0
-  m_Name: KickPoint
+  m_Name: point_LegKick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -975,7 +1020,19 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 453fdd40a49114e4f8cee75fbea92429,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1122501972476495963}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 453fdd40a49114e4f8cee75fbea92429,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5560743610092712327}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 453fdd40a49114e4f8cee75fbea92429,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 3744590226896637538}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 453fdd40a49114e4f8cee75fbea92429,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2942641734814545668}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 453fdd40a49114e4f8cee75fbea92429,
         type: 3}
       insertIndex: -1
@@ -984,14 +1041,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1584878198876425874}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 453fdd40a49114e4f8cee75fbea92429,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2942641734814545668}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 453fdd40a49114e4f8cee75fbea92429,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1122501972476495963}
     - targetCorrespondingSourceObject: {fileID: 5465940246521907071, guid: 453fdd40a49114e4f8cee75fbea92429,
         type: 3}
       insertIndex: -1
@@ -4296,6 +4345,11 @@ PrefabInstance:
       propertyPath: _facePoint
       value: 
       objectReference: {fileID: 1122501972476495963}
+    - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
+        type: 3}
+      propertyPath: _killPoint
+      value: 
+      objectReference: {fileID: 5560743610092712327}
     - target: {fileID: 2957192065713615313, guid: 761de7a689409614fbe21894075cdda3,
         type: 3}
       propertyPath: _lookAtPoint

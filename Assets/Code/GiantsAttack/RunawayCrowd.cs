@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using SleepDev;
 using UnityEngine;
@@ -15,14 +16,22 @@ namespace GiantsAttack
 
         public SplineMover Mover => _splineMover;
 
+        private void Awake()
+        {
+#if UNITY_EDITOR
+            E_Hide();
+#endif
+        }
+
         public void Init()
         {
-            StartCoroutine(Spawning());
+            SpawnAndScare();
         }
 
         public void BeginMoving()
         {
-            _splineMover.MoveAccelerated();
+            StartCoroutine(Moving());
+            // _splineMover.MoveAccelerated();
         }
 
         public void Stop()
@@ -31,15 +40,26 @@ namespace GiantsAttack
         public void Kill()
         { }
 
-        private IEnumerator Spawning()
+
+        private void SpawnAndScare()
         {
-            _humans =new List<RunawayHuman>(_humanPoints.Count);
+            _humans = new List<RunawayHuman>(_humanPoints.Count);
             foreach (var point in _humanPoints)
             {
                 var human = _spawner.SpawnOne();
-                human.transform.SetParentAndCopy(point);
+                human.Transform.parent = point;
+                human.transform.CopyPosRot(point.GetChild(0));
                 _humans.Add(human);
-            }
+                human.RandomizeAnimationOffset();
+                human.PlayScared();
+            }    
+        }
+       
+        
+        private IEnumerator Moving()
+        {
+            foreach (var hh in _humans)
+                hh.PlayRun();
             yield return null;
             var elapsed = 0f;
             var time = _appearTime;
@@ -104,6 +124,22 @@ namespace GiantsAttack
             }
             _humanPoints = ss;
             UnityEditor.EditorUtility.SetDirty(this);
+        }
+        
+        [ContextMenu("E_Hide")]
+        public void E_Hide()
+        {
+            foreach (var pp in _humanPoints)
+            {
+                if(pp.childCount == 0)
+                    continue;
+                var chil = pp.GetChild(0);
+                if (chil.childCount == 0)
+                    continue;
+                chil.GetChild(0).gameObject.SetActive(false);
+            }
+            if(Application.isPlaying)
+                UnityEditor.EditorUtility.SetDirty(this);
         }
 #endif
 

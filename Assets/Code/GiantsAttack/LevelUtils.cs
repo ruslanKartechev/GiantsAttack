@@ -23,10 +23,10 @@ namespace GiantsAttack
             if (nextButtonCallback == null)
                 nextButtonCallback = CallNextLevel;
             screen.Show(level, nextButtonCallback, () =>{});
-            screen.ResultPrinter.Text = $"SHOTS:      {_hitCounter.ShotsCount}\n" +
-                                        $"HEADSHOTS:  {_hitCounter.HeadShotsCount}\n" +
-                                        $"BEST STREAK {_hitCounter.BestStreak}\n" +
-                                        $"MISSES:     {_hitCounter.MissCount}";
+            screen.ResultPrinter.Text = $"SHOTS:    {_hitCounter.ShotsCount}\n" +
+                                        $"HEADSHOTS:    {_hitCounter.HeadShotsCount}\n" +
+                                        $"BEST STREAK:    {_hitCounter.BestStreak}\n" +
+                                        $"MISSES:    {_hitCounter.MissCount}";
             screen.ResultPrinter.PrintText();
         }
 

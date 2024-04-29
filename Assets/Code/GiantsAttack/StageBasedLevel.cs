@@ -184,6 +184,14 @@ namespace GiantsAttack
 
         private void OnStartLevel()
         {
+            var startAction = gameObject.GetComponent<IStartLevelAction>();
+            if (startAction != null)
+            {
+                startAction.Player = _player;
+                startAction.Enemy = _enemy;
+                startAction.Execute(BeginGameplay);
+                return;
+            }
             GCon.UIFactory.GetStartMenu().Hide(() => {});
             _gameplayMenu.Show(() => {});
             _player.CameraPoints.MoveCameraToInside(OnCameraSet);

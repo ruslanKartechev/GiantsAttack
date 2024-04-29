@@ -540,8 +540,8 @@ MonoBehaviour:
   doAnimateTarget: 0
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -553,6 +553,8 @@ MonoBehaviour:
   stageListeners:
   - {fileID: 6112675656346625542}
   - {fileID: 8838993164070350087}
+  skip1: 0
+  skip2: 0
 --- !u!1 &3967638417121171419
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,8 +616,8 @@ MonoBehaviour:
   doAnimateTarget: 1
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0.33
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 1
@@ -625,6 +627,8 @@ MonoBehaviour:
   doSlowMo: 1
   slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   stageListeners: []
+  skip1: 0
+  skip2: 0
 --- !u!114 &8224701370333921629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,8 +879,8 @@ MonoBehaviour:
   doAnimateTarget: 0
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -886,6 +890,8 @@ MonoBehaviour:
   doSlowMo: 0
   slowMotionEffect: {fileID: 0}
   stageListeners: []
+  skip1: 0
+  skip2: 0
 --- !u!1 &5584247426812621135
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,12 +998,12 @@ MonoBehaviour:
   enemyMoveToPoint: {fileID: 7797649038152443153}
   enemyAnimation: 
   enemyTarget: {fileID: 5657169415298515838}
-  forceVal: 1
+  forceVal: 1.4
   doAnimateTarget: 1
   delayBeforeAnimateTarget: 1
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0.45
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -1007,6 +1013,8 @@ MonoBehaviour:
   doSlowMo: 1
   slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   stageListeners: []
+  skip1: 0
+  skip2: 0
 --- !u!1 &6700488687467778337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,18 +1257,20 @@ MonoBehaviour:
   doAnimateTarget: 1
   delayBeforeAnimateTarget: 1
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0.33
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 1
     _swipeInputTaker: {fileID: 3282955804553427923}
-    _targetSwipeDistance: 250
-  evadeDistance: 20
+    _targetSwipeDistance: 200
+  evadeDistance: 30
   doSlowMo: 1
   slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   stageListeners:
   - {fileID: 1231730979558472452}
+  skip1: 0
+  skip2: 0
 --- !u!114 &3282955804553427923
 MonoBehaviour:
   m_ObjectHideFlags: 0

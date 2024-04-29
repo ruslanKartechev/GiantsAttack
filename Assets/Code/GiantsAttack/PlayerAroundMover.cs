@@ -39,14 +39,10 @@ namespace GiantsAttack
         }
 
         public void SkipToNextPoint()
-        {
-            throw new NotImplementedException();
-        }
+        { }
 
         public void ZeroWaitTime()
-        {
-            throw new NotImplementedException();
-        }
+        { }
 
         private IEnumerator Working()
         {
@@ -62,9 +58,9 @@ namespace GiantsAttack
             {
                 var node = _nodes[i];
                 yield return new WaitForSeconds(node.startDelay);
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 LogNode(i);
-                #endif
+#endif
                 Player.Mover.ChangeMovingAroundNode(node);
             }
 #if UNITY_EDITOR

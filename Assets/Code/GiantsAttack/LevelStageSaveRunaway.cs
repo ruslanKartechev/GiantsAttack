@@ -5,26 +5,15 @@ namespace GiantsAttack
 {
     public class LevelStageSaveRunaway : LevelStage
     {
-        [SerializeField] private bool _simpleStartAll;
-        [SerializeField] private float _runawayInitDelay;
+        [SerializeField] private bool _initRunaway;
         [SerializeField] private float _runawayMoveDelay;
-        [Space(10)]
-        [SerializeField] private float _runawayStartSpeed;
-        [Space(10)]
-        [SerializeField] private float _runawayAccelerationDelay;
-        [SerializeField] private float _runawayAcceleratedSpeed;
-        [SerializeField] private float _runawayAccelerationTime;
-        [Space(10)]
-        [SerializeField] private float _enemyToStartMoveTime;
-        [SerializeField] private float _enemyToStartMoveDelay;
-        [SerializeField] private string _enemyWalkAnim = "Walk";
-        [Space(10)]
-        [SerializeField] private float _enemyStartSpeed;
-        [SerializeField] private float _enemyStartSplineT;
+        [SerializeField] private float _enemyMoveDelay;
         [Space(10)] 
-        [SerializeField] private float _failSplinePercent;
+        [SerializeField] private bool _accelerateRunaway;
+        [SerializeField] private bool _accelerateEnemy;
+        [Space(10)] 
+        [SerializeField, Range(0f,1f)] private float _failSplinePercent;
         [Space(10)]
-        [SerializeField] private Transform _enemyStartPoint;
         [SerializeField] private SplineMover _enemyMover;
         [SerializeField] private SplineMover _runawayMover;        
         [SerializeField] private GameObject _runawayGo;
@@ -32,21 +21,14 @@ namespace GiantsAttack
         
         public override void Activate()
         {
+            foreach (var listener in _stageListeners)
+                listener.OnActivated();
             _runaway = _runawayGo.GetComponent<IRunaway>();
             Player.Aimer.BeginAim();
-            if (_simpleStartAll)
-            {
+            if(_initRunaway)
                 _runaway.Init();
-                _runaway.Mover.MoveAccelerated();
-                _enemyMover.MoveAccelerated();
-                Enemy.Animate(_enemyWalkAnim, true);
-            }
-            else
-            {
-                Delay(InitRunaway, _runawayInitDelay);
-                Delay(StartMovingRunaway, _runawayMoveDelay);
-                Delay(MoveEnemyToStart, _enemyToStartMoveDelay);
-            }
+            Delay(MoveEnemy, _enemyMoveDelay);
+            Delay(MoveRunaway, _runawayMoveDelay);
             SubToEnemyKill();
             StartCoroutine(FailPercentPolling());
         }
@@ -55,40 +37,25 @@ namespace GiantsAttack
         {
             _isStopped = true;
         }
-
-        private void InitRunaway()
+        
+        private void MoveEnemy()
         {
-            _runaway.Init();
-        }
-
-        private void MoveEnemyToStart()
-        {
-            if(_enemyStartPoint != null)
-                Enemy.Mover.MoveToPoint(_enemyStartPoint, _enemyToStartMoveTime, OnEnemyMovedToStart);
+            Enemy.Animate("Walk", true);
+            if(_accelerateEnemy)
+                _enemyMover.MoveAccelerated();
             else
-                OnEnemyMovedToStart();
+                _enemyMover.MoveNow();
         }
 
-        private void OnEnemyMovedToStart()
+        private void MoveRunaway()
         {
-            Enemy.Animate("Walk", false);
-            _enemyMover.Speed = _enemyStartSpeed;
-            _enemyMover.InterpolationT = _enemyStartSplineT;
-            _enemyMover.MoveNow();
-            // Debug.Break();
-        }
-
-        private void StartMovingRunaway()
-        {
-            _runaway.Mover.Speed = _runawayStartSpeed;
+            if(_accelerateRunaway)
+                _runawayMover.MoveAccelerated();
+            else
+                _runawayMover.MoveNow();
             _runaway.BeginMoving();
-            Delay(AccelerateRunaway, _runawayAccelerationDelay);
         }
-
-        private void AccelerateRunaway()
-        {
-            _runaway.Mover.ChangeSpeed(_runawayAcceleratedSpeed, _runawayAccelerationTime);
-        }
+        
 
         protected override void OnEnemyKilled(IMonster enemy)
         {
@@ -115,17 +82,5 @@ namespace GiantsAttack
             }
         }
         
-        #if UNITY_EDITOR
-        [ContextMenu("E_CalculateTimeForEnemy")]
-        public void E_CalculateTimeForEnemy()
-        {
-            if (_enemyMover == null || _enemyStartPoint == null)
-                return;
-            var dist = (_enemyMover.transform.position - _enemyStartPoint.position).magnitude;
-            var time = dist / _enemyStartSpeed;
-            _enemyToStartMoveTime = time;
-            UnityEditor.EditorUtility.SetDirty(this);
-        }
-        #endif
     }
 }

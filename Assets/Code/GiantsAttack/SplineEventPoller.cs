@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using SleepDev;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -76,6 +74,7 @@ namespace GiantsAttack
         public bool e_doDraw = true;
         public float e_radius;
         public Color e_color;
+        public Color e_color2;
 
         public void OnDrawGizmos()
         {
@@ -90,8 +89,14 @@ namespace GiantsAttack
             var spline = _targetMover.spline;
             var oldColor = Gizmos.color;
             Gizmos.color = e_color;
+            var col1 = true;
             foreach (var data in _eventData)
             {
+                if (col1)
+                    Gizmos.color = e_color;
+                else
+                    Gizmos.color = e_color2;
+                col1 = !col1;
                 var pos = spline.Spline.EvaluatePosition(data.percent);
                 Gizmos.DrawSphere(spline.transform.TransformPoint(pos), e_radius);
             }

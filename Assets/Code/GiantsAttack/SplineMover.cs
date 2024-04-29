@@ -47,7 +47,7 @@ namespace GiantsAttack
         
         public void E_AlignToInterpolateT()
         {
-            if (e_doControlPosition)
+            if (e_doControlPosition && Application.isPlaying == false)
             {
                 _interpolateT = e_interpolationT;
                 UnityEditor.EditorUtility.SetDirty(this);

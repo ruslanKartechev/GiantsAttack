@@ -9,7 +9,6 @@ namespace GiantsAttack
         Transform InsidePoint { get; }
         Transform OutsidePoint { get; }
         void SetCamera(IPlayerCamera camera);
-
         public void MoveCameraToInside(Action callback);
         public void MoveCameraToOutside(Action callback);
         

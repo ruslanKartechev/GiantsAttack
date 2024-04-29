@@ -40,17 +40,20 @@ namespace GiantsAttack
 
         private void EndAttack()
         {
+            _eventReceiver.EOnAnimationOver -= EndAttack;
             _fireParticles.Stop();
             _endCallback.Invoke();
         }
 
         private void MakeAttack()
         {
+            _eventReceiver.EOnPunch -= MakeAttack;
             _attackCallback.Invoke();
         }
 
         private void StartAttack()
         {
+            _eventReceiver.EOnPunchBegan -= StartAttack;
             _punchStartedCallback.Invoke();
             _fireParticles.gameObject.SetActive(true);
             _fireParticles.Play();
