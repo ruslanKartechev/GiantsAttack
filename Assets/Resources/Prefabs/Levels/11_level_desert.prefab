@@ -60,8 +60,8 @@ MonoBehaviour:
   doAnimateTarget: 1
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0.33
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -71,6 +71,8 @@ MonoBehaviour:
   doSlowMo: 1
   slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   stageListeners: []
+  skip1: 0
+  skip2: 0
 --- !u!1 &783347298519499624
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,8 +280,8 @@ MonoBehaviour:
   doAnimateTarget: 0
   delayBeforeAnimateTarget: 1
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0.33
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -289,6 +291,8 @@ MonoBehaviour:
   doSlowMo: 1
   slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   stageListeners: []
+  skip1: 0
+  skip2: 0
 --- !u!1 &1882210764742397341
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,8 +451,8 @@ MonoBehaviour:
   doAnimateTarget: 1
   delayBeforeAnimateTarget: 1.5
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0.33
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -458,6 +462,8 @@ MonoBehaviour:
   doSlowMo: 1
   slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   stageListeners: []
+  skip1: 0
+  skip2: 0
 --- !u!1 &2888281657942681621
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,8 +639,8 @@ MonoBehaviour:
   doAnimateTarget: 0
   delayBeforeAnimateTarget: 1
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0.33
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -645,6 +651,8 @@ MonoBehaviour:
   slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   stageListeners:
   - {fileID: 6727904864145910621}
+  skip1: 0
+  skip2: 0
 --- !u!1 &5550664804115888640
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,12 +711,12 @@ MonoBehaviour:
   enemyMoveToPoint: {fileID: 7123445678502843052}
   enemyAnimation: LegKick
   enemyTarget: {fileID: 8972182943439462816}
-  forceVal: 150
+  forceVal: 50
   doAnimateTarget: 0
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -719,6 +727,8 @@ MonoBehaviour:
   slowMotionEffect: {fileID: 0}
   stageListeners:
   - {fileID: 6337309709440212355}
+  skip1: 0
+  skip2: 0
 --- !u!1 &6100614932531908307
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,8 +1042,8 @@ MonoBehaviour:
   doAnimateTarget: 0
   delayBeforeAnimateTarget: 1
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0.33
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -1043,6 +1053,8 @@ MonoBehaviour:
   doSlowMo: 1
   slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   stageListeners: []
+  skip1: 0
+  skip2: 0
 --- !u!1 &7728767578909289681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,8 +1116,8 @@ MonoBehaviour:
   doAnimateTarget: 1
   delayBeforeAnimateTarget: 0
   targetAnimationType: 0
-  doRotateBeforeAction: 0
   rotationTime: 0.33
+  doRotateBeforeAction: 0
   rotationSource: {fileID: 0}
   swipeChecker:
     _correctDirection: 0
@@ -1115,6 +1127,8 @@ MonoBehaviour:
   doSlowMo: 1
   slowMotionEffect: {fileID: 11400000, guid: c8c9400c3250de5478a5e69151ce1856, type: 2}
   stageListeners: []
+  skip1: 0
+  skip2: 0
 --- !u!114 &7868093405431682083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2077,7 +2091,7 @@ PrefabInstance:
     - target: {fileID: 981057125881025892, guid: 3194b3cd26a88304f9186ce559d5f9b8,
         type: 3}
       propertyPath: _defaultForce
-      value: 150
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2190295154842864523, guid: 3194b3cd26a88304f9186ce559d5f9b8,
         type: 3}
@@ -2157,7 +2171,7 @@ PrefabInstance:
     - target: {fileID: 5375992952991765011, guid: 3194b3cd26a88304f9186ce559d5f9b8,
         type: 3}
       propertyPath: _force
-      value: 100
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5621730846356152625, guid: 3194b3cd26a88304f9186ce559d5f9b8,
         type: 3}
@@ -3814,6 +3828,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5134158180319709561}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7622913673418132720, guid: 05ef65362ce0c3e4fa3a423b7876adae,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4743632735256947637}
     - targetCorrespondingSourceObject: {fileID: 581413548635498098, guid: 05ef65362ce0c3e4fa3a423b7876adae,
         type: 3}
       insertIndex: -1
@@ -3845,6 +3863,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6357603701862345497}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3598580040632690665 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7622913673418132720, guid: 05ef65362ce0c3e4fa3a423b7876adae,
+    type: 3}
+  m_PrefabInstance: {fileID: 6357603701862345497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4743632735256947637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3598580040632690665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57424bd8aca64078b50154634b553b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doWork: 1
+  _lightEulers: {x: 40.346, y: 195.4, z: 356.64}
+  _intensity: 0.9
 --- !u!4 &3678008305486879542 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7723770062687825967, guid: 05ef65362ce0c3e4fa3a423b7876adae,

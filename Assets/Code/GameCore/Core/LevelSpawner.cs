@@ -17,6 +17,7 @@ namespace GameCore.Core
         public bool initLevel = true;
         [Header("SpawnPoints")]
         public Transform defaultPosition;
+        public Light globalLight;
 
 
 #if UNITY_EDITOR
@@ -27,6 +28,15 @@ namespace GameCore.Core
                 var ll  = FindObjectOfType<Level>();
                 if (ll != null)
                     preloaded = ll.gameObject;
+            }
+            if (globalLight == null)
+            {
+                var ll = FindObjectOfType<Light>();
+                if (ll.gameObject.name.Contains("Directional"))
+                {
+                    globalLight = ll;
+                    UnityEditor.EditorUtility.SetDirty(this);
+                }
             }
         }
 #endif
@@ -39,6 +49,7 @@ namespace GameCore.Core
 #endif
             GCon.UIFactory.Clear();
             EnvironmentState.CurrentIndex = environmentIndex;
+            EnvironmentState.CurrentGlobalLight = globalLight;
             if (!autoSpawn)
                 return;
             SpawnLevel();

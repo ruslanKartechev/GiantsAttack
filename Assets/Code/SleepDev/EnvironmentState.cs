@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace SleepDev
 {
@@ -41,6 +42,7 @@ namespace SleepDev
         public static bool IsNight => CurrentData.isNight;
         public static string TrailId => CurrentData.trailId;
         public static string WinId => CurrentData.windParticles;
+        public static Light CurrentGlobalLight { get; set; }
 
         public static GameObject WindParticlesPrefab => 
             Resources.Load<GameObject>($"Prefabs/FX/{WinId}");
