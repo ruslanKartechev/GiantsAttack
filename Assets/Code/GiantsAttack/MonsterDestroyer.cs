@@ -15,7 +15,7 @@ namespace GiantsAttack
         public void DestroyMe()
         {
             _animator.enabled = false;
-            _ragdoll.ActivateAndPush(-transform.forward * _pushForce + Vector3.up * _pushForceUp);
+            _ragdoll.ActivateAndPush(-_animator.transform.forward * _pushForce + Vector3.up * _pushForceUp);
         }
 
         public void DestroyMeChopped()

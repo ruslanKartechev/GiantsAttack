@@ -229,7 +229,7 @@ namespace GiantsAttack
         {
             if (_currentMoveToData != null && _currentMoveToData.lookAt != null)
             {
-                _animating = StartCoroutine(EvadeMovingWhileLooking(endPoint, _currentMoveToData.lookAt, time));
+                _animating = StartCoroutine(EvadeMovingWhileLooking(endPoint, _currentMoveToData.lookAt, time, angles));
                 yield return _animating;
             }
             else
@@ -259,23 +259,35 @@ namespace GiantsAttack
             transform.position = p2;
         }
         
-        private IEnumerator EvadeMovingWhileLooking(Vector3 endPoint, Transform lookAt, float time)
+        private IEnumerator EvadeMovingWhileLooking(Vector3 endPoint, Transform lookAt, float time, Vector3 evadeAngles)
         {
             var tr = _movable;
             var p1 = transform.position;
             var p2 = endPoint;
-            var elapsed = Time.unscaledDeltaTime;
+            var elapsed = Time.deltaTime;
             var t = elapsed / time;
             var intR1 = _internal.localRotation;
             var intR2 = Quaternion.identity;
+            var leanRotT = evasionSettings.rotToEvadeTimeFraction;
             while (t <= 1f)
             {
                 tr.position = Vector3.Lerp(p1, p2, t);
                 var targetRot = Quaternion.LookRotation(lookAt.position - tr.position);
                 targetRot = Quaternion.RotateTowards(tr.rotation, targetRot, movementSettings.rotationSpeed * Time.unscaledDeltaTime);
                 tr.rotation = targetRot;
-                _internal.localRotation = Quaternion.Lerp(intR1, intR2, t*2f);
-                elapsed += Time.unscaledDeltaTime;
+                var rot = Quaternion.Lerp(intR1, intR2, t * 2f);
+                Vector3 incline;
+                if (t <= leanRotT)
+                    incline = Vector3.Lerp(Vector3.zero, evadeAngles, t / leanRotT);
+                else
+                    incline = Vector3.Lerp(evadeAngles, Vector3.zero, (t-leanRotT) / (1-leanRotT));
+                // if (t <= leanRotT)
+                //     tr.rotation = Quaternion.Lerp(r1, leanRot, t / leanRotT);
+                // else
+                //     tr.rotation = Quaternion.Lerp(leanRot, endRot, (t - leanRotT) / (1-leanRotT));
+                rot *= Quaternion.Euler(incline);
+                _internal.localRotation = rot;
+                elapsed += Time.deltaTime;
                 t = elapsed / time;
                 yield return null;
             }
