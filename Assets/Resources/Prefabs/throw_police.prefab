@@ -127,6 +127,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6911425628585859844}
   m_LocalEulerAnglesHint: {x: 10.554, y: 0, z: 0}
+--- !u!1 &7849456172062936465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4229678014042435907}
+  m_Layer: 0
+  m_Name: aim at
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4229678014042435907
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7849456172062936465}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 941}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6911425628585859844}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8829252394944120650
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,6 +405,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4601619087808622610}
+    - targetCorrespondingSourceObject: {fileID: 3265427605398364194, guid: 2f7261fb5a41bc648bb8cbbe1dae06b0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4229678014042435907}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3048293817190195612, guid: 2f7261fb5a41bc648bb8cbbe1dae06b0,
         type: 3}
@@ -549,6 +584,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6323045337815713707, guid: 5454367f06d749c44aeb89b14eddc726,
+        type: 3}
+      propertyPath: _aimAt
+      value: 
+      objectReference: {fileID: 4229678014042435907}
     - target: {fileID: 6323045337815713707, guid: 5454367f06d749c44aeb89b14eddc726,
         type: 3}
       propertyPath: _trail

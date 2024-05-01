@@ -18,6 +18,7 @@ namespace GiantsAttack
         public Transform CameraFacePoint { get; }
         public Transform LookAtPoint { get; }
         public Transform KillPoint { get; }
+        public Transform Hand { get; }
 
         public List<Transform> DamagePoints { get; }
         

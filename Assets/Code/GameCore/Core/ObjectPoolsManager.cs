@@ -26,7 +26,7 @@ namespace GameCore.Core
             DontDestroyOnLoad(gameObject);
             _bulletsPool.GOFactory = _casingsPool.GOFactory = GCon.GOFactory;
             _bulletsPool.BuildPool(_startBulletsPoolSize);
-            _casingsPool.BuildPool(_startBulletsPoolSize);
+            // _casingsPool.BuildPool(_startBulletsPoolSize);
             // Setup container
             GCon.PoolsManager = this;
         }

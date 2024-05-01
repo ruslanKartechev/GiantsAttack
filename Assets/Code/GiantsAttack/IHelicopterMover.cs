@@ -20,6 +20,7 @@ namespace GiantsAttack
 
         public void MoveTo(Transform point, float time, AnimationCurve curve, Action callback);
         public void MoveTo(HelicopterMoveToData moveToData);
+        public void ParentAndMoveLocal(Transform point, float time, AnimationCurve curve, Action callback);
         /// <summary>
         /// Resume movement on previous HelicopterMoveToData
         /// </summary>

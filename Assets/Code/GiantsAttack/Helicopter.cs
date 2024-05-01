@@ -13,7 +13,6 @@ namespace GiantsAttack
         [SerializeField] private List<ParticleSystem> _bladeParticles;
         [SerializeField] private Transform _internalTransform;
         [SerializeField] private SoundSo _helicopterSound;
-        [SerializeField] private Light _light;   
         private PlayingSound _playingSound;
         private bool _isDead;
 

@@ -5,7 +5,7 @@ namespace GiantsAttack
 {
     public interface IThrowable
     {
-        Transform Transform { get;}
+        Transform AimAt { get;}
         void GrabBy(Transform hand, Action callback);
         void FlyTo(Transform point, float time, Action flyEndCallback, Action<Collider> callbackHit);
         void TossTo(Vector3 force);

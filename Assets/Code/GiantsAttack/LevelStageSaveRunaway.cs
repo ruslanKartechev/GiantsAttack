@@ -40,7 +40,7 @@ namespace GiantsAttack
         
         private void MoveEnemy()
         {
-            Enemy.Animate("Walk", true);
+            Enemy.Mover.PlayMoveAnimation();
             if(_accelerateEnemy)
                 _enemyMover.MoveAccelerated();
             else

@@ -117,6 +117,14 @@ namespace GiantsAttack
                 _moving = StartCoroutine(MovingWhileLookingAt(_currentMoveToData));
         }
 
+        public void ParentAndMoveLocal(Transform point, float time, AnimationCurve curve, Action callback)
+        {
+            StopAll();
+            if(curve == null)
+                curve = AnimationCurve.Constant(0f,1f,1f);
+            _moving = StartCoroutine(MovingLocal(point, time, curve, callback));
+        }
+        
         public void PauseMovement()
         {
             StopMovement(); 
@@ -131,9 +139,13 @@ namespace GiantsAttack
                 return false;
             }
 
-            var d = (_currentMoveToData.endPoint.position - _currentMoveToData.StartPos).sqrMagnitude;
-            var md = (_currentMoveToData.endPoint.position - _movable.position).sqrMagnitude;
-            _currentMoveToData.time *= Mathf.Sqrt(md / d);
+            var startD2 = (_currentMoveToData.endPoint.position - _currentMoveToData.StartPos).sqrMagnitude;
+            if (Mathf.Approximately(startD2, 0f))
+                return false;
+            var currentD2 = (_currentMoveToData.endPoint.position - _movable.position).sqrMagnitude;
+            if (Mathf.Approximately(currentD2, 0f))
+                return false;
+            _currentMoveToData.time *= Mathf.Sqrt(currentD2 / startD2);
             _currentMoveToData.RefreshStartPosAndRot(_movable);
             MoveTo(_currentMoveToData);
             return true;
@@ -504,7 +516,7 @@ namespace GiantsAttack
             var t = moveToData.LerpT;
             var time = moveToData.time;
             var elapsed = t * time;
-            while (t <= 1f)
+            while (t < 1f)
             {
                 tr.position = Vector3.Lerp(p1, moveToData.endPoint.position, t);
                 var targetRot = Quaternion.LookRotation(moveToData.lookAt.position - tr.position);
@@ -517,7 +529,31 @@ namespace GiantsAttack
             tr.position = moveToData.endPoint.position;
             moveToData.HasFinished = true;
             moveToData.callback?.Invoke();
-        }        
+        }
+
+        private IEnumerator MovingLocal(Transform point, float time, AnimationCurve curve, Action callback)
+        {
+            var elapsed = 0f;
+            var p1 = _movable.position;
+            var r1 = _movable.rotation;
+            while (elapsed < time)
+            {
+                var t = elapsed / time;
+                var p = Vector3.Lerp(p1, point.position, t);
+                var r = Quaternion.Lerp(r1, point.rotation, t);
+                _movable.SetPositionAndRotation(p, r);
+                elapsed += Time.deltaTime * curve.Evaluate(t);
+                yield return null;
+            }
+            _movable.SetPositionAndRotation(point.position, point.rotation);
+            callback?.Invoke();
+            yield return null;
+            while (true)
+            {
+                _movable.SetPositionAndRotation(point.position, point.rotation);
+                yield return null;
+            }
+        }
         
         private IEnumerator MovingToPoint(HelicopterMoveToData moveToData)
         {

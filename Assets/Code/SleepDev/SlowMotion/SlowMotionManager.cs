@@ -80,7 +80,7 @@ namespace SleepDev.SlowMotion
             var elapsed = 0f;
             var startScale = _timeScale;
 
-            while (elapsed <= time)
+            while (elapsed < time)
             {
                 _timeScale = Mathf.Lerp(startScale, endScale, elapsed / time);
                 if (physics)

@@ -58,7 +58,7 @@ namespace GiantsAttack
             var health = _stage.enemyTarget.GetComponentInChildren<IHealth>();
             health.SetDamageable(true);
             health.OnDead += OnShotDown;
-            _ui.ShootAtTargetUI.ShowAndFollow(_stage.enemyTarget.transform);
+            _ui.ShootAtTargetUI.ShowAndFollow(_throwable.AimAt);
             _player.Aimer.BeginAim();
             _shooterSettingsBeforeChange = _player.Shooter.Settings;
             var slowMoShooterSettings = new ShooterSettings(_shooterSettingsBeforeChange);

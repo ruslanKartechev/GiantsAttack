@@ -35,6 +35,7 @@ namespace GiantsAttack
         public Transform CameraFacePoint => _facePoint;
         public Transform LookAtPoint => _lookAtPoint;
         public Transform KillPoint => _killPoint;
+        public Transform Hand => _grabHand;
         public List<Transform> DamagePoints => _damagePoints;
 
         public event Action<IMonster> OnDefeated;

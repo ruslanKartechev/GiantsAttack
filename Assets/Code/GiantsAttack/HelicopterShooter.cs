@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using GameCore.Core;
-using GameCore.UI;
 using SleepDev;
 using SleepDev.Sound;
 using UnityEngine;
@@ -125,8 +124,6 @@ namespace GiantsAttack
                     var args = new DamageArgs() {damage = damage};
                     bullet.Scale(1f);
                     bullet.Launch(barrel.FromPoint.position, _shootDirection.forward, speed: Settings.speed, args, HitCounter);
-                    // var casing = GCon.PoolsManager.BulletCasingsPool.GetObject();
-                    // casing.Drop(barrel.DropPoint);
                     barrel.Recoil();
                     _fireSound.Play();
                     MinusCount(i);
@@ -134,7 +131,6 @@ namespace GiantsAttack
                         Reload();
                     yield return new WaitForSeconds(Settings.fireDelay);
                 }
-                yield return null;
             }
         }
         

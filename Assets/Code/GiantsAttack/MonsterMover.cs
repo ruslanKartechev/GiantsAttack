@@ -22,15 +22,22 @@ namespace GiantsAttack
         private Transform _lookAtTarget;
         
         private static readonly int HashMoveSpeed = Animator.StringToHash("MoveSpeed");
+        private static readonly int Walk = Animator.StringToHash("Walk");
 
         public float MoveAnimationSpeed { get; set; } = 1f;
-
-        private void AssignAnimSpeed(float val)
+        
+        public void SetMoveAnimationSpeed(float val)
         {
             _animationSpeed = val;
             _animator.SetFloat(HashMoveSpeed, _animationSpeed);
         }
-        
+
+        public void PlayMoveAnimation()
+        {
+            SetMoveAnimationSpeed(MoveAnimationSpeed);
+            _animator.SetTrigger(Walk);
+        }
+
         public void RotateToLookAt(Transform target, float time, Action callback)
         {
             _lookAtTarget = target;
@@ -49,7 +56,7 @@ namespace GiantsAttack
             StopMovement();
             StopLookAt();
             _targetPoint = target;
-            AssignAnimSpeed(MoveAnimationSpeed);
+            SetMoveAnimationSpeed(MoveAnimationSpeed);
             _moving = StartCoroutine(MovingToTargetPoint(time, callback));
         }
         
@@ -58,7 +65,7 @@ namespace GiantsAttack
             StopMovement();
             StopLookAt();
             _targetPoint = target;
-            AssignAnimSpeed(MoveAnimationSpeed);
+            SetMoveAnimationSpeed(MoveAnimationSpeed);
             _animator.SetTrigger(_walkTriggerKey);
             _moving = StartCoroutine(MovingToTargetPointSimRotation(time, callback));
         }
@@ -125,12 +132,12 @@ namespace GiantsAttack
             while (t < 1f)
             {
                 _movable.rotation = Quaternion.Lerp(r1, rotation, t);
-                AssignAnimSpeed(Mathf.Lerp(0f, MoveAnimationSpeed * finalAnimSpeed, t));
+                SetMoveAnimationSpeed(Mathf.Lerp(0f, MoveAnimationSpeed * finalAnimSpeed, t));
                 t = elapsed / time;
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-            AssignAnimSpeed(MoveAnimationSpeed);
+            SetMoveAnimationSpeed(MoveAnimationSpeed);
             _movable.rotation = rotation;
         }
         
@@ -152,7 +159,7 @@ namespace GiantsAttack
                 _movable.SetXZPos(pos);
                 _movable.rotation = rot;
                 timeFactor = Mathf.Lerp(0f, 1f, elapsed / accelerationTime);
-                AssignAnimSpeed(timeFactor * MoveAnimationSpeed);
+                SetMoveAnimationSpeed(timeFactor * MoveAnimationSpeed);
                 elapsed += Time.deltaTime * timeFactor;
                 yield return null;
             }

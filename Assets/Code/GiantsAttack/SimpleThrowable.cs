@@ -10,10 +10,17 @@ namespace GiantsAttack
         [SerializeField] protected float _rotationSpeed;
         [SerializeField] protected Vector3 _torqueVector;
         [SerializeField] protected ExplosiveVehicle _explosiveVehicle;
+        [SerializeField] protected Transform _aimAt;
         private Coroutine _moving;
         private Action<Collider> _hitCallback;
 
-        public Transform Transform => transform;
+        public Transform AimAt => _aimAt;
+
+        protected void Awake()
+        {
+            if (_aimAt == null)
+                _aimAt = transform;
+        }
 
 
         public virtual void GrabBy(Transform hand, Action callback)

@@ -208,6 +208,8 @@ namespace GiantsAttack
         {
             var spawner = GetComponent<IEnemySpawner>();
             _enemy = spawner.SpawnEnemy(_enemyID);
+            if (gameObject.TryGetComponent<IEnemyInitiator>(out var enemyInitiator))
+                enemyInitiator.InitEnemy(_enemy);
         }
         
         private void InitPlayer()

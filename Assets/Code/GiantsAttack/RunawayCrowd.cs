@@ -141,6 +141,22 @@ namespace GiantsAttack
             if(Application.isPlaying)
                 UnityEditor.EditorUtility.SetDirty(this);
         }
+        
+        [ContextMenu("E_Clear")]
+        public void Clear()
+        {
+            foreach (var pp in _humanPoints)
+            {
+                if(pp.childCount == 0)
+                    continue;
+                var chil = pp.GetChild(0);
+                if (chil.childCount == 0)
+                    continue;
+                DestroyImmediate(chil.GetChild(0).gameObject);
+            }
+            if(Application.isPlaying)
+                UnityEditor.EditorUtility.SetDirty(this);
+        }
 #endif
 
     }

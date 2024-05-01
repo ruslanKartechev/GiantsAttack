@@ -53,9 +53,8 @@ namespace GiantsAttack
             // lookAtPoint.position = Enemy.Point.position + new Vector3(0f, _lookAtEnemyUpOffset, 0f);
             Delay(() =>
             {
-                Player.Mover.MoveTo(new HelicopterMoveToData(Enemy.KillPoint, _playerRotateTime, 
-                    AnimationCurve.EaseInOut(0f, .5f, 1f, 1f), 
-                    null, () =>{ }));
+                Player.Mover.ParentAndMoveLocal(Enemy.KillPoint, _playerRotateTime, 
+                    AnimationCurve.EaseInOut(0f, .5f, 1f, 1f), null);
             }, _playerMoveDelay);
             Enemy.PreKillState();
             Delay(OnEnemyAnimated, _afterEnemyAnimationDelay);

@@ -100,6 +100,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 582800578500025528}
+  - {fileID: 5363361649198919921}
   m_Father: {fileID: 7814110750488317478}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &4101346064579672073
@@ -217,6 +218,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
+--- !u!1 &6881598088396911185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5363361649198919921}
+  m_Layer: 0
+  m_Name: aim at
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5363361649198919921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6881598088396911185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -162, z: 1145}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8003446953595772067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8805438138207567864
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 8805438138207567864}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.32, z: 0.09}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0.09}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -367,6 +399,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6323045337815713707, guid: 5454367f06d749c44aeb89b14eddc726,
+        type: 3}
+      propertyPath: _aimAt
+      value: 
+      objectReference: {fileID: 5363361649198919921}
     - target: {fileID: 6323045337815713707, guid: 5454367f06d749c44aeb89b14eddc726,
         type: 3}
       propertyPath: _trail
