@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SleepDev;
+using SleepDev.Vibration;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -101,8 +102,13 @@ namespace GiantsAttack
 
         public void MoveTo(HelicopterMoveToData moveToData)
         {
-            _currentMoveToData = moveToData;
             StopMovement();
+            _currentMoveToData = moveToData;
+            if (moveToData.time == 0)
+            {
+                CLog.LogRed($"[HeliMover] move time == 0");
+                return;
+            }
             if (_currentMoveToData.curve == null)
                 _currentMoveToData.curve = movementSettings.defaultMoveCurve;
             if (_currentMoveToData.HasStarted ==false)
@@ -119,10 +125,11 @@ namespace GiantsAttack
 
         public void ParentAndMoveLocal(Transform point, float time, AnimationCurve curve, Action callback)
         {
-            StopAll();
+            StopMovement();
+            StopRotating();
             if(curve == null)
                 curve = AnimationCurve.Constant(0f,1f,1f);
-            _moving = StartCoroutine(MovingLocal(point, time, curve, callback));
+            _moving = StartCoroutine(MovingInternal(point, time, curve, callback));
         }
         
         public void PauseMovement()
@@ -191,7 +198,14 @@ namespace GiantsAttack
             const float returnTime = .5f;
             StopAnimating();
             if(moveBackToLocal)
-                _animating = StartCoroutine(MovingLocal(Vector3.zero, returnTime));
+                _animating = StartCoroutine(MovingInternal(Vector3.zero, returnTime));
+        }
+
+        public void CenterInternal(float time = .5f)
+        {
+            StopAnimating();
+            _animating = StartCoroutine(CenteringInternal(time));
+
         }
         
         private IEnumerator Loitering()
@@ -200,7 +214,7 @@ namespace GiantsAttack
             {
                 var localPos = (Vector3)(UnityEngine.Random.insideUnitCircle * _animSettings.loiteringMagn);
                 var time = (localPos - _internal.localPosition).magnitude / _animSettings.loiteringMoveSpeed;
-                yield return MovingLocal(localPos, time);
+                yield return MovingInternal(localPos, time);
             }
         }
         #endregion
@@ -441,7 +455,7 @@ namespace GiantsAttack
             onEnd?.Invoke();
         }
 
-        private IEnumerator MovingLocal(Vector3 localPos, float time)
+        private IEnumerator MovingInternal(Vector3 localPos, float time)
         {
             var elapsed = 0f;
             var p1 = _internal.localPosition;
@@ -453,6 +467,24 @@ namespace GiantsAttack
             }
             _internal.localPosition = localPos;
         }
+        
+        private IEnumerator CenteringInternal(float time)
+        {
+            var elapsed = 0f;
+            var p1 = _internal.localPosition;
+            var r1 = _internal.localRotation;
+            while (elapsed <= time)
+            {
+                var t = elapsed / time;
+                var p = Vector3.Lerp(p1, Vector3.zero, t);
+                var r = Quaternion.Lerp(r1, Quaternion.identity, t);
+                _internal.SetLocalPositionAndRotation(p,r);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            _internal.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        }
+
         
         private IEnumerator ChangingRotationInternal(Quaternion localR1, Quaternion localR2, float time)
         {
@@ -531,7 +563,7 @@ namespace GiantsAttack
             moveToData.callback?.Invoke();
         }
 
-        private IEnumerator MovingLocal(Transform point, float time, AnimationCurve curve, Action callback)
+        private IEnumerator MovingInternal(Transform point, float time, AnimationCurve curve, Action callback)
         {
             var elapsed = 0f;
             var p1 = _movable.position;
@@ -565,7 +597,7 @@ namespace GiantsAttack
             var elapsed = t * time;
             GetLeanAndFinalRotation(moveToData.endPoint, out var leanRot, out var endRot);
             var leanRotT = movementSettings.leanRotT;
-            while (t <= 1f)
+            while (t < 1f)
             {
                 tr.position = Vector3.Lerp(p1, moveToData.endPoint.position, t);
                 if (t <= leanRotT)
@@ -591,7 +623,7 @@ namespace GiantsAttack
             var t = elapsed / time;
             GetLeanAndFinalRotation(point, out var leanRot, out var endRot);
             var leanRotT = movementSettings.leanRotT;
-            while (t <= 1f)
+            while (t < 1f)
             {
                 tr.position = Vector3.Lerp(p1, point.position, t);
                 if (t <= leanRotT)
@@ -611,7 +643,7 @@ namespace GiantsAttack
         {
             var p1 = target.position;
             var elapsed = 0f;
-            while (elapsed <= time)
+            while (elapsed < time)
             {
                 target.position = Vector3.Lerp(p1, endPos, elapsed / time);
                 elapsed += Time.deltaTime;

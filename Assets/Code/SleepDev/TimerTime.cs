@@ -1,8 +1,25 @@
-﻿namespace SleepDev
+﻿using System;
+
+namespace SleepDev
 {
     [System.Serializable]
     public struct TimerTime
     {
+        public bool Equals(TimerTime other)
+        {
+            return Hour == other.Hour && Minute == other.Minute && Second == other.Second;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is TimerTime other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Hour, Minute, Second);
+        }
+
         public int Hour;
         public int Minute;
         public int Second;

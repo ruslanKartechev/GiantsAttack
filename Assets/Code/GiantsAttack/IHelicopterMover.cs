@@ -38,6 +38,7 @@ namespace GiantsAttack
         /// <param name="lookAt">If NULL will be ignored, if not will rotate and maintain lookAt rotation</param>
         void Loiter();
         void StopLoiter(bool moveBackToLocal = true);
+        void CenterInternal(float time = .5f);
 
     }
 }

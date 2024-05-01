@@ -108,12 +108,19 @@ namespace GiantsAttack
 
         private IEnumerator Shooting()
         {
-            while (true)
+            var didShoot = false;
+            var it = 0;
+            var it_max = 10;
+            while (it < it_max)
             {
+                didShoot = false;
+                it++;
                 for (byte i = 0; i < Gun.Barrels.Count; i++)
                 {
                     if(_barrelCounts[i] == 0)
                         continue;
+                    didShoot = true;
+                    it = 0;
                     var barrel = Gun.Barrels[i];
                     var bullet = GCon.PoolsManager.BulletsPool.GetObject();
                     bullet.SetRotation(barrel.FromPoint.rotation);
@@ -131,6 +138,8 @@ namespace GiantsAttack
                         Reload();
                     yield return new WaitForSeconds(Settings.fireDelay);
                 }
+                if (didShoot == false)
+                    yield return null;
             }
         }
         

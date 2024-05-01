@@ -32,7 +32,7 @@ namespace GameCore.Core
             if (globalLight == null)
             {
                 var ll = FindObjectOfType<Light>();
-                if (ll.gameObject.name.Contains("Directional"))
+                if (ll != null && ll.gameObject.name.Contains("Directional"))
                 {
                     globalLight = ll;
                     UnityEditor.EditorUtility.SetDirty(this);

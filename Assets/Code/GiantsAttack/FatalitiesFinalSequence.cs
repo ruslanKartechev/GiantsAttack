@@ -49,11 +49,9 @@ namespace GiantsAttack
             _endCallback = callback;
             Player.StopAll();
             PlayerMover.Pause(true);
-            // var lookAtPoint = new GameObject("temp").transform;
-            // lookAtPoint.position = Enemy.Point.position + new Vector3(0f, _lookAtEnemyUpOffset, 0f);
-            Delay(() =>
-            {
-                Player.Mover.ParentAndMoveLocal(Enemy.KillPoint, _playerRotateTime, 
+            Delay(() => {
+                    Player.Mover.CenterInternal();
+                    Player.Mover.ParentAndMoveLocal(Enemy.KillPoint, _playerRotateTime, 
                     AnimationCurve.EaseInOut(0f, .5f, 1f, 1f), null);
             }, _playerMoveDelay);
             Enemy.PreKillState();

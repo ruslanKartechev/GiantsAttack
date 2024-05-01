@@ -32,23 +32,6 @@ namespace SleepDev.Levels
         }
         
         #if UNITY_EDITOR
-        [ContextMenu("Add levels")]
-        public void AddLevels()
-        {
-            var start = _levels.Count;
-            var end = 50;
-            var scene = _levels[0].SceneName;
-            // for (var i = start; i <= end; i++)
-            // {
-            //     var levelName = $"Level_{i}";
-            //     _levels.Add(new LevelData(scene, levelName));
-            // }
-            for(var i = 29; i < 40; i++)
-            {
-                _levels[i].SceneName = "Levels_2";
-            }
-            UnityEditor.EditorUtility.SetDirty(this);
-        }
 
         [ContextMenu("ReverseLevelAndLoc")]
         public void ReverseLevelAndLoc()

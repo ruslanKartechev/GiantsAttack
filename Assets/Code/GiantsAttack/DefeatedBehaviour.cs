@@ -21,7 +21,8 @@ namespace GiantsAttack
             for (var i = 0; i < _animator.parameterCount; i++)
             {
                 var p = _animator.GetParameter(i);
-                _animator.ResetTrigger(p.name);
+                if(p.type == AnimatorControllerParameterType.Trigger)
+                    _animator.ResetTrigger(p.name);
             }
             _animator.Play(_animKey);
             foreach (var particle in _playParticles)

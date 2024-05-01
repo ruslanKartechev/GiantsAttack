@@ -1,4 +1,5 @@
-﻿using MoreMountains.NiceVibrations;
+﻿#define VIBRATION_ON_
+using MoreMountains.NiceVibrations;
 
 namespace SleepDev.Vibration
 {
@@ -21,9 +22,11 @@ namespace SleepDev.Vibration
 
         public void PlaySimple()
         {
+            #if VIBRATION_ON
             if (!_isOn)
                 return;
             MMVibrationManager.Vibrate();
+            #endif
         }
 
         public void SetStatus(bool isOn)

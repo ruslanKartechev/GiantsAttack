@@ -24,6 +24,7 @@ namespace GameCore.Core
         [SerializeField] private AnalyticsManager _analytics;
         [SerializeField] private AdsManager _ads;
 #endif
+        private VibrationManager _vibrationManager;
         
         public static void SetUSCulture()
         {
@@ -35,9 +36,9 @@ namespace GameCore.Core
             soundManager.Init(GCon.PlayerData.SoundStatus, GCon.PlayerData.SoundVolume);
         }
 
-        public static void InitVibration()
+        public static VibrationManager InitVibration()
         {
-            var vibr = new VibrationManager(GCon.PlayerData.VibrationStatus);
+            return new VibrationManager(GCon.PlayerData.VibrationStatus);
         }
 
         private void Start()
@@ -54,7 +55,7 @@ namespace GameCore.Core
             SetUSCulture();
             InitContainer();
             InitSaves();
-            InitVibration();
+            _vibrationManager = InitVibration();
             var soundManager = _soundManager.GetComponent<ISoundManager>();
             InitSound(soundManager);
             if(_bootSettings.playMusicOnStart)

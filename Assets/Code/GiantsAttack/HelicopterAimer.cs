@@ -15,7 +15,6 @@ namespace GiantsAttack
         [Header("xMin, xMax, yMin, yMax")]
         [SerializeField] private Vector4 _armAngleLimits;
         [SerializeField] private Vector3 _localAngleLimits;
-        private float _screenLimitPercent = .05f;
 
         private Coroutine _aiming;
         private Coroutine _rotating;
@@ -23,7 +22,6 @@ namespace GiantsAttack
         private Vector3 _pointerPos;
         private IControlsUI _controlsUI;
         private Coroutine _inputLoop;
-        private bool _isDown;
         private bool _isAiming;
         
         private Vector3 _targetPointerPos;
@@ -92,8 +90,6 @@ namespace GiantsAttack
                 return;
             _isAiming = false;
             CLog.Log($"[HeliAimer] Stop aim");
-            
-            _isDown = false;
             Sub(false);
             StopLoop();
             if(_rotating != null)
@@ -132,7 +128,6 @@ namespace GiantsAttack
 
         private void OnDown()
         {
-            _isDown = true;
             StartLoop();
             _shooter.BeginShooting();
             AimUI.BeginRotation(Settings.aimRotSpeed);
@@ -140,7 +135,6 @@ namespace GiantsAttack
 
         private void OnUp()
         {
-            _isDown = false;
             StopLoop();
             _shooter.StopShooting();
             AimUI.StopRotation();

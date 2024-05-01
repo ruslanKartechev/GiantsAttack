@@ -7,13 +7,6 @@ namespace SleepDev.Utils.EditorUtils.CustomEditorExamples
     [CustomEditor(typeof(ButtonLabelExample))]
     public class ButtonLabelExampleEditor : Editor
     {
-        private ButtonLabelExample me;
-
-        private void OnEnable()
-        {
-            me = target as ButtonLabelExample;
-        }
-
         public override void OnInspectorGUI()
         {
             EU.TwoButtonAndLabel("<<", ">>", "Switch like to buttons Left",
@@ -41,7 +34,7 @@ namespace SleepDev.Utils.EditorUtils.CustomEditorExamples
             EU.Space(EU.space_big);
             if (EU.LabelWithButton("C", "Button with label left",
                     Color.cyan, Color.white,
-                    EU.square_btn_size_mid, 12)) ;
+                    EU.square_btn_size_mid)) ;
             
             if (EU.LabelWithButton("R", "Button with label left",
                     Color.red, Color.white,

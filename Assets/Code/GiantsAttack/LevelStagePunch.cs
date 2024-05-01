@@ -7,7 +7,6 @@ namespace GiantsAttack
     public class LevelStagePunch : LevelStage
     {
         [SerializeField] private string _animKey;
-        [SerializeField] private bool _idleAfterReset = true;
         [SerializeField] private bool _waitForBoth;
         [SerializeField] private bool _resumePlayerMoveRightAfterEvasion;
         [Space(10)]

@@ -23,6 +23,7 @@ namespace GiantsAttack
         
         private static readonly int HashMoveSpeed = Animator.StringToHash("MoveSpeed");
         private static readonly int Walk = Animator.StringToHash("Walk");
+        private static readonly int WalkToIdle = Animator.StringToHash("WalkToIdle");
 
         public float MoveAnimationSpeed { get; set; } = 1f;
         
@@ -40,6 +41,7 @@ namespace GiantsAttack
 
         public void RotateToLookAt(Transform target, float time, Action callback)
         {
+            if (time == 0) return;
             _lookAtTarget = target;
             StopLookAt();
             _rotating = StartCoroutine(RotatingToLookAt(time, callback));
@@ -53,6 +55,7 @@ namespace GiantsAttack
 
         public void MoveToPoint(Transform target, float time, Action callback)
         {
+            if (time == 0) return;
             StopMovement();
             StopLookAt();
             _targetPoint = target;
@@ -62,6 +65,7 @@ namespace GiantsAttack
         
         public void MoveToPointSimRotation(Transform target, float time, Action callback)
         {
+            if (time == 0) return;
             StopMovement();
             StopLookAt();
             _targetPoint = target;
@@ -191,7 +195,7 @@ namespace GiantsAttack
             }
             _movable.position = _targetPoint.position;
             // _movable.SetXZPos(_targetPoint.position);
-            _animator.SetTrigger("WalkToIdle");
+            _animator.SetTrigger(WalkToIdle);
             yield return RotatingTo(_targetPoint.rotation, _rotationSpeed);
             callback?.Invoke();
         }

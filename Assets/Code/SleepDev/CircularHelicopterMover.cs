@@ -41,7 +41,6 @@ namespace SleepDev
             var angle = 0f;
             var radVec = _center.forward * _radius;
             var center = _center.position;
-            var height = 0f;
             var h1 = 0f;
             var h2 = _heightDiffMax;
             var elapsed = 0f;

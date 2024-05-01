@@ -42,7 +42,6 @@ namespace SleepDev.UIUtils
                 t = elapsed / time;
                 yield return null;
             }
-            rect.anchoredPosition = to;
         }
         
         

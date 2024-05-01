@@ -1,73 +1,72 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SleepDev
 {
     public static class CLog
     {
-        [HideInCallstack]
         public static void Log(string message)
         {
             Debug.Log(message);
+
+            // try
+            // {
+            //     Debug.Log(message);
+            // }
+            // catch (System.Exception ex)
+            // {
+            //     throw new SystemException("ERROR DURING Clog.Log !!!!!");
+            // }
         }
         
-        [HideInCallstack]
         public static void Log(string message, string color)
         {
             Debug.Log(message.Color(color));
         }
 
         // ReSharper disable Unity.PerformanceAnalysis
-        [HideInCallstack]
         public static void LogWHeader(string header, string message, string headerColor, string messageColor)
         {
             Debug.Log(Header(header, headerColor) + message.Color(messageColor));
         }
         
         // ReSharper disable Unity.PerformanceAnalysis
-        [HideInCallstack]
         public static void LogWHeader(string header, string message, string color)
         {
             Debug.Log(Header(header, color) + message.Color(color));
         }
         
-        [HideInCallstack]
         public static void LogBlue(string message)
         {
             Debug.Log(message.Color("b"));
         }
 
-        [HideInCallstack]
         public static void LogGreen(string message)
         {
             Debug.Log(message.Color("g"));
         }
 
-        [HideInCallstack]
         public static void LogRed(string message)
         {
             Debug.Log(message.Color("r"));
         }
         
-        [HideInCallstack]
         public static void LogPink(string message)
         {
             Debug.Log(message.Color("p"));
         }
 
-        [HideInCallstack]
         public static void LogYellow(string message)
         {
             Debug.Log(message.Color("y"));
         }
         
-        [HideInCallstack]
         public static void LogWhite(string message)
         {
             Debug.Log(message.Color("w"));
         }
 
-        [HideInCallstack]
         public static string Header(string name, string color = "white")
         {
             return $"[{name.Color(color)}] ";
