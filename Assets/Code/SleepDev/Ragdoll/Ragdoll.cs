@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SleepDev.Utils;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -145,7 +144,7 @@ namespace SleepDev.Ragdoll
             
             RagdollPart CopyPart(RagdollPart from)
             {
-                var go = GameUtils.FindInChildren(transform, (g) => g.name.Contains(from.rb.gameObject.name));
+                var go = MiscUtils.FindInChildren(transform, (g) => g.name.Contains(from.rb.gameObject.name));
                 if (go == null)
                     return null;
                 var newPart = new RagdollPart();
@@ -188,13 +187,13 @@ namespace SleepDev.Ragdoll
             if(ignoredParents == null)
                 ignoredParents = new List<Transform>();
             ignoredParents.RemoveAll(t => t == null);
-            var gos = GameUtils.GetFromAllChildren<Transform>(transform, (tr) =>
+            var gos = MiscUtils.GetFromAllChildren<Transform>(transform, (tr) =>
             {
                 foreach (var parent in ignoredParents)
                 {
                     if (tr == parent)
                         return false;
-                    if (GameUtils.IsChildOf(tr, parent))
+                    if (MiscUtils.IsChildOf(tr, parent))
                         return false;
                 }
                 var coll = tr.GetComponent<Collider>();

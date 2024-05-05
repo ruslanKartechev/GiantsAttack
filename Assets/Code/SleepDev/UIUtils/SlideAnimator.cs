@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using SleepDev.Utils;
 using UnityEngine;
 
-namespace SleepDev.UIUtils
+namespace SleepDev
 {
     public class SlideAnimator : MonoBehaviour
     {
@@ -45,7 +44,7 @@ namespace SleepDev.UIUtils
         [ContextMenu("Get All")]
         public void E_GetAll()
         {
-            _elements = GameUtils.GetFromAllChildren<SlideElement>(transform);
+            _elements = MiscUtils.GetFromAllChildren<SlideElement>(transform);
             Dirty();
         }
         

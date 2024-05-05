@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SleepDev.Pooling
+namespace SleepDev
 {
     public class DummyClass : MonoBehaviour, IPooledObject<DummyClass>
     {

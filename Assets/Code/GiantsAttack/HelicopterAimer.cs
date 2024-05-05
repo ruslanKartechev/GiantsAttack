@@ -2,9 +2,7 @@
 using GameCore.UI;
 using GameCore.Core;
 using SleepDev;
-using SleepDev.Utils;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace GiantsAttack
 {

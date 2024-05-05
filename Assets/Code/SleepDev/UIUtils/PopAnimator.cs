@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
-
-namespace SleepDev.UIUtils
+#if HAS_DOTWEEN
+using DG.Tweening;
+#endif
+namespace SleepDev
 {
     public class PopAnimator : MonoBehaviour
     {
@@ -73,7 +74,9 @@ namespace SleepDev.UIUtils
         [Space(20)] 
         public float e_durationAll;
         public float e_delayAll;
+#if HAS_DOTWEEN
         public Ease e_easeAll;
+#endif        
         public List<GameObject> e_buildFrom;
 
         [ContextMenu("Play")]
@@ -93,8 +96,10 @@ namespace SleepDev.UIUtils
                 element.Delay = e_delayAll;
                 element.Duration = e_durationAll;
                 var pp = (SimplePopElement)element;
+#if HAS_DOTWEEN
                 if(pp != null)
                     pp.Ease = e_easeAll;
+ #endif              
                 EditorUtility.SetDirty(element);
                 _elements.Add(element);
             }
@@ -139,7 +144,9 @@ namespace SleepDev.UIUtils
                 var pp = (SimplePopElement)pop;
                 if(pp == null)
                     continue;
+#if HAS_DOTWEEN
                 pp.Ease = e_easeAll;
+ #endif              
                 UnityEditor.EditorUtility.SetDirty(pop);
             }
         }

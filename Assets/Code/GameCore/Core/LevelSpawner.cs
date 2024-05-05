@@ -1,7 +1,5 @@
 ﻿using SleepDev;
-using SleepDev.Levels;
 using UnityEngine;
-using GameCore.Levels;
 
 namespace GameCore.Core
 {

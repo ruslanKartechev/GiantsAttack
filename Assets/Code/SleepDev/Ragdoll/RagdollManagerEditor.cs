@@ -1,5 +1,4 @@
 #if UNITY_EDITOR
-using SleepDev.Utils.EditorUtils;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,22 +13,22 @@ namespace SleepDev.Ragdoll
 
             EU.Label("Ragdoll", Color.white, 'c', true);
             GUILayout.BeginHorizontal();
-            if (EU.ButtonMidSize("Get", Color.cyan))
+            if (EU.BtnMid1("Get", Color.cyan))
             {
                 me.E_GetParts();
                 EditorUtility.SetDirty(me);
             }
-            if (EU.ButtonMidSize("On", Color.green))
+            if (EU.BtnMid1("On", Color.green))
             {
                  me.Activate();   
                  EditorUtility.SetDirty(me);
             }
-            if (EU.ButtonMidSize("Off", Color.red))
+            if (EU.BtnMid1("Off", Color.red))
             {
                 me.Deactivate();   
                 EditorUtility.SetDirty(me);
             }
-            if (EU.ButtonMidSize("Colls", Color.yellow))
+            if (EU.BtnMid1("Colls", Color.yellow))
             {
                 me.SetCollidersOnly();
                 EditorUtility.SetDirty(me);
@@ -39,17 +38,17 @@ namespace SleepDev.Ragdoll
             
             EU.Label("Interpolate", Color.white, 'l', true);
             GUILayout.BeginHorizontal();
-            if (EU.ButtonSmall("I", Color.green))
+            if (EU.BtnSmallSquare("I", Color.green))
             {
                 me.E_SetInterpolate();   
                 EditorUtility.SetDirty(me);
             }
-            if (EU.ButtonSmall("E", Color.yellow))
+            if (EU.BtnSmallSquare("E", Color.yellow))
             {
                 me.E_SetExtrapolate();   
                 EditorUtility.SetDirty(me);
             }
-            if (EU.ButtonSmall("N", Color.red))
+            if (EU.BtnSmallSquare("N", Color.red))
             {
                 me.E_SetNoInterpolate();   
                 EditorUtility.SetDirty(me);
@@ -63,12 +62,12 @@ namespace SleepDev.Ragdoll
                 GUILayout.BeginVertical();
                 EU.Label("Projection", Color.white, 'l', true);
                 GUILayout.BeginHorizontal();
-                if (EU.ButtonSmall("Y", Color.green))
+                if (EU.BtnSmallSquare("Y", Color.green))
                 {
                     me.E_SetProjection();   
                     EditorUtility.SetDirty(me);
                 }       
-                if (EU.ButtonSmall("N", Color.red))
+                if (EU.BtnSmallSquare("N", Color.red))
                 {
                     me.E_SetNoProjection();   
                     EditorUtility.SetDirty(me);
@@ -79,12 +78,12 @@ namespace SleepDev.Ragdoll
                 GUILayout.BeginVertical();
                 EU.Label("Preprocessing", Color.white, 'l', true);
                 GUILayout.BeginHorizontal();
-                if (EU.ButtonSmall("Y", Color.green))
+                if (EU.BtnSmallSquare("Y", Color.green))
                 {
                     me.E_SetPreprocessAll(true);
                     EditorUtility.SetDirty(me);
                 }       
-                if (EU.ButtonSmall("N", Color.red))
+                if (EU.BtnSmallSquare("N", Color.red))
                 {
                     me.E_SetPreprocessAll(false);
                     EditorUtility.SetDirty(me);
@@ -96,19 +95,19 @@ namespace SleepDev.Ragdoll
             
             GUILayout.Space(15);
             GUILayout.BeginHorizontal();
-            if (EU.ButtonBig($"Set Layer {me.E_layerToSet}", Color.green))
+            if (EU.BtnMidWide($"Set Layer {me.E_layerToSet}", Color.green))
                 me.SetLayer();
-            if (EU.ButtonBig($"Set Mass", Color.yellow))
+            if (EU.BtnMidWide($"Set Mass", Color.yellow))
                 me.E_SetMassAll();
             GUILayout.EndHorizontal();
             
             GUILayout.Space(15);
 
             GUILayout.BeginHorizontal();
-            if (EU.ButtonBig($"Copy", Color.blue))
+            if (EU.BtnMidWide($"Copy", Color.blue))
                 me.E_Copy();
             GUILayout.Space(30);
-            if (EU.ButtonBig($"! DELETE !", Color.red))
+            if (EU.BtnMidWide($"! DELETE !", Color.red))
                 me.E_DestroyAll();
             GUILayout.EndHorizontal();
             

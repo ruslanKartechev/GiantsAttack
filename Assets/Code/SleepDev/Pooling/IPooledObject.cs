@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SleepDev.Pooling
+namespace SleepDev
 {
     public interface IPooledObject<T> where T : class
     {

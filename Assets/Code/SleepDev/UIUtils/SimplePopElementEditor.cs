@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 
-namespace SleepDev.UIUtils
+namespace SleepDev
 {
     [CustomEditor(typeof(SimplePopElement)), CanEditMultipleObjects]
     public class SimplePopElementEditor : Editor

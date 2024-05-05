@@ -1,7 +1,6 @@
 ﻿using GameCore.Core;
-using SleepDev;
 
-namespace GameCore.Levels
+namespace GameCore
 {
     public static class LevelUtils
     {

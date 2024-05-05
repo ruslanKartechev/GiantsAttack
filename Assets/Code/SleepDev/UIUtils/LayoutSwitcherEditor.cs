@@ -1,9 +1,8 @@
 ﻿#if UNITY_EDITOR
-using SleepDev.Utils.EditorUtils;
 using UnityEditor;
 using UnityEngine;
 
-namespace SleepDev.UIUtils
+namespace SleepDev
 {
     [CustomEditor(typeof(LayoutSwitcher))]
     public class LayoutSwitcherEditor : Editor
@@ -13,9 +12,9 @@ namespace SleepDev.UIUtils
             base.OnInspectorGUI();
             var me = target as LayoutSwitcher;
             GUILayout.BeginHorizontal();
-            if (EU.ButtonBig("Prev", Color.cyan))
+            if (EU.BtnMidWide("Prev", Color.cyan))
                 me.SetPrevLayout();
-            if (EU.ButtonBig("Next", Color.cyan))
+            if (EU.BtnMidWide("Next", Color.cyan))
                 me.SetNextLayout();   
             GUILayout.EndHorizontal();
         }

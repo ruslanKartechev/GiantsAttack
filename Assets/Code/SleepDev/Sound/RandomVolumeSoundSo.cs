@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SleepDev.Sound
+namespace SleepDev
 {
     [CreateAssetMenu(menuName = "SO/Sound/RandomVolumeSound", fileName = "RandomVolumeSound", order = 0)]
     public class RandomVolumeSoundSo : SoundSo

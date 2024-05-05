@@ -1,6 +1,6 @@
-﻿#define VIBRATION_ON
+﻿#if HAS_HAPTIC
 using MoreMountains.NiceVibrations;
-
+#endif
 namespace SleepDev.Vibration
 {
     public class VibrationManager
@@ -22,7 +22,7 @@ namespace SleepDev.Vibration
 
         public void PlaySimple()
         {
-            #if VIBRATION_ON
+            #if HAS_HAPTIC
             if (!_isOn)
                 return;
             MMVibrationManager.Vibrate();

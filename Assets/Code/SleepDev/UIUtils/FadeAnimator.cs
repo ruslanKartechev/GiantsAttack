@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using SleepDev.Utils;
 using UnityEngine;
 
-namespace SleepDev.UIUtils
+namespace SleepDev
 {
     public class FadeAnimator : MonoBehaviour
     {
@@ -37,12 +36,13 @@ namespace SleepDev.UIUtils
 #if UNITY_EDITOR
         public float durationInAll;
         public float durationOutAll;
+#if HAS_DOTWEEN
         public DG.Tweening.Ease easeAll;
-
+#endif
         [ContextMenu("Get All")]
         public void E_GetAll()
         {
-            _elements = GameUtils.GetFromAllChildren<FadeElement>(transform);
+            _elements = MiscUtils.GetFromAllChildren<FadeElement>(transform);
             Dirty();
         }
         
@@ -53,7 +53,9 @@ namespace SleepDev.UIUtils
             {
                 if (el == null)
                     continue;
+#if HAS_DOTWEEN
                 el.ease = easeAll;
+ #endif              
                 Dirty(el);
             }
             Dirty();

@@ -1,4 +1,4 @@
-﻿namespace SleepDev.SlowMotion
+﻿namespace SleepDev
 {
     public interface ISlowMotionManager
     {

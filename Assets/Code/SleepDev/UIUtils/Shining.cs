@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SleepDev.UIUtils
+namespace SleepDev
 {
     public class Shining : MonoBehaviour
     {

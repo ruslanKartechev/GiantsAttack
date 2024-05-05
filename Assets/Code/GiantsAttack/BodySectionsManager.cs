@@ -117,7 +117,7 @@ namespace GiantsAttack
             section.targets.Clear();
             foreach (var tName in names)
             {
-                var go = SleepDev.Utils.GameUtils.FindInChildren(transform, (go) => go.name.Contains(tName));
+                var go = SleepDev.MiscUtils.FindInChildren(transform, (go) => go.name.Contains(tName));
                 if (go != null)
                 {
                     var target = go.GetComponent<BodyPartTarget>();

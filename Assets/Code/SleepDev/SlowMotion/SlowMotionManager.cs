@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace SleepDev.SlowMotion
+namespace SleepDev
 {
     public class SlowMotionManager : MonoBehaviour, ISlowMotionManager
     {
@@ -9,6 +9,16 @@ namespace SleepDev.SlowMotion
         private float _physycsTimeDelta = 1 / 50f;
         private Coroutine _timeChanging;
 
+
+        public static SlowMotionManager Inst { get; private set; }
+
+        private void Awake()
+        {
+            if (Inst == null)
+                Inst = this;
+            else
+                Destroy(this);
+        }
 
         public void Begin(SlowMotionEffect effect)
         {

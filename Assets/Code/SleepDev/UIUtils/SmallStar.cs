@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace SleepDev.UIUtils
+namespace SleepDev
 {
     public class SmallStar : MonoBehaviour
     {

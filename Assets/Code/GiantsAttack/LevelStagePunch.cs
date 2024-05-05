@@ -1,5 +1,4 @@
 ﻿using SleepDev;
-using SleepDev.SlowMotion;
 using UnityEngine;
 
 namespace GiantsAttack

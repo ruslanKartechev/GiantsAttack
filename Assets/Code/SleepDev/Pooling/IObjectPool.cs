@@ -1,4 +1,4 @@
-﻿namespace SleepDev.Pooling
+﻿namespace SleepDev
 {
     public interface IObjectPool<T> where T : class
     {

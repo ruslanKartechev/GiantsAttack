@@ -2,7 +2,6 @@
 using GameCore.Core;
 using GameCore.UI;
 using SleepDev;
-using SleepDev.Pooling;
 using UnityEngine;
 
 namespace GiantsAttack

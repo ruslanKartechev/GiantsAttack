@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SleepDev.Pathfinding
+namespace SleepDev
 {
     [System.Serializable]
     public struct GridPoint

@@ -1,4 +1,4 @@
-﻿using SleepDev.Sound;
+﻿using SleepDev;
 using UnityEngine;
 
 namespace GameCore.Core

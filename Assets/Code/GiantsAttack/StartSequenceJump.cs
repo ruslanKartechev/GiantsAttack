@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameCore.Cam;
-using SleepDev.Sound;
+using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack

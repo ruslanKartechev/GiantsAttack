@@ -1,5 +1,5 @@
 ﻿using System;
-using SleepDev.UIUtils;
+using SleepDev;
 using UnityEngine;
 
 namespace GameCore.UI

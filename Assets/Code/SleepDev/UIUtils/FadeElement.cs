@@ -1,7 +1,8 @@
-﻿using DG.Tweening;
-using UnityEngine;
-
-namespace SleepDev.UIUtils
+﻿using UnityEngine;
+#if HAS_DOTWEEN
+using DG.Tweening;
+#endif
+namespace SleepDev
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class FadeElement : MonoBehaviour
@@ -9,8 +10,9 @@ namespace SleepDev.UIUtils
         [SerializeField] private float _delay;
         [SerializeField] private float _durationIn;
         [SerializeField] private float _durationOut;
+#if HAS_DOTWEEN
         [SerializeField] private Ease _ease;
-
+#endif
         public float delay
         {
             get => _delay;
@@ -28,18 +30,20 @@ namespace SleepDev.UIUtils
             get => _durationOut;
             set => _durationOut = value;
         }
-
+#if HAS_DOTWEEN
         public Ease ease
         {
             get => _ease;
             set => _ease = value;
         }
-
+#endif
         [SerializeField] private CanvasGroup _canvasGroup;
 
         
-
+#if HAS_DOTWEEN
         private Tween _tween;
+#endif
+        
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -50,17 +54,21 @@ namespace SleepDev.UIUtils
 
         public void FadeIn()
         {
-            _tween?.Kill();
             _canvasGroup.alpha = 0f;
+#if HAS_DOTWEEN
+            _tween?.Kill();
             _tween = _canvasGroup.DOFade(1f, _durationIn).SetEase(_ease).SetDelay(_delay);
-        }
+#endif
+}
 
         public void FadeOut()
         {
-            _tween?.Kill();
             _canvasGroup.alpha = 1f;
+#if HAS_DOTWEEN
+            _tween?.Kill();
             _tween = _canvasGroup.DOFade(0f, _durationOut).SetEase(_ease).SetDelay(_delay);
-        }
+        #endif
+}
 
         public void SetIn()
         {

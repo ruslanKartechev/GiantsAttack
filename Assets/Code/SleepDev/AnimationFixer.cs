@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using SleepDev.Utils;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -126,7 +125,7 @@ namespace SleepDev
         {
             var replaceFrom = _replaceFrom;
             var replaceTo = _replaceTo;
-            var bones = GameUtils.GetFromAllChildren<Transform>(_rootBone);
+            var bones = MiscUtils.GetFromAllChildren<Transform>(_rootBone);
             var correctedLines = new List<string>();
             var correctedLinesCount = 0;
             foreach (var bone in bones)

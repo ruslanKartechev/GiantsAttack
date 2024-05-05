@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SleepDev.Scenes
+namespace SleepDev
 {
     public interface ISceneSwitcher
     {

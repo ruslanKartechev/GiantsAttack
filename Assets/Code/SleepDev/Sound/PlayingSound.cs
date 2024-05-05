@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SleepDev.Sound
+namespace SleepDev
 {
     public class PlayingSound
     {

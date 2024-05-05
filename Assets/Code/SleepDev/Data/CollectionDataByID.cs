@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SleepDev.Data
+namespace SleepDev
 {
     [System.Serializable]
     public class CollectionDataByID<T>

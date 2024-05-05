@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace SleepDev.UIUtils
+namespace SleepDev
 {
     [CustomEditor(typeof(FadeAnimator))]
     public class FadeAnimatorEditor : Editor

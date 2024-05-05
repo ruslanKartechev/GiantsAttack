@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameCore;
 using GameCore.Cam;
 using GameCore.UI;
 using UnityEngine;
@@ -7,7 +8,7 @@ using SleepDev;
 
 namespace GiantsAttack
 {
-    public class StageBasedLevel : GameCore.Levels.Level, IStageResultListener
+    public class StageBasedLevel : Level, IStageResultListener
     {
         [SerializeField] private string _objective = "SAVE THE CITY";
         [SerializeField] private float _enemyHealth = 1000;

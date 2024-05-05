@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SleepDev.Sound
+namespace SleepDev
 {
     [CreateAssetMenu(menuName = "SO/Sound/SoundID", fileName = "SoundID", order = 0)]
     public class SoundID : ScriptableObject

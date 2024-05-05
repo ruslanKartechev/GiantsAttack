@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace SleepDev.Scenes
+namespace SleepDev
 {
     public class SceneSwitcher : MonoBehaviour, ISceneSwitcher
     {

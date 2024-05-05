@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace SleepDev.Sound
+namespace SleepDev
 {
     public class SoundManager : MonoBehaviour, ISoundManager
     {

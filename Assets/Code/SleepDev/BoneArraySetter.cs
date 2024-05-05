@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SleepDev.Utils;
 using UnityEngine;
 
 namespace SleepDev
@@ -183,7 +182,7 @@ namespace SleepDev
         {
             if (_bonesParent == null)
                 _bonesParent = transform;
-            _bones = GameUtils.GetFromAllChildren<Transform>(_bonesParent);
+            _bones = MiscUtils.GetFromAllChildren<Transform>(_bonesParent);
             Debug.Log($"[GetBones] got {_bones.Count} bones");
             foreach (var bb in _bones)
             {
@@ -200,7 +199,7 @@ namespace SleepDev
             {
                 var name = data.rendererName;
                 var parent = transform.parent;
-                var renderer = GameUtils.GetFromAllChildren<SkinnedMeshRenderer>(parent,
+                var renderer = MiscUtils.GetFromAllChildren<SkinnedMeshRenderer>(parent,
                     (t) => { return t != null &&  t.gameObject.name == name; }).FirstOrDefault();
                 if (renderer != null)
                 {

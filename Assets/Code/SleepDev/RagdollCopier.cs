@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using SleepDev.Utils;
 using UnityEngine;
 
 namespace SleepDev
@@ -14,7 +13,7 @@ namespace SleepDev
             if (_copyToRoot == null)
                 _copyToRoot = transform;
             if(_ragdoll == null)
-                _ragdoll = GameUtils.GetFromAllChildren<Ragdoll.Ragdoll>(_copyToRoot).FirstOrDefault();
+                _ragdoll = MiscUtils.GetFromAllChildren<Ragdoll.Ragdoll>(_copyToRoot).FirstOrDefault();
         }
 
         [ContextMenu("Copy")]

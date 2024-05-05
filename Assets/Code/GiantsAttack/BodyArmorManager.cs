@@ -125,7 +125,7 @@ namespace GiantsAttack
             _parents = new List<Transform>(e_names.Count);
             foreach (var nn in e_names)
             {
-                var pp = SleepDev.Utils.GameUtils.FindInChildren(transform, (g) => g.name.Contains(nn));
+                var pp = SleepDev.MiscUtils.FindInChildren(transform, (g) => g.name.Contains(nn));
                 if (pp == null)
                 {
                     CLog.LogRed($"{nn} not found");

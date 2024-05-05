@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
 using GameCore.Cam;
-using SleepDev.Sound;
-using SleepDev.Utils;
+using SleepDev;
 using UnityEditor;
 using UnityEngine;
 

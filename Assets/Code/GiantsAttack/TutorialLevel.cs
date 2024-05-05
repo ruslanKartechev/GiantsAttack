@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using GameCore;
 using GameCore.Cam;
 using GameCore.UI;
 using UnityEngine;
@@ -7,7 +8,7 @@ using SleepDev;
 
 namespace GiantsAttack
 {
-    public class TutorialLevel : GameCore.Levels.Level, IStageResultListener
+    public class TutorialLevel : Level, IStageResultListener
     {
         [SerializeField] private float _enemyHealth = 1000;
         [SerializeField] private float _moveAnimationSpeed = .8f;

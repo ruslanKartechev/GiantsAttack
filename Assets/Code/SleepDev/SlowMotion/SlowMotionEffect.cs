@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SleepDev.SlowMotion
+namespace SleepDev
 {
     [System.Serializable]
     public class SlowMotionEffect

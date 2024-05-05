@@ -1,4 +1,4 @@
-﻿namespace SleepDev.Pathfinding
+﻿namespace SleepDev
 {
     [System.Serializable]
     public class PathGrid

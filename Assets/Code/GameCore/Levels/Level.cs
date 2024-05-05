@@ -2,7 +2,7 @@
 using SleepDev;
 using UnityEngine;
 
-namespace GameCore.Levels
+namespace GameCore
 {
     public abstract class Level : MonoExtended
     {

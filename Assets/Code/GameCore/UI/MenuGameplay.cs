@@ -1,7 +1,7 @@
 ﻿using System;
 using GiantsAttack;
-using SleepDev.Sound;
-using SleepDev.UIUtils;
+using SleepDev;
+using SleepDev;
 using UnityEngine;
 using UnityEngine.UI;
 using GCon = GameCore.Core.GCon;

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SleepDev.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ namespace SleepDev
         {
             if (_renderer == null)
             {
-                _renderer = GameUtils.GetFromAllChildren<SkinnedMeshRenderer>(transform,
+                _renderer = MiscUtils.GetFromAllChildren<SkinnedMeshRenderer>(transform,
                     (t) => t != null && t.enabled && t.gameObject.activeInHierarchy).FirstOrDefault();
                 EditorUtility.SetDirty(this);
             }

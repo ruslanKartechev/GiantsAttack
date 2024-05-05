@@ -1,4 +1,4 @@
-﻿namespace SleepDev.Data
+﻿namespace SleepDev
 {
     [System.Serializable]
     public class DataByID<T>

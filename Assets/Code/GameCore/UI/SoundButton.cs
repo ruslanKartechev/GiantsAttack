@@ -1,5 +1,5 @@
 ﻿using GameCore.Core;
-using SleepDev.Sound;
+using SleepDev;
 using UnityEngine;
 using UnityEngine.UI;
 

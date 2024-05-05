@@ -1,4 +1,4 @@
-﻿namespace SleepDev.Sound
+﻿namespace SleepDev
 {
     public interface ISoundManager
     {

@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SleepDev.Pathfinding
+namespace SleepDev
 {
     public class PathGridBuilder : MonoBehaviour
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using GameCore.Core;
 using GameCore.UI;
-using SleepDev.Sound;
+using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack

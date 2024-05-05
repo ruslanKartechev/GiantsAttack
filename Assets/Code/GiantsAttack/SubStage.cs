@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using GameCore.UI;
 using SleepDev;
-using SleepDev.SlowMotion;
 using UnityEngine;
 
 namespace GiantsAttack
@@ -87,7 +86,7 @@ namespace GiantsAttack
         #if UNITY_EDITOR
         public void E_GetListeners()
         {
-            var list = SleepDev.Utils.GameUtils.GetFromAllChildren<StageListener>(transform);
+            var list = SleepDev.MiscUtils.GetFromAllChildren<StageListener>(transform);
             foreach (var listener in list)
             {
                 if (stageListeners.Contains(listener) == false)

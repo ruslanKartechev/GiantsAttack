@@ -1,4 +1,4 @@
-﻿using GameCore.Levels;
+﻿using GameCore;
 using UnityEngine;
 
 namespace GiantsAttack

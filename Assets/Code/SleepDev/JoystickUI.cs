@@ -1,4 +1,6 @@
-﻿using DG.Tweening;
+﻿#if HAS_DOTWEEN
+using DG.Tweening;
+#endif
 using UnityEngine;
 
 namespace SleepDev
@@ -15,15 +17,19 @@ namespace SleepDev
         {
             _group.gameObject.SetActive(true);
             _group.alpha = 0f;
+#if HAS_DOTWEEN
             _group.DOKill();
             _group.DOFade(1f, _fadeTime);
+    #endif
         }
 
         public void Hide()
         {
+#if HAS_DOTWEEN
             _group.DOKill();
             _group.DOFade(0f, _fadeTime).OnComplete(() => { _group.gameObject.SetActive(false); });
-        }
+#endif
+}
 
         public void SetPosition(Vector3 screenPosition)
         {

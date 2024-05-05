@@ -1,7 +1,8 @@
-﻿using DG.Tweening;
-using UnityEngine;
-
-namespace SleepDev.UIUtils
+﻿using UnityEngine;
+#if HAS_DOTWEEN
+using DG.Tweening;
+#endif
+namespace SleepDev
 {
     public class ScaleEffect : ButtonClickEffect
     {
@@ -12,7 +13,9 @@ namespace SleepDev.UIUtils
         public override void Play()
         {
             _target.localScale = Vector3.one;
+#if HAS_DOTWEEN
             _target.DOPunchScale(_punchScale, _punchTime);
+        #endif
         }
     }
 }

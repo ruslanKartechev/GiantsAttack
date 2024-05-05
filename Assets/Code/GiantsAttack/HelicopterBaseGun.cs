@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using SleepDev.Sound;
 using UnityEngine;
+using SleepDev;
 
 namespace GiantsAttack
 {

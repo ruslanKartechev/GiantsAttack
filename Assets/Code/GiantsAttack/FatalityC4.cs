@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using SleepDev;
-using SleepDev.Sound;
-using SleepDev.Utils;
 using UnityEngine;
 
 namespace GiantsAttack

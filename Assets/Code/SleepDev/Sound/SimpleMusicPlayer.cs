@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SleepDev.Sound
+namespace SleepDev
 {
     public class SimpleMusicPlayer : MonoBehaviour
     {

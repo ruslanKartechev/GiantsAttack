@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SleepDev.UIUtils
+namespace SleepDev
 {
     public class LayoutSwitcher : MonoBehaviour
     {

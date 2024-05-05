@@ -1,5 +1,5 @@
 ﻿#if UNITY_EDITOR
-using SleepDev.Utils.EditorUtils;
+using SleepDev;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,14 +12,18 @@ namespace GameCore.Core
         {
             base.OnInspectorGUI();
             var me = target as GameDataSaver;
-            if(EU.ButtonBig("Path", Color.cyan))
+            GUILayout.Space(10);
+            if(EU.BtnMid2("Path", Color.cyan))
                 me.LogPath();   
-            if(EU.ButtonBig("Clear", Color.red))
+            if(EU.BtnMid2("Clear", Color.red))
                 me.Clear();
-            if(EU.ButtonBig("Load", Color.green))
+            GUILayout.Space(10);
+
+            if(EU.BtnMid2("Load", Color.green))
                 me.Load();
-            if(EU.ButtonBig("Save", Color.green))
+            if(EU.BtnMid2("Save", Color.green))
                 me.Save();
+            GUILayout.Space(10);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using SleepDev.SlowMotion;
+﻿using SleepDev;
 using UnityEngine;
 
 namespace GiantsAttack

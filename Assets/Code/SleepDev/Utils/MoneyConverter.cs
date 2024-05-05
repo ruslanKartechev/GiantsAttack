@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SleepDev.Utils
+namespace SleepDev
 {
     public static class MoneyConverter
     {

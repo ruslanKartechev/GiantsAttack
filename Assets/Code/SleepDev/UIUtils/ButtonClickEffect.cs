@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SleepDev.UIUtils
+namespace SleepDev
 {
     public abstract class ButtonClickEffect : MonoBehaviour
     {
