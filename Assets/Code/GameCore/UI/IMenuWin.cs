@@ -6,5 +6,6 @@ namespace GameCore.UI
     {
         void Show(int level, Action buttonCallback, Action onDone);
         TextByCharPrinter ResultPrinter { get; }
+        LevelResultsUI LevelResultsUI { get; }
     }
 }

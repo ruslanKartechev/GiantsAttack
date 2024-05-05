@@ -66,7 +66,7 @@ namespace GameCore.UI
         
         public void ShowSquareAim()
         {
-            _squareAim.enabled = true;
+            _squareAim.gameObject.SetActive(true);
             _animating = StartCoroutine(AimAnimating());
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameCore.Cam;
 using GameCore.UI;
 using UnityEngine;
@@ -34,7 +33,7 @@ namespace GiantsAttack
         private IHitCounter _hitCounter;
         private IControlsUI _controlsUI;
         private IGameplayMenu _gameplayMenu;
-        
+        private LevelUtils _levelUtils;
         #if UNITY_EDITOR
         private LevelDebugger _debugger;
         #endif
@@ -90,6 +89,10 @@ namespace GiantsAttack
         {
             GCon.DataSaver.Save();
             DamageCalculator.Clear();
+            
+            _levelUtils = new LevelUtils(_player, _hitCounter);
+            _levelUtils.SendStartEvent(GCon.PlayerData.LevelTotal + 1);
+            
             _playerMover = _playerMoverGo.GetComponent<IPlayerMover>();
             _camera = CameraContainer.PlayerCamera as PlayerCamera;
             _controlsUI = GCon.UIFactory.GetControlsUI();
@@ -119,6 +122,7 @@ namespace GiantsAttack
             _startSequence.Enemy = _enemy;
             _startSequence.Begin(OnStartSequenceFinished);
             ShowStartUI();
+
         }
 
         public override void Win()
@@ -128,10 +132,9 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var utils = new LevelUtils(_player, _hitCounter);
             var level = GCon.PlayerData.LevelTotal + 1;
-            utils.SendWinEvent(level, _timePassed, _hitCounter);
-            utils.CallWinScreen(level);
+            _levelUtils.SendWinEvent(level, _timePassed, _hitCounter);
+            _levelUtils.CallWinScreen(level);
         }
 
         public override void Fail()
@@ -140,14 +143,13 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var utils = new LevelUtils(_player, _hitCounter);
             var level = GCon.PlayerData.LevelTotal+1;
             _failSequence.Player = _player;
             _failSequence.Enemy = _enemy;
             _failSequence.Play(() =>
             {
-                utils.SendFailEvent(level, _timePassed, _hitCounter);
-                utils.CallFailScreen(level);
+                _levelUtils.SendFailEvent(level, _timePassed, _hitCounter);
+                _levelUtils.CallFailScreen(level);
             });
         }
         

@@ -1,5 +1,4 @@
 ﻿using System;
-using GameCore.Core;
 using SleepDev.UIUtils;
 using TMPro;
 using UnityEngine;
@@ -13,10 +12,12 @@ namespace GameCore.UI
         [SerializeField] private Button _playButton;
         [SerializeField] private TextMeshProUGUI _levelUI;
         [SerializeField] private TextByCharPrinter _resultPrinter;
+        [SerializeField] private LevelResultsUI _levelResultsUI;
         private Action _onPlayCallback;
         
         public GameObject Go => gameObject;
         public TextByCharPrinter ResultPrinter => _resultPrinter;
+        public LevelResultsUI LevelResultsUI => _levelResultsUI;
 
         private void OnEnable()
         {

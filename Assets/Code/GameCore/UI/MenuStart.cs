@@ -1,7 +1,9 @@
 ﻿using System;
+using GameCore.Core;
 using SleepDev;
 using SleepDev.Sound;
 using SleepDev.UIUtils;
+using TMPro;
 using UnityEngine;
 
 namespace GameCore.UI
@@ -13,6 +15,7 @@ namespace GameCore.UI
         [SerializeField] private SoundSo _clickSound;
         [SerializeField] private LocationProgressBar _progressBar;
         [SerializeField] private ObjectiveUI _objectiveUI;
+        [SerializeField] private TextMeshProUGUI _levelNumberText;
         private Action _callback;
         
         public GameObject Go => gameObject;
@@ -39,6 +42,7 @@ namespace GameCore.UI
 
         public void Show(Action onDone)
         {
+            _levelNumberText.text = $"LEVEL {GCon.PlayerData.LevelTotal + 1}";
             _playButton.interactable = false;
             _popAnimator.ZeroAndPlay(() =>
             {

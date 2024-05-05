@@ -23,11 +23,23 @@ namespace GiantsAttack
             if (nextButtonCallback == null)
                 nextButtonCallback = CallNextLevel;
             screen.Show(level, nextButtonCallback, () =>{});
-            screen.ResultPrinter.Text = $"SHOTS:    {_hitCounter.ShotsCount}\n" +
-                                        $"HEADSHOTS:    {_hitCounter.HeadShotsCount}\n" +
-                                        $"BEST STREAK:    {_hitCounter.BestStreak}\n" +
-                                        $"MISSES:    {_hitCounter.MissCount}";
-            screen.ResultPrinter.PrintText();
+            // screen.ResultPrinter.Text = $"SHOTS:    {_hitCounter.ShotsCount}\n" +
+            //                             $"HEADSHOTS:    {_hitCounter.HeadShotsCount}\n" +
+            //                             $"BEST STREAK:    {_hitCounter.BestStreak}\n" +
+            //                             $"MISSES:    {_hitCounter.MissCount}";
+            // screen.ResultPrinter.PrintText();
+            // var txt = $"SHOTS:    {_hitCounter.ShotsCount}\n" +
+            //                             $"HEADSHOTS:    {_hitCounter.HeadShotsCount}\n" +
+            //                             $"BEST STREAK:    {_hitCounter.BestStreak}\n" +
+            //                             $"MISSES:    {_hitCounter.MissCount}";
+            // CLog.Log(txt);
+            var hitPercent = _hitCounter.ShotsCount == 0f ? 0f : (float)(_hitCounter.HitsCount) / _hitCounter.ShotsCount; 
+            var headPercent = _hitCounter.ShotsCount == 0f ? 0f : (float)(_hitCounter.HeadShotsCount) / _hitCounter.ShotsCount; 
+            var missPercent =  _hitCounter.ShotsCount == 0f ? 0f : (float)(_hitCounter.MissCount) / _hitCounter.ShotsCount; 
+            screen.LevelResultsUI.PrintHits(hitPercent);
+            screen.LevelResultsUI.PrintHeadshots(headPercent);
+            screen.LevelResultsUI.PrintMisses(missPercent);
+            
         }
 
         public void CallFailScreen(int level, Action nextButtonCallback = null)
@@ -38,6 +50,11 @@ namespace GiantsAttack
             screen.Show(level, nextButtonCallback, () =>{});
         }
 
+        public void SendStartEvent(int level)
+        {
+            Analytics.OnStarted(level, "default");
+        }
+        
         public void SendWinEvent(int level, float playTime, IHitCounter counter)
         {
             Analytics.OnWin(level, "default", playTime, counter.MissCount, counter.HitsCount);

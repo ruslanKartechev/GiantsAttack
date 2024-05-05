@@ -19,8 +19,10 @@ namespace GiantsAttack
             Enemy.PreKillState();
             Delay(() =>
             {
+                Player.Mover.CenterInternal();
                 Player.Mover.ParentAndMoveLocal(Enemy.KillPoint, _playerRotateTime, 
                     AnimationCurve.EaseInOut(0f, .5f, 1f, 1f), null);
+                BuildingHider.HideBuildingsUnder(Enemy.KillPoint.position, Enemy.KillPoint.forward);
             }, _playerMoveDelay);
             callback.Invoke();
         }

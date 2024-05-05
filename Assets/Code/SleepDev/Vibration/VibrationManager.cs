@@ -1,4 +1,4 @@
-﻿#define VIBRATION_ON_
+﻿#define VIBRATION_ON
 using MoreMountains.NiceVibrations;
 
 namespace SleepDev.Vibration

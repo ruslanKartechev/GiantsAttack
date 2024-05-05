@@ -18,11 +18,13 @@ namespace GiantsAttack
         [SerializeField] private ParticleSystem _particles;
         [SerializeField] private SoundSo _breakSound;
         [SerializeField] private Transform _pushDirection;
+        [SerializeField] private Collider _collider;
         private const float ScaleDownTime = .4f; 
         private const float ScaleDownDelay = 5f;
         
         public void Break()
         {
+            _collider.enabled = false;
             foreach (var rend in _rendsToDisable)
                 rend.enabled = false;
             

@@ -25,6 +25,7 @@ namespace GiantsAttack
         [SerializeField] private TutorialUI _tutorUI;
         [SerializeField] private Transform _startCamera;
         [SerializeField] private float _cameraMoveDelay = 1f;
+        [SerializeField] private float _aimAnimDelay;
         [SerializeField] private float _titleDelay;
         [SerializeField] private float _aimTutorDelay;
         [SerializeField] private float _hideTutorDelay;
@@ -39,7 +40,7 @@ namespace GiantsAttack
         private IHitCounter _hitCounter;
         private IControlsUI _controlsUI;
         private IGameplayMenu _gameplayMenu;
-        
+        private LevelUtils _levelUtils;
 #if UNITY_EDITOR
         private LevelDebugger _debugger;
 #endif
@@ -56,6 +57,11 @@ namespace GiantsAttack
         public override void Init()
         {
             GCon.DataSaver.Save();
+            DamageCalculator.Clear();
+
+            _levelUtils = new LevelUtils(_player, _hitCounter);
+            _levelUtils.SendStartEvent(GCon.PlayerData.LevelTotal + 1);
+            
             _playerMover = _playerMoverGo.GetComponent<IPlayerMover>();
             _camera = CameraContainer.PlayerCamera as PlayerCamera;
             _controlsUI = GCon.UIFactory.GetControlsUI();
@@ -83,6 +89,7 @@ namespace GiantsAttack
             _startSequence.Enemy = _enemy;
             //
             StartCoroutine(Starting());
+
         }
 
         public override void Win()
@@ -92,10 +99,9 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var utils = new LevelUtils(_player, _hitCounter);
             var level = GCon.PlayerData.LevelTotal+1;
-            utils.SendWinEvent(level, _timePassed, _hitCounter);
-            utils.CallWinScreen(level);
+            _levelUtils.SendWinEvent(level, _timePassed, _hitCounter);
+            _levelUtils.CallWinScreen(level);
         }
 
         public override void Fail()
@@ -104,14 +110,13 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var utils = new LevelUtils(_player, _hitCounter);
             var level = GCon.PlayerData.LevelTotal+1;
             _failSequence.Player = _player;
             _failSequence.Enemy = _enemy;
             _failSequence.Play(() =>
             {
-                utils.SendFailEvent(level, _timePassed, _hitCounter);
-                utils.CallFailScreen(level);
+                _levelUtils.SendFailEvent(level, _timePassed, _hitCounter);
+                _levelUtils.CallFailScreen(level);
             });
         }
         
@@ -225,7 +230,7 @@ namespace GiantsAttack
             _camera.SetPoint(_startCamera);
             _startSequence.Begin(OnStartSequence);
             CLog.LogBlue($"[Tutor] Started");
-            yield return null;
+            yield return new WaitForSeconds(_aimAnimDelay);
             _tutorUI.ShowSquareAim();
             yield return new WaitForSeconds(_titleDelay);
             CLog.LogBlue($"[Tutor] Title");

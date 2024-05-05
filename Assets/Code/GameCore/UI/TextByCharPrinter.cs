@@ -13,6 +13,8 @@ namespace GameCore.UI
         [SerializeField] private float _charDelay;
         [SerializeField] private float _hideDuration;
         private Coroutine _printing;
+
+        public TextMeshProUGUI TextMeshPro => _title;
         
         public string Text
         {

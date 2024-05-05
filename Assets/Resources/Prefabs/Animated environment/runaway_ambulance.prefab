@@ -29141,6 +29141,7 @@ GameObject:
   - component: {fileID: 634551437710258326}
   - component: {fileID: 7264301533863456221}
   - component: {fileID: 6091158649952169068}
+  - component: {fileID: 3282665059334238909}
   m_Layer: 0
   m_Name: runaway_ambulance
   m_TagString: Untagged
@@ -29180,7 +29181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mover: {fileID: 7264301533863456221}
   _go: {fileID: 2917569119296218750}
-  _animator: {fileID: 0}
 --- !u!114 &7264301533863456221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29196,7 +29196,7 @@ MonoBehaviour:
   _speed: 40
   _acceleration: 40
   _spline: {fileID: 0}
-  doDebug: 0
+  _interpolateT: 0
   e_doControlPosition: 0
   e_interpolationT: 0
 --- !u!114 &6091158649952169068
@@ -29215,14 +29215,30 @@ MonoBehaviour:
   _trail: {fileID: 8539544434613763752}
   _rb: {fileID: 7528726354350425109}
   _collider: {fileID: 4098825791284378683}
-  _onParticles: []
+  _explosionAndFire: {fileID: 3282665059334238909}
   _onParentedParticles: []
   _offParticles:
   - {fileID: 7035706233215888117}
   - {fileID: 3718905264972521842}
-  _sound: {fileID: 11400000, guid: 44505c3330f560644b271c2c26be4c8a, type: 2}
   _defaultDirection: {fileID: 7535682906629755878}
   _defaultForce: 60
+--- !u!114 &3282665059334238909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556115752485455008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb89ab67737b42f39c4fc413a568db74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _explosionId: exp_2_big
+  _explosionPoint: {fileID: 1614047700285438112}
+  _fireId: 
+  _firePoint: {fileID: 0}
+  _sound: {fileID: 0}
 --- !u!1 &8694867629158574079
 GameObject:
   m_ObjectHideFlags: 0
@@ -39097,17 +39113,17 @@ PrefabInstance:
     - target: {fileID: 4244282154637385467, guid: 0ec2465b7987e9d48a03231790faa051,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 4244282154637385467, guid: 0ec2465b7987e9d48a03231790faa051,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 4244282154637385467, guid: 0ec2465b7987e9d48a03231790faa051,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 4244282154637385467, guid: 0ec2465b7987e9d48a03231790faa051,
         type: 3}
@@ -39162,7 +39178,7 @@ PrefabInstance:
     - target: {fileID: 4244282154637385467, guid: 0ec2465b7987e9d48a03231790faa051,
         type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6422456422697056113, guid: 0ec2465b7987e9d48a03231790faa051,
         type: 3}
