@@ -59,15 +59,15 @@ namespace GiantsAttack
         {
             GCon.DataSaver.Save();
             DamageCalculator.Clear();
-
+            _hitCounter = new PlayerHitCounter();
+            _initArgs.hitCounter = _hitCounter;
             _levelUtils = new LevelUtils(_player, _hitCounter);
-            _levelUtils.SendStartEvent(GCon.PlayerData.LevelTotal + 1);
+            _levelUtils.SendStartEvent(GCon.PlayerData.LevelTotal);
             
             _playerMover = _playerMoverGo.GetComponent<IPlayerMover>();
             _camera = CameraContainer.PlayerCamera as PlayerCamera;
             _controlsUI = GCon.UIFactory.GetControlsUI();
-            _hitCounter = new PlayerHitCounter();
-            _initArgs.hitCounter = _hitCounter;
+        
             _initArgs.camera = _camera;
             _initArgs.controlsUI = _controlsUI;
             _initArgs.aimerSettings = _aimerSettings.aimerSettings;
@@ -100,9 +100,8 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var level = GCon.PlayerData.LevelTotal+1;
-            _levelUtils.SendWinEvent(level, _timePassed, _hitCounter);
-            _levelUtils.CallWinScreen(level);
+            _levelUtils.SendWinEvent(GCon.PlayerData.LevelTotal, _timePassed, _hitCounter);
+            _levelUtils.CallWinScreen(GCon.PlayerData.LevelTotal+1);
         }
 
         public override void Fail()
@@ -111,13 +110,12 @@ namespace GiantsAttack
                 return;
             _isCompleted = true;
             StopTiming();
-            var level = GCon.PlayerData.LevelTotal+1;
             _failSequence.Player = _player;
             _failSequence.Enemy = _enemy;
             _failSequence.Play(() =>
             {
-                _levelUtils.SendFailEvent(level, _timePassed, _hitCounter);
-                _levelUtils.CallFailScreen(level);
+                _levelUtils.SendFailEvent(GCon.PlayerData.LevelTotal, _timePassed, _hitCounter);
+                _levelUtils.CallFailScreen(GCon.PlayerData.LevelTotal+1);
             });
         }
         

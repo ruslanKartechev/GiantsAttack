@@ -17,6 +17,7 @@ namespace RaftsWar.Core
                 {"level_number", index+1},
                 {"level_type", levelMode},
             });
+            AppMetrica.Instance?.SendEventsBuffer();
 #endif
         }
 

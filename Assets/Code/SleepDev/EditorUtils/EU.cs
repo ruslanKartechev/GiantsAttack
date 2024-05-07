@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace SleepDev
 {
+#if UNITY_EDITOR
     /// <summary>
     /// Useful editor methods for building editor classes
     /// </summary>
@@ -39,90 +40,90 @@ namespace SleepDev
         #region Colors
 
         private const float Alpha = 0.85f;
-        public static Color White = new(255, 255, 255, Alpha);      
+        public static Color White = new(255/255f, 255/255f, 255/255f, Alpha);      
         public static Color Black = new(0, 0, 0, Alpha);      
         /// Red
-        public static Color Red = new(255, 0, 0, Alpha);      
+        public static Color Red = new(255/255f, 0, 0, Alpha);      
         /// Red
-        public static Color LightCoral = new(240, 128, 128, Alpha);        
+        public static Color LightCoral = new(240/255f, 128/255f, 128/255f, Alpha);        
         /// Red
-        public static Color Crimson = new (220, 20, 60, Alpha);        
+        public static Color Crimson = new (220/255f, 20/255f, 60/255f, Alpha);        
         /// Red
-        public static Color FireBrick = new (178, 34, 34, Alpha);        
+        public static Color FireBrick = new (178/255f, 34/255f, 34/255f, Alpha);        
         /// Pink
-        public static Color Pink = new (255, 192, 203, Alpha);        
+        public static Color Pink = new (255/255f, 192/255f, 203/255f, Alpha);        
         /// Pink
-        public static Color HotPink = new (255, 105, 180, Alpha);
+        public static Color HotPink = new (255/255f, 105/255f, 180/255f, Alpha);
         /// Pink
-        public static Color DeepPink = new (255, 20, 147, Alpha);
+        public static Color DeepPink = new (255/255f, 20/255f, 147/255f, Alpha);
         
         /// Yellow
-        public static Color DarkOrange = new (255, 140, 0, Alpha);
+        public static Color DarkOrange = new (255/255f, 140/255f, 0, Alpha);
         /// Yellow
-        public static Color Orange = new (255, 165, 0, Alpha);
+        public static Color Orange = new (255/255f, 165/255f, 0, Alpha);
         /// Yellow
-        public static Color Gold = new (255, 215, 0, Alpha);
+        public static Color Gold = new (255/255f, 215/255f, 0, Alpha);
         /// Yellow
-        public static Color LightYellow = new (255, 255, 224, Alpha);
+        public static Color LightYellow = new (255/255f, 255/255f, 224/255f, Alpha);
         /// Yellow
-        public static Color Moccasin = new (255, 228, 181, Alpha);
+        public static Color Moccasin = new (255/255f, 228/255f, 181/255f, Alpha);
         /// Yellow
-        public static Color PeachPuff = new (255, 218, 185, Alpha);
+        public static Color PeachPuff = new (255/255f, 218/255f, 185/255f, Alpha);
         
         /// Purple
-        public static Color Lavender = new (230, 230, 250, Alpha);
+        public static Color Lavender = new (230/255f, 230/255f, 250/255f, Alpha);
         /// Purple
-        public static Color Plum = new (221, 160, 221, Alpha);
+        public static Color Plum = new (221/255f, 160/255f, 221/255f, Alpha);
         /// Purple
-        public static Color Violent = new (238, 130, 238, Alpha);
+        public static Color Violent = new (238/255f, 130/255f, 238/255f, Alpha);
         /// Purple
-        public static Color Fuchsia = new (255, 0, 255, Alpha);
+        public static Color Fuchsia = new (255/255f, 0, 255/255f, Alpha);
         /// Purple
-        public static Color MediumOrchid = new (186, 85, 211, Alpha);
+        public static Color MediumOrchid = new (186/255f, 85/255f, 211/255f, Alpha);
         /// Purple
-        public static Color MediumPurple = new (147, 112, 219, Alpha);
+        public static Color MediumPurple = new (147/255f, 112/255f, 219/255f, Alpha);
         /// Purple
-        public static Color RebeccaPurple = new (102, 51, 153, Alpha);
+        public static Color RebeccaPurple = new (102, 51/255f, 153/255f, Alpha);
         /// Purple
-        public static Color Purple = new (128, 0, 128, Alpha);
+        public static Color Purple = new (128/255f, 0, 128/255f, Alpha);
         /// Purple
-        public static Color MediumSlateBlue = new (123, 104, 238, Alpha);
+        public static Color MediumSlateBlue = new (123/255f, 104/255f, 238/255f, Alpha);
         
         /// Green
-        public static Color GreenYellow = new (173, 255, 47, Alpha);
+        public static Color GreenYellow = new (173/255f, 255/255f, 47/255f, Alpha);
         /// Green
-        public static Color Chartreuse = new (127, 255, 0, Alpha);
+        public static Color Chartreuse = new (127/255f, 255/255f, 0, Alpha);
         /// Green
-        public static Color Lime = new (0, 255, 0, Alpha);
+        public static Color Lime = new (0, 255/255f, 0, Alpha);
         /// Green
-        public static Color SpringGreen = new (0, 255, 127, Alpha);
+        public static Color SpringGreen = new (0, 1f, 127/255f, Alpha);
         /// Green
-        public static Color ForestGreen = new (34, 139, 34, Alpha);
+        public static Color ForestGreen = new (34/255f, 139/255f, 34/255f, Alpha);
         /// Green
-        public static Color DarkGreen = new (0, 100, 0, Alpha);
+        public static Color DarkGreen = new (0, 100/255f, 0, Alpha);
         /// Green
-        public static Color MediumAquamarine = new (102, 205, 170, Alpha);
+        public static Color MediumAquamarine = new (102/255f, 205/255f, 170/255f, Alpha);
         /// Green
-        public static Color LightSeaGreen = new (32, 178, 170, Alpha);
+        public static Color LightSeaGreen = new (32/255f, 178/255f, 170/255f, Alpha);
         /// Green
-        public static Color DarkCyan = new (0, 139, 139, Alpha);
+        public static Color DarkCyan = new (0, 139/255f, 139/255f, Alpha);
         
         /// Blue
-        public static Color Aqua = new (0, 255, 255, Alpha);
+        public static Color Aqua = new (0, 255, 255/255f, Alpha);
         /// Blue
-        public static Color PaleTurquoise = new (175, 238, 238, Alpha);
+        public static Color PaleTurquoise = new (175/255f, 238/255f, 238/255f, Alpha);
         /// Blue
-        public static Color Turquoise = new (64, 224, 208, Alpha);
+        public static Color Turquoise = new (64/255f, 224/255f, 208/255f, Alpha);
         /// Blue
-        public static Color SteelBlue = new (70, 130, 180, Alpha);
+        public static Color SteelBlue = new (70/255f, 130/255f, 180/255f, Alpha);
         /// Blue
-        public static Color DeepSkyBlue = new (0, 191, 255, Alpha);
+        public static Color DeepSkyBlue = new (0, 191/255f, 255/255f, Alpha);
         /// Blue
-        public static Color RoyalBlue = new (65, 105, 225, Alpha);
+        public static Color RoyalBlue = new (65/255f, 105/255f, 225/255f, Alpha);
         /// Blue
-        public static Color MediumBlue = new (0, 0, 205, Alpha);
+        public static Color MediumBlue = new (0, 0, 205/255f, Alpha);
         /// Blue
-        public static Color Navy = new (0, 0, 128, Alpha);
+        public static Color Navy = new (0, 0, 128/255f, Alpha);
         #endregion
 
         
@@ -541,11 +542,64 @@ namespace SleepDev
             }
         }
 
-        public static void Show2Columns(List<EU_ColumnElement> col1, List<EU_ColumnElement> col2, int width1, int withdth2)
+        public static bool Toggle(string label, int fontsize, Color color, float width, bool value)
         {
-            
+            var skin = new GUIStyle(GUI.skin.label);
+            skin.alignment = TextAnchor.MiddleLeft;
+            skin.fontSize = fontsize;
+            var oldColor = GUI.color;
+            GUILayout.BeginHorizontal();
+            GUI.color = color;
+            GUILayout.Label(label,skin, GUILayout.Width(width));
+            GUI.color = oldColor;
+            var val = EditorGUILayout.Toggle(value);
+            GUILayout.EndHorizontal();
+            return val;
+        }
+        
+        public static string TextField(string label, int fontsize, Color color, float width, string value)
+        {
+            var skin = new GUIStyle(GUI.skin.label);
+            skin.alignment = TextAnchor.MiddleLeft;
+            skin.fontSize = fontsize;
+            var oldColor = GUI.color;
+            GUILayout.BeginHorizontal();
+            GUI.color = color;
+            GUILayout.Label(label,skin, GUILayout.Width(width));
+            GUI.color = oldColor;
+            var val = EditorGUILayout.TextField(value);
+            GUILayout.EndHorizontal();
+            return val;
+        }
+
+        public static UnityEngine.Object ObjectField(string label, int fontsize, Color color, float width, 
+            UnityEngine.Object obj, Type objType)
+        {
+            var skin = new GUIStyle(GUI.skin.label);
+            skin.alignment = TextAnchor.MiddleLeft;
+            skin.fontSize = fontsize;
+            var oldColor = GUI.color;
+            GUILayout.BeginHorizontal();
+            GUI.color = color;
+            GUILayout.Label(label,skin, GUILayout.Width(width));
+            GUI.color = oldColor;
+            var val = EditorGUILayout.ObjectField(obj, objType);
+            GUILayout.EndHorizontal();
+            return val;
+        }
+        #endregion
+
+        #region Utils
+        public static Rect SetRectX(Rect rect, float x)
+        {
+            var rect2 = new Rect(rect);
+            rect2.x = x;
+            rect2.width -= x;
+            return rect2;
         }
 
         #endregion
+        
     }
+    #endif
 }
